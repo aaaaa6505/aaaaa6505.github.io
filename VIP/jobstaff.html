@@ -1,13 +1,52 @@
 <html>
 <head>
 <title>求職主選單idno小工具</title>
+<style>
+body{
+ margin:0;
+ font-family: Microsoft JhengHei;
+}
+input[type="text"]{
+font-family: Microsoft JhengHei;
+width: 209px;
+height: 30px;
+margin-right: 9px;
+font-weight: 400;
+font-size: 17px;
+text-decoration: none;
+color: #000000;
+text-transform: uppercase;
+}
+input[type="button"]{
+font-family: Microsoft JhengHei;
+width: 117px;
+height: 30px;
+font-size: 17px;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #666666;
+    text-transform:lowercase;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #666666;
+   opacity:  1;
+   text-transform:lowercase;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #666666;
+   opacity:  1;
+   text-transform:lowercase;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #666666;
+   text-transform:lowercase;
+}
+</style>
 </head>
-<body style="font-family: Microsoft JhengHei; margin:0">
-<form name='form' id='form'>
-<input type="text" size="15" id="input_idno" name="input_idno" placeholder="請輸入身分證字號/idno" style="font-family: Microsoft JhengHei;width: 209px;height: 30px;margin-right: 9px;font-weight: 400;font-size: 17px;text-decoration: none;color: #000000;" autocomplete="off"> 
-<input type="button" name="serCAct_btn" id="idno_submit" value="求職者查詢" onclick="processFormData_idno();" style="font-family: Microsoft JhengHei;width: 117px;height: 30px;font-size: 17px; margin-right: 142px;">
-<input type="button" name="serCAct_btn" id="idno_submit" value="求職者查詢" onclick="processFormData_idno_lab();" style="font-family: Microsoft JhengHei;width: 117px;height: 30px;font-size: 17px;"><br><br>
-</form>
+<body>
+<input type="text" id="input_idno" name="input_idno" autocomplete="off" onkeydown="if (event.keyCode == 13){document.getElementById('idno_submit').click(); return false;}"  placeholder="請輸入身分證字號/idno"> 
+<input type="button" name="serCAct_btn" id="idno_submit" value="求職者查詢" onclick="processFormData_idno();" style="margin-right: 142px;">
+<input type="button" name="serCAct_btn_lab" id="idno_submit_lab" value="求職者查詢" onclick="processFormData_idno_lab();"><br><br>
 <!--
 <a href="#this" onclick="go_jobstaff(20000001753194)" title="到帳號列表頁">線上:20000001753194</a><br><br>
 <a href="#this" onclick="go_jobstaff(A126481113)" title="到帳號列表頁">線上:A126481113</a>-->
@@ -37,16 +76,7 @@ function processFormData_idno_lab(){//取lab資料
         document.search_jobstaff_form_lab.submit();
     }
 
-$(function() {
-    $("form input").keypress(function (e) {
-    if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-        $('input[type=submit].default').click();
-        return false;
-    } else {
-        return true;
-    }
-    });
-});
+
     function goResumeSearch(){//搜尋履歷表資料
         $("#cuser_list").html("<img src='/9/img_g2/loading.gif'>");
     	$.ajax({
