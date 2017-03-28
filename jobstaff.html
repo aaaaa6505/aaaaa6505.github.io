@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>求職主選單idno小工具</title>
+</head>
+<body style="font-family: Microsoft JhengHei; margin:0">
+<form name='form' id='form'>
+<input type="text" size="15" id="input_idno" name="input_idno" placeholder="請輸入身分證字號/idno" style="font-family: Microsoft JhengHei;width: 209px;height: 30px;font-weight: 400;font-size: 17px;text-decoration: none;color: #000000;" > 
+<input type="button" name="serCAct_btn" id="idno_submit" value="線上" onclick="processFormData_idno();" style="font-family: Microsoft JhengHei;width: 117px;height: 30px;font-size: 17px;">
+<input type="button" name="serCAct_btn" id="idno_submit" value="lab" onclick="processFormData_idno_lab();" style="font-family: Microsoft JhengHei;width: 117px;height: 30px;font-size: 17px;"><br><br>
+</form>
+<!--
+<a href="#this" onclick="go_jobstaff(20000001753194)" title="到帳號列表頁">線上:20000001753194</a><br><br>
+<a href="#this" onclick="go_jobstaff(A126481113)" title="到帳號列表頁">線上:A126481113</a>-->
+<br><br><br>
+       <form name="search_jobstaff_form" action="http://jobstaff.104.com.tw/cfdocs/backstage/member_info/member_sso_list.cfm" method="post" target="_blank">
+            <input name="input_id" type="hidden" value="">
+        </form>
+        <form name="search_jobstaff_form_lab" action="http://jobstaff.e104.com.tw/cfdocs/backstage/member_info/member_sso_list.cfm" method="post" target="_blank">
+            <input name="input_id" type="hidden" value="">
+        </form>
+        
+    </center>
+</body>
+</html>
+<script>
+function processFormData_idno(){//取線上和staging資料
+ var name_element = document.getElementById('input_idno');
+ var name = name_element.value;
+        document.search_jobstaff_form.input_id.value = name;
+        document.search_jobstaff_form.submit();
+    }
+
+function processFormData_idno_lab(){//取lab資料
+ var name_element = document.getElementById('input_idno');
+ var name = name_element.value;
+        document.search_jobstaff_form_lab.input_id.value = name;
+        document.search_jobstaff_form_lab.submit();
+    }
+
+$(function() {
+    $("form input").keypress(function (e) {
+    if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+        $('input[type=submit].default').click();
+        return false;
+    } else {
+        return true;
+    }
+    });
+});
+    function goResumeSearch(){//搜尋履歷表資料
+        $("#cuser_list").html("<img src='/9/img_g2/loading.gif'>");
+    	$.ajax({
+    		url:'cindy_web_ajx.cfm',
+    		type:'post',
+    		success:function(data){
+                $("#cuser_list").html(data);
+    		},
+    		dataType:"html",
+    		data:$("#web_form").serialize()+"&act=12"
+    	});
+    }
+	</script>
