@@ -44,7 +44,7 @@ font-size: 17px;
 </style>
 </head>
 <body>
-<input type="text" id="input_idno" name="input_idno" autocomplete="off" onkeydown="if (event.keyCode == 13){document.getElementById('idno_submit').click(); return false;}"  placeholder="請輸入身分證字號/idno"> 
+<input type="text" id="input_idno" name="input_idno" autocomplete="off" title="輸入完可按 Enter 查詢線上主選單資料" onkeydown="if (event.keyCode == 13){document.getElementById('idno_submit').click(); return false;}"  placeholder="請輸入身分證字號/idno"> 
 <input type="button" name="serCAct_btn" id="idno_submit" value="求職者查詢" onclick="processFormData_idno();" style="margin-right: 142px;">
 <input type="button" name="serCAct_btn_lab" id="idno_submit_lab" value="求職者查詢" onclick="processFormData_idno_lab();"><br><br>
 <!--
