@@ -12,6 +12,10 @@
   display: inline-block;
 }
 
+a:hover {
+  background-color: #ff7800;
+}
+
 header {
   height: 70px;
   box-shadow: 0 2px 4px 0 #b5b5b5;
