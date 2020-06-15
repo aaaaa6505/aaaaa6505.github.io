@@ -55,6 +55,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="content_bg">
         <div>
           <h2>用公司評論為企業加分</h2>
+        
+       
+     
+    <p><script>
+    function getURL() {
+        window.location.href;
+    }
+    </script><p> 
+
           <p>
             報名參與 104 新產品測試，邀請員工填寫公司評論，<br />
             服務正式上線後，優秀公司將獲得<span>免費的宣傳版位</span>
