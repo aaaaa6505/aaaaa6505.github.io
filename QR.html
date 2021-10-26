@@ -13,7 +13,7 @@
                 var input_text = $("#input_text").val();
                 var width = $("#range").val()
                 var rectangle = width + "x" + width;
-                var url = "https://chart.googleapis.com/chart?chs=" + rectangle + "&cht=qr&chl=" + input_text + "&choe=UTF-8&chld=M|2";
+                var url = "https://chart.googleapis.com/chart?chs=" + rectangle + "&cht=qr&chl=" + input_text + "&jobsource=QR" + "&choe=UTF-8&chld=M|2";
                 var qr_code = "<img alt='Your QRcode' src='" + url + "' />";
                 $('#qrcode').html(qr_code);
                 $('#range_value').html(width);
@@ -47,3 +47,5 @@
         <!-- <input id="down_img_btn" name="down_img" type="button" value="下載圖片" />-->
         <div id="message"></div>
         <div id="qrcode"></div>
+<br> <br>        
+<button onclick="window.print()" id="print">列印此頁</button>
