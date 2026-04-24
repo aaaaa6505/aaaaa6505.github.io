@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>怡安玫曦郁馨工作室 — 主日學教材</title>
+  <style>
+    :root {
+      --jungle:   #1a4a2e;
+      --forest:   #2d6e3a;
+      --leaf:     #4ea84e;
+      --lime:     #8dcf5a;
+      --amber:    #f5a623;
+      --amber-dk: #d4841a;
+      --teal:     #1a5c5c;
+      --teal-lt:  #e0f2f2;
+      --cream:    #fefdf6;
+      --warm:     #fdf6e8;
+      --text:     #1c1c1c;
+      --muted:    #5c5c5c;
+      --white:    #ffffff;
+      --r:        20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── UTILITY ── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--jungle);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    }
+    .nav-logo {
+      font-size: 1.15rem; font-weight: 800; color: var(--lime);
+      display: flex; align-items: center; gap: 0.4rem; letter-spacing: -0.01em;
+    }
+    .nav-logo .leaf-icon { font-size: 1.3rem; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: rgba(255,255,255,0.75);
+      font-size: 0.92rem; font-weight: 600; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--lime); }
+    .nav-cta {
+      background: var(--amber); color: var(--white);
+      padding: 0.5rem 1.4rem; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 700; text-decoration: none;
+      transition: background 0.2s; border: none; cursor: pointer;
+    }
+    .nav-cta:hover { background: var(--amber-dk); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--jungle);
+      position: relative;
+      padding: 4.5rem 2rem 6rem;
+      overflow: hidden;
+    }
+    /* leaf decoration top-right */
+    .hero::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,168,78,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* leaf decoration bottom-left */
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 40px; left: -40px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(141,207,90,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-deco {
+      position: absolute; top: 0; right: 0;
+      font-size: 9rem; opacity: 0.06; line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .hero-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center; position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(141,207,90,0.15); border: 1px solid rgba(141,207,90,0.35);
+      color: var(--lime); border-radius: 999px;
+      padding: 0.3rem 1rem; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.06em; margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 900; line-height: 1.15;
+      color: var(--white); margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 em {
+      font-style: normal; color: var(--lime);
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.78);
+      margin-bottom: 2rem; max-width: 460px; line-height: 1.75;
+    }
+    .hero-btns { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .btn-amber {
+      background: var(--amber); color: var(--white);
+      padding: 0.9rem 2rem; border-radius: 999px;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+      transition: all 0.2s; border: none; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(245,166,35,0.4);
+    }
+    .btn-amber:hover { background: var(--amber-dk); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      padding: 0.9rem 2rem; border-radius: 999px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4); transition: all 0.2s; cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--lime); color: var(--lime); }
+    .hero-video-wrap {
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 28px 64px rgba(0,0,0,0.45);
+      aspect-ratio: 16/9; background: #000; position: relative;
+    }
+    .hero-video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+    .video-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--amber); color: var(--white);
+      border-radius: 999px; padding: 0.3rem 1.1rem;
+      font-size: 0.78rem; font-weight: 700; white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 2;
+    }
+
+    /* ── WAVE DIVIDER ── */
+    .wave { display: block; width: 100%; height: 80px; }
+
+    /* ── FEATURES ── */
+    #features { background: var(--warm); padding: 4rem 2rem 3rem; }
+    .section-tag {
+      display: inline-block;
+      background: var(--jungle); color: var(--lime);
+      border-radius: 999px; padding: 0.25rem 0.9rem;
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em;
+      margin-bottom: 0.7rem;
+    }
+    h2.section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900; letter-spacing: -0.02em;
+      margin-bottom: 0.7rem; line-height: 1.2;
+    }
+    h2.section-title em { font-style: normal; color: var(--forest); }
+    .section-sub { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 2.8rem; }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+    .feat-card {
+      background: var(--white);
+      border: 2px solid transparent;
+      border-radius: var(--r); padding: 1.8rem 1.4rem;
+      transition: all 0.22s; cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .feat-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--leaf), var(--lime));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s;
+    }
+    .feat-card:hover { border-color: var(--lime); box-shadow: 0 8px 32px rgba(45,110,58,0.12); transform: translateY(-3px); }
+    .feat-card:hover::before { transform: scaleX(1); }
+    .feat-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .feat-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 0.4rem; color: var(--jungle); }
+    .feat-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── PREVIEW ── */
+    #preview {
+      background: var(--teal);
+      padding: 4rem 2rem;
+      position: relative;
+    }
+    #preview .section-tag { background: rgba(255,255,255,0.15); color: var(--lime); }
+    #preview h2.section-title { color: var(--white); }
+    #preview h2.section-title em { color: var(--lime); }
+    #preview .section-sub { color: rgba(255,255,255,0.7); }
+
+    .preview-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+    .tab-btn {
+      padding: 0.5rem 1.3rem; border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: transparent; color: rgba(255,255,255,0.7);
+      font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--lime); border-color: var(--lime); color: var(--jungle); }
+
+    .preview-card {
+      background: var(--white); border-radius: var(--r);
+      overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .preview-header {
+      background: var(--jungle); color: var(--white);
+      padding: 1.6rem 2rem; display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .preview-header-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .preview-header h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.2rem; }
+    .preview-header .meta { font-size: 0.82rem; opacity: 0.7; }
+    .preview-body { padding: 2rem; }
+
+    .chips { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .chip {
+      background: #e8f7e8; color: var(--forest);
+      border-radius: 999px; padding: 0.28rem 0.85rem;
+      font-size: 0.8rem; font-weight: 700;
+    }
+    .mat-box {
+      background: #fffbe8; border-left: 4px solid var(--amber);
+      border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin-bottom: 1.4rem;
+    }
+    .mat-box h4 { font-size: 0.82rem; font-weight: 800; color: var(--amber-dk); margin-bottom: 0.4rem; }
+    .mat-box ul { list-style: none; }
+    .mat-box li { font-size: 0.88rem; color: #7a5a10; padding: 0.12rem 0; display: flex; gap: 0.4rem; }
+    .mat-box li::before { content: '▸'; color: var(--amber); flex-shrink: 0; }
+    .goal-box {
+      background: #f0fdf4; border-left: 4px solid var(--leaf);
+      border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin-bottom: 1.4rem;
+      font-size: 0.93rem; color: #1a4a2e; font-weight: 500;
+    }
+    .flow-title { font-size: 0.93rem; font-weight: 800; color: var(--jungle); margin-bottom: 0.8rem; }
+    .steps-list { list-style: none; margin-bottom: 1.4rem; }
+    .steps-list li {
+      display: flex; gap: 0.9rem; padding: 0.65rem 0;
+      border-bottom: 1px solid #f0ede5; font-size: 0.9rem; line-height: 1.65;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--forest); color: var(--white);
+      font-size: 0.75rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+    }
+    .closing-box {
+      background: linear-gradient(135deg, #f0fdf4, #e8f7f7);
+      border-radius: 12px; padding: 1.2rem 1.4rem;
+      font-size: 0.9rem; color: var(--teal); font-style: italic; line-height: 1.75;
+    }
+    .preview-cta { text-align: center; margin-top: 2.5rem; }
+    .preview-cta p { color: rgba(255,255,255,0.65); font-size: 0.92rem; margin-bottom: 1rem; }
+
+    /* ── PLANS ── */
+    #plans { background: var(--cream); padding: 5rem 2rem; }
+    #plans h2.section-title em { color: var(--forest); }
+
+    .plans-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; align-items: start;
+    }
+    .plan-card {
+      border: 2px solid #dde8da; border-radius: var(--r);
+      padding: 2rem; background: var(--white); position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .plan-card:hover { box-shadow: 0 12px 40px rgba(45,110,58,0.14); transform: translateY(-4px); }
+    .plan-card.best {
+      border-color: var(--forest);
+      background: var(--jungle); color: var(--white);
+    }
+    .plan-pill {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--amber); color: var(--white);
+      border-radius: 999px; padding: 0.25rem 1.1rem;
+      font-size: 0.78rem; font-weight: 800; white-space: nowrap;
+    }
+    .discount-tag {
+      position: absolute; top: -14px; right: 1.4rem;
+      background: #ef4444; color: var(--white);
+      border-radius: 999px; padding: 0.22rem 0.8rem;
+      font-size: 0.76rem; font-weight: 800;
+    }
+    .plan-label {
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .plan-card.best .plan-label { color: rgba(255,255,255,0.55); }
+    .plan-price { font-size: 2.6rem; font-weight: 900; line-height: 1; letter-spacing: -0.02em; }
+    .plan-price sup { font-size: 1rem; font-weight: 700; vertical-align: super; }
+    .plan-price .per { font-size: 0.88rem; font-weight: 600; color: var(--muted); }
+    .plan-card.best .plan-price .per { color: rgba(255,255,255,0.6); }
+    .plan-old { font-size: 0.85rem; color: var(--muted); text-decoration: line-through; margin-top: 0.2rem; }
+    .plan-card.best .plan-old { color: rgba(255,255,255,0.4); }
+    .plan-save {
+      display: inline-block; background: #dcfce7; color: #166534;
+      border-radius: 999px; padding: 0.18rem 0.7rem;
+      font-size: 0.76rem; font-weight: 800; margin-top: 0.35rem;
+    }
+    .plan-card.best .plan-save { background: rgba(141,207,90,0.25); color: var(--lime); }
+    .plan-desc { font-size: 0.88rem; color: var(--muted); margin: 0.8rem 0 1.2rem; }
+    .plan-card.best .plan-desc { color: rgba(255,255,255,0.65); }
+    .plan-feats { list-style: none; margin-bottom: 1.8rem; }
+    .plan-feats li { font-size: 0.88rem; padding: 0.32rem 0; display: flex; gap: 0.5rem; align-items: flex-start; }
+    .plan-feats li::before { content: '✓'; color: var(--leaf); font-weight: 800; flex-shrink: 0; }
+    .plan-card.best .plan-feats li::before { color: var(--lime); }
+    .plan-card.best .plan-feats li { color: rgba(255,255,255,0.85); }
+    .plan-btn {
+      width: 100%; padding: 0.9rem; border-radius: 999px;
+      font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      border: 2px solid var(--forest); background: transparent; color: var(--forest);
+      transition: all 0.2s;
+    }
+    .plan-btn:hover { background: var(--forest); color: var(--white); }
+    .plan-card.best .plan-btn {
+      background: var(--amber); border-color: var(--amber); color: var(--white);
+      box-shadow: 0 4px 16px rgba(245,166,35,0.35);
+    }
+    .plan-card.best .plan-btn:hover { background: var(--amber-dk); border-color: var(--amber-dk); }
+
+    /* ── PURCHASE ── */
+    #purchase { background: var(--jungle); padding: 5rem 2rem; }
+    #purchase .section-tag { background: rgba(141,207,90,0.15); color: var(--lime); }
+    #purchase h2.section-title { color: var(--white); }
+    #purchase .section-sub { color: rgba(255,255,255,0.65); }
+
+    .flow-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .flow-step {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--r); padding: 1.8rem 1.4rem; text-align: center;
+      transition: background 0.2s;
+    }
+    .flow-step:hover { background: rgba(255,255,255,0.12); }
+    .flow-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--amber); color: var(--white);
+      font-weight: 900; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.8rem;
+      box-shadow: 0 4px 12px rgba(245,166,35,0.4);
+    }
+    .flow-step h3 { font-size: 0.98rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
+    .flow-step p { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    .pay-box {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--r); padding: 2rem;
+    }
+    .pay-box h3 { color: var(--lime); font-size: 1rem; font-weight: 800; margin-bottom: 1.2rem; }
+    .pay-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.45rem 1.5rem; font-size: 0.9rem; }
+    .pay-grid dt { color: rgba(255,255,255,0.55); white-space: nowrap; }
+    .pay-grid dd { color: var(--white); font-weight: 700; }
+    .pay-note { margin-top: 1rem; font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+    /* ── DOWNLOAD ── */
+    #download { background: var(--warm); padding: 5rem 2rem; }
+    #download h2.section-title { text-align: center; }
+    #download .section-sub { margin: 0 auto 2.5rem; text-align: center; }
+
+    .dl-card {
+      background: var(--white); border: 2px solid #dde8da;
+      border-radius: var(--r); padding: 2.5rem;
+      max-width: 520px; margin: 0 auto; text-align: center;
+      box-shadow: 0 8px 40px rgba(45,110,58,0.1);
+    }
+    .dl-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
+    .dl-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .dl-card > p { font-size: 0.92rem; color: var(--muted); margin-bottom: 1.4rem; }
+    .code-group { display: flex; gap: 0.5rem; max-width: 360px; margin: 0 auto 0.8rem; }
+    .code-input {
+      flex: 1; padding: 0.8rem 1rem;
+      border: 2px solid #d4e4d4; border-radius: 12px;
+      font-size: 1rem; letter-spacing: 0.14em; text-align: center; outline: none;
+      transition: border-color 0.2s; font-family: inherit;
+    }
+    .code-input:focus { border-color: var(--forest); }
+    .code-btn {
+      padding: 0.8rem 1.3rem; background: var(--forest); color: var(--white);
+      border: none; border-radius: 12px; font-weight: 800; cursor: pointer;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .code-btn:hover { background: var(--jungle); }
+    .err-msg { color: #dc2626; font-size: 0.83rem; display: none; margin-top: 0.4rem; }
+
+    #dl-result { display: none; }
+    .success-banner {
+      background: #f0fdf4; border-radius: 10px;
+      padding: 0.9rem 1rem; margin-bottom: 1rem;
+      color: #166534; font-weight: 700; font-size: 0.88rem;
+    }
+    .file-list { list-style: none; text-align: left; }
+    .file-list li {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 0.9rem; border: 1px solid #e0e8e0;
+      border-radius: 10px; margin-bottom: 0.45rem; background: var(--cream);
+    }
+    .file-meta { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; font-weight: 600; }
+    .file-sz { font-size: 0.76rem; color: var(--muted); font-weight: 400; }
+    .dl-btn {
+      background: var(--forest); color: var(--white); border: none;
+      padding: 0.38rem 0.9rem; border-radius: 8px;
+      font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
+    }
+    .dl-btn:hover { background: var(--jungle); }
+    .dl-help { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--jungle); color: rgba(255,255,255,0.55);
+      padding: 3rem 2rem; text-align: center;
+    }
+    .footer-logo { color: var(--lime); font-weight: 900; font-size: 1.15rem; margin-bottom: 0.4rem; }
+    footer p { font-size: 0.84rem; }
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    footer a:hover { color: var(--lime); }
+    .footer-divider { margin: 1.2rem auto; width: 40px; height: 2px; background: rgba(141,207,90,0.35); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-video-wrap { order: -1; }
+      .hero-btns { justify-content: center; }
+      .hero-sub { margin: 0 auto 2rem; }
+      .nav-links { display: none; }
+      .pay-grid { grid-template-columns: 1fr; }
+      .pay-grid dt { font-size: 0.78rem; opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="leaf-icon">🌿</span> 怡安 · 玫曦 · 郁馨</div>
+  <ul class="nav-links">
+    <li><a href="#preview">教材試閱</a></li>
+    <li><a href="#plans">訂閱方案</a></li>
+    <li><a href="#purchase">如何購買</a></li>
+    <li><a href="#download">下載教材</a></li>
+  </ul>
+  <a href="#plans" class="nav-cta">立即訂閱</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-deco">🌿🍃</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">🌱 主日學老師的備課夥伴</div>
+      <h1>讓信仰的種子<br/>在孩子心中<em>茁壯生長</em></h1>
+      <p class="hero-sub">由三位主日學老師親身設計，每季更新、活動豐富、即買即用，讓每一堂課都成為孩子生命中的美好記憶。</p>
+      <div class="hero-btns">
+        <a href="#preview" class="btn-amber">免費試閱教材</a>
+        <a href="#plans" class="btn-ghost">查看訂閱方案</a>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <div class="video-badge">▶ 示範影片</div>
+      <div class="hero-video-wrap">
+        <iframe src="https://drive.google.com/file/d/1VDE70_MZTtfLUOEQQ9D8gSqCmOyuDnOv/preview" allow="autoplay"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- wave down -->
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fdf6e8"/>
+</svg>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-tag">為什麼選擇我們</div>
+    <h2 class="section-title">讓備課<em>輕鬆</em>，讓教學<em>有力</em></h2>
+    <p class="section-sub">我們深知老師備課的辛苦，每份教材都由有實戰經驗的主日學老師親手設計。</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📖</div>
+        <h3>扎實的聖經根基</h3>
+        <p>每份教材都有清晰的聖經背景與神學脈絡，幫助孩子建立正確的信仰認識。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🎮</div>
+        <h3>互動式活動設計</h3>
+        <p>遊戲、手作、討論樣樣有，依年齡分層設計，讓不同程度的孩子都能參與。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⏱️</div>
+        <h3>時間掌控清楚</h3>
+        <p>每個活動標示預計時間與所需教具，老師課前 5 分鐘就能做好萬全準備。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌱</div>
+        <h3>每季全新主題</h3>
+        <p>每季圍繞一個核心主題，配合教會年曆，幫孩子在故事中看見上帝的作為。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🖨️</div>
+        <h3>即下即印</h3>
+        <p>購買後立即取得 PDF 教材，可直接列印使用，不需額外購買任何材料包。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💬</div>
+        <h3>老師社群支持</h3>
+        <p>加入訂閱即可進入專屬老師社群，分享備課心得、互相打氣與代禱。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave into teal -->
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;">
+  <path d="M0,0 C480,80 960,0 1440,60 L1440,80 L0,80 Z" fill="#1a5c5c"/>
+</svg>
+
+<!-- PREVIEW -->
+<section id="preview">
+  <div class="container">
+    <div class="section-tag">教材試閱</div>
+    <h2 class="section-title">看看教材<em>長什麼樣子</em></h2>
+    <p class="section-sub">以下是本季教材的範例活動，完整版包含開場、故事、回應活動與禱告引導。</p>
+    <div class="preview-tabs">
+      <button class="tab-btn active">回應活動範例</button>
+      <button class="tab-btn" onclick="alert('完整目錄需訂閱後查看')">完整課程目錄</button>
+    </div>
+    <div class="preview-card">
+      <div class="preview-header">
+        <div class="preview-header-icon">✨</div>
+        <div>
+          <h3>回應活動１：《祝福閃亮亮》</h3>
+          <div class="meta">本季主題：以撒的故事 · 第三堂</div>
+        </div>
+      </div>
+      <div class="preview-body">
+        <div class="chips">
+          <span class="chip">🎯 中低年級</span>
+          <span class="chip">⏱ 20 分鐘</span>
+          <span class="chip">👥 團體互動</span>
+        </div>
+        <div class="mat-box">
+          <h4>所需教具</h4>
+          <ul>
+            <li>A4 紙，每人一張</li>
+            <li>彩色筆或粗色筆，每人不同顏色</li>
+            <li>代表各種優點的貼紙（備用）</li>
+            <li>活潑有節奏感的音樂</li>
+          </ul>
+        </div>
+        <div class="goal-box">
+          🎯 <strong>教學目標：</strong>透過同儕間的「優點轟炸」，讓學生體會上帝給予以撒（及我們）的祝福是顯而易見且藏不住的。
+        </div>
+        <p class="flow-title">活動流程</p>
+        <ol class="steps-list">
+          <li><span class="step-num">1</span><span>老師說明：「等一下請各位小朋友拿到紙、彩色筆的時候，在紙上寫下或畫一個自己的優點，好了之後請老師幫你貼在背上。」老師從旁協助一時想不到或速度較慢的孩子。</span></li>
+          <li><span class="step-num">2</span><span>老師等大家寫/畫完，確定背上都貼好了。</span></li>
+          <li><span class="step-num">3</span><span>老師說明：「現在請大家站起來，等下放音樂的時間，請大家到每一個同學背後，寫下你觀察到他的優點！畫一個小圖案代表也可以。每個人都要寫到每一個人喔！」</span></li>
+          <li><span class="step-num">4</span><span>播放音樂，給孩子們時間彼此在背後畫畫/書寫。老師也要參與，特別鼓勵害羞的孩子。</span></li>
+          <li><span class="step-num">5</span><span>全都完成後，讓孩子回到座位，脫下背後的紙。</span></li>
+          <li><span class="step-num">6</span><span>讓孩子們分享紙上的內容：哪些是自己知道的優點？哪些是意外發現的？請寫/畫的人做說明。</span></li>
+          <li><span class="step-num">7</span><span><strong>小技巧：</strong>若孩子無法書寫，可準備貼紙讓年齡小的學生用貼的方式表達，再口頭說明意思。</span></li>
+        </ol>
+        <div class="closing-box">
+          <strong>活動結語建議：</strong><br/>
+          「從剛才的故事中我們會發現，以撒自己可能在煩惱挖井很辛苦、要一直搬家，但奇妙的是，不認識上帝的國王竟然主動跑來對他說：『我們看出來上帝真的祝福你！』可見上帝給亞伯拉罕的祝福，在以撒身上發光，連外人都看得清清楚楚。而各位小朋友身上也有好多上帝給的祝福——這些優點非常閃亮，旁邊的人都能看見！」
+        </div>
+      </div>
+    </div>
+    <div class="preview-cta">
+      <p>想要完整教材？每季包含 12+ 堂課、40+ 個活動設計。</p>
+      <a href="#plans" class="btn-amber">查看訂閱方案 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- wave into cream -->
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;">
+  <path d="M0,60 C360,0 1080,80 1440,20 L1440,80 L0,80 Z" fill="#fefdf6"/>
+</svg>
+
+<!-- PLANS -->
+<section id="plans">
+  <div class="container">
+    <div class="section-tag">訂閱方案</div>
+    <h2 class="section-title">選擇你的<em>備課節奏</em></h2>
+    <p class="section-sub">購買越長、折扣越多，半年九折、一年八折，讓老師安心備課整年。</p>
+    <div class="plans-grid">
+
+      <div class="plan-card">
+        <div class="plan-label">單季方案</div>
+        <div class="plan-price"><sup>NT$</sup>2,800 <span class="per">/ 季</span></div>
+        <p class="plan-desc">彈性購買，先試用一季再決定</p>
+        <ul class="plan-feats">
+          <li>完整季度教材（12 堂課）</li>
+          <li>每堂含 2–3 個回應活動</li>
+          <li>PDF 即時下載</li>
+          <li>老師社群加入資格</li>
+        </ul>
+        <button class="plan-btn" onclick="document.getElementById('purchase').scrollIntoView({behavior:'smooth'})">選擇此方案</button>
+      </div>
+
+      <div class="plan-card best">
+        <div class="plan-pill">✦ 推薦首選</div>
+        <div class="discount-tag">九折</div>
+        <div class="plan-label">半年方案</div>
+        <div class="plan-price"><sup>NT$</sup>5,040 <span class="per">/ 半年</span></div>
+        <div class="plan-old">原價 NT$5,600</div>
+        <div class="plan-save">省下 NT$560</div>
+        <p class="plan-desc">連續兩季，備課更從容</p>
+        <ul class="plan-feats">
+          <li>連續兩季完整教材（24 堂課）</li>
+          <li>每堂含 2–3 個回應活動</li>
+          <li>PDF 即時下載</li>
+          <li>老師社群加入資格</li>
+          <li>季末提早取得下季預覽</li>
+        </ul>
+        <button class="plan-btn" onclick="document.getElementById('purchase').scrollIntoView({behavior:'smooth'})">選擇此方案</button>
+      </div>
+
+      <div class="plan-card">
+        <div class="discount-tag">八折</div>
+        <div class="plan-label">年度方案</div>
+        <div class="plan-price"><sup>NT$</sup>8,960 <span class="per">/ 年</span></div>
+        <div class="plan-old">原價 NT$11,200</div>
+        <div class="plan-save">省下 NT$2,240</div>
+        <p class="plan-desc">一次搞定全年，最超值選擇</p>
+        <ul class="plan-feats">
+          <li>全年四季完整教材（48 堂課）</li>
+          <li>每堂含 2–3 個回應活動</li>
+          <li>PDF 即時下載</li>
+          <li>老師社群加入資格</li>
+          <li>每季提早取得下季預覽</li>
+          <li>年度線上備課諮詢 1 次</li>
+        </ul>
+        <button class="plan-btn" onclick="document.getElementById('purchase').scrollIntoView({behavior:'smooth'})">選擇此方案</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- wave into jungle -->
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;">
+  <path d="M0,20 C480,80 960,0 1440,50 L1440,80 L0,80 Z" fill="#1a4a2e"/>
+</svg>
+
+<!-- PURCHASE -->
+<section id="purchase">
+  <div class="container">
+    <div class="section-tag">如何購買</div>
+    <h2 class="section-title" style="color:#fff;">四個步驟，<em style="color:var(--lime)">輕鬆取得教材</em></h2>
+    <p class="section-sub">完成匯款後，我們會在 1–2 個工作天內發送下載序號到您的信箱。</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <h3>選擇方案</h3>
+        <p>決定適合教會的方案與時長需求</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <h3>完成匯款</h3>
+        <p>依下方匯款資訊轉帳，備註姓名與方案</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <h3>寄送資料</h3>
+        <p>Email 匯款截圖 + 聯絡資訊給我們</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <h3>取得序號</h3>
+        <p>收到序號後到本站下載區輸入即可下載</p>
+      </div>
+    </div>
+    <div class="pay-box">
+      <h3>🏦 匯款資訊</h3>
+      <dl class="pay-grid">
+        <dt>銀行</dt><dd>玉山銀行（808）</dd>
+        <dt>戶名</dt><dd>怡安玫曦郁馨工作室</dd>
+        <dt>帳號</dt><dd>0123-456-789012</dd>
+        <dt>匯款備註</dt><dd>姓名 + 方案名稱（例：王大明－半年方案）</dd>
+        <dt>Email 確認信</dt><dd>order@graceseed.tw</dd>
+      </dl>
+      <p class="pay-note">
+        ※ 請在匯款後將轉帳收據截圖與您的姓名、Email 一同寄至 order@graceseed.tw，我們將於 1–2 個工作天內回覆序號。<br/>
+        ※ 序號有效期限為當季結束日，下載次數無限制。<br/>
+        ※ 如需統一發票，請於 Email 中告知並附上統編。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- wave into warm -->
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;">
+  <path d="M0,50 C360,0 1080,80 1440,30 L1440,80 L0,80 Z" fill="#fdf6e8"/>
+</svg>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <div class="container">
+    <div style="text-align:center"><div class="section-tag">下載教材</div></div>
+    <h2 class="section-title">輸入序號，<em>立即下載</em></h2>
+    <p class="section-sub">收到 Email 確認信後，在下方輸入您的專屬序號即可下載本季完整教材。</p>
+    <div class="dl-card">
+      <div class="dl-icon">📦</div>
+      <h3>教材下載區</h3>
+      <p>請輸入購買後收到的 8 位下載序號</p>
+      <div class="code-group">
+        <input type="text" class="code-input" id="code-input" placeholder="XXXXXXXX" maxlength="8" oninput="this.value=this.value.toUpperCase()"/>
+        <button class="code-btn" onclick="checkCode()">驗證</button>
+      </div>
+      <p class="err-msg" id="error-msg">序號無效，請確認後再試，或聯絡 order@graceseed.tw</p>
+      <div id="dl-result">
+        <div class="success-banner">✅ 序號驗證成功！以下是您的下載項目：</div>
+        <ul class="file-list" id="file-list"></ul>
+        <p class="dl-help">如下載有問題，請聯絡 order@graceseed.tw</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌿 怡安 · 玫曦 · 郁馨工作室</div>
+  <p>主日學教材訂閱平台 · 用生命影響生命</p>
+  <div class="footer-divider"></div>
+  <p>
+    <a href="mailto:order@graceseed.tw">order@graceseed.tw</a>
+    &nbsp;·&nbsp;
+    <a href="#">隱私政策</a>
+    &nbsp;·&nbsp;
+    <a href="#">使用條款</a>
+  </p>
+  <p style="margin-top:0.6rem;font-size:0.78rem;">© 2026 怡安／玫曦／郁馨工作室 版權所有</p>
+</footer>
+
+<script>
+  const VALID_CODES = {
+    "SEED2025": {
+      files: [
+        { name: "2025秋季_幼兒班教材全集.pdf", size: "4.2 MB", icon: "📄" },
+        { name: "2025秋季_低年級教材全集.pdf", size: "5.8 MB", icon: "📄" },
+        { name: "2025秋季_中高年級教材全集.pdf", size: "6.1 MB", icon: "📄" },
+        { name: "2025秋季_老師備課手冊.pdf", size: "2.3 MB", icon: "📋" },
+      ]
+    },
+    "GRACE001": {
+      files: [
+        { name: "2025秋季_中低年級教材全集.pdf", size: "5.8 MB", icon: "📄" },
+        { name: "2025秋季_老師備課手冊.pdf", size: "2.3 MB", icon: "📋" },
+      ]
+    },
+    "CHURCH88": {
+      files: [
+        { name: "2025秋季_幼兒班教材全集.pdf", size: "4.2 MB", icon: "📄" },
+        { name: "2025秋季_低年級教材全集.pdf", size: "5.8 MB", icon: "📄" },
+        { name: "2025秋季_中高年級教材全集.pdf", size: "6.1 MB", icon: "📄" },
+        { name: "2025秋季_青少年前期教材.pdf", size: "4.9 MB", icon: "📄" },
+        { name: "2025秋季_老師備課手冊.pdf", size: "2.3 MB", icon: "📋" },
+        { name: "2025秋季_可編輯原始檔.zip", size: "18.4 MB", icon: "📦" },
+      ]
+    }
+  };
+
+  function checkCode() {
+    const code = document.getElementById('code-input').value.trim().toUpperCase();
+    const errEl = document.getElementById('error-msg');
+    const resEl = document.getElementById('dl-result');
+    const listEl = document.getElementById('file-list');
+    if (VALID_CODES[code]) {
+      errEl.style.display = 'none';
+      listEl.innerHTML = VALID_CODES[code].files.map(f => `
+        <li>
+          <div class="file-meta">
+            <span>${f.icon}</span>
+            <div><div>${f.name}</div><div class="file-sz">${f.size}</div></div>
+          </div>
+          <button class="dl-btn" onclick="fakeDownload('${f.name}')">下載</button>
+        </li>`).join('');
+      resEl.style.display = 'block';
+    } else {
+      resEl.style.display = 'none';
+      errEl.style.display = 'block';
+    }
+  }
+
+  function fakeDownload(name) {
+    alert(`開始下載：${name}\n\n（實際部署時，此處連結至受保護的下載 URL）`);
+  }
+
+  document.getElementById('code-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkCode();
+  });
+</script>
+
+</body>
+</html>
