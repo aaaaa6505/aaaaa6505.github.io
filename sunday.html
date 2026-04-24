@@ -79,10 +79,39 @@
     .hero {
       background: linear-gradient(135deg, #1d5a68 0%, #2a7a8c 40%, #4a9db5 100%);
       color: var(--white);
-      padding: 5rem 2rem 4rem;
-      text-align: center;
+      padding: 4rem 2rem;
       position: relative;
       overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-video-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+    .hero-video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-video-wrap { order: -1; }
+      .hero-actions { justify-content: center; }
     }
     .hero::before {
       content: '';
@@ -578,12 +607,19 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">✦ 主日學老師的好幫手</div>
-  <h1>讓每一堂課<br/>都充滿<em>生命的光彩</em></h1>
-  <p>精心設計的主日學活動教材，每季更新，幫助老師輕鬆備課，讓孩子在遊戲與互動中認識上帝的愛。</p>
-  <div class="hero-actions">
-    <a href="#preview" class="btn-primary">免費試閱教材</a>
-    <a href="#plans" class="btn-outline">查看訂閱方案</a>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">✦ 主日學老師的好幫手</div>
+      <h1>讓每一堂課<br/>都充滿<em>生命的光彩</em></h1>
+      <p>精心設計的主日學活動教材，每季更新，幫助老師輕鬆備課，讓孩子在遊戲與互動中認識上帝的愛。</p>
+      <div class="hero-actions">
+        <a href="#preview" class="btn-primary">免費試閱教材</a>
+        <a href="#plans" class="btn-outline">查看訂閱方案</a>
+      </div>
+    </div>
+    <div class="hero-video-wrap">
+      <iframe src="https://drive.google.com/file/d/1VDE70_MZTtfLUOEQQ9D8gSqCmOyuDnOv/preview" allow="autoplay"></iframe>
+    </div>
   </div>
 </div>
 
