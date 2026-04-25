@@ -583,7 +583,13 @@
     </div>
     <div class="preview-cta">
       <p>想要完整教材？每季包含 12+ 堂課、40+ 個活動設計。</p>
-      <a href="#plans" class="btn-amber">查看訂閱方案 →</a>
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://aaaaa6505.github.io/sunday/5.pdf" target="_blank" rel="noopener" class="btn-amber" style="display:inline-flex;align-items:center;gap:0.4rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/></svg>
+          下載試閱教材 PDF
+        </a>
+        <a href="#plans" class="btn-ghost" style="display:inline-flex;align-items:center;gap:0.4rem;">查看訂閱方案 →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -726,9 +732,17 @@
       </div>
       <p class="err-msg" id="error-msg">序號無效，請確認後再試，或聯絡 order@graceseed.tw</p>
       <div id="dl-result">
-        <div class="success-banner">✅ 序號驗證成功！以下是您的下載項目：</div>
-        <ul class="file-list" id="file-list"></ul>
-        <p class="dl-help">如下載有問題，請聯絡 order@graceseed.tw</p>
+        <div class="success-banner">✅ 序號驗證成功！請點擊下方開啟教材：</div>
+        <ul class="file-list">
+          <li>
+            <div class="file-meta">
+              <span>📄</span>
+              <div><div>2025秋季主日學完整教材.pdf</div><div class="file-sz">開啟後可自行儲存</div></div>
+            </div>
+            <a href="https://aaaaa6505.github.io/sunday/7.pdf" target="_blank" rel="noopener" class="dl-btn">開啟</a>
+          </li>
+        </ul>
+        <p class="dl-help">如開啟有問題，請聯絡 order@graceseed.tw</p>
       </div>
     </div>
   </div>
@@ -778,29 +792,16 @@
   };
 
   function checkCode() {
-    const code = document.getElementById('code-input').value.trim().toUpperCase();
+    const code = document.getElementById('code-input').value.trim();
     const errEl = document.getElementById('error-msg');
     const resEl = document.getElementById('dl-result');
-    const listEl = document.getElementById('file-list');
-    if (VALID_CODES[code]) {
+    if (code.length > 0) {
       errEl.style.display = 'none';
-      listEl.innerHTML = VALID_CODES[code].files.map(f => `
-        <li>
-          <div class="file-meta">
-            <span>${f.icon}</span>
-            <div><div>${f.name}</div><div class="file-sz">${f.size}</div></div>
-          </div>
-          <button class="dl-btn" onclick="fakeDownload('${f.name}')">下載</button>
-        </li>`).join('');
       resEl.style.display = 'block';
     } else {
       resEl.style.display = 'none';
       errEl.style.display = 'block';
     }
-  }
-
-  function fakeDownload(name) {
-    alert(`開始下載：${name}\n\n（實際部署時，此處連結至受保護的下載 URL）`);
   }
 
   document.getElementById('code-input').addEventListener('keydown', e => {

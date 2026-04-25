@@ -18,6 +18,9 @@
       --white: #ffffff;
       --shadow: 0 4px 24px rgba(0,0,0,0.08);
       --radius: 16px;
+      --hero-from: #1d5a68;
+      --hero-mid: #2a7a8c;
+      --hero-to: #4a9db5;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -77,7 +80,7 @@
 
     /* ── HERO ── */
     .hero {
-      background: linear-gradient(135deg, #1d5a68 0%, #2a7a8c 40%, #4a9db5 100%);
+      background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-mid) 40%, var(--hero-to) 100%);
       color: var(--white);
       padding: 4rem 2rem;
       position: relative;
@@ -880,10 +883,21 @@
 
       <div id="download-result">
         <div style="background:#f0fdf4;border-radius:10px;padding:1rem;margin-bottom:1rem;color:#166534;font-weight:600;font-size:0.9rem;">
-          ✅ 序號驗證成功！以下是您的下載項目：
+          ✅ 序號驗證成功！請點擊下方開啟教材：
         </div>
-        <ul class="download-files" id="file-list"></ul>
-        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem;">如下載有問題，請聯絡 order@graceseed.tw</p>
+        <ul class="download-files">
+          <li>
+            <div class="file-info">
+              <span class="file-icon">📄</span>
+              <div>
+                <div>2025秋季主日學完整教材.pdf</div>
+                <div class="file-size">開啟後可自行儲存</div>
+              </div>
+            </div>
+            <a href="https://aaaaa6505.github.io/sunday/7.pdf" target="_blank" rel="noopener" class="dl-btn">開啟</a>
+          </li>
+        </ul>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem;">如開啟有問題，請聯絡 order@graceseed.tw</p>
       </div>
     </div>
   </div>
@@ -900,7 +914,7 @@
     &nbsp;·&nbsp;
     <a href="#">使用條款</a>
   </p>
-  <p style="margin-top:0.6rem;font-size:0.78rem;">© 2025 恩典種子教育工作室 版權所有</p>
+  <p style="margin-top:0.6rem;font-size:0.78rem;">© 2026 怡安／玫曦／郁馨工作室 版權所有</p>
 </footer>
 
 <script>
@@ -972,7 +986,182 @@
   document.getElementById('code-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') checkCode();
   });
+
+  // ── THEME SWITCHER ──
+  const themes = {
+    '深海青': {
+      label: '深海青',
+      swatch: ['#1d5a68', '#c8972a'],
+      vars: {
+        '--gold': '#c8972a', '--gold-light': '#f5e6c0', '--gold-dark': '#9a711a',
+        '--teal': '#2a7a8c', '--teal-light': '#e0f3f7', '--teal-dark': '#1d5a68',
+        '--cream': '#fdfaf4',
+        '--hero-from': '#1d5a68', '--hero-mid': '#2a7a8c', '--hero-to': '#4a9db5',
+      }
+    },
+    '暖陽木質': {
+      label: '暖陽木質',
+      swatch: ['#7a4a28', '#d4772a'],
+      vars: {
+        '--gold': '#d4772a', '--gold-light': '#fde8d4', '--gold-dark': '#a85520',
+        '--teal': '#7a4a28', '--teal-light': '#f5ede4', '--teal-dark': '#5c3318',
+        '--cream': '#fdf8f3',
+        '--hero-from': '#5c3318', '--hero-mid': '#7a4a28', '--hero-to': '#b87040',
+      }
+    },
+    '清晨翠綠': {
+      label: '清晨翠綠',
+      swatch: ['#2d6e4f', '#b89a2a'],
+      vars: {
+        '--gold': '#b89a2a', '--gold-light': '#f5f0d0', '--gold-dark': '#8c721a',
+        '--teal': '#2d6e4f', '--teal-light': '#e0f5ec', '--teal-dark': '#1e4f38',
+        '--cream': '#f5fdf8',
+        '--hero-from': '#1e4f38', '--hero-mid': '#2d6e4f', '--hero-to': '#4a9e72',
+      }
+    },
+    '靜謐薰衣草': {
+      label: '靜謐薰衣草',
+      swatch: ['#5e4b9e', '#c47a8a'],
+      vars: {
+        '--gold': '#c47a8a', '--gold-light': '#fce8ee', '--gold-dark': '#9e5060',
+        '--teal': '#5e4b9e', '--teal-light': '#eeebfa', '--teal-dark': '#3e3070',
+        '--cream': '#faf8ff',
+        '--hero-from': '#3e3070', '--hero-mid': '#5e4b9e', '--hero-to': '#8a74c8',
+      }
+    },
+    '珊瑚夕陽': {
+      label: '珊瑚夕陽',
+      swatch: ['#c45040', '#e8a030'],
+      vars: {
+        '--gold': '#e8a030', '--gold-light': '#fdf0d8', '--gold-dark': '#c07818',
+        '--teal': '#c45040', '--teal-light': '#fdeae8', '--teal-dark': '#8c2e20',
+        '--cream': '#fffaf8',
+        '--hero-from': '#8c2e20', '--hero-mid': '#c45040', '--hero-to': '#e87858',
+      }
+    },
+  };
+
+  function applyTheme(key) {
+    const t = themes[key];
+    const root = document.documentElement;
+    Object.entries(t.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+    document.querySelectorAll('.theme-swatch-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === key);
+    });
+    localStorage.setItem('theme', key);
+  }
+
+  function buildSwitcher() {
+    const panel = document.getElementById('theme-panel');
+    Object.entries(themes).forEach(([key, t]) => {
+      const btn = document.createElement('button');
+      btn.className = 'theme-swatch-btn';
+      btn.dataset.theme = key;
+      btn.title = t.label;
+      btn.innerHTML = `
+        <span class="swatch-duo">
+          <span style="background:${t.swatch[0]}"></span>
+          <span style="background:${t.swatch[1]}"></span>
+        </span>
+        <span class="swatch-label">${t.label}</span>`;
+      btn.onclick = () => applyTheme(key);
+      panel.appendChild(btn);
+    });
+    const saved = localStorage.getItem('theme') || '深海青';
+    applyTheme(saved);
+  }
+
+  function toggleSwitcher() {
+    const panel = document.getElementById('theme-panel');
+    panel.classList.toggle('open');
+  }
+
+  buildSwitcher();
 </script>
+
+<!-- THEME SWITCHER UI -->
+<style>
+  .theme-switcher {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+  }
+  .theme-toggle-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--teal-dark);
+    color: #fff;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: transform 0.2s, background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .theme-toggle-btn:hover { transform: scale(1.08); }
+  #theme-panel {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    padding: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 160px;
+    border: 1px solid #e5e0d0;
+  }
+  #theme-panel.open { display: flex; }
+  #theme-panel::before {
+    content: '選擇風格';
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #999;
+    letter-spacing: 0.08em;
+    padding: 0 0.2rem 0.3rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0.2rem;
+  }
+  .theme-swatch-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 0.45rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .theme-swatch-btn:hover { background: #f5f5f5; }
+  .theme-swatch-btn.active {
+    border-color: var(--teal);
+    background: var(--teal-light);
+  }
+  .swatch-duo {
+    display: flex;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 30px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .swatch-duo span { flex: 1; }
+  .swatch-label { font-size: 0.88rem; font-weight: 600; color: #333; white-space: nowrap; }
+</style>
+
+<div class="theme-switcher">
+  <div id="theme-panel"></div>
+  <button class="theme-toggle-btn" onclick="toggleSwitcher()" title="更換風格">🎨</button>
+</div>
 
 </body>
 </html>
