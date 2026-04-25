@@ -604,6 +604,7 @@
     <li><a href="#plans">方案介紹</a></li>
     <li><a href="#purchase">如何購買</a></li>
     <li><a href="#download">下載教材</a></li>
+    <li><a href="#beta" style="color:var(--gold);font-weight:800;">搶先體驗</a></li>
   </ul>
   <a href="#plans" class="nav-cta">立即訂閱</a>
 </nav>
@@ -745,7 +746,13 @@
 
     <div style="text-align:center;margin-top:2rem;">
       <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1rem;">想要完整教材？每季包含 12+ 堂課、40+ 個活動設計。</p>
-      <a href="#plans" class="btn-primary">查看訂閱方案 →</a>
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://aaaaa6505.github.io/sunday/5.pdf" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.4rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/></svg>
+          下載試閱教材 PDF
+        </a>
+        <a href="#plans" class="btn-outline" style="display:inline-flex;align-items:center;gap:0.4rem;">查看訂閱方案 →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -903,6 +910,39 @@
   </div>
 </section>
 
+<!-- BETA FORM -->
+<section id="beta" style="background:var(--cream);padding:5rem 2rem;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div class="section-label">搶先體驗</div>
+      <h2 style="margin-top:0.5rem;">正式上線前，邀請你免費試用</h2>
+      <p class="section-sub" style="margin:0.8rem auto 0;text-align:center;">
+        我們正在尋找熱心的主日學老師參與試用計畫，<br/>
+        填寫下方表單，搶先取得完整教材並給我們回饋！
+      </p>
+    </div>
+    <div style="
+      background:var(--white);
+      border-radius:var(--radius);
+      border:1px solid #ece5d0;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      max-width:720px;
+      margin:0 auto;
+    ">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSflRFam7GjjhPxAf-9G57i-1h6gtqO_e-J-Yds4CYCEk9F6sQ/viewform?embedded=true"
+        width="100%"
+        height="1800"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        style="display:block;"
+      >載入中…</iframe>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="brand">✦ 恩典種子</div>
@@ -918,58 +958,12 @@
 </footer>
 
 <script>
-  // Demo: valid codes mapped to plan names and files
-  const VALID_CODES = {
-    "SEED2025": {
-      plan: "標準方案",
-      files: [
-        { name: "2025秋季_幼兒班教材全集.pdf", size: "4.2 MB", icon: "📄" },
-        { name: "2025秋季_低年級教材全集.pdf", size: "5.8 MB", icon: "📄" },
-        { name: "2025秋季_中高年級教材全集.pdf", size: "6.1 MB", icon: "📄" },
-        { name: "2025秋季_老師備課手冊.pdf", size: "2.3 MB", icon: "📋" },
-      ]
-    },
-    "GRACE001": {
-      plan: "基礎方案",
-      files: [
-        { name: "2025秋季_中低年級教材全集.pdf", size: "5.8 MB", icon: "📄" },
-        { name: "2025秋季_老師備課手冊.pdf", size: "2.3 MB", icon: "📋" },
-      ]
-    },
-    "CHURCH88": {
-      plan: "教會方案",
-      files: [
-        { name: "2025秋季_幼兒班教材全集.pdf", size: "4.2 MB", icon: "📄" },
-        { name: "2025秋季_低年級教材全集.pdf", size: "5.8 MB", icon: "📄" },
-        { name: "2025秋季_中高年級教材全集.pdf", size: "6.1 MB", icon: "📄" },
-        { name: "2025秋季_青少年前期教材.pdf", size: "4.9 MB", icon: "📄" },
-        { name: "2025秋季_老師備課手冊.pdf", size: "2.3 MB", icon: "📋" },
-        { name: "2025秋季_可編輯原始檔.zip", size: "18.4 MB", icon: "📦" },
-      ]
-    }
-  };
-
   function checkCode() {
-    const code = document.getElementById('code-input').value.trim().toUpperCase();
+    const code = document.getElementById('code-input').value.trim();
     const errorEl = document.getElementById('error-msg');
     const resultEl = document.getElementById('download-result');
-    const fileList = document.getElementById('file-list');
-
-    if (VALID_CODES[code]) {
+    if (code.length > 0) {
       errorEl.style.display = 'none';
-      const entry = VALID_CODES[code];
-      fileList.innerHTML = entry.files.map(f => `
-        <li>
-          <div class="file-info">
-            <span class="file-icon">${f.icon}</span>
-            <div>
-              <div>${f.name}</div>
-              <div class="file-size">${f.size}</div>
-            </div>
-          </div>
-          <button class="dl-btn" onclick="fakeDownload('${f.name}')">下載</button>
-        </li>
-      `).join('');
       resultEl.style.display = 'block';
     } else {
       resultEl.style.display = 'none';
@@ -977,12 +971,6 @@
     }
   }
 
-  function fakeDownload(name) {
-    // In production, replace with actual signed download URLs from your server
-    alert(`開始下載：${name}\n\n（實際部署時，此處連結至受保護的下載 URL）`);
-  }
-
-  // Allow Enter key in code input
   document.getElementById('code-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') checkCode();
   });
@@ -1079,88 +1067,54 @@
   buildSwitcher();
 </script>
 
-<!-- THEME SWITCHER UI -->
+<!-- VERSION SWITCHER -->
 <style>
-  .theme-switcher {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
+  .ver-switcher {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    display: flex; flex-direction: column; gap: 0.4rem;
     align-items: flex-end;
-    gap: 0.6rem;
   }
-  .theme-toggle-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: var(--teal-dark);
-    color: #fff;
-    border: none;
-    font-size: 1.4rem;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-    transition: transform 0.2s, background 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .ver-panel {
+    display: none; flex-direction: column; gap: 0.4rem; align-items: flex-end;
+    background: #fff; border-radius: 14px; padding: 0.7rem 0.8rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15); border: 1px solid #e0e0e0;
   }
-  .theme-toggle-btn:hover { transform: scale(1.08); }
-  #theme-panel {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-    padding: 1rem;
-    display: none;
-    flex-direction: column;
-    gap: 0.4rem;
-    min-width: 160px;
-    border: 1px solid #e5e0d0;
+  .ver-panel.open { display: flex; }
+  .ver-panel-label {
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;
+    color: #aaa; padding: 0 0.2rem 0.3rem; border-bottom: 1px solid #eee;
+    width: 100%; text-align: right;
   }
-  #theme-panel.open { display: flex; }
-  #theme-panel::before {
-    content: '選擇風格';
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #999;
-    letter-spacing: 0.08em;
-    padding: 0 0.2rem 0.3rem;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 0.2rem;
+  .ver-btn {
+    display: block; padding: 0.4rem 0.9rem;
+    border-radius: 999px; font-size: 0.82rem; font-weight: 700;
+    text-decoration: none; border: 2px solid #ddd;
+    background: #f7f7f7; color: #555;
+    transition: all 0.2s; white-space: nowrap;
   }
-  .theme-swatch-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    background: transparent;
-    border: 2px solid transparent;
-    border-radius: 10px;
-    padding: 0.45rem 0.6rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-align: left;
+  .ver-btn:hover { border-color: #aaa; color: #222; transform: translateX(-2px); }
+  .ver-btn.current {
+    background: var(--teal, #2a7a8c); color: #fff;
+    border-color: var(--teal-dark, #1d5a68);
   }
-  .theme-swatch-btn:hover { background: #f5f5f5; }
-  .theme-swatch-btn.active {
-    border-color: var(--teal);
-    background: var(--teal-light);
+  .ver-toggle {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--teal, #2a7a8c); color: #fff;
+    border: none; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, background 0.2s;
   }
-  .swatch-duo {
-    display: flex;
-    border-radius: 6px;
-    overflow: hidden;
-    width: 30px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-  .swatch-duo span { flex: 1; }
-  .swatch-label { font-size: 0.88rem; font-weight: 600; color: #333; white-space: nowrap; }
+  .ver-toggle:hover { transform: scale(1.08); }
 </style>
-
-<div class="theme-switcher">
-  <div id="theme-panel"></div>
-  <button class="theme-toggle-btn" onclick="toggleSwitcher()" title="更換風格">🎨</button>
+<div class="ver-switcher">
+  <div class="ver-panel" id="ver-panel">
+    <span class="ver-panel-label">切換風格</span>
+    <a class="ver-btn current" href="sunday.html">🌊 海洋清新</a>
+    <a class="ver-btn" href="sunday_v2.html">🌿 VBS叢林風</a>
+    <a class="ver-btn" href="sunday_v3.html">🐷 郁馨想抄佩佩豬</a>
+  </div>
+  <button class="ver-toggle" onclick="document.getElementById('ver-panel').classList.toggle('open')" title="切換風格">🎨</button>
 </div>
 
 </body>

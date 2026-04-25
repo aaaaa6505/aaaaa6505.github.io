@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>怡安玫曦郁馨工作室 — 主日學教材</title>
+  <title>恩典種子 — 主日學教材</title>
   <style>
     :root {
       --jungle:   #1a4a2e;
@@ -446,12 +446,13 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><span class="leaf-icon">🌿</span> 怡安 · 玫曦 · 郁馨</div>
+  <div class="nav-logo"><span class="leaf-icon">🌿</span> 恩典種子</div>
   <ul class="nav-links">
     <li><a href="#preview">教材試閱</a></li>
     <li><a href="#plans">訂閱方案</a></li>
     <li><a href="#purchase">如何購買</a></li>
     <li><a href="#download">下載教材</a></li>
+    <li><a href="#beta" style="color:var(--lime);font-weight:800;">搶先體驗</a></li>
   </ul>
   <a href="#plans" class="nav-cta">立即訂閱</a>
 </nav>
@@ -748,6 +749,39 @@
   </div>
 </section>
 
+<!-- BETA FORM -->
+<section id="beta" style="background: var(--warm); padding: 5rem 2rem;">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 2.5rem;">
+      <div class="section-tag">搶先體驗</div>
+      <h2 class="section-title" style="margin-top:0.5rem;">正式上線前，<em>邀請你免費試用</em></h2>
+      <p class="section-sub" style="margin: 0.8rem auto 0; text-align:center;">
+        我們正在尋找熱心的主日學老師參與試用計畫，<br/>
+        填寫下方表單，搶先取得完整教材並給我們回饋！
+      </p>
+    </div>
+    <div style="
+      background: var(--white);
+      border-radius: var(--r);
+      border: 2px solid #dde8da;
+      box-shadow: 6px 6px 0 #c8d8c4;
+      overflow: hidden;
+      max-width: 720px;
+      margin: 0 auto;
+    ">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSflRFam7GjjhPxAf-9G57i-1h6gtqO_e-J-Yds4CYCEk9F6sQ/viewform?embedded=true"
+        width="100%"
+        height="1800"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        style="display:block;"
+      >載入中…</iframe>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">🌿 怡安 · 玫曦 · 郁馨工作室</div>
@@ -808,6 +842,56 @@
     if (e.key === 'Enter') checkCode();
   });
 </script>
+
+<!-- VERSION SWITCHER -->
+<style>
+  .ver-switcher {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    align-items: flex-end;
+  }
+  .ver-panel {
+    display: none; flex-direction: column; gap: 0.4rem; align-items: flex-end;
+    background: #fff; border-radius: 14px; padding: 0.7rem 0.8rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15); border: 1px solid #e0e0e0;
+  }
+  .ver-panel.open { display: flex; }
+  .ver-panel-label {
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;
+    color: #aaa; padding: 0 0.2rem 0.3rem; border-bottom: 1px solid #eee;
+    width: 100%; text-align: right;
+  }
+  .ver-btn {
+    display: block; padding: 0.4rem 0.9rem;
+    border-radius: 999px; font-size: 0.82rem; font-weight: 700;
+    text-decoration: none; border: 2px solid #ddd;
+    background: #f7f7f7; color: #555;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .ver-btn:hover { border-color: #aaa; color: #222; transform: translateX(-2px); }
+  .ver-btn.current {
+    background: var(--jungle); color: #fff;
+    border-color: var(--forest);
+  }
+  .ver-toggle {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--jungle); color: #fff;
+    border: none; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+  }
+  .ver-toggle:hover { transform: scale(1.08); }
+</style>
+<div class="ver-switcher">
+  <div class="ver-panel" id="ver-panel">
+    <span class="ver-panel-label">切換風格</span>
+    <a class="ver-btn" href="sunday.html">🌊 海洋清新</a>
+    <a class="ver-btn current" href="sunday_v2.html">🌿 VBS叢林風</a>
+    <a class="ver-btn" href="sunday_v3.html">🐷 郁馨想抄佩佩豬</a>
+  </div>
+  <button class="ver-toggle" onclick="document.getElementById('ver-panel').classList.toggle('open')" title="切換風格">🎨</button>
+</div>
 
 </body>
 </html>
