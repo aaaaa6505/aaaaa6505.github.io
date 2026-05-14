@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex, nofollow" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>peco HBD</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #e8eaed;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  /* ---------- Phone frame ---------- */
+  .phone {
+    width: 100%;
+    max-width: 420px;
+    height: min(880px, 95vh);
+    background: #ffffff;
+    border-radius: 32px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ---------- Status bar ---------- */
+  .status-bar {
+    height: 36px;
+    padding: 0 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .status-icons {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .status-icons .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #1a1a1a;
+  }
+
+  /* ---------- App header ---------- */
+  .app-header {
+    padding: 8px 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .app-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .app-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff8c42, #ff6b1a);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .role-badge {
+    padding: 4px 12px;
+    background: #fff3e6;
+    color: #ff6b1a;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ---------- Tab bar ---------- */
+  .tab-bar-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .tab-bar-wrap::after {
+    /* 右側漸層提示：暗示還有內容可滑 */
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 28px;
+    background: linear-gradient(to right, rgba(26,26,26,0), rgba(26,26,26,0.95));
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.2s;
+  }
+  .tab-bar-wrap.at-end::after { opacity: 0; }
+  .tab-bar {
+    background: #1a1a1a;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #555 transparent;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
+  }
+  .tab-bar.dragging { cursor: grabbing; }
+  .tab-bar::-webkit-scrollbar { height: 4px; }
+  .tab-bar::-webkit-scrollbar-track { background: transparent; }
+  .tab-bar::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 2px;
+  }
+  .tab-bar::-webkit-scrollbar-thumb:hover { background: #777; }
+  .tab {
+    flex: 0 0 auto;
+    min-width: 92px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .tab:hover { background: rgba(255, 255, 255, 0.06); }
+  .tab.active { background: rgba(255, 255, 255, 0.10); }
+  .tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 16px; right: 16px;
+    height: 2px;
+    background: #ff6b1a;
+    border-radius: 2px;
+  }
+
+  .tab-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .tab-sub {
+    font-size: 11px;
+    color: #d1d5db;
+    font-weight: 500;
+  }
+  .tab .home-icon {
+    width: 18px; height: 18px;
+    display: inline-block;
+  }
+
+  /* ---------- Light dot ---------- */
+  .light {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.25), 0 0 6px rgba(255,255,255,0.15);
+  }
+  .light.green {
+    background: radial-gradient(circle at 35% 30%, #6ee87a, #16a34a 70%);
+  }
+  .light.rainbow {
+    background: conic-gradient(from 0deg,
+      #ff3b30, #ff9500, #ffcc00, #34c759, #00c7be, #007aff, #af52de, #ff2d92, #ff3b30);
+  }
+  .light.brown {
+    background: radial-gradient(circle at 35% 30%, #a67248, #5a3a1e 70%);
+  }
+
+  /* ---------- Content area ---------- */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    background: #f7f8fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  /* When rendering message list, stack from top */
+  .content.mode-messages {
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 16px 24px;
+  }
+
+  /* Chat bubble */
+  .bubble {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #1f2937;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    max-width: 92%;
+    align-self: flex-start;
+    white-space: pre-wrap;
+    word-break: break-word;
+    animation: bubbleIn 0.35s ease-out both;
+  }
+  @keyframes bubbleIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* Slight stagger for readability */
+  .bubble:nth-child(1) { animation-delay: 0.00s; }
+  .bubble:nth-child(2) { animation-delay: 0.06s; }
+  .bubble:nth-child(3) { animation-delay: 0.12s; }
+  .bubble:nth-child(4) { animation-delay: 0.18s; }
+  .bubble:nth-child(5) { animation-delay: 0.24s; }
+  .bubble:nth-child(6) { animation-delay: 0.30s; }
+  .bubble:nth-child(7) { animation-delay: 0.36s; }
+  .bubble:nth-child(8) { animation-delay: 0.42s; }
+  .bubble:nth-child(9) { animation-delay: 0.48s; }
+  .bubble:nth-child(n+10) { animation-delay: 0.54s; }
+
+  /* Image inside message stream */
+  .msg-image {
+    max-width: 92%;
+    width: auto;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    align-self: flex-start;
+    display: block;
+    animation: bubbleIn 0.35s ease-out both;
+  }
+  .msg-image:nth-child(1) { animation-delay: 0.00s; }
+  .msg-image:nth-child(2) { animation-delay: 0.06s; }
+  .msg-image:nth-child(3) { animation-delay: 0.12s; }
+  .msg-image:nth-child(4) { animation-delay: 0.18s; }
+  .msg-image:nth-child(5) { animation-delay: 0.24s; }
+  .msg-image:nth-child(6) { animation-delay: 0.30s; }
+  .msg-image:nth-child(7) { animation-delay: 0.36s; }
+  .msg-image:nth-child(8) { animation-delay: 0.42s; }
+  .msg-image:nth-child(9) { animation-delay: 0.48s; }
+  .msg-image:nth-child(n+10) { animation-delay: 0.54s; }
+
+  /* Option buttons group */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
+    animation: bubbleIn 0.35s ease-out both;
+  }
+  .option-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #fff3e6, #ffe1c2);
+    border: 1.5px solid #ffb37a;
+    border-radius: 999px;
+    color: #c2410c;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .option-btn:hover {
+    background: linear-gradient(135deg, #ffe1c2, #ffcfa0);
+    box-shadow: 0 2px 8px rgba(255, 107, 26, 0.2);
+  }
+  .option-btn:active { transform: scale(0.98); }
+  .option-btn.picked {
+    background: linear-gradient(135deg, #ff8c42, #ff6b1a);
+    color: #fff;
+    border-color: #ff6b1a;
+  }
+
+  /* Toast */
+  .toast {
+    position: absolute;
+    left: 50%;
+    bottom: 84px;
+    transform: translateX(-50%);
+    background: rgba(26,26,26,0.92);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    z-index: 10;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  /* Home page big text */
+  .home-text {
+    font-size: 38px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.4;
+    background: linear-gradient(135deg, #ff6b1a, #ff2d92 60%, #af52de);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 2px;
+  }
+
+  /* Home page image */
+  .home-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  /* Empty state for other tabs */
+  .empty {
+    color: #9ca3af;
+    font-size: 14px;
+  }
+
+  /* ---------- Input bar (decorative) ---------- */
+  .input-bar {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .input-bar input {
+    flex: 1;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #6b7280;
+    outline: none;
+  }
+  .send-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #ffb37a;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span>05:15</span>
+      <div class="status-icons">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- App header -->
+    <div class="app-header">
+      <div class="app-title">
+        <div class="app-icon">peco</div>
+        <span>生日快樂</span>
+      </div>
+      <span class="role-badge">HBD</span>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar-wrap" id="tabBarWrap">
+    <div class="tab-bar" id="tabBar">
+      <button class="tab active" data-tab="home">
+        <div class="tab-top">
+          <svg class="home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5L12 3l9 7.5"/>
+            <path d="M5 9.5V21h14V9.5"/>
+          </svg>
+          <span>首頁</span>
+        </div>
+      </button>
+
+      <button class="tab" data-tab="work">
+        <div class="tab-top"><span class="light green"></span><span>工作健康</span></div>
+        <span class="tab-sub">我的靠山</span>
+      </button>
+
+      <button class="tab" data-tab="salary">
+        <div class="tab-top"><span class="light green"></span><span>薪資健康</span></div>
+        <span class="tab-sub">大有可為</span>
+      </button>
+
+      <button class="tab" data-tab="ability">
+        <div class="tab-top"><span class="light green"></span><span>能力健康</span></div>
+        <span class="tab-sub">大有可為</span>
+      </button>
+
+      <button class="tab" data-tab="network">
+        <div class="tab-top"><span class="light rainbow"></span><span>人脈健康</span></div>
+        <span class="tab-sub">繽紛多彩</span>
+      </button>
+
+      <button class="tab" data-tab="future">
+        <div class="tab-top"><span class="light brown"></span><span>未來健康</span></div>
+        <span class="tab-sub">屎運當頭</span>
+      </button>
+    </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Input bar (decorative) -->
+    <div class="input-bar">
+      <input type="text" placeholder="目前節點請使用上方選項按鈕" disabled />
+      <button class="send-btn" aria-label="送出">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2L11 13"/>
+          <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+<script>
+  // ---------- Script data ----------
+  // 每個燈號對應一份內容；目前只有 home 有內容，其餘燈號內容清空。
+  // 之後要新增腳本就在這裡填內容即可。
+  const scripts = {
+    home: {
+      type: "image",
+      src: "peco_hbd_banner.png",
+      alt: "peco 生日快樂"
+    },
+    work: {
+      type: "messages",
+      messages: [
+        "hi Peco~",
+        "你貴為我在104的承恩大哥，\n真的很開心在工作上有你這個好揪好玩的朋友!!!",
+        "寫ACE的腳本真的是寫到PTSD，想不到生日卡也要這樣搞!!!",
+        "這是在5:30分的時候，黑狗提出來的! 極限挑戰!!!真的好好笑~",
+        { type: "image", src: "hbd_idea.png", alt: "黑狗提案" },
+        "你總是對人真誠，在工作上都能夠幫團隊多想一層，解決問題也兼顧大家的感受。",
+        "不只如此，我們還能玩在一起~ 你也是個生活的瘋子，很期待之後的出遊!",
+        "祝你生日快樂~ 你對我來說不只是很好的同事，也是很重要的朋友!",
+        "身體健康 青光眼退散! 每天吃早餐!!!",
+        "我是阿力!!!!",
+        "另外，嚴正警告以下",
+        { type: "image", src: "peco_hbd_banner_run.png", alt: "富士山馬拉松不准偷卷" }
+      ]
+    },
+    salary: {
+      type: "messages",
+      messages: [
+        "Peco 給你薪資大綠燈！但投資會是紅燈不用擔心～",
+        "做得很棒 cool~~",
+        "生日快樂 真的已經 36 歲啦～～轉眼間已經一年了（有幸參與了兩年？！）",
+        "這一年真的是經歷了非常多，怎只會過了一年而已呢～",
+        "跟你合作以來，一直覺得你是個想法很多，執行也很快速的人，跟你合作起來真的很有效率跟開心（跟聰明人工作就是有效率）",
+        "祝福你以後繼續健健康康、快快樂樂！",
+        "PS 希望可以等到特特噴到 1000 塊！",
+        { type: "image", src: "peco_tesla.png", alt: "特斯拉噴到 1000" },
+        "by Jenny 5/14"
+      ]
+    },
+    ability: {
+      type: "messages",
+      messages: [
+        "Hi Peco,",
+        "一年又平安的過去了，感謝飛天小女警的努力(?)",
+        "總覺得今年密度好高(?)\n謝謝設計總監 兼 數學老師 兼 財務總長 Peco 桑，總是不離不棄、循循善誘、諄諄教誨，鞭策我成長\n能力肯定是ㄅ級分的啦～",
+        "跟你合作的過程很愉快，非常感謝你總是給足滿滿的安全感，有靠山的感覺真好，感激涕零QWQ\n（也真的應驗ㄌ雅婷報報的話：是他看過最有耐心的主管XD）\n也很開心能夠一起玩耍，期待十月的高雄行，即將成為交付性命的夥伴(?)",
+        "最後，祝尼：\n誕生日大快樂！平安健康～",
+        "2026. 05. 14\nby 幸宜",
+        { type: "image", src: "peco_smile.jpg", alt: "peco smile" }
+      ]
+    },
+    network: {
+      type: "messages",
+      messages: [
+        "Hi Peco 👋 我是你的人脈職涯精靈",
+        "我很開心你來了 ❤️ 我想先告訴你一件事：卡內基說事業成功 85% 靠人際關係，我分析了你目前的人脈，他們對你的職涯、人生、財富各方面有極大幫助——",
+        { type: "options", toast: "已送出私訊 💌", items: [
+          "靈芝王（立刻私訊）",
+          "跑步阿力（立刻私訊）",
+          "可愛黑狗（立刻私訊）",
+          "珍股神（立刻私訊）",
+          "幸宜寶貝（立刻私訊）",
+          "Cosmo（立刻私訊）"
+        ]},
+        "今天，他們更想一起跟你說：生日快樂 🎉",
+        { type: "image", src: "peco_angry.png", alt: "peco angry" }
+      ]
+    },
+    future: {
+      type: "messages",
+      messages: [
+        "留下來，或者我跟你走",
+        "by 靈芝王"
+      ]
+    }
+  };
+
+  // ---------- Renderer ----------
+  const content = document.getElementById("content");
+  const tabBar = document.getElementById("tabBar");
+  const toast = document.getElementById("toast");
+
+  let toastTimer;
+  function showToast(text) {
+    toast.textContent = text;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+  }
+
+  function render(tabKey) {
+    const data = scripts[tabKey];
+    content.innerHTML = "";
+    content.classList.remove("mode-messages");
+
+    if (!data || data.type === "empty") {
+      // 空白
+      return;
+    }
+
+    if (data.type === "messages") {
+      content.classList.add("mode-messages");
+      data.messages.forEach(msg => {
+        if (typeof msg === "string") {
+          const b = document.createElement("div");
+          b.className = "bubble";
+          b.textContent = msg;
+          content.appendChild(b);
+        } else if (msg && msg.type === "image") {
+          const img = document.createElement("img");
+          img.className = "msg-image";
+          img.src = msg.src;
+          img.alt = msg.alt || "";
+          content.appendChild(img);
+        } else if (msg && msg.type === "options") {
+          const group = document.createElement("div");
+          group.className = "options";
+          msg.items.forEach(label => {
+            const btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.type = "button";
+            btn.textContent = label;
+            btn.addEventListener("click", () => {
+              btn.classList.add("picked");
+              showToast(msg.toast || "收到！");
+            });
+            group.appendChild(btn);
+          });
+          content.appendChild(group);
+        }
+      });
+      content.scrollTop = 0;
+      return;
+    }
+
+    if (data.type === "bigText") {
+      const el = document.createElement("div");
+      el.className = "home-text";
+      el.textContent = data.text;
+      content.appendChild(el);
+      return;
+    }
+
+    if (data.type === "image") {
+      const img = document.createElement("img");
+      img.className = "home-image";
+      img.src = data.src;
+      img.alt = data.alt || "";
+      content.appendChild(img);
+      return;
+    }
+  }
+
+  // ---------- Tab switching ----------
+  tabBar.addEventListener("click", (e) => {
+    const btn = e.target.closest(".tab");
+    if (!btn || tabBar.classList.contains("just-dragged")) return;
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    render(btn.dataset.tab);
+  });
+
+  // ---------- Tab bar horizontal scroll (mouse wheel + drag) ----------
+  const tabBarWrap = document.getElementById("tabBarWrap");
+
+  // 滑鼠滾輪 → 水平捲動
+  tabBar.addEventListener("wheel", (e) => {
+    if (e.deltaY === 0) return;
+    e.preventDefault();
+    tabBar.scrollLeft += e.deltaY;
+  }, { passive: false });
+
+  // 拖曳捲動
+  let isDown = false, startX = 0, startScroll = 0, moved = false;
+  tabBar.addEventListener("mousedown", (e) => {
+    isDown = true;
+    moved = false;
+    startX = e.pageX;
+    startScroll = tabBar.scrollLeft;
+    tabBar.classList.add("dragging");
+  });
+  window.addEventListener("mouseup", () => {
+    if (!isDown) return;
+    isDown = false;
+    tabBar.classList.remove("dragging");
+    if (moved) {
+      // 防止拖曳結束瞬間觸發 click 切 tab
+      tabBar.classList.add("just-dragged");
+      setTimeout(() => tabBar.classList.remove("just-dragged"), 50);
+    }
+  });
+  window.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    const dx = e.pageX - startX;
+    if (Math.abs(dx) > 3) moved = true;
+    tabBar.scrollLeft = startScroll - dx;
+  });
+
+  // 右側漸層提示：滑到底就淡出
+  function updateEndHint() {
+    const atEnd = tabBar.scrollLeft + tabBar.clientWidth >= tabBar.scrollWidth - 2;
+    tabBarWrap.classList.toggle("at-end", atEnd);
+  }
+  tabBar.addEventListener("scroll", updateEndHint);
+  window.addEventListener("resize", updateEndHint);
+  updateEndHint();
+
+  // Initial render
+  render("home");
+</script>
+</body>
+</html>
