@@ -182,6 +182,37 @@
     .ver-toggle:hover { transform: scale(1.08); }
 
     /* RESPONSIVE */
+    /* STORY BLOCKS */
+    #story-blocks { background: var(--bg2); }
+    .story-block { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+    .story-block.reverse { direction: rtl; }
+    .story-block.reverse > * { direction: ltr; }
+    .story-block-img { overflow: hidden; }
+    .story-block-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .story-block:hover .story-block-img img { transform: scale(1.04); }
+    .story-block-text { display: flex; flex-direction: column; justify-content: center; padding: 4rem; }
+    .story-tag { display: inline-block; font-size: 0.8rem; font-weight: 800; color: var(--bright); letter-spacing: 0.08em; margin-bottom: 0.8rem; }
+    .story-block h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 900; line-height: 1.3; margin-bottom: 1rem; color: var(--deep); }
+    .story-block p { font-size: 0.95rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
+    .story-link { font-size: 0.9rem; font-weight: 800; color: var(--bright); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
+    .story-link:hover { gap: 0.8rem; }
+    .story-stats { display: flex; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-num { font-size: 1.8rem; font-weight: 900; color: var(--deep); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+    .story-block.dark { background: var(--deep); }
+    .story-block.dark .story-block-text { background: var(--deep); }
+    .story-block.dark h3 { color: var(--white); }
+    .story-block.dark p { color: rgba(255,255,255,0.7); }
+    .story-block.dark .story-tag { color: var(--pale); }
+    .story-block.dark .stat-num { color: var(--pale); }
+    @media (max-width: 768px) {
+      .story-block, .story-block.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .story-block-img { height: 260px; }
+      .story-block.reverse .story-block-img { order: -1; }
+      .story-block-text { padding: 2.5rem 1.5rem; }
+      .story-stats { gap: 1.2rem; }
+    }
+
     /* ── DECORATION KEYFRAMES ── */
     @keyframes wave-scroll-r { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes wave-scroll-l { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -330,13 +361,67 @@
     <div class="section-tag">核心理念</div>
     <h2 class="section-title">教材，是為了讓你有更多時間<em>陪伴孩子</em></h2>
     <p class="section-sub">我們相信備課的目的，不是把課上完，而是讓老師有更多餘力真正關心每一個孩子。</p>
-    <div class="principles-grid">
-      <div class="prin-card"><div class="prin-icon">🤝</div><h3>以關係為核心</h3><p>每個環節都設計來拉近老師和孩子的距離，讓信仰在真實的連結中自然生根。</p></div>
-      <div class="prin-card"><div class="prin-icon">⏱</div><h3>備課壓力減半</h3><p>從暖身、故事到回應，每課完整備妥。省下來的時間，可以真正用在陪伴孩子上。</p></div>
-      <div class="prin-card"><div class="prin-icon">🌱</div><h3>鼓勵思考與探索</h3><p>我們相信信仰是活的。課程設計引導孩子提問、反思，自己發現信仰的意義。</p></div>
-      <div class="prin-card"><div class="prin-icon">✅</div><h3>神學內容經過審核</h3><p>每堂課的聖經信息都經過把關，老師可以放心使用，不必擔心教錯孩子。</p></div>
+  </div>
+</section>
+
+<section id="story-blocks">
+
+  <!-- 格一：左圖右文 -->
+  <div class="story-block">
+    <div class="story-block-img">
+      <img src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=800&q=80" alt="孩子在教室互動" loading="lazy">
+    </div>
+    <div class="story-block-text">
+      <span class="story-tag">🤝 以關係為核心</span>
+      <h3>不只是教學，更是一起成長的旅程</h3>
+      <p>每個環節都設計來拉近老師和孩子的距離。<br>我們相信，信仰在真實的連結中才能自然生根。<br>Wayfinder Kid 幫你備好教材，<br>讓你把心力放在陪伴孩子上。</p>
+      <a href="#principles" class="story-link">了解教材理念 →</a>
     </div>
   </div>
+
+  <!-- 格二：右圖左文 -->
+  <div class="story-block reverse">
+    <div class="story-block-img">
+      <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80" alt="老師備課閱讀" loading="lazy">
+    </div>
+    <div class="story-block-text">
+      <span class="story-tag">⏱ 備課壓力減半</span>
+      <h3>省下的時間，留給孩子</h3>
+      <p>從暖身遊戲、故事時間到回應活動，<br>每堂課完整備妥，老師拿到就能用。<br>不用再花整個週六備課，<br>把時間留給真正重要的事。</p>
+      <div class="story-stats">
+        <div><div class="stat-num">12 堂</div><div class="stat-label">完整課程</div></div>
+        <div><div class="stat-num">3 個</div><div class="stat-label">環節每課備妥</div></div>
+        <div><div class="stat-num">1 小時</div><div class="stat-label">備課時間</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 格三：左圖右文 -->
+  <div class="story-block">
+    <div class="story-block-img">
+      <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80" alt="聖經閱讀場景" loading="lazy">
+    </div>
+    <div class="story-block-text">
+      <span class="story-tag">✅ 神學內容經過審核</span>
+      <h3>放心教，不怕教錯孩子</h3>
+      <p>每堂課的聖經信息都經過神學把關。<br>不論你是資深老師還是剛開始服事，<br>都可以放心使用，<br>把精力放在和孩子的互動上。</p>
+      <a href="#preview" class="story-link">預覽第一課內容 →</a>
+    </div>
+  </div>
+
+  <!-- 格四：右圖左文，深色 -->
+  <div class="story-block reverse dark">
+    <div class="story-block-img">
+      <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=800&q=80" alt="孩子開心互動" loading="lazy">
+    </div>
+    <div class="story-block-text">
+      <span class="story-tag">🌱 鼓勵思考與探索</span>
+      <h3>引導孩子自己發現信仰的意義</h3>
+      <p>我們相信信仰是活的。<br>課程設計鼓勵孩子提問、反思，<br>而不是單向灌輸答案。<br>每個孩子都有自己和上帝相遇的故事。</p>
+      <a href="#apply" class="btn-cta" style="align-self:flex-start;">免費申請試用</a>
+    </div>
+  </div>
+
 </section>
 
 <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;"><path d="M0,60 C480,0 960,80 1440,20 L1440,80 L0,80 Z" fill="#f3fbfc"/></svg>
