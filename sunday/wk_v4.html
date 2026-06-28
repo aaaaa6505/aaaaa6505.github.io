@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wayfinder Kid — 主日學教材平台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ── V4: DEEP OCEAN 深邃 ── */
+    :root {
+      --nav:     #024a52;
+      --deep:    #03666f;
+      --mid:     #038b94;
+      --bright:  #33b5ab;
+      --pale:    #c8eeec;
+      --navy:    #255194;
+      --cta:     #255194;
+      --cta-dk:  #1a3d70;
+      --bg:      #f0fafa;
+      --bg2:     #f0f4fb;
+      --text:    #0a1a20;
+      --muted:   #3a5a60;
+      --white:   #ffffff;
+      --r:       24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+    nav { position: sticky; top: 0; z-index: 200; background: var(--nav); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+    .nav-logo { font-size: 1.1rem; font-weight: 900; color: var(--pale); display: flex; align-items: center; gap: .4rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pale); }
+    .nav-right { display: flex; align-items: center; gap: .8rem; }
+    .nav-login { color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 600; text-decoration: none; transition: color .2s; }
+    .nav-login:hover { color: var(--pale); }
+    .nav-cta { background: var(--cta); color: var(--white); padding: .48rem 1.3rem; border-radius: 999px; font-size: .88rem; font-weight: 800; text-decoration: none; transition: background .2s; }
+    .nav-cta:hover { background: var(--cta-dk); }
+
+    .hero { background: linear-gradient(135deg,#024a52 0%,#013540 60%,#0d1f4a 100%); padding: 5rem 2rem 6rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle,rgba(51,181,171,.15) 0%,transparent 70%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: 20px; left: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle,rgba(37,81,148,.2) 0%,transparent 70%); pointer-events: none; }
+    .hero-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; background: rgba(200,238,236,.12); border: 1px solid rgba(200,238,236,.3); color: var(--pale); border-radius: 999px; padding: .3rem 1rem; font-size: .82rem; font-weight: 700; letter-spacing: .05em; margin-bottom: 1.2rem; }
+    .hero h1 { font-size: clamp(2rem,4vw,3.2rem); font-weight: 900; line-height: 1.2; color: var(--white); margin-bottom: 1.2rem; letter-spacing: -.02em; }
+    .hero h1 em { font-style: normal; color: var(--pale); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,.75); margin-bottom: 2rem; max-width: 440px; line-height: 1.8; }
+    .hero-btns { display: flex; gap: .8rem; flex-wrap: wrap; }
+    .btn-cta { background: var(--cta); color: var(--white); padding: .9rem 2rem; border-radius: 999px; font-weight: 800; font-size: .98rem; text-decoration: none; transition: all .2s; border: none; cursor: pointer; box-shadow: 0 4px 18px rgba(37,81,148,.45); font-family: inherit; }
+    .btn-cta:hover { background: var(--cta-dk); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--white); padding: .9rem 2rem; border-radius: 999px; font-weight: 700; font-size: .98rem; text-decoration: none; border: 2px solid rgba(255,255,255,.4); transition: all .2s; cursor: pointer; }
+    .btn-ghost:hover { border-color: var(--pale); color: var(--pale); }
+
+    .course-card-mock { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); border-radius: var(--r); backdrop-filter: blur(10px); overflow: hidden; box-shadow: 0 28px 72px rgba(0,0,0,.38); }
+    .mock-header { background: rgba(255,255,255,.1); padding: 1.4rem 1.6rem; display: flex; align-items: flex-start; justify-content: space-between; }
+    .mock-num { font-size: .72rem; font-weight: 800; letter-spacing: .12em; color: var(--pale); opacity: .85; margin-bottom: .3rem; }
+    .mock-title { font-size: 1.1rem; font-weight: 900; color: var(--white); }
+    .mock-sub { font-size: .85rem; color: rgba(255,255,255,.62); margin-top: .2rem; }
+    .mock-icon { font-size: 2rem; }
+    .mock-divider { height: 1px; background: rgba(255,255,255,.13); }
+    .mock-modules { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; padding: 1.4rem 1.6rem; }
+    .mock-module { background: rgba(255,255,255,.07); border-radius: 12px; padding: .7rem .9rem; font-size: .83rem; font-weight: 600; color: rgba(255,255,255,.82); display: flex; align-items: center; gap: .45rem; }
+    .mock-actions { padding: 0 1.6rem 1.4rem; display: flex; gap: .7rem; }
+    .mock-btn-primary { flex: 1; padding: .6rem; border-radius: 12px; background: var(--bright); color: var(--white); border: none; font-weight: 800; font-size: .85rem; cursor: pointer; transition: opacity .2s; font-family: inherit; }
+    .mock-btn-primary:hover { opacity: .85; }
+    .mock-btn-lock { padding: .6rem .9rem; border-radius: 12px; background: rgba(255,255,255,.09); color: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.18); font-size: .83rem; font-weight: 600; }
+
+    .wave { display: block; width: 100%; height: 80px; }
+
+    .section-tag { display: inline-block; background: var(--deep); color: var(--pale); border-radius: 999px; padding: .25rem .9rem; font-size: .78rem; font-weight: 800; letter-spacing: .1em; margin-bottom: .7rem; }
+    h2.section-title { font-size: clamp(1.7rem,3.2vw,2.5rem); font-weight: 900; letter-spacing: -.02em; margin-bottom: .65rem; line-height: 1.2; }
+    h2.section-title em { font-style: normal; color: var(--deep); }
+    .section-sub { color: var(--muted); font-size: .98rem; max-width: 520px; margin-bottom: 2.5rem; }
+
+    #principles { background: var(--bg2); padding: 4.5rem 2rem; }
+    .principles-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1.3rem; }
+    .prin-card { background: var(--white); border: 2px solid transparent; border-radius: var(--r); padding: 2rem 1.5rem; transition: all .22s; position: relative; overflow: hidden; }
+    .prin-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--bright),var(--navy)); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .prin-card:hover { border-color: var(--pale); box-shadow: 0 8px 32px rgba(3,102,111,.12); transform: translateY(-3px); }
+    .prin-card:hover::after { transform: scaleX(1); }
+    .prin-icon { width: 48px; height: 48px; border-radius: 16px; background: linear-gradient(135deg,rgba(200,238,236,.6),rgba(51,181,171,.25)); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+    .prin-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: .4rem; color: var(--deep); }
+    .prin-card p { font-size: .87rem; color: var(--muted); line-height: 1.65; }
+
+    #structure { background: var(--bg); padding: 4.5rem 2rem; }
+    .struct-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.4rem; }
+    .struct-card { background: var(--white); border-radius: var(--r); padding: 2rem; border: 2px solid rgba(51,181,171,.25); box-shadow: 0 4px 20px rgba(3,102,111,.07); }
+    .struct-card-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .struct-card h3 { font-size: 1.05rem; font-weight: 800; color: var(--deep); margin-bottom: .5rem; }
+    .struct-card p { font-size: .87rem; color: var(--muted); line-height: 1.65; margin-bottom: .8rem; }
+    .struct-example { background: var(--bg2); border-radius: 10px; padding: .5rem .8rem; font-size: .8rem; color: var(--muted); border-left: 3px solid var(--bright); }
+    .struct-example span { font-weight: 700; color: var(--deep); }
+
+    #preview { background: linear-gradient(160deg,#024a52 0%,#012830 60%,#0d1f4a 100%); padding: 4.5rem 2rem; }
+    #preview .section-tag { background: rgba(200,238,236,.12); color: var(--pale); }
+    #preview h2.section-title { color: var(--white); }
+    #preview h2.section-title em { color: var(--pale); }
+    #preview .section-sub { color: rgba(255,255,255,.62); }
+    .preview-tabs { display: flex; gap: .5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .tab-btn { padding: .5rem 1.2rem; border-radius: 999px; border: 2px solid rgba(255,255,255,.28); background: transparent; color: rgba(255,255,255,.62); font-size: .86rem; font-weight: 700; cursor: pointer; transition: all .2s; font-family: inherit; }
+    .tab-btn.active { background: var(--pale); border-color: var(--pale); color: var(--deep); }
+    .tab-btn:hover:not(.active) { border-color: rgba(255,255,255,.55); color: rgba(255,255,255,.9); }
+    .preview-panel { display: none; }
+    .preview-panel.active { display: block; }
+    .preview-card { background: var(--white); border-radius: var(--r); overflow: hidden; box-shadow: 0 20px 64px rgba(0,0,0,.35); }
+    .preview-card-header { background: var(--deep); color: var(--white); padding: 1.6rem 2rem; display: flex; align-items: center; gap: 1rem; }
+    .preview-card-header .hicon { font-size: 2rem; }
+    .preview-card-header h3 { font-size: 1.1rem; font-weight: 800; }
+    .preview-card-header .meta { font-size: .82rem; opacity: .7; margin-top: .2rem; }
+    .preview-card-body { padding: 2rem; }
+    .info-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .chip { background: rgba(3,102,111,.1); color: var(--deep); border-radius: 999px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; }
+    .info-box { border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.2rem; }
+    .info-box.sand { background: #eef2fb; border-left: 4px solid var(--navy); }
+    .info-box.teal { background: #e8f8f7; border-left: 4px solid var(--bright); }
+    .info-box h4 { font-size: .8rem; font-weight: 800; color: var(--deep); margin-bottom: .5rem; }
+    .info-box p, .info-box li { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+    .info-box ul { list-style: none; }
+    .info-box li { display: flex; gap: .4rem; padding: .1rem 0; }
+    .info-box li::before { content: '▸'; color: var(--bright); flex-shrink: 0; }
+    .lock-row { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #f0f0f0; }
+    .lock-btn { background: var(--deep); color: var(--white); border: none; border-radius: 999px; padding: .7rem 1.8rem; font-size: .88rem; font-weight: 800; cursor: pointer; transition: opacity .2s; font-family: inherit; }
+    .lock-btn:hover { opacity: .85; }
+    .activity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: 1.4rem; }
+    .activity-item { background: var(--bg2); border-radius: 14px; padding: .9rem 1rem; border: 2px solid transparent; font-size: .88rem; font-weight: 600; color: var(--deep); transition: border-color .2s; }
+    .activity-item:hover { border-color: var(--pale); }
+    .activity-item .a-icon { font-size: 1.2rem; display: block; margin-bottom: .3rem; }
+
+    #testimonials { background: var(--bg2); padding: 4.5rem 2rem; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.3rem; }
+    .testi-card { background: var(--white); border-radius: var(--r); padding: 1.8rem; border: 2px solid rgba(51,181,171,.2); box-shadow: 0 4px 16px rgba(3,102,111,.07); }
+    .stars { color: #FFC43D; font-size: .9rem; margin-bottom: .8rem; letter-spacing: .1em; }
+    .testi-text { font-size: .9rem; color: var(--text); line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; }
+    .testi-author { font-size: .82rem; color: var(--muted); font-weight: 600; }
+
+    #apply { background: linear-gradient(135deg,#024a52 0%,#012830 60%,#0d1f4a 100%); padding: 5rem 2rem; }
+    #apply .section-tag { background: rgba(200,238,236,.12); color: var(--pale); }
+    #apply h2.section-title { color: var(--white); }
+    #apply h2.section-title em { color: var(--pale); }
+    #apply .section-sub { color: rgba(255,255,255,.62); }
+    .apply-steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1.2rem; margin-bottom: 2.5rem; }
+    .apply-step { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.13); border-radius: var(--r); padding: 2rem 1.5rem; text-align: center; transition: background .2s; }
+    .apply-step:hover { background: rgba(255,255,255,.11); }
+    .apply-num { width: 48px; height: 48px; border-radius: 50%; background: var(--cta); color: var(--white); font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto .9rem; box-shadow: 0 4px 14px rgba(37,81,148,.45); }
+    .apply-step h3 { font-size: .98rem; font-weight: 800; color: var(--white); margin-bottom: .3rem; }
+    .apply-step p { font-size: .83rem; color: rgba(255,255,255,.58); }
+    .apply-cta { text-align: center; }
+    .apply-cta .btn-cta { font-size: 1.05rem; padding: 1rem 2.5rem; }
+
+    footer { background: #01252b; color: rgba(255,255,255,.48); padding: 3rem 2rem; text-align: center; }
+    .footer-logo { color: var(--pale); font-weight: 900; font-size: 1.1rem; margin-bottom: .3rem; }
+    .footer-tag { font-size: .88rem; margin-bottom: 1rem; }
+    .footer-divider { margin: 1rem auto; width: 40px; height: 2px; background: rgba(200,238,236,.25); }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: .8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,.38); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--pale); }
+    .copyright { font-size: .78rem; }
+
+    .ver-switcher { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; flex-direction: column; gap: .4rem; align-items: flex-end; }
+    .ver-panel { display: none; flex-direction: column; gap: .4rem; align-items: flex-end; background: #fff; border-radius: 14px; padding: .8rem; box-shadow: 0 8px 32px rgba(0,0,0,.15); border: 1px solid #e0e0e0; }
+    .ver-panel.open { display: flex; }
+    .ver-panel-label { font-size: .68rem; font-weight: 800; letter-spacing: .1em; color: #aaa; padding: 0 .2rem .4rem; border-bottom: 1px solid #eee; width: 100%; text-align: right; }
+    .ver-btn { display: block; padding: .4rem .9rem; border-radius: 999px; font-size: .82rem; font-weight: 700; text-decoration: none; border: 2px solid #ddd; background: #f7f7f7; color: #555; transition: all .2s; white-space: nowrap; }
+    .ver-btn:hover { border-color: #aaa; color: #222; }
+    .ver-btn.current { background: var(--deep); color: #fff; border-color: var(--deep); }
+    .ver-toggle { width: 44px; height: 44px; border-radius: 50%; background: var(--deep); color: #fff; border: none; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.22); display: flex; align-items: center; justify-content: center; transition: transform .2s; }
+    .ver-toggle:hover { transform: scale(1.08); }
+
+    /* ── DECORATION KEYFRAMES ── */
+    @keyframes wave-scroll-r { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes wave-scroll-l { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @keyframes float-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .hero-waves { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; overflow: hidden; pointer-events: none; z-index: 0; }
+    .hero-wave-1 { display: flex; width: 200%; animation: wave-scroll-r 8s linear infinite; }
+    .hero-wave-2 { display: flex; width: 200%; animation: wave-scroll-l 6s linear infinite; position: absolute; bottom: 0; left: 0; }
+    .hero-wave-1 svg, .hero-wave-2 svg { width: 50%; flex-shrink: 0; display: block; }
+    .hero-float { position: absolute; pointer-events: none; opacity: 0.18; user-select: none; z-index: 0; line-height: 1; }
+    .hero-float-1 { top: 10%; right: 6%;   font-size: 2.5rem; animation: float-bob 4s ease-in-out infinite; }
+    .hero-float-2 { bottom: 18%; left: 3%; font-size: 2rem;   animation: float-bob 5s ease-in-out infinite 1s; }
+    .hero-float-3 { top: 45%; right: 28%;  font-size: 1.8rem; animation: float-bob 3.5s ease-in-out infinite 0.5s; }
+    .hero-float-4 { top: 60%; right: 6%;   font-size: 1.6rem; animation: float-bob 4.5s ease-in-out infinite 2s; }
+    .hero-float-5 { top: 30%; left: 5%;    font-size: 1.4rem; animation: float-bob 3s ease-in-out infinite 1.5s; }
+    #principles, #structure { position: relative; overflow: hidden; }
+    #principles::before, #structure::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(circle, var(--mid) 1px, transparent 1px);
+      background-size: 24px 24px; opacity: 0.06;
+    }
+    #principles .container, #structure .container { position: relative; z-index: 1; }
+    .struct-svg { display: block; margin-bottom: .5rem; }
+    #preview { position: relative; overflow: hidden; }
+    #preview::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.5) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.7) 1.5px, transparent 1.5px);
+      background-size: 80px 80px, 120px 120px, 180px 180px;
+      background-position: 20px 30px, 60px 90px, 100px 50px;
+      opacity: 0.12;
+    }
+    #preview .container { position: relative; z-index: 1; }
+    #apply { position: relative; overflow: hidden; }
+    .apply-horizon { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; pointer-events: none; z-index: 0; }
+    #apply .container { position: relative; z-index: 1; }
+
+    /* VIDEO */
+    .video-wrap { position: relative; margin-bottom: .8rem; }
+    .video-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,.65); backdrop-filter: blur(4px);
+      color: #fff; border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px; padding: .26rem .9rem;
+      font-size: .75rem; font-weight: 700; white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,.3); z-index: 2;
+    }
+    .video-player { aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.4); background: #000; }
+    .video-player iframe { display: block; width: 100%; height: 100%; border: none; }
+    /* MOCK SERIES */
+    .mock-series {
+      display: inline-flex; align-items: center; gap: .3rem;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px; padding: .16rem .65rem;
+      font-size: .68rem; font-weight: 700; color: rgba(255,255,255,.85);
+      letter-spacing: .04em; margin-bottom: .35rem;
+    }
+    /* COMPACT CARD */
+    .course-card-mock.compact .mock-header { padding: .9rem 1.2rem; }
+    .course-card-mock.compact .mock-modules { padding: .9rem 1.2rem; gap: .55rem; }
+    .course-card-mock.compact .mock-actions { padding: 0 1.2rem .9rem; }
+    .course-card-mock.compact .mock-module { padding: .5rem .7rem; font-size: .8rem; }
+    .course-card-mock.compact .mock-title { font-size: 1rem; }
+    /* SERIES BANNER */
+    .series-banner {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-left: 4px solid var(--pale);
+      border-radius: 12px; padding: 1rem 1.4rem; margin-bottom: 1.8rem;
+    }
+    .series-banner-title { font-size: .98rem; font-weight: 800; color: var(--white); margin-bottom: .3rem; }
+    .series-banner-meta { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .course-card-mock { order: -1; }
+      .nav-links { display: none; }
+      .activity-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">🧭 Wayfinder Kid</a>
+  <ul class="nav-links">
+    <li><a href="#structure">教材列表</a></li>
+    <li><a href="#">師培文章</a></li>
+    <li><a href="#">神普文章</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-login">登入</a>
+    <a href="#apply" class="nav-cta">免費申請</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="hero-float hero-float-1">🧭</span>
+  <span class="hero-float hero-float-2">⚓</span>
+  <span class="hero-float hero-float-3">🌊</span>
+  <span class="hero-float hero-float-4">🐚</span>
+  <span class="hero-float hero-float-5">⭐</span>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">✦ 主日學教材平台</div>
+      <h1>每堂主日學，<br/>都是一場<em>探險</em></h1>
+      <p class="hero-sub">12 堂完整課程，幫老師備好每個環節。<br/>省下的時間，留給孩子。</p>
+      <div class="hero-btns">
+        <a href="#apply" class="btn-cta">免費申請試用</a>
+        <a href="#preview" class="btn-ghost">預覽第一課</a>
+      </div>
+    </div>
+    <div>
+      <div class="video-wrap">
+        <div class="video-badge">▶ 第一課預覽片段</div>
+        <div class="video-player">
+          <iframe src="https://drive.google.com/file/d/1VDE70_MZTtfLUOEQQ9D8gSqCmOyuDnOv/preview" width="100%" height="100%" allow="autoplay" style="border:none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-waves">
+    <div class="hero-wave-1">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,50 C240,22 480,70 720,50 C960,30 1200,68 1440,50 L1440,80 L0,80 Z" fill="rgba(255,255,255,.15)"/></svg>
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,50 C240,22 480,70 720,50 C960,30 1200,68 1440,50 L1440,80 L0,80 Z" fill="rgba(255,255,255,.15)"/></svg>
+    </div>
+    <div class="hero-wave-2">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,32 C360,62 720,12 1080,32 C1260,46 1440,32 1440,32 L1440,80 L0,80 Z" fill="rgba(255,255,255,.10)"/></svg>
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,32 C360,62 720,12 1080,32 C1260,46 1440,32 1440,32 L1440,80 L0,80 Z" fill="rgba(255,255,255,.10)"/></svg>
+    </div>
+  </div>
+</div>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#f0f4fb"/></svg>
+
+<section id="principles">
+  <div class="container">
+    <div class="section-tag">核心理念</div>
+    <h2 class="section-title">教材，是為了讓你有更多時間<em>陪伴孩子</em></h2>
+    <p class="section-sub">我們相信備課的目的，不是把課上完，而是讓老師有更多餘力真正關心每一個孩子。</p>
+    <div class="principles-grid">
+      <div class="prin-card"><div class="prin-icon">🤝</div><h3>以關係為核心</h3><p>每個環節都設計來拉近老師和孩子的距離，讓信仰在真實的連結中自然生根。</p></div>
+      <div class="prin-card"><div class="prin-icon">⏱</div><h3>備課壓力減半</h3><p>從暖身、故事到回應，每課完整備妥。省下來的時間，可以真正用在陪伴孩子上。</p></div>
+      <div class="prin-card"><div class="prin-icon">🌱</div><h3>鼓勵思考與探索</h3><p>我們相信信仰是活的。課程設計引導孩子提問、反思，自己發現信仰的意義。</p></div>
+      <div class="prin-card"><div class="prin-icon">✅</div><h3>神學內容經過審核</h3><p>每堂課的聖經信息都經過把關，老師可以放心使用，不必擔心教錯孩子。</p></div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;"><path d="M0,60 C480,0 960,80 1440,20 L1440,80 L0,80 Z" fill="#f0fafa"/></svg>
+
+<section id="structure">
+  <div class="container">
+    <div class="section-tag">一課三環節</div>
+    <h2 class="section-title">一堂課，三個環節，<em>備課完整</em></h2>
+    <p class="section-sub">每個環節都有完整教案，老師拿到就能用。</p>
+    <div class="struct-grid">
+      <div class="struct-card"><div class="struct-card-icon">🎮</div><svg class="struct-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="12" r="6" stroke="var(--bright)" stroke-width="2"/><line x1="44" y1="18" x2="40" y2="38" stroke="var(--bright)" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="28" x2="22" y2="22" stroke="var(--bright)" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="28" x2="54" y2="34" stroke="var(--bright)" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="38" x2="28" y2="54" stroke="var(--bright)" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="38" x2="52" y2="52" stroke="var(--bright)" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="28" x2="16" y2="28" stroke="var(--bright)" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><line x1="4" y1="36" x2="14" y2="36" stroke="var(--bright)" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/></svg><h3>暖身活動</h3><p>動態遊戲結合課程主題關鍵字，讓孩子活動筋骨、收心，進入故事時間前先暖場。</p><div class="struct-example"><span>範例：</span>「上帝說...」傳娃娃遊戲</div></div>
+      <div class="struct-card"><div class="struct-card-icon">📖</div><svg class="struct-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32,54 C24,51 12,52 6,56 L6,18 C12,14 24,13 32,16 Z" stroke="var(--bright)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M32,54 C40,51 52,52 58,56 L58,18 C52,14 40,13 32,16 Z" stroke="var(--bright)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="32" y1="16" x2="32" y2="54" stroke="var(--bright)" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="28" x2="26" y2="28" stroke="var(--bright)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/><line x1="14" y1="35" x2="26" y2="35" stroke="var(--bright)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/><path d="M46,13 L47,16.6 L50.5,16.6 L47.6,18.8 L48.6,22.4 L46,20.2 L43.4,22.4 L44.4,18.8 L41.5,16.6 L45,16.6 Z" stroke="var(--bright)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="54" cy="9" r="2" stroke="var(--bright)" stroke-width="1.5" opacity="0.7"/></svg><h3>故事時間</h3><p>完整故事投影片 + 信息要點，內附互動提問幫助孩子和故事角色連結。</p><div class="struct-example"><span>範例：</span>亞伯蘭接受挑戰離開故鄉</div></div>
+      <div class="struct-card"><div class="struct-card-icon">💬</div><svg class="struct-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="34" height="22" rx="7" stroke="var(--bright)" stroke-width="2"/><path d="M10,26 L6,36 L22,26" stroke="var(--bright)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="36" width="34" height="22" rx="7" stroke="var(--bright)" stroke-width="2"/><path d="M54,58 L58,62 L44,58" stroke="var(--bright)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M32,29 C32,26.5 29.5,24 27,26 C24.5,28 24.5,32 27,34.5 L32,39 L37,34.5 C39.5,32 39.5,28 37,26 C34.5,24 32,26.5 32,29 Z" stroke="var(--bright)" stroke-width="1.5" stroke-linejoin="round"/></svg><h3>回應活動</h3><p>五份教案任選，引導孩子把信息連結到自己的生活經驗與感受。</p><div class="struct-example"><span>範例：</span>認識亞伯蘭、亞伯拉罕的鞋子</div></div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;"><path d="M0,20 C480,80 960,0 1440,50 L1440,80 L0,80 Z" fill="#024a52"/></svg>
+
+<section id="preview">
+  <div class="container">
+    <div class="section-tag">第一課免費預覽</div>
+    <h2 class="section-title">先體驗，<em>再決定</em></h2>
+    <p class="section-sub">第一課完整開放預覽，不需要登入。</p>
+    <div class="series-banner">
+      <div class="series-banner-title">🚀 追光號系列：亞伯拉罕之約</div>
+      <div class="series-banner-meta">第一季 12 堂課 · 目前預覽第 1 堂<br/>完整系列涵蓋：呼召 · 信心 · 應許 · 祝福</div>
+    </div>
+    <div class="preview-tabs">
+      <button class="tab-btn active" onclick="switchTab(0)">課前預備</button>
+      <button class="tab-btn" onclick="switchTab(1)">暖身遊戲</button>
+      <button class="tab-btn" onclick="switchTab(2)">故事時間</button>
+      <button class="tab-btn" onclick="switchTab(3)">回應活動</button>
+    </div>
+    <div class="preview-panel active" id="tab-0">
+      <div class="preview-card">
+        <div class="preview-card-header"><div class="hicon">📋</div><div><h3>課前預備</h3><div class="meta">課程 01 ・ 探險家亞伯蘭（一）</div></div></div>
+        <div class="preview-card-body">
+          <div class="info-row"><span class="chip">📖 創 12:1–20</span><span class="chip">⏱ 60 分鐘</span><span class="chip">🎯 所有年齡</span></div>
+          <div class="info-box teal"><h4>課程主題</h4><p>跟熟悉的家鄉說再見</p></div>
+          <div class="info-box sand"><h4>課程目標</h4><p>協助孩子辨別習慣與不習慣的事，對亞伯蘭的處境更感同身受，進而思考面對未知挑戰的勇氣。</p></div>
+          <div class="info-box teal"><h4>本課包含</h4><ul><li>完整暖身遊戲教案（附老師引導語）</li><li>故事時間講義與互動提問</li><li>四種回應活動方案任選</li><li>金句卡片與背誦引導</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-panel" id="tab-1">
+      <div class="preview-card">
+        <div class="preview-card-header"><div class="hicon">🎮</div><div><h3>暖身遊戲：《上帝說...》</h3><div class="meta">課程 01 ・ 暖身環節</div></div></div>
+        <div class="preview-card-body">
+          <div class="info-row"><span class="chip">⏱ 20 分鐘</span><span class="chip">👥 團體互動</span></div>
+          <div class="info-box sand"><h4>所需教具</h4><ul><li>大小不一的娃娃（每人一個）</li><li>節奏感強的背景音樂</li><li>計時器（老師使用）</li></ul></div>
+          <div class="info-box teal"><h4>活動結語摘要</h4><p>「上帝有時會給我們不習慣的挑戰。就像遊戲裡抱著不熟悉的娃娃繼續走——亞伯蘭也是這樣，帶著上帝的話踏上了他不熟悉的旅程...」</p></div>
+          <div class="lock-row"><button class="lock-btn">🔒 完整教案 — 登入查看</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-panel" id="tab-2">
+      <div class="preview-card">
+        <div class="preview-card-header"><div class="hicon">📖</div><div><h3>故事時間</h3><div class="meta">課程 01 ・ 故事環節</div></div></div>
+        <div class="preview-card-body">
+          <div class="info-row"><span class="chip">⏱ 15 分鐘</span><span class="chip">📊 投影片輔助</span></div>
+          <div class="info-box teal"><h4>故事摘要</h4><p>探險家亞伯蘭接到上帝的指令，要他離開熟悉的家鄉、親人和朋友，前往一個他從未去過的地方。這對他來說不容易，但他選擇相信上帝...</p></div>
+          <div class="info-box sand"><h4>互動提問範例</h4><ul><li>「如果你是亞伯蘭，你會出發嗎？」</li><li>「什麼讓你覺得最難離開？」</li><li>「上帝說『我會祝福你』，你覺得這句話夠嗎？」</li></ul></div>
+          <div class="lock-row"><button class="lock-btn">🔒 完整故事投影片 — 登入查看</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-panel" id="tab-3">
+      <div class="preview-card">
+        <div class="preview-card-header"><div class="hicon">💬</div><div><h3>回應活動</h3><div class="meta">課程 01 ・ 回應環節（四選一）</div></div></div>
+        <div class="preview-card-body">
+          <p style="font-size:.9rem;color:var(--muted);margin-bottom:1.2rem;">依班級狀況與時間彈性選用，每份教案均包含完整流程與老師引導語。</p>
+          <div class="activity-grid">
+            <div class="activity-item"><span class="a-icon">🗺️</span>認識亞伯蘭</div>
+            <div class="activity-item"><span class="a-icon">👟</span>亞伯拉罕的鞋子</div>
+            <div class="activity-item"><span class="a-icon">🏠</span>離開舒適的家</div>
+            <div class="activity-item"><span class="a-icon">📚</span>查經</div>
+          </div>
+          <div class="lock-row"><button class="lock-btn">🔒 五份完整教案 — 登入查看</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;"><path d="M0,50 C360,0 1080,80 1440,30 L1440,80 L0,80 Z" fill="#f0f4fb"/></svg>
+
+<section id="testimonials">
+  <div class="container">
+    <div class="section-tag">使用者見證</div>
+    <h2 class="section-title">老師們<em>這樣說</em></h2>
+    <p class="section-sub">來自不同教會主日學老師的真實回饋。</p>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-text">「以前備課要花週六一整個下午，現在一個小時就準備好了。多出來的時間，我用來提前認識孩子的狀況。」</p><div class="testi-author">沛恩堂主日學老師・服事 3 年</div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-text">「孩子們特別喜歡暖身遊戲，每次都很期待主日學。老師也比較有餘力在課堂中真正回應孩子。」</p><div class="testi-author">台北某教會主日學老師・服事 5 年</div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-text">「教材神學內容讓我很放心，不用擔心自己聖經知識不足而教錯孩子。」</p><div class="testi-author">新手主日學老師・服事 1 年</div></div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-top:-2px;"><path d="M0,30 C480,80 960,0 1440,55 L1440,80 L0,80 Z" fill="#024a52"/></svg>
+
+<section id="apply">
+  <div class="container">
+    <div class="section-tag">申請流程</div>
+    <h2 class="section-title">三步驟，<em>開始使用</em></h2>
+    <p class="section-sub">審核通過後即可登入使用完整教材，全程免費試用。</p>
+    <div class="apply-steps">
+      <div class="apply-step"><div class="apply-num">1</div><h3>填寫教會申請表單</h3><p>告訴我們您的教會與班級狀況</p></div>
+      <div class="apply-step"><div class="apply-num">2</div><h3>等待審核開通</h3><p>我們將在 1–2 個工作天內審核並開通帳號</p></div>
+      <div class="apply-step"><div class="apply-num">3</div><h3>登入即可使用</h3><p>完整教材全部在線，隨時備課、隨時查看</p></div>
+    </div>
+    <div class="apply-cta"><a href="#" class="btn-cta">立即申請</a></div>
+  </div>
+  <div class="apply-horizon">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" width="100%" height="100%">
+      <path d="M0,50 C200,40 400,60 600,50 C800,40 1000,60 1200,50 C1320,44 1440,50 1440,50 L1440,80 L0,80 Z" fill="rgba(255,255,255,0.06)"/>
+      <path d="M0,62 C180,55 360,68 540,62 C720,56 900,68 1080,62 C1260,56 1380,64 1440,62 L1440,80 L0,80 Z" fill="rgba(255,255,255,0.04)"/>
+      <g transform="translate(698,6)">
+        <polygon points="2,46 2,-2 30,46" fill="rgba(255,255,255,0.09)"/>
+        <polygon points="0,46 0,12 -20,46" fill="rgba(255,255,255,0.07)"/>
+        <rect x="-22" y="46" width="56" height="9" rx="4" fill="rgba(255,255,255,0.09)"/>
+      </g>
+      <line x1="0" y1="50" x2="648" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="752" y1="50" x2="1440" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </svg>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">🧭 Wayfinder Kid</div>
+  <div class="footer-tag">每堂主日學，都是一場探險</div>
+  <div class="footer-divider"></div>
+  <ul class="footer-links">
+    <li><a href="#structure">教材列表</a></li><li><a href="#">師培文章</a></li><li><a href="#">神普文章</a></li><li><a href="#">About</a></li><li><a href="#">隱私政策</a></li><li><a href="#">使用條款</a></li>
+  </ul>
+  <p class="copyright">© 2026 Wayfinder Kid 版權所有</p>
+</footer>
+
+<div class="ver-switcher">
+  <div class="ver-panel" id="ver-panel">
+    <span class="ver-panel-label">切換風格</span>
+    <a class="ver-btn" href="wk_v1.html">🌊 Sea Mist 清淺</a>
+    <a class="ver-btn" href="wk_v2.html">🐠 Tropical Bright 活潑</a>
+    <a class="ver-btn" href="wk_v3.html">🏔️ Nature 自然</a>
+    <a class="ver-btn current" href="wk_v4.html">🌊 Deep Ocean 深邃</a>
+  </div>
+  <button class="ver-toggle" onclick="document.getElementById('ver-panel').classList.toggle('open')" title="切換風格">🎨</button>
+</div>
+
+<script>
+  function switchTab(idx) {
+    document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+    document.querySelectorAll('.preview-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  }
+</script>
+</body>
+</html>
