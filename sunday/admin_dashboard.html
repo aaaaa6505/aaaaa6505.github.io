@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We Wayfinders 後台管理系統</title>
+<style>
+:root {
+  --deep:#0D3B4F;
+  --navy:#1A5C7A;
+  --main:#3A9CC5;
+  --light:#5BB8DC;
+  --gold:#E8B84B;
+  --cream:#F2F7F9;
+  --bg:#EAF2F6;
+  --white:#FFFFFF;
+  --text:#1A2E38;
+  --muted:#5A7A8A;
+  --border:#C8DDE6;
+  --danger:#D94F4F;
+  --success:#3DA86A;
+  --warn:#E8A020;
+  --sidebar:240px;
+  --r:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--deep);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;}
+.sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.12);font-size:16px;font-weight:700;letter-spacing:.02em;}
+.sidebar-logo span{font-size:11px;font-weight:400;opacity:.6;display:block;margin-top:2px;}
+.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto;}
+.sidebar-nav a{display:flex;align-items:center;gap:10px;padding:10px 18px;color:rgba(255,255,255,.78);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;transition:background .15s,color .15s;}
+.sidebar-nav a:hover{background:var(--navy);color:#fff;}
+.sidebar-nav a.active{background:var(--navy);color:#fff;border-left-color:var(--gold);}
+.sidebar-nav a.disabled{opacity:.38;pointer-events:none;}
+.sidebar-nav .nav-section{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);padding:14px 18px 4px;}
+.sidebar-user{padding:14px 18px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7);}
+.sidebar-user .avatar{width:30px;height:30px;border-radius:50%;background:var(--navy);display:grid;place-items:center;font-size:13px;}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.topbar-title{font-size:16px;font-weight:600;}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.badge-notif{background:var(--danger);color:#fff;border-radius:99px;font-size:11px;padding:1px 6px;}
+.content{padding:28px;flex:1;}
+
+/* PAGE SECTIONS */
+.page{display:none;}
+.page.active{display:block;}
+
+/* CARDS ROW */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--white);border-radius:var(--r);padding:18px 20px;border:1px solid var(--border);}
+.stat-card .label{font-size:12px;color:var(--muted);margin-bottom:6px;}
+.stat-card .value{font-size:26px;font-weight:700;color:var(--deep);}
+.stat-card .sub{font-size:12px;color:var(--muted);margin-top:4px;}
+.stat-card .trend-up{color:var(--success);}
+.stat-card .trend-down{color:var(--danger);}
+
+/* TABLE */
+.card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:20px;}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-header h3{font-size:14px;font-weight:600;}
+.card-body{padding:0;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--cream);font-size:12px;font-weight:600;color:var(--muted);text-align:left;padding:10px 16px;border-bottom:1px solid var(--border);}
+td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#F8FBFD;}
+
+/* BADGES */
+.badge{display:inline-block;border-radius:99px;font-size:11px;font-weight:600;padding:2px 10px;}
+.badge-green{background:#DFF5EA;color:#1E7A47;}
+.badge-gray{background:#E8EEF2;color:#5A7A8A;}
+.badge-yellow{background:#FFF3D6;color:#9B6A00;}
+.badge-blue{background:#D6EEFA;color:#1A5C7A;}
+.badge-red{background:#FAE0E0;color:#A33030;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:opacity .15s;}
+.btn:hover{opacity:.88;}
+.btn-primary{background:var(--main);color:#fff;}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.btn-danger{background:var(--danger);color:#fff;}
+.btn-sm{padding:4px 10px;font-size:12px;}
+.btn-icon{background:transparent;border:none;cursor:pointer;padding:4px 6px;border-radius:4px;color:var(--muted);}
+.btn-icon:hover{background:var(--cream);color:var(--text);}
+
+/* TABS (course edit) */
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin-bottom:24px;gap:2px;}
+.tab-btn{padding:10px 18px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--main);border-bottom-color:var(--main);font-weight:600;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* FORMS */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted);}
+.form-group input,.form-group textarea,.form-group select{border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font-size:13px;font-family:inherit;background:var(--white);color:var(--text);transition:border-color .15s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--main);}
+.form-group textarea{min-height:120px;resize:vertical;}
+.rich-mock{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.rich-toolbar{background:var(--cream);border-bottom:1px solid var(--border);padding:8px 12px;display:flex;gap:6px;flex-wrap:wrap;}
+.rich-toolbar button{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:12px;cursor:pointer;color:var(--text);}
+.rich-toolbar button:hover{background:var(--bg);}
+.rich-body{padding:14px;min-height:160px;font-size:13.5px;line-height:1.7;color:var(--text);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:12px;padding:28px;max-width:560px;width:90%;position:relative;max-height:90vh;overflow-y:auto;}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:16px;}
+.modal-close{position:absolute;top:14px;right:16px;background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+.modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}
+
+/* SEARCH BAR */
+.search-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.search-bar input{flex:1;border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;font-size:13px;font-family:inherit;}
+.search-bar input:focus{outline:none;border-color:var(--main);}
+
+/* COURSE EDIT BACK */
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;cursor:pointer;margin-bottom:18px;text-decoration:none;}
+.back-link:hover{color:var(--text);}
+
+/* CONTACT EXPAND */
+.msg-body{background:var(--cream);border-radius:var(--r);padding:14px;margin-top:10px;font-size:13px;line-height:1.7;display:none;}
+.msg-body.open{display:block;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 20px;color:var(--muted);}
+.empty-state .icon{font-size:40px;margin-bottom:12px;}
+
+/* ARTICLE LIST (teacher) */
+.article-list{display:flex;flex-direction:column;gap:12px;}
+.article-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+.article-item .a-title{font-weight:600;font-size:13.5px;margin-bottom:4px;}
+.article-item .a-meta{font-size:12px;color:var(--muted);}
+.article-actions{display:flex;gap:8px;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">🧭 We Wayfinders<span>後台管理系統 v1.0</span></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">內容管理</div>
+    <a href="#" class="active" data-page="courses" onclick="showPage('courses',this)">📚 課程管理</a>
+    <a href="#" data-page="teacher" onclick="showPage('teacher',this)">📝 教師培力</a>
+    <div class="nav-section">用戶管理</div>
+    <a href="#" data-page="members" onclick="showPage('members',this)">👥 會員管理</a>
+    <a href="#" data-page="contact" onclick="showPage('contact',this)">📬 聯絡表單</a>
+    <div class="nav-section">系統</div>
+    <a href="#" class="disabled">📊 數據分析（開發中）</a>
+    <a href="#" class="disabled">⚙️ 網站設定（開發中）</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="avatar">👤</div>
+    <div>
+      <div style="font-size:13px;color:#fff;font-weight:500;">管理員 Admin</div>
+      <div style="font-size:11px;opacity:.55;">samuel.wang@104.com.tw</div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="page-title">課程管理</div>
+    <div class="topbar-right">
+      <span style="font-size:13px;color:var(--muted);">今日：2026/07/20</span>
+      <span class="badge-notif">3</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- ===== PAGE: COURSES ===== -->
+    <div class="page active" id="page-courses">
+      <!-- Stat row -->
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="label">課程總數</div>
+          <div class="value">12</div>
+          <div class="sub">上架 1 ／ 草稿 11</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">本月訂閱教會</div>
+          <div class="value">8</div>
+          <div class="sub trend-up">↑ 2 較上月</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">素材下載次數</div>
+          <div class="value">247</div>
+          <div class="sub trend-up">↑ 31 本週</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">待審核提交</div>
+          <div class="value">3</div>
+          <div class="sub trend-down">請盡快處理</div>
+        </div>
+      </div>
+      <!-- Course table -->
+      <div class="card">
+        <div class="card-header">
+          <h3>課程列表</h3>
+          <button class="btn btn-primary" onclick="showCourseEdit(null)">＋ 新增課程</button>
+        </div>
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr>
+                <th>課程名稱</th>
+                <th>系列</th>
+                <th>對象年齡</th>
+                <th>狀態</th>
+                <th>最後更新</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>耶穌與小孩 — 主日01</strong></td>
+                <td>耶穌故事系列</td>
+                <td>4–6 歲</td>
+                <td><span class="badge badge-green">已上架</span></td>
+                <td>2026/07/15</td>
+                <td>
+                  <button class="btn btn-sm btn-outline" onclick="showCourseEdit('01')">編輯</button>
+                  <button class="btn btn-sm btn-icon">👁</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>耶穌餵飽五千人 — 主日02</strong></td>
+                <td>耶穌故事系列</td>
+                <td>4–6 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/07/10</td>
+                <td>
+                  <button class="btn btn-sm btn-outline" onclick="showCourseEdit('02')">編輯</button>
+                  <button class="btn btn-sm btn-icon">👁</button>
+                </td>
+              </tr>
+              <tr>
+                <td>浪子回頭 — 主日03</td>
+                <td>比喻系列</td>
+                <td>7–9 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/07/02</td>
+                <td>
+                  <button class="btn btn-sm btn-outline" onclick="showCourseEdit('03')">編輯</button>
+                  <button class="btn btn-sm btn-icon">👁</button>
+                </td>
+              </tr>
+              <tr>
+                <td>好撒瑪利亞人 — 主日04</td>
+                <td>比喻系列</td>
+                <td>7–9 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/06/28</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('04')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>大衛與歌利亞 — 主日05</td>
+                <td>舊約英雄系列</td>
+                <td>7–9 歲</td>
+                <td><span class="badge badge-yellow">審核中</span></td>
+                <td>2026/06/20</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('05')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>約瑟的彩衣 — 主日06</td>
+                <td>舊約英雄系列</td>
+                <td>10–12 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/06/15</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('06')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>摩西出埃及 — 主日07</td>
+                <td>舊約英雄系列</td>
+                <td>10–12 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/06/10</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('07')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>以利亞與假先知 — 主日08</td>
+                <td>先知系列</td>
+                <td>10–12 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/06/01</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('08')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>以斯帖的勇氣 — 主日09</td>
+                <td>先知系列</td>
+                <td>10–12 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/05/25</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('09')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>保羅的宣教旅程 — 主日10</td>
+                <td>新約使徒系列</td>
+                <td>10–12 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/05/18</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('10')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>啟示錄 — 主日11</td>
+                <td>新約使徒系列</td>
+                <td>10–12 歲</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/05/10</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('11')">編輯</button></td>
+              </tr>
+              <tr>
+                <td>聖誕特別課 — 主日12</td>
+                <td>節期系列</td>
+                <td>全年齡</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/05/05</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('12')">編輯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: COURSE EDIT ===== -->
+    <div class="page" id="page-course-edit">
+      <a class="back-link" onclick="showPage('courses',null,true)">← 返回課程列表</a>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 id="edit-course-title" style="font-size:18px;font-weight:700;">編輯課程：耶穌與小孩 — 主日01</h2>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-outline">儲存草稿</button>
+          <button class="btn btn-primary">送出審核</button>
+        </div>
+      </div>
+
+      <!-- 6 tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="showTab('tab-prep',this)">課前預備</button>
+        <button class="tab-btn" onclick="showTab('tab-warmup',this)">暖身活動</button>
+        <button class="tab-btn" onclick="showTab('tab-story',this)">故事時間</button>
+        <button class="tab-btn" onclick="showTab('tab-response',this)">回應活動</button>
+        <button class="tab-btn" onclick="showTab('tab-video',this)">影片</button>
+        <button class="tab-btn" onclick="showTab('tab-verse',this)">背金句</button>
+      </div>
+
+      <!-- Tab: 課前預備 -->
+      <div class="tab-panel active" id="tab-prep">
+        <div class="form-row">
+          <div class="form-group">
+            <label>課程主題</label>
+            <input type="text" value="耶穌喜愛小孩">
+          </div>
+          <div class="form-group">
+            <label>適用年齡</label>
+            <select>
+              <option>4–6 歲（幼兒班）</option>
+              <option>7–9 歲（兒童班）</option>
+              <option>10–12 歲（少年班）</option>
+              <option>全年齡混合</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>對應聖經章節</label>
+            <input type="text" value="馬可福音 10:13–16">
+          </div>
+          <div class="form-group">
+            <label>課程時長（分鐘）</label>
+            <input type="number" value="45">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>教師簡介 / 教學目標</label>
+          <textarea>本課旨在幫助孩子理解：耶穌看重每一個孩子，接納他們進入神的國。教師應創造安全溫暖的課堂氛圍，讓孩子感受被愛。</textarea>
+        </div>
+        <div class="form-group">
+          <label>準備材料清單</label>
+          <textarea style="min-height:80px;">□ 聖經（每位孩子一本或投影）\n□ 彩色貼紙（每人 5–8 張）\n□ A4 白紙（每人一張）\n□ 彩色筆或蠟筆\n□ 課程故事圖卡（附件一）</textarea>
+        </div>
+      </div>
+
+      <!-- Tab: 暖身活動 -->
+      <div class="tab-panel" id="tab-warmup">
+        <div class="form-group">
+          <label>活動名稱</label>
+          <input type="text" value="「我是誰的朋友？」破冰遊戲">
+        </div>
+        <div class="form-group">
+          <label>活動說明</label>
+          <div class="rich-mock">
+            <div class="rich-toolbar">
+              <button><b>B</b></button><button><i>I</i></button><button>• 清單</button><button>1. 清單</button><button>連結</button><button>圖片</button>
+            </div>
+            <div class="rich-body">
+              <p>請孩子圍坐成一圈，老師示範：拿一顆球，說「我喜歡___」然後傳給旁邊的人。</p>
+              <p style="margin-top:8px;">進行 2–3 輪後，老師過渡：「今天耶穌也想認識一些小朋友，我們來看看發生了什麼事！」</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>預計時長</label>
+          <input type="text" value="5–7 分鐘">
+        </div>
+      </div>
+
+      <!-- Tab: 故事時間 -->
+      <div class="tab-panel" id="tab-story">
+        <div class="form-group">
+          <label>故事腳本</label>
+          <div class="rich-mock">
+            <div class="rich-toolbar">
+              <button><b>B</b></button><button><i>I</i></button><button>• 清單</button><button>H2</button><button>H3</button><button>連結</button><button>圖片</button><button>引用</button>
+            </div>
+            <div class="rich-body">
+              <p><strong>【開場】</strong> 老師問：「你們曾經有過被忽略的感覺嗎？」（停頓，讓孩子回答）</p>
+              <p style="margin-top:10px;"><strong>【讀經】</strong> 打開馬可福音 10:13，一起讀：「有人帶著小孩子來見耶穌，要耶穌摸他們，門徒就責備那些人。」</p>
+              <p style="margin-top:10px;"><strong>【問答】</strong> 門徒為什麼要阻止孩子？（讓學生猜測原因）</p>
+              <p style="margin-top:10px;"><strong>【高潮】</strong> 繼續讀 10:14：「耶穌看見就惱怒，對門徒說：讓小孩子到我這裡來，不要禁止他們⋯⋯」</p>
+              <p style="margin-top:10px;"><strong>【回應】</strong> 「所以耶穌覺得你們重要嗎？」引導孩子肯定回答。</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>互動問題（課堂討論）</label>
+          <textarea>1. 你覺得耶穌為什麼要讓孩子過來？\n2. 如果你當時在場，你會怎麼感覺？\n3. 耶穌說的「神的國」是什麼意思？</textarea>
+        </div>
+      </div>
+
+      <!-- Tab: 回應活動 -->
+      <div class="tab-panel" id="tab-response">
+        <div class="form-group">
+          <label>活動名稱</label>
+          <input type="text" value="「耶穌愛我」手印卡製作">
+        </div>
+        <div class="form-group">
+          <label>活動步驟</label>
+          <textarea>1. 每位孩子拿一張 A4 白紙，用顏料（或彩色筆）印上自己的手印。\n2. 在手印旁邊寫上自己的名字。\n3. 老師在每張卡上寫：「耶穌認識你，耶穌愛你。」\n4. 讓孩子帶回家分享給家人。</textarea>
+        </div>
+        <div class="form-group">
+          <label>帶領禱告</label>
+          <textarea style="min-height:80px;">親愛的主耶穌，謝謝你愛我們每一個人。謝謝你讓我們知道，我們對你很重要。請幫助我們記住，無論走到哪裡，你都與我們同在。奉耶穌的名，阿們。</textarea>
+        </div>
+      </div>
+
+      <!-- Tab: 影片 -->
+      <div class="tab-panel" id="tab-video">
+        <div class="form-group">
+          <label>教學影片連結（Google Drive / YouTube）</label>
+          <input type="text" value="https://drive.google.com/file/d/XXXXXXXXXXXXXXXX/preview" placeholder="貼上影片連結">
+        </div>
+        <div class="form-group">
+          <label>影片說明</label>
+          <input type="text" value="故事時間動畫版（5:30），建議在讀經後播放">
+        </div>
+        <div style="background:var(--cream);border-radius:var(--r);padding:24px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--border);">
+          📎 上傳輔助素材（圖卡 PDF、活動單張⋯）<br>
+          <button class="btn btn-outline" style="margin-top:12px;">選擇檔案</button>
+        </div>
+      </div>
+
+      <!-- Tab: 背金句 -->
+      <div class="tab-panel" id="tab-verse">
+        <div class="form-group">
+          <label>本課金句</label>
+          <input type="text" value="讓小孩子到我這裡來，不要禁止他們；因為在神國的，正是這樣的人。（馬可福音 10:14）">
+        </div>
+        <div class="form-group">
+          <label>記憶技巧 / 動作提示</label>
+          <textarea>將金句拆成三段配動作：\n「讓小孩子到我這裡來」→ 張開雙臂\n「不要禁止他們」→ 搖搖食指\n「因為在神國的，正是這樣的人」→ 指向天空再指向自己</textarea>
+        </div>
+        <div class="form-group">
+          <label>複習遊戲說明</label>
+          <textarea style="min-height:80px;">「遮字遊戲」：將金句投影，每輪遮住一個詞，讓孩子從記憶中填入。遮越多越難，看哪組最快背完整句。</textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: TEACHER ===== -->
+    <div class="page" id="page-teacher">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:18px;font-weight:700;">教師培力文章</h2>
+        <button class="btn btn-primary">＋ 新增文章</button>
+      </div>
+      <div class="article-list">
+        <div class="article-item">
+          <div>
+            <div class="a-title">如何在 30 分鐘內讓孩子專注聆聽聖經故事</div>
+            <div class="a-meta">發佈：2026/07/01 ｜ <span class="badge badge-green">已上架</span> ｜ 閱讀 142 次</div>
+          </div>
+          <div class="article-actions">
+            <button class="btn btn-sm btn-outline" onclick="showTeacherEdit()">編輯</button>
+            <button class="btn btn-sm btn-icon">👁</button>
+          </div>
+        </div>
+        <div class="article-item">
+          <div>
+            <div class="a-title">帶領年齡混合班的 5 個小訣竅</div>
+            <div class="a-meta">發佈：2026/06/15 ｜ <span class="badge badge-green">已上架</span> ｜ 閱讀 98 次</div>
+          </div>
+          <div class="article-actions">
+            <button class="btn btn-sm btn-outline" onclick="showTeacherEdit()">編輯</button>
+            <button class="btn btn-sm btn-icon">👁</button>
+          </div>
+        </div>
+        <div class="article-item">
+          <div>
+            <div class="a-title">當孩子問難題：「神為什麼讓壞事發生？」教師應對指引</div>
+            <div class="a-meta">更新：2026/06/01 ｜ <span class="badge badge-yellow">審核中</span> ｜ 閱讀 0 次</div>
+          </div>
+          <div class="article-actions">
+            <button class="btn btn-sm btn-outline" onclick="showTeacherEdit()">編輯</button>
+          </div>
+        </div>
+        <div class="article-item">
+          <div>
+            <div class="a-title">新手教師入門：第一堂課怎麼準備</div>
+            <div class="a-meta">更新：2026/05/20 ｜ <span class="badge badge-gray">草稿</span> ｜ 閱讀 0 次</div>
+          </div>
+          <div class="article-actions">
+            <button class="btn btn-sm btn-outline" onclick="showTeacherEdit()">編輯</button>
+          </div>
+        </div>
+        <div class="article-item">
+          <div>
+            <div class="a-title">主日學的神學基礎：為什麼要教導孩子信仰？</div>
+            <div class="a-meta">更新：2026/05/05 ｜ <span class="badge badge-gray">草稿</span> ｜ 閱讀 0 次</div>
+          </div>
+          <div class="article-actions">
+            <button class="btn btn-sm btn-outline" onclick="showTeacherEdit()">編輯</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher article edit (hidden by default) -->
+      <div id="teacher-edit-section" style="display:none;margin-top:28px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <h3 style="font-size:16px;font-weight:700;">編輯文章</h3>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-outline" onclick="hideTeacherEdit()">取消</button>
+            <button class="btn btn-outline">儲存草稿</button>
+            <button class="btn btn-primary">送出審核</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>文章標題</label>
+          <input type="text" value="如何在 30 分鐘內讓孩子專注聆聽聖經故事">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>分類標籤</label>
+            <select><option>教學技巧</option><option>班級經營</option><option>神學裝備</option><option>新手入門</option></select>
+          </div>
+          <div class="form-group">
+            <label>閱讀時間（分鐘）</label>
+            <input type="number" value="5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>文章內容</label>
+          <div class="rich-mock">
+            <div class="rich-toolbar">
+              <button><b>B</b></button><button><i>I</i></button><button>H2</button><button>H3</button><button>• 清單</button><button>1. 清單</button><button>引用</button><button>連結</button><button>圖片</button>
+            </div>
+            <div class="rich-body">
+              <h3 style="font-size:15px;margin-bottom:8px;">前言</h3>
+              <p>很多教師反映，課堂最難的不是備課，而是「讓孩子好好坐著聽」。本文整理了五個經過實測的技巧，幫助你在有限時間內抓住孩子的注意力。</p>
+              <h3 style="font-size:15px;margin:14px 0 8px;">1. 以問題開場，而非答案</h3>
+              <p>不要一開口就說「今天我們來學⋯⋯」。改用一個孩子能回答的問題開場，立即激活他們的參與感。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: MEMBERS ===== -->
+    <div class="page" id="page-members">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:18px;font-weight:700;">會員管理</h2>
+        <button class="btn btn-primary" onclick="openModal('modal-add-account')">＋ 新增帳號</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜尋教會名稱、Email⋯">
+        <button class="btn btn-outline">搜尋</button>
+        <select style="border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font-size:13px;font-family:inherit;">
+          <option>全部狀態</option>
+          <option>訂閱中</option>
+          <option>試用中</option>
+          <option>已過期</option>
+        </select>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr>
+                <th>教會 / 機構</th>
+                <th>管理員 Email</th>
+                <th>方案</th>
+                <th>狀態</th>
+                <th>子帳號</th>
+                <th>到期日</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>台北恩典教會</strong></td>
+                <td>grace@grace-taipei.org</td>
+                <td>標準版</td>
+                <td><span class="badge badge-green">訂閱中</span></td>
+                <td><a href="#" onclick="openModal('modal-subaccounts');return false;" style="color:var(--main);">3 個帳號</a></td>
+                <td>2027/01/31</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td><strong>新竹光明堂</strong></td>
+                <td>info@hsinchu-light.tw</td>
+                <td>標準版</td>
+                <td><span class="badge badge-green">訂閱中</span></td>
+                <td><a href="#" onclick="openModal('modal-subaccounts');return false;" style="color:var(--main);">2 個帳號</a></td>
+                <td>2026/12/31</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td><strong>基隆聖光教會</strong></td>
+                <td>keelung.sg@gmail.com</td>
+                <td>試用版</td>
+                <td><span class="badge badge-blue">試用中</span></td>
+                <td>1 個帳號</td>
+                <td>2026/07/31</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td><strong>高雄迦南教會</strong></td>
+                <td>canaan.ks@church.tw</td>
+                <td>標準版</td>
+                <td><span class="badge badge-green">訂閱中</span></td>
+                <td><a href="#" onclick="openModal('modal-subaccounts');return false;" style="color:var(--main);">5 個帳號</a></td>
+                <td>2026/11/30</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td><strong>台中橄欖山教會</strong></td>
+                <td>olive.tc@olivechurch.tw</td>
+                <td>試用版</td>
+                <td><span class="badge badge-yellow">試用到期</span></td>
+                <td>1 個帳號</td>
+                <td>2026/06/30</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td>嘉義真光教會</td>
+                <td>light.chiayi@true.org</td>
+                <td>標準版</td>
+                <td><span class="badge badge-green">訂閱中</span></td>
+                <td>2 個帳號</td>
+                <td>2027/03/31</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td>桃園以馬內利教會</td>
+                <td>emm.tynm@emmanuel.tw</td>
+                <td>標準版</td>
+                <td><span class="badge badge-green">訂閱中</span></td>
+                <td>4 個帳號</td>
+                <td>2026/09/30</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+              <tr>
+                <td>花蓮平和教會</td>
+                <td>peace.hl@gmail.com</td>
+                <td>試用版</td>
+                <td><span class="badge badge-red">已停用</span></td>
+                <td>1 個帳號</td>
+                <td>2026/05/15</td>
+                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: CONTACT ===== -->
+    <div class="page" id="page-contact">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:18px;font-weight:700;">聯絡表單 <span style="font-size:13px;font-weight:400;color:var(--muted);">（共 18 筆）</span></h2>
+        <div style="display:flex;gap:10px;">
+          <select style="border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font-size:13px;font-family:inherit;">
+            <option>全部</option>
+            <option>未回覆</option>
+            <option>已回覆</option>
+          </select>
+          <button class="btn btn-outline">匯出 CSV</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr>
+                <th>教會 / 聯絡人</th>
+                <th>Email</th>
+                <th>詢問類型</th>
+                <th>狀態</th>
+                <th>收到時間</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="contact-table-body">
+              <tr>
+                <td><strong>台南以琳教會</strong><br><small style="color:var(--muted);">陳宗翰執事</small></td>
+                <td>zonghan@elim-tainan.tw</td>
+                <td>申請試用</td>
+                <td><span class="badge badge-yellow">未回覆</span></td>
+                <td>2026/07/19 14:32</td>
+                <td><button class="btn btn-sm btn-outline" onclick="toggleMsg(this)">展開</button></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="padding:0 16px;">
+                  <div class="msg-body">我們是台南在地的教會，主日學目前有 25 位孩童（4–12 歲混齡），想試用貴平台的教材。請問試用期可以使用哪些課程？以及正式訂閱的費用方案為何？感謝！</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>苗栗希望教會</strong><br><small style="color:var(--muted);">林美珍傳道</small></td>
+                <td>hope.miaoli@church.org</td>
+                <td>課程問題</td>
+                <td><span class="badge badge-yellow">未回覆</span></td>
+                <td>2026/07/18 09:15</td>
+                <td><button class="btn btn-sm btn-outline" onclick="toggleMsg(this)">展開</button></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="padding:0 16px;">
+                  <div class="msg-body">請問「耶穌與小孩」這堂課有沒有 PowerPoint 版的素材？我們教室沒有辦法直接播放影片，希望能有靜態圖卡或 PPT。謝謝。</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>彰化光鹽教會</strong><br><small style="color:var(--muted);">王志明主任</small></td>
+                <td>wangzm@lightsalt.org.tw</td>
+                <td>申請試用</td>
+                <td><span class="badge badge-green">已回覆</span></td>
+                <td>2026/07/15 16:44</td>
+                <td><button class="btn btn-sm btn-outline" onclick="toggleMsg(this)">展開</button></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="padding:0 16px;">
+                  <div class="msg-body">您好！我們看到 We Wayfinders 的介紹，覺得理念很符合我們教會對主日學的想法。我們有 3 位老師、約 18 個孩子，想了解如何申請試用，以及試用後如何升級。</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>宜蘭錫安教會</strong><br><small style="color:var(--muted);">蔡靜雯老師</small></td>
+                <td>zion.yilan@gmail.com</td>
+                <td>合作洽談</td>
+                <td><span class="badge badge-green">已回覆</span></td>
+                <td>2026/07/12 11:20</td>
+                <td><button class="btn btn-sm btn-outline" onclick="toggleMsg(this)">展開</button></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="padding:0 16px;">
+                  <div class="msg-body">我本身有多年主日學教學經驗，也有撰寫教材的背景，想了解 We Wayfinders 是否有接受外部教材投稿或合作創作的機制。</div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>個人 / 志工老師</strong><br><small style="color:var(--muted);">黃小玲</small></td>
+                <td>sylvia.h@gmail.com</td>
+                <td>一般詢問</td>
+                <td><span class="badge badge-green">已回覆</span></td>
+                <td>2026/07/08 20:05</td>
+                <td><button class="btn btn-sm btn-outline" onclick="toggleMsg(this)">展開</button></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="padding:0 16px;">
+                  <div class="msg-body">請問如果我只是個人老師，沒有代表教會，可以訂閱嗎？我在幾個教會兼任，想自己付費使用。</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ===== MODALS ===== -->
+
+<!-- Sub-accounts modal -->
+<div class="modal-overlay" id="modal-subaccounts">
+  <div class="modal" style="max-width:640px;">
+    <button class="modal-close" onclick="closeModal('modal-subaccounts')">✕</button>
+    <h3>台北恩典教會 — 子帳號管理</h3>
+    <table style="margin-bottom:16px;">
+      <thead>
+        <tr><th>姓名</th><th>Email</th><th>角色</th><th>狀態</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>張雅婷（主管理員）</td>
+          <td>grace@grace-taipei.org</td>
+          <td>管理員</td>
+          <td><span class="badge badge-green">啟用</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>李建宏</td>
+          <td>jianhong.li@grace-taipei.org</td>
+          <td>教師</td>
+          <td><span class="badge badge-green">啟用</span></td>
+          <td><button class="btn btn-sm btn-icon">停用</button></td>
+        </tr>
+        <tr>
+          <td>吳美芳</td>
+          <td>meifang@grace-taipei.org</td>
+          <td>教師</td>
+          <td><span class="badge badge-green">啟用</span></td>
+          <td><button class="btn btn-sm btn-icon">停用</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-subaccounts')">關閉</button>
+      <button class="btn btn-primary">新增子帳號</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add account modal -->
+<div class="modal-overlay" id="modal-add-account">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-add-account')">✕</button>
+    <h3>新增帳號</h3>
+    <div class="form-group">
+      <label>教會 / 機構名稱</label>
+      <input type="text" placeholder="台北恩典教會">
+    </div>
+    <div class="form-group">
+      <label>管理員 Email</label>
+      <input type="email" placeholder="admin@church.org">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>方案</label>
+        <select><option>試用版（30天）</option><option>標準版</option></select>
+      </div>
+      <div class="form-group">
+        <label>初始子帳號數量</label>
+        <input type="number" value="1" min="1" max="20">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>備註</label>
+      <input type="text" placeholder="（選填）申請來源或特殊需求">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-add-account')">取消</button>
+      <button class="btn btn-primary">建立帳號並寄送邀請信</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const pageTitles = {
+  courses: '課程管理',
+  teacher: '教師培力',
+  members: '會員管理',
+  contact: '聯絡表單',
+  'course-edit': '課程編輯'
+};
+
+function showPage(name, linkEl, skipNavHighlight) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('page-title').textContent = pageTitles[name] || name;
+  if (!skipNavHighlight && linkEl) {
+    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+    linkEl.classList.add('active');
+  }
+}
+
+function showCourseEdit(num) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-course-edit').classList.add('active');
+  document.getElementById('page-title').textContent = '課程編輯';
+  const titles = {
+    '01':'耶穌與小孩 — 主日01',
+    '02':'耶穌餵飽五千人 — 主日02',
+    '03':'浪子回頭 — 主日03',
+    '04':'好撒瑪利亞人 — 主日04',
+    '05':'大衛與歌利亞 — 主日05',
+    '06':'約瑟的彩衣 — 主日06',
+    '07':'摩西出埃及 — 主日07',
+    '08':'以利亞與假先知 — 主日08',
+    '09':'以斯帖的勇氣 — 主日09',
+    '10':'保羅的宣教旅程 — 主日10',
+    '11':'啟示錄 — 主日11',
+    '12':'聖誕特別課 — 主日12',
+  };
+  document.getElementById('edit-course-title').textContent = '編輯課程：' + (num ? titles[num] : '新課程');
+  // reset to first tab
+  showTab('tab-prep', document.querySelector('.tab-btn'));
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+});
+
+function toggleMsg(btn) {
+  const row = btn.closest('tr').nextElementSibling;
+  const body = row.querySelector('.msg-body');
+  const open = body.classList.toggle('open');
+  btn.textContent = open ? '收起' : '展開';
+}
+
+function showTeacherEdit() {
+  document.getElementById('teacher-edit-section').style.display = 'block';
+}
+function hideTeacherEdit() {
+  document.getElementById('teacher-edit-section').style.display = 'none';
+}
+</script>
+</body>
+</html>

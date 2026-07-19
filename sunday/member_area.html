@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We Wayfinders — 登入後專區</title>
+<style>
+:root {
+  --deep:   #0D3B4F;
+  --navy:   #1A5C7A;
+  --main:   #3A9CC5;
+  --gold:   #E8B84B;
+  --cream:  #F2F7F9;
+  --white:  #FFFFFF;
+  --border: #E2E8F0;
+  --text:   #1E293B;
+  --muted:  #64748B;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; }
+body { font-family: 'Noto Sans TC', 'PingFang TC', system-ui, sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+/* ── NAV ── */
+nav {
+  background: var(--deep);
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center;
+  padding: 0 36px; height: 58px; gap: 28px;
+}
+.nav-logo { color: #fff; font-size: 17px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.nav-links { display: flex; gap: 6px; flex: 1; list-style: none; }
+.nav-links a { color: rgba(255,255,255,.75); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 14px; transition: background .15s, color .15s; }
+.nav-links a:hover { background: var(--navy); color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 10px; position: relative; }
+.nav-account-btn {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 13.5px;
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
+  font-family: inherit;
+}
+.nav-account-btn:hover { background: var(--navy); }
+.nav-logout { background: transparent; border: 1px solid rgba(255,255,255,.3); color: rgba(255,255,255,.8); padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; font-family: inherit; }
+.nav-logout:hover { background: rgba(255,255,255,.08); }
+.dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 8px); right: 0;
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12); min-width: 160px; overflow: hidden;
+}
+.dropdown-menu.open { display: block; }
+.dropdown-menu a { display: block; padding: 11px 16px; font-size: 13.5px; color: var(--text); text-decoration: none; }
+.dropdown-menu a:hover { background: var(--cream); }
+
+/* ── PAGE SHELL ── */
+.page { display: none; }
+.page.active { display: block; }
+.container { max-width: 1100px; margin: 0 auto; padding: 36px 24px; }
+
+/* ── WELCOME ── */
+.welcome-bar {
+  background: linear-gradient(120deg, var(--deep) 0%, var(--navy) 100%);
+  color: #fff; border-radius: 14px; padding: 28px 32px; margin-bottom: 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.welcome-bar h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.welcome-bar p { font-size: 13.5px; opacity: .75; }
+.welcome-tag { background: rgba(255,255,255,.15); border-radius: 20px; padding: 5px 14px; font-size: 12.5px; white-space: nowrap; }
+
+/* ── SERIES HEADER ── */
+.series-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.series-icon { font-size: 26px; }
+.series-header h2 { font-size: 19px; font-weight: 700; }
+.series-header p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.series-badge { background: var(--main); color: #fff; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+
+/* ── COURSE GRID ── */
+.course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+@media (max-width: 900px) { .course-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.course-card {
+  background: var(--white); border-radius: 12px; border: 1px solid var(--border);
+  overflow: hidden; cursor: pointer; transition: transform .2s, box-shadow .2s;
+  display: flex; flex-direction: column;
+}
+.course-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(13,59,79,.12); }
+.course-card.locked { cursor: default; opacity: .7; }
+.course-card.locked:hover { transform: none; box-shadow: none; }
+
+.card-top { background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 100%); padding: 18px 16px 14px; position: relative; min-height: 80px; }
+.card-num {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(255,255,255,.18); color: #fff; border-radius: 20px;
+  font-size: 11px; font-weight: 700; padding: 2px 8px; letter-spacing: .03em;
+}
+.card-locked-badge {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--gold); color: var(--deep); border-radius: 20px;
+  font-size: 10.5px; font-weight: 700; padding: 2px 8px;
+}
+.card-title { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.4; }
+.card-slogan { color: rgba(255,255,255,.7); font-size: 11.5px; margin-top: 4px; }
+.card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.card-modules { display: flex; gap: 8px; flex-wrap: wrap; }
+.module-chip { font-size: 11px; color: var(--muted); background: var(--cream); border-radius: 20px; padding: 2px 8px; }
+.card-enter { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
+.btn-enter { font-size: 13px; font-weight: 600; color: var(--main); background: transparent; border: none; cursor: pointer; padding: 0; font-family: inherit; }
+.btn-enter:hover { color: var(--navy); }
+.card-preparing { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── SINGLE COURSE ── */
+.breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.breadcrumb a { color: var(--main); cursor: pointer; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.course-header { margin-bottom: 28px; }
+.course-series-badge { display: inline-block; background: var(--main); color: #fff; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+.course-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+.course-header .slogan { font-size: 15px; color: var(--muted); margin-bottom: 12px; }
+.course-meta { display: flex; gap: 20px; font-size: 13px; color: var(--muted); }
+.course-meta span { display: flex; align-items: center; gap: 5px; }
+
+/* ── TABS ── */
+.tab-bar { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 28px; gap: 0; overflow-x: auto; }
+.tab-btn {
+  padding: 11px 20px; font-size: 14px; cursor: pointer; border: none;
+  background: transparent; color: var(--muted);
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: color .15s; white-space: nowrap; font-family: inherit;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--main); border-bottom-color: var(--main); font-weight: 600; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── CONTENT COMPONENTS ── */
+.info-card {
+  background: #EBF6FC; border-left: 4px solid var(--main);
+  border-radius: 0 var(--r) var(--r) 0; padding: 16px 20px; margin-bottom: 22px;
+}
+.info-card .label { font-size: 11px; font-weight: 700; color: var(--main); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.info-card p { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+.section-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--border); margin-bottom: 20px; overflow: hidden; }
+.section-card-header { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.section-card-header h3 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.section-card-body { padding: 0 20px 20px; border-top: 1px solid var(--border); }
+.section-card-body.hidden { display: none; }
+.chevron { font-size: 12px; color: var(--muted); transition: transform .2s; }
+.chevron.open { transform: rotate(180deg); }
+
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; padding-top: 16px; }
+.checklist li { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.checklist input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--main); cursor: pointer; flex-shrink: 0; }
+
+.quote-block {
+  border-left: 4px solid var(--gold); padding: 14px 20px;
+  background: #FFFBEF; border-radius: 0 var(--r) var(--r) 0;
+  font-size: 14px; line-height: 1.8; color: var(--text);
+  font-style: italic; margin-bottom: 20px;
+}
+
+.read-more-text { overflow: hidden; transition: max-height .35s ease; }
+.read-more-btn { font-size: 13px; color: var(--main); background: transparent; border: none; cursor: pointer; padding: 0; font-family: inherit; margin-top: 8px; display: block; }
+
+/* WARMUP */
+.meta-row { display: flex; gap: 18px; font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.meta-row span { display: flex; align-items: center; gap: 5px; }
+.supply-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.supply-list li { font-size: 14px; display: flex; align-items: flex-start; gap: 8px; }
+.supply-list li::before { content: '•'; color: var(--main); font-weight: 700; flex-shrink: 0; }
+.attach-row { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 16px; }
+.attach-btn {
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 10px 16px; font-size: 13px; background: var(--white);
+  cursor: pointer; color: var(--text); font-family: inherit;
+}
+.attach-btn:hover { background: var(--cream); }
+.attach-btn .dl-label { font-size: 11px; background: var(--main); color: #fff; border-radius: 4px; padding: 1px 6px; margin-left: 4px; }
+
+/* STORY */
+.ppt-viewer {
+  aspect-ratio: 16/9; background: #1E293B; border-radius: var(--r);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.45); font-size: 15px; position: relative;
+  margin-bottom: 10px; overflow: hidden;
+}
+.ppt-viewer .ppt-title { font-size: 17px; font-weight: 600; color: rgba(255,255,255,.7); margin-bottom: 8px; }
+.ppt-no-dl { position: absolute; bottom: 12px; right: 14px; font-size: 12px; color: #F87171; }
+
+/* VIDEO */
+.video-player {
+  aspect-ratio: 16/9; background: #0A1929; border-radius: var(--r);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; margin-bottom: 12px; cursor: pointer; overflow: hidden;
+}
+.play-btn {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(255,255,255,.18); border: 3px solid rgba(255,255,255,.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; color: #fff; transition: background .2s;
+}
+.video-player:hover .play-btn { background: rgba(255,255,255,.28); }
+.progress-bar-mock { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: rgba(255,255,255,.15); }
+.progress-fill { height: 100%; width: 0%; background: var(--main); border-radius: 2px; transition: width 1s linear; }
+.video-no-dl { position: absolute; bottom: 16px; right: 14px; font-size: 12px; color: #F87171; }
+
+/* VERSE */
+.verse-card {
+  background: var(--deep); color: #fff; border-radius: 14px;
+  padding: 36px 32px; text-align: center; margin-bottom: 24px;
+}
+.verse-text { font-size: 20px; line-height: 1.8; font-weight: 600; letter-spacing: .02em; min-height: 80px; }
+.verse-text .blank { display: inline-block; border-bottom: 2px solid rgba(255,255,255,.4); min-width: 60px; }
+.verse-ref { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 12px; }
+.verse-modes { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+.mode-btn {
+  padding: 8px 20px; border-radius: 20px; font-size: 13.5px; font-weight: 500;
+  border: 2px solid var(--border); background: var(--white); color: var(--muted);
+  cursor: pointer; font-family: inherit; transition: all .15s;
+}
+.mode-btn.active { border-color: var(--main); color: var(--main); background: #EBF6FC; }
+.fullscreen-btn {
+  display: block; margin: 0 auto; padding: 10px 24px;
+  background: var(--deep); color: #fff; border: none; border-radius: var(--r);
+  font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+}
+.fullscreen-btn:hover { background: var(--navy); }
+
+/* ACCOUNT */
+.account-info-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--border); padding: 24px 28px; margin-bottom: 20px; }
+.account-info-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.info-row { display: flex; align-items: center; gap: 0; margin-bottom: 13px; font-size: 14px; }
+.info-row .label { color: var(--muted); width: 140px; flex-shrink: 0; }
+.info-row .value { font-weight: 500; }
+.btn-change-pw { margin-top: 16px; padding: 8px 18px; background: transparent; border: 1px solid var(--border); border-radius: var(--r); font-size: 13px; cursor: pointer; font-family: inherit; }
+.btn-change-pw:hover { background: var(--cream); }
+
+.member-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.member-header h3 { font-size: 15px; font-weight: 700; }
+.quota-badge { background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 12.5px; color: var(--muted); }
+
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--cream); font-size: 12px; font-weight: 600; color: var(--muted); text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+td { padding: 13px 16px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #FAFCFE; }
+
+.status-on { color: #16A34A; font-size: 13px; }
+.status-pending { color: #D97706; font-size: 13px; }
+
+.btn-sm { padding: 5px 12px; border-radius: 6px; font-size: 12.5px; cursor: pointer; border: 1px solid var(--border); background: var(--white); font-family: inherit; color: var(--text); }
+.btn-sm:hover { background: var(--cream); }
+.btn-sm.danger { color: #DC2626; border-color: #FECACA; }
+.btn-sm.danger:hover { background: #FFF5F5; }
+.btn-add { background: var(--main); color: #fff; border: none; border-radius: var(--r); padding: 8px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.btn-add:hover { background: var(--navy); }
+
+.add-member-form { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
+.add-member-form input { flex: 1; border: 1px solid var(--border); border-radius: var(--r); padding: 9px 13px; font-size: 13.5px; font-family: inherit; }
+.add-member-form input:focus { outline: none; border-color: var(--main); }
+
+/* MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 300; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: 14px; padding: 28px 30px; max-width: 520px; width: 90%; position: relative; max-height: 86vh; overflow-y: auto; }
+.modal h3 { font-size: 17px; font-weight: 700; margin-bottom: 18px; }
+.modal-close { position: absolute; top: 14px; right: 16px; background: transparent; border: none; font-size: 22px; cursor: pointer; color: var(--muted); line-height: 1; }
+.modal-close:hover { color: var(--text); }
+.record-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+.record-item:last-child { border-bottom: none; }
+.record-time { color: var(--muted); font-size: 12.5px; }
+
+/* FULLSCREEN VERSE */
+#fullscreen-overlay {
+  display: none; position: fixed; inset: 0; background: var(--deep);
+  z-index: 400; align-items: center; justify-content: center; flex-direction: column;
+  text-align: center; padding: 40px;
+}
+#fullscreen-overlay.open { display: flex; }
+#fullscreen-verse-text { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.7; letter-spacing: .02em; max-width: 800px; }
+#fullscreen-ref { font-size: 18px; color: rgba(255,255,255,.55); margin-top: 20px; }
+#fullscreen-close { position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,.12); border: none; color: #fff; font-size: 16px; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: inherit; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <a class="nav-logo" href="#">🧭 We Wayfinders</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('dashboard');return false;">教材列表</a></li>
+    <li><a href="#">教師培力</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-account-btn" onclick="toggleDropdown()">
+      👤 我的帳號 ▾
+    </button>
+    <div class="dropdown-menu" id="account-dropdown">
+      <a href="#" onclick="showPage('account');closeDropdown();return false;">帳號管理</a>
+      <a href="#" onclick="closeDropdown();return false;">使用說明</a>
+      <a href="#" style="color:#DC2626;" onclick="closeDropdown();return false;">登出</a>
+    </div>
+    <button class="nav-logout" onclick="return false;">登出</button>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE: DASHBOARD ══════════ -->
+<div class="page active" id="page-dashboard">
+  <div class="container">
+    <div class="welcome-bar">
+      <div>
+        <h1>歡迎回來，沛恩教會 👋</h1>
+        <p>你的帳號已解鎖全部 12 堂課程</p>
+      </div>
+      <span class="welcome-tag">🔓 完整版訂閱中</span>
+    </div>
+
+    <div class="series-header">
+      <div class="series-icon">🚀</div>
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <h2>追光號系列：亞伯拉罕之約</h2>
+          <span class="series-badge">第 1 季</span>
+        </div>
+        <p>共 12 堂課 ｜ 適合 6–12 歲 ｜ 每課約 60–75 分鐘</p>
+      </div>
+    </div>
+
+    <div class="course-grid" id="course-grid"></div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: SINGLE COURSE ══════════ -->
+<div class="page" id="page-course">
+  <div class="container">
+    <div class="breadcrumb">
+      <a onclick="showPage('dashboard')">課程列表</a> &rsaquo; 探險家亞伯蘭（一）
+    </div>
+    <div class="course-header">
+      <span class="course-series-badge">🚀 追光號系列</span>
+      <h1>探險家亞伯蘭（一）</h1>
+      <p class="slogan">跟熟悉的家鄉說再見</p>
+      <div class="course-meta">
+        <span>📖 創 12:1–20</span>
+        <span>⏱ 預計 65 分鐘</span>
+        <span>🎯 6–12 歲</span>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showCourseTab('prep',this)">課前預備</button>
+      <button class="tab-btn" onclick="showCourseTab('warmup',this)">暖身活動</button>
+      <button class="tab-btn" onclick="showCourseTab('story',this)">故事時間</button>
+      <button class="tab-btn" onclick="showCourseTab('response',this)">回應活動</button>
+      <button class="tab-btn" onclick="showCourseTab('video',this)">影片</button>
+      <button class="tab-btn" onclick="showCourseTab('verse',this)">背金句</button>
+    </div>
+
+    <!-- Tab: 課前預備 -->
+    <div class="tab-panel active" id="ctab-prep">
+      <div class="info-card">
+        <div class="label">課程目標</div>
+        <p>協助孩子辨別哪些事情是習慣或不習慣的，對亞伯蘭的處境更感同身受，進而理解信心回應上帝呼召的意義。</p>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('bible-info')">
+          <h3>📖 聖經信息補給站：神對亞伯蘭發出的邀請</h3>
+          <span class="chevron open" id="chevron-bible-info">▼</span>
+        </div>
+        <div class="section-card-body" id="body-bible-info">
+          <div style="padding-top:16px;">
+            <div class="read-more-text" id="bible-text" style="max-height:90px;">
+              <p style="font-size:14px;line-height:1.8;color:var(--text);">
+                創世記 12 章記載了一個改變人類歷史的時刻。當上帝對亞伯蘭說「你要離開」，這不僅是地理上的移動，更是信仰上的跨越。亞伯蘭當時住在哈蘭，已經有自己的家業、親族、社群——這一切構成了一個人安全感的根基。然而，上帝的邀請卻指向一個「我所要指示你的地方」，沒有具體座標，只有一個應許。
+              </p>
+              <p style="font-size:14px;line-height:1.8;color:var(--text);margin-top:12px;" class="read-more-extra hidden">
+                這個故事對今天的孩子仍然有深刻的共鳴。孩子面對轉班、搬家、換學校，那種離開熟悉環境的恐懼，與亞伯蘭的處境有著真實的呼應。老師在帶領時，可以先讓孩子連結自己生活中「離開熟悉」的經歷，再引入亞伯蘭的故事，幫助他們在情感層面建立理解的橋樑。<br><br>
+                神的應許在 12:2–3 包含六個「我必」：「我必叫你成為大國，我必賜福給你，叫你的名為大⋯⋯」這不只是對亞伯蘭個人的應許，更是透過他祝福萬族的宏大計畫。老師可以引導孩子思考：上帝的呼召往往不只關乎我們自己，而是祂更大故事的一部分。
+              </p>
+            </div>
+            <button class="read-more-btn" id="read-more-btn" onclick="toggleReadMore()">繼續閱讀 ▾</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('checklist')">
+          <h3>✅ 熟悉活動內容</h3>
+          <span class="chevron open" id="chevron-checklist">▼</span>
+        </div>
+        <div class="section-card-body" id="body-checklist">
+          <ul class="checklist">
+            <li><input type="checkbox"> 閱讀暖身遊戲規則，熟悉《上帝說⋯》的玩法</li>
+            <li><input type="checkbox"> 閱讀信息 PPT 並試講一次，注意提問節點</li>
+            <li><input type="checkbox"> 準備需要的教具（見暖身活動 Tab）</li>
+            <li><input type="checkbox"> 印製回應活動學習單（依班級選擇一種）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        「親愛的天父，感謝祢呼召我成為主日學老師。我知道今天站在孩子面前，不只是我的努力，而是祢在做工。求祢幫助我，用孩子能理解的方式，傳遞亞伯蘭故事中的信心與勇氣。奉耶穌的名禱告，阿們。」
+      </div>
+    </div>
+
+    <!-- Tab: 暖身活動 -->
+    <div class="tab-panel" id="ctab-warmup">
+      <h2 style="font-size:20px;font-weight:800;margin-bottom:8px;">《上帝說⋯》</h2>
+      <div class="meta-row">
+        <span>⏱ 20 分鐘</span>
+        <span>🎮 團體遊戲</span>
+        <span>👥 6 人以上</span>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" style="cursor:default;">
+          <h3>🎒 所需教具</h3>
+        </div>
+        <div class="section-card-body" style="padding-top:14px;">
+          <ul class="supply-list">
+            <li>大小不一的娃娃 10 個（或可用教室物品替代，如文具、小玩具）</li>
+            <li>軟的敲擊棒一個（海綿棒或捲起的紙筒）</li>
+            <li>活潑歡樂的背景音樂（播放器備妥）</li>
+            <li>巧拼地墊若干塊（選配，用於劃定傳遞範圍）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('round1')">
+          <h3>▶ 第一回合：傳娃娃遊戲</h3>
+          <span class="chevron open" id="chevron-round1">▼</span>
+        </div>
+        <div class="section-card-body" id="body-round1" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.8;">
+            1. 孩子圍成一圈，老師站在中間拿著敲擊棒。<br>
+            2. 音樂響起，孩子開始傳娃娃，音樂停止時手上拿著娃娃的人會被老師點到。<br>
+            3. 被點到的孩子要回答老師的問題：「你最習慣的一件事是什麼？」<br>
+            4. 回答後重新開始，進行 3–4 輪。<br>
+            <br>
+            <strong>帶領提示：</strong>保持輕鬆歡樂的氛圍，答案沒有對錯，讓孩子自由聯想。
+          </p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('round2')">
+          <h3>▶ 第二回合：競速傳娃娃</h3>
+          <span class="chevron" id="chevron-round2">▼</span>
+        </div>
+        <div class="section-card-body hidden" id="body-round2" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.8;">
+            1. 分成兩組，各組排成一列。<br>
+            2. 同時傳遞娃娃，看哪組最快把所有娃娃傳完一輪。<br>
+            3. 結束後老師提問：「如果突然要你把娃娃傳給陌生人，你願意嗎？」<br>
+            4. 引導討論：陌生 vs. 熟悉，自願 vs. 被要求。<br>
+            <br>
+            <strong>過渡語：</strong>「有時候在生活中，上帝會給我們一些任務或挑戰，可能是我們沒預料到的。今天的故事主角亞伯蘭，就遇到了這樣的情況⋯⋯」
+          </p>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        「有時候在生活中，上帝會給我們一些任務或挑戰，有些是我們習慣的，有些讓我們不太舒服——就像剛才傳娃娃，有的容易、有的有點難。今天的聖經故事，說的正是這樣一個人。」
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" style="cursor:default;">
+          <h3>📎 附件下載</h3>
+        </div>
+        <div class="section-card-body">
+          <div class="attach-row">
+            <button class="attach-btn" onclick="fakeDl('暖身活動簡報.pdf')">
+              📄 暖身活動簡報 <span class="dl-label">PDF</span>
+            </button>
+            <button class="attach-btn" onclick="fakeDl('暖身活動簡報.pptx')">
+              📊 暖身活動簡報 <span class="dl-label">PPT</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: 故事時間 -->
+    <div class="tab-panel" id="ctab-story">
+      <div class="meta-row">
+        <span>⏱ 15 分鐘</span>
+        <span>📖 互動講述</span>
+      </div>
+
+      <div class="info-card" style="background:#F1F5F9;border-left-color:var(--muted);">
+        <div class="label" style="color:var(--muted);">使用說明</div>
+        <p style="color:var(--muted);">建議老師在以下提問處暫停，邀請孩子回應後再繼續。不需要照本宣科，請用自然的方式講述，讓孩子感受故事的張力。</p>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div class="ppt-viewer">
+          <div class="ppt-title">📊 信息 PPT（探險家亞伯蘭）</div>
+          <div style="font-size:13px;opacity:.5;margin-top:4px;">共 18 頁 ｜ 線上閱覽模式</div>
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,#1E293B,#1E293B 10px,#253443 10px,#253443 20px);opacity:.3;pointer-events:none;"></div>
+          <div class="ppt-no-dl">⚠️ 僅供線上瀏覽，無法下載</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);text-align:right;">如需列印版，請聯絡平台管理員</p>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('q-warmup')">
+          <h3>💬 互動問題庫 — 暖身問題</h3>
+          <span class="chevron open" id="chevron-q-warmup">▼</span>
+        </div>
+        <div class="section-card-body" id="body-q-warmup" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.8;margin-bottom:8px;">Q1：「如果今天老師說要換教室上課，你第一個感覺是什麼？」</p>
+          <p style="font-size:14px;line-height:1.8;">Q2：「你有沒有去過一個完全不認識的地方？那是什麼感覺？」</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('q-mid')">
+          <h3>💬 互動問題庫 — 故事中段問題</h3>
+          <span class="chevron" id="chevron-q-mid">▼</span>
+        </div>
+        <div class="section-card-body hidden" id="body-q-mid" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.8;margin-bottom:8px;">Q3：「亞伯蘭為什麼要離開？是自己想走，還是上帝叫他走？」</p>
+          <p style="font-size:14px;line-height:1.8;">Q4：「如果你是亞伯蘭，你會怎麼跟家人說『我們要搬家了』？」</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('q-end')">
+          <h3>💬 互動問題庫 — 結尾反思</h3>
+          <span class="chevron" id="chevron-q-end">▼</span>
+        </div>
+        <div class="section-card-body hidden" id="body-q-end" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.8;margin-bottom:8px;">Q5：「亞伯蘭不知道終點在哪裡就出發了，這需要什麼？」</p>
+          <p style="font-size:14px;line-height:1.8;">Q6：「你生活中有沒有需要勇氣才能做的事？上帝可以怎麼幫助你？」</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: 回應活動 -->
+    <div class="tab-panel" id="ctab-response">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:22px;">以下提供四種回應活動，請依班級年齡選擇適合的一種。每種活動約 30 分鐘。</p>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('act1')">
+          <h3>🌟 活動一：《認識亞伯蘭》</h3>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:var(--muted);">幼兒園 ｜ 30 分鐘</span><span class="chevron open" id="chevron-act1">▼</span></div>
+        </div>
+        <div class="section-card-body" id="body-act1" style="padding-top:14px;">
+          <p style="font-size:13.5px;color:var(--muted);margin-bottom:8px;font-weight:600;">活動目標</p>
+          <p style="font-size:14px;line-height:1.7;margin-bottom:14px;">讓幼兒用圖畫記錄「我習慣的事」與「不習慣的事」，連結亞伯蘭的感受。</p>
+          <p style="font-size:13.5px;color:var(--muted);margin-bottom:8px;font-weight:600;">所需教具</p>
+          <ul class="supply-list" style="margin-bottom:14px;"><li>A4 學習單（印附件一）</li><li>蠟筆或彩色筆</li></ul>
+          <p style="font-size:13.5px;color:var(--muted);margin-bottom:8px;font-weight:600;">流程摘要</p>
+          <p style="font-size:14px;line-height:1.7;">孩子在學習單左欄畫「我喜歡的熟悉事物」、右欄畫「讓我緊張的新事物」，完成後兩兩分享，老師收尾連結亞伯蘭的信心。</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('act2')">
+          <h3>👟 活動二：《亞伯蘭的鞋子》</h3>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:var(--muted);">中低年級 ｜ 30 分鐘</span><span class="chevron" id="chevron-act2">▼</span></div>
+        </div>
+        <div class="section-card-body hidden" id="body-act2" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.7;">角色扮演活動：孩子輪流「穿上亞伯蘭的鞋子」，在教室地圖上模擬從哈蘭出發的旅程，每到一個站點回答一個信心問題。</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('act3')">
+          <h3>🏠 活動三：《離開舒適的家》</h3>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:var(--muted);">高年級 ｜ 30 分鐘</span><span class="chevron" id="chevron-act3">▼</span></div>
+        </div>
+        <div class="section-card-body hidden" id="body-act3" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.7;">小組討論：「如果上帝今天叫你離開最喜歡的地方，你會怎麼做？」各組分享後，老師引導反思「信心不是沒有害怕，是帶著害怕繼續走」。</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header" onclick="toggleSection('act4')">
+          <h3>📖 活動四：《查經》— 創世記 12:1–20</h3>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:var(--muted);">所有年齡 ｜ 30 分鐘</span><span class="chevron" id="chevron-act4">▼</span></div>
+        </div>
+        <div class="section-card-body hidden" id="body-act4" style="padding-top:14px;">
+          <p style="font-size:14px;line-height:1.7;">帶孩子直接打開聖經，用三個觀察問題引導：(1) 上帝說了什麼？(2) 亞伯蘭做了什麼？(3) 結果如何？培養孩子自己讀經的習慣。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: 影片 -->
+    <div class="tab-panel" id="ctab-video">
+      <div class="video-player" id="video-player" onclick="startVideo()">
+        <div class="play-btn" id="play-icon">▶</div>
+        <div class="progress-bar-mock"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="video-no-dl">⚠️ 僅供串流播放，不提供下載</div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">本課程故事繪本影片，建議搭配課前預備閱讀使用。</p>
+      <p style="font-size:13px;color:var(--muted);">時長：約 8 分鐘 ｜ 語言：中文普通話配音</p>
+    </div>
+
+    <!-- Tab: 背金句 -->
+    <div class="tab-panel" id="ctab-verse">
+      <div class="verse-card" id="verse-card">
+        <div class="verse-text" id="verse-display"></div>
+        <div class="verse-ref">創世記 12:1（現代中文譯本）</div>
+      </div>
+      <div class="verse-modes">
+        <button class="mode-btn active" id="mode-full" onclick="setVerseMode('full',this)">完整顯示</button>
+        <button class="mode-btn" id="mode-partial" onclick="setVerseMode('partial',this)">遮蓋部分</button>
+        <button class="mode-btn" id="mode-blank" onclick="setVerseMode('blank',this)">完全空白</button>
+      </div>
+      <button class="fullscreen-btn" onclick="openFullscreen()">🖥 全螢幕投影模式</button>
+    </div>
+
+  </div><!-- /container -->
+</div>
+
+<!-- ══════════ PAGE: ACCOUNT ══════════ -->
+<div class="page" id="page-account">
+  <div class="container" style="max-width:800px;">
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:24px;">帳號管理</h2>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showAccountTab('profile',this)">個人資料</button>
+      <button class="tab-btn" onclick="showAccountTab('members',this)">成員管理</button>
+    </div>
+
+    <!-- Profile -->
+    <div class="tab-panel active" id="atab-profile">
+      <div class="account-info-card">
+        <h3>帳號資訊</h3>
+        <div class="info-row"><span class="label">目前登入帳號</span><span class="value">admin@grace.org.tw</span></div>
+        <div class="info-row"><span class="label">帳號類型</span><span class="value">🏛 教會主帳號</span></div>
+        <div class="info-row"><span class="label">所屬教會</span><span class="value">沛恩教會</span></div>
+        <div class="info-row"><span class="label">訂閱方案</span><span class="value" style="color:#16A34A;">● 標準版（訂閱中）</span></div>
+        <div class="info-row"><span class="label">到期日</span><span class="value">2027 年 1 月 31 日</span></div>
+        <button class="btn-change-pw">修改密碼</button>
+      </div>
+    </div>
+
+    <!-- Members -->
+    <div class="tab-panel" id="atab-members">
+      <div class="account-info-card" style="padding:20px 24px;">
+        <div class="member-header">
+          <div>
+            <h3 style="margin-bottom:0;">沛恩教會</h3>
+            <p style="font-size:13px;color:var(--muted);margin-top:4px;">成員名額：已使用 <strong>3</strong> / <strong>10</strong> 個</p>
+          </div>
+          <button class="btn-add" onclick="showAddMemberForm()">＋ 新增成員</button>
+        </div>
+
+        <div class="add-member-form" id="add-member-form" style="display:none;">
+          <input type="email" placeholder="輸入成員 Email，例如 teacher@church.org" id="new-email">
+          <button class="btn-add" onclick="addMember()">送出邀請</button>
+          <button class="btn-sm" onclick="hideAddMemberForm()">取消</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>狀態</th>
+              <th>最近登入</th>
+              <th>已瀏覽課程</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="member-table">
+            <tr>
+              <td>teacher1@grace.org.tw</td>
+              <td><span class="status-on">✅ 啟用</span></td>
+              <td>2026/07/18</td>
+              <td>3 堂</td>
+              <td>
+                <button class="btn-sm" onclick="openRecordModal('teacher1@grace.org.tw',[['探險家亞伯蘭（一）','2026/07/18 09:32'],['探險家亞伯蘭（二）','2026/07/15 14:10'],['好撒瑪利亞人','2026/07/12 10:05']])">查看紀錄</button>
+                <button class="btn-sm danger" onclick="confirmDelete(this,'teacher1@grace.org.tw')">刪除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>teacher2@grace.org.tw</td>
+              <td><span class="status-on">✅ 啟用</span></td>
+              <td>2026/07/15</td>
+              <td>1 堂</td>
+              <td>
+                <button class="btn-sm" onclick="openRecordModal('teacher2@grace.org.tw',[['探險家亞伯蘭（一）','2026/07/15 20:44']])">查看紀錄</button>
+                <button class="btn-sm danger" onclick="confirmDelete(this,'teacher2@grace.org.tw')">刪除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>teacher3@grace.org.tw</td>
+              <td><span class="status-pending">⏳ 待設定密碼</span></td>
+              <td>—</td>
+              <td>—</td>
+              <td>
+                <button class="btn-sm" onclick="alert('邀請信已重新發送至 teacher3@grace.org.tw')">重發邀請</button>
+                <button class="btn-sm danger" onclick="confirmDelete(this,'teacher3@grace.org.tw')">刪除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+<div class="modal-overlay" id="record-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="record-modal-title">學習紀錄</h3>
+    <div id="record-modal-body"></div>
+  </div>
+</div>
+
+<!-- ══════════ FULLSCREEN VERSE ══════════ -->
+<div id="fullscreen-overlay">
+  <button id="fullscreen-close" onclick="closeFullscreen()">✕ 離開全螢幕</button>
+  <div id="fullscreen-verse-text"></div>
+  <div id="fullscreen-ref">創世記 12:1（現代中文譯本）</div>
+</div>
+
+<script>
+/* ── COURSES DATA ── */
+const COURSES = [
+  { num:'01', title:'探險家亞伯蘭（一）', slogan:'跟熟悉的家鄉說再見', locked:false },
+  { num:'02', title:'探險家亞伯蘭（二）', slogan:'上帝的承諾', locked:true },
+  { num:'03', title:'追光號課程 03', slogan:'準備中', locked:true },
+  { num:'04', title:'追光號課程 04', slogan:'準備中', locked:true },
+  { num:'05', title:'追光號課程 05', slogan:'準備中', locked:true },
+  { num:'06', title:'追光號課程 06', slogan:'準備中', locked:true },
+  { num:'07', title:'追光號課程 07', slogan:'準備中', locked:true },
+  { num:'08', title:'追光號課程 08', slogan:'準備中', locked:true },
+  { num:'09', title:'追光號課程 09', slogan:'準備中', locked:true },
+  { num:'10', title:'追光號課程 10', slogan:'準備中', locked:true },
+  { num:'11', title:'追光號課程 11', slogan:'準備中', locked:true },
+  { num:'12', title:'追光號課程 12', slogan:'準備中', locked:true },
+];
+
+function buildGrid() {
+  const grid = document.getElementById('course-grid');
+  grid.innerHTML = COURSES.map(c => `
+    <div class="course-card ${c.locked && c.num!=='02'?'locked':''}" onclick="${c.locked?`showLockedMsg('${c.num}')`:`showPage('course')`}">
+      <div class="card-top">
+        ${c.locked && c.num!=='02' ? `<span class="card-locked-badge">準備中</span>` : `<span class="card-num">課程 ${c.num}</span>`}
+        ${c.num==='02' ? `<span class="card-locked-badge" style="background:rgba(255,255,255,.25);color:#fff;">內容準備中</span>` : ''}
+        <div class="card-title">${c.title}</div>
+        <div class="card-slogan">${c.slogan}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-modules">
+          <span class="module-chip">🎮 暖身</span>
+          <span class="module-chip">📖 故事</span>
+          <span class="module-chip">💬 回應</span>
+          <span class="module-chip">🎵 金句</span>
+        </div>
+        <div class="card-enter">
+          ${c.locked ? `<span class="card-preparing">${c.num==='02'?'內容即將上線':'敬請期待'}</span>` : `<button class="btn-enter">進入課程 →</button>`}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+buildGrid();
+
+function showLockedMsg(num) {
+  if(num==='02') alert('探險家亞伯蘭（二）內容正在製作中，敬請期待！');
+  else alert(`課程 ${num} 尚在製作中，敬請期待！`);
+}
+
+/* ── PAGE NAV ── */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+/* ── DROPDOWN ── */
+function toggleDropdown() {
+  document.getElementById('account-dropdown').classList.toggle('open');
+}
+function closeDropdown() {
+  document.getElementById('account-dropdown').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-right')) closeDropdown();
+});
+
+/* ── COURSE TABS ── */
+function showCourseTab(name, btn) {
+  document.querySelectorAll('#page-course .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#page-course .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ctab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── ACCOUNT TABS ── */
+function showAccountTab(name, btn) {
+  document.querySelectorAll('#page-account .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#page-account .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('atab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── COLLAPSIBLE SECTIONS ── */
+function toggleSection(id) {
+  const body = document.getElementById('body-'+id);
+  const chev = document.getElementById('chevron-'+id);
+  if (!body) return;
+  body.classList.toggle('hidden');
+  chev && chev.classList.toggle('open');
+}
+
+/* ── READ MORE ── */
+function toggleReadMore() {
+  const extra = document.querySelector('.read-more-extra');
+  const text = document.getElementById('bible-text');
+  const btn = document.getElementById('read-more-btn');
+  const expanded = extra.classList.toggle('hidden') === false;
+  if (expanded) { text.style.maxHeight='9999px'; btn.textContent='收起 ▴'; }
+  else { text.style.maxHeight='90px'; btn.textContent='繼續閱讀 ▾'; }
+}
+// initial: hide extra
+document.querySelector('.read-more-extra').classList.add('hidden');
+
+/* ── VIDEO MOCK ── */
+let videoStarted = false;
+function startVideo() {
+  if (videoStarted) return;
+  videoStarted = true;
+  document.getElementById('play-icon').textContent = '⏸';
+  const fill = document.getElementById('progress-fill');
+  let w = 0;
+  const iv = setInterval(()=>{
+    w += 0.5;
+    fill.style.width = w + '%';
+    if (w >= 100) clearInterval(iv);
+  }, 200);
+}
+
+/* ── VERSE ── */
+const VERSE_FULL = '「你要離開故鄉、親族，到我所要指示你的地方去。』';
+const VERSE_PARTIAL_HTML = '「你要離開<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>、<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>，到我所要<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>你的地方去。』';
+const VERSE_BLANK_HTML = '<span class="blank" style="min-width:80%;">&nbsp;</span>';
+
+function setVerseMode(mode, btn) {
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById('verse-display');
+  if (mode==='full') el.innerHTML = VERSE_FULL;
+  else if (mode==='partial') el.innerHTML = VERSE_PARTIAL_HTML;
+  else el.innerHTML = VERSE_BLANK_HTML;
+}
+// init
+document.getElementById('verse-display').textContent = VERSE_FULL;
+
+/* ── FULLSCREEN ── */
+function openFullscreen() {
+  const ov = document.getElementById('fullscreen-overlay');
+  const mode = document.querySelector('.mode-btn.active').id;
+  const el = document.getElementById('fullscreen-verse-text');
+  if (mode==='mode-full') el.innerHTML = VERSE_FULL;
+  else if (mode==='mode-partial') el.innerHTML = VERSE_PARTIAL_HTML;
+  else el.innerHTML = VERSE_BLANK_HTML;
+  ov.classList.add('open');
+  document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(()=>{});
+}
+function closeFullscreen() {
+  document.getElementById('fullscreen-overlay').classList.remove('open');
+  document.fullscreenElement && document.exitFullscreen();
+}
+
+/* ── MODAL ── */
+function openRecordModal(email, records) {
+  document.getElementById('record-modal-title').textContent = email + ' — 學習紀錄';
+  document.getElementById('record-modal-body').innerHTML = records.map(r=>`
+    <div class="record-item">
+      <span>${r[0]}</span>
+      <span class="record-time">${r[1]}</span>
+    </div>
+  `).join('');
+  document.getElementById('record-modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('record-modal').classList.remove('open');
+}
+document.getElementById('record-modal').addEventListener('click', function(e){
+  if (e.target===this) closeModal();
+});
+
+/* ── ADD MEMBER ── */
+function showAddMemberForm() { document.getElementById('add-member-form').style.display='flex'; }
+function hideAddMemberForm() { document.getElementById('add-member-form').style.display='none'; document.getElementById('new-email').value=''; }
+function addMember() {
+  const email = document.getElementById('new-email').value.trim();
+  if (!email || !email.includes('@')) { alert('請輸入有效的 Email'); return; }
+  const tbody = document.getElementById('member-table');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${email}</td><td><span class="status-pending">⏳ 待設定密碼</span></td><td>—</td><td>—</td>
+    <td><button class="btn-sm" onclick="alert('邀請信已重新發送至 ${email}')">重發邀請</button>
+    <button class="btn-sm danger" onclick="confirmDelete(this,'${email}')">刪除</button></td>`;
+  tbody.appendChild(tr);
+  hideAddMemberForm();
+}
+
+/* ── DELETE ── */
+function confirmDelete(btn, email) {
+  if (confirm(`確定要移除成員 ${email}？`)) btn.closest('tr').remove();
+}
+
+/* ── DOWNLOAD MOCK ── */
+function fakeDl(name) { alert(`下載：${name}\n（示意稿：實際功能待後端串接）`); }
+</script>
+</body>
+</html>
