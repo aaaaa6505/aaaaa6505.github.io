@@ -259,6 +259,48 @@ tr:hover td { background: #FAFCFE; }
 .add-member-form input { flex: 1; border: 1px solid var(--border); border-radius: var(--r); padding: 9px 13px; font-size: 13.5px; font-family: inherit; }
 .add-member-form input:focus { outline: none; border-color: var(--main); }
 
+/* TEACHER PAGE */
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.filter-chip { padding: 6px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); color: var(--muted); font-size: 13px; cursor: pointer; font-family: inherit; transition: all .15s; }
+.filter-chip:hover { border-color: var(--main); color: var(--main); }
+.filter-chip.active { background: var(--main); color: #fff; border-color: var(--main); }
+.article-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 640px) { .article-grid { grid-template-columns: 1fr; } }
+.article-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; }
+.article-card-cover { height: 110px; display: flex; align-items: flex-end; padding: 14px 18px; }
+.article-card-body { padding: 16px 18px; flex: 1; display: flex; flex-direction: column; }
+.article-tag-badge { display: inline-block; border-radius: 20px; font-size: 11.5px; font-weight: 600; padding: 2px 10px; margin-bottom: 10px; }
+.article-tag-blue { background: #D6EEFA; color: #1A5C7A; }
+.article-tag-teal { background: #D6F0EE; color: #0D5C55; }
+.article-card h3 { font-size: 15px; font-weight: 700; line-height: 1.45; margin-bottom: 8px; }
+.article-card p { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; }
+.article-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
+.article-card-footer a { color: var(--main); font-weight: 600; font-size: 13px; text-decoration: none; cursor: pointer; }
+.article-card-footer a:hover { color: var(--navy); }
+.article-card.coming-soon { opacity: .7; }
+.coming-badge { display: inline-block; background: var(--cream); border: 1px solid var(--border); border-radius: 20px; font-size: 12px; color: var(--muted); padding: 3px 10px; }
+
+/* ARTICLE DETAIL */
+.article-detail-header { margin-bottom: 28px; }
+.article-detail-header h1 { font-size: 26px; font-weight: 800; line-height: 1.35; margin-bottom: 6px; }
+.article-detail-header .subtitle { font-size: 16px; color: var(--muted); margin-bottom: 14px; }
+.article-detail-meta { display: flex; gap: 16px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.article-body { max-width: 720px; }
+.article-body p { font-size: 15px; line-height: 1.85; color: var(--text); margin-bottom: 16px; }
+.article-body h3 { font-size: 17px; font-weight: 700; margin: 28px 0 12px; color: var(--deep); }
+.article-accordion { border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; }
+.article-accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; cursor: pointer; font-size: 14.5px; font-weight: 600; background: var(--white); user-select: none; }
+.article-accordion-header:hover { background: var(--cream); }
+.article-accordion-body { padding: 0 18px 16px; display: none; font-size: 14.5px; line-height: 1.8; border-top: 1px solid var(--border); padding-top: 14px; }
+.article-accordion-body.open { display: block; }
+.article-practice-card { background: #EBF6FC; border-radius: var(--r); padding: 22px 24px; margin: 24px 0; }
+.article-practice-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--navy); }
+.practice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.practice-list li { display: flex; gap: 12px; font-size: 14.5px; line-height: 1.7; }
+.practice-num { background: var(--main); color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.back-to-teacher { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13.5px; cursor: pointer; margin-bottom: 20px; text-decoration: none; background: transparent; border: none; font-family: inherit; padding: 0; }
+.back-to-teacher:hover { color: var(--text); }
+
 /* MODAL */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 300; align-items: center; justify-content: center; }
 .modal-overlay.open { display: flex; }
@@ -289,7 +331,7 @@ tr:hover td { background: #FAFCFE; }
   <a class="nav-logo" href="#">🧭 We Wayfinders</a>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('dashboard');return false;">教材列表</a></li>
-    <li><a href="#">教師培力</a></li>
+    <li><a href="#" onclick="showPage('teacher');return false;">教師培力</a></li>
     <li><a href="#">About</a></li>
   </ul>
   <div class="nav-right">
@@ -714,6 +756,133 @@ tr:hover td { background: #FAFCFE; }
   </div>
 </div>
 
+<!-- ══════════ PAGE: TEACHER LIST ══════════ -->
+<div class="page" id="page-teacher">
+  <div class="container">
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">教師培力資源</h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:22px;">幫助老師更有信心，帶領孩子進入故事</p>
+
+    <div class="filter-bar">
+      <button class="filter-chip active" onclick="filterTeacher('全部',this)">全部</button>
+      <button class="filter-chip" onclick="filterTeacher('教學技巧',this)">教學技巧</button>
+      <button class="filter-chip" onclick="filterTeacher('課室管理',this)">課室管理</button>
+      <button class="filter-chip" onclick="filterTeacher('注意力管理',this)">注意力管理</button>
+      <button class="filter-chip" onclick="filterTeacher('聖經知識',this)">聖經知識</button>
+    </div>
+
+    <div class="article-grid">
+      <!-- Card 1: real -->
+      <div class="article-card" data-tag="教學技巧">
+        <div class="article-card-cover" style="background:linear-gradient(135deg,var(--deep) 0%,var(--main) 100%);">
+          <span style="color:rgba(255,255,255,.55);font-size:12px;">約 1,500 字 ｜ 閱讀約 6 分鐘</span>
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag-badge article-tag-blue">教學技巧</span>
+          <h3>如何講一個生動的故事？</h3>
+          <p>真正決定故事是否吸引人的，往往不是老師的表演能力，而是老師能不能察覺孩子此刻的狀態，並適時調整帶領方式。</p>
+          <div class="article-card-footer">
+            <span>2026/07/18</span>
+            <a onclick="showPage('teacher-article');return false;">閱讀全文 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: placeholder -->
+      <div class="article-card coming-soon" data-tag="課室管理">
+        <div class="article-card-cover" style="background:linear-gradient(135deg,#4A6580 0%,#7A95A8 100%);">
+          <span style="color:rgba(255,255,255,.45);font-size:12px;">即將推出</span>
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag-badge article-tag-teal">課室管理</span>
+          <h3>課堂秩序怎麼維持，又不破壞氣氛？</h3>
+          <p><span class="coming-badge">⏳ 即將推出</span></p>
+          <div class="article-card-footer">
+            <span style="color:var(--muted);">敬請期待</span>
+            <span style="color:var(--muted);font-size:13px;">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: TEACHER ARTICLE ══════════ -->
+<div class="page" id="page-teacher-article">
+  <div class="container">
+    <div class="breadcrumb">
+      <a onclick="showPage('teacher')">教師培力</a> &rsaquo; 如何講一個生動的故事？
+    </div>
+
+    <div class="article-detail-header">
+      <span class="article-tag-badge article-tag-blue" style="margin-bottom:12px;display:inline-block;">教學技巧</span>
+      <h1>如何講一個生動的故事？</h1>
+      <p class="subtitle">三個面向掌握講繪本故事的訣竅</p>
+      <div class="article-detail-meta">
+        <span>📅 2026/07/18</span>
+        <span>📄 約 1,500 字</span>
+        <span>⏱ 閱讀約 6 分鐘</span>
+        <span>🏷 Pilot 教材 V1.1</span>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <p>可能很多人會認為，講故事要能吸引孩子，一定要唱作俱佳，有誇張的表情與肢體動作、生動多變化的配音，甚至像專業說故事老師一樣充滿戲劇張力。不過，其實有些老師聲音變化不多，卻能讓孩子專心投入；有些老師表演十分精彩，孩子覺得新鮮好玩但卻搞不清楚故事在說什麼。</p>
+      <p>真正決定故事是否吸引人的，往往不是老師的表演能力，而是老師能不能察覺孩子此刻的狀態，並適時調整自己的帶領方式。</p>
+      <p>當孩子開始東張西望、玩手邊的東西、和旁邊的人說話時，未必代表他們不喜歡故事。有時候可能是故事節奏太慢、解釋太多，或是孩子已經失去對情節的掌握。特別是在短影音盛行的時代，許多孩子其實能接受比我們想像中更快的資訊節奏。如果老師花了太長時間解釋一個情節、停留在同一頁太久，孩子反而容易感到無聊。</p>
+      <p>因此，比起追求「最理想」的講故事方式，更重要的是學習觀察孩子的反應，並透過以下三個面向，幫助孩子持續跟著故事前進。</p>
+
+      <h3>🖼 一、圖片（視覺）</h3>
+      <p>首先，請記住一個觀念：繪本的核心是「圖文共同敘事」。朗讀時除了把文字念出來，也要留幾秒鐘給孩子觀察圖片。有時候，角色的表情、動作或背景中的細節，會透露出文字沒有直接說明的訊息。</p>
+      <p>如果孩子們對於文字的理解能力尚未成熟，可以增加圖片觀察的時間。譬如問他們：「你看他的手在做什麼？握拳，沒錯！」「那你覺得他現在的心情怎麼樣？」透過簡單的觀察問題，幫助孩子從圖片中發現故事。也可以邀請他們在投影幕上指出角色、物品在哪裡，增加參與感。</p>
+
+      <h3>🔊 二、聲音（聽覺）</h3>
+      <p>許多新手老師最擔心的是聲音表現，其實不需要像專業配音員，只要做到幾個簡單的變化就足夠了：一般敘事時語氣輕快，要強調的地方則將聲音放大、速度放慢，另外從挑選一兩個主要角色用略有區別的語氣說話。這些小小的變化能幫助孩子更容易理解角色的情緒，也讓故事變得更有生命力。</p>
+      <p>如果發現孩子開始分心，不妨試著增加一些語氣變化。很多時候，不需要更大的動作，只要聲音有起伏，孩子的注意力就會被重新吸引回來。</p>
+
+      <h3>⏱ 三、節奏（時間）</h3>
+      <p>掌握節奏是朗讀繪本最重要的能力之一。大人常以為孩子跟不上，所以會不斷停下來解釋，但實際上，更常發生的情況是孩子已經聽懂了，老師卻還在說明。當故事前進得太慢，孩子就容易失去興趣。因此，朗讀時要適時停頓，但不要過度停頓；要提出問題，但不要讓問題取代故事本身。</p>
+      <p>教材中的互動問題正是幫助孩子進入故事的重要工具，除了讓孩子更進一步去觀察和思考故事內容，同時也藉由「聽」與「表達」的轉換，抓住孩子的注意力。</p>
+      <p>一般來說，整個故事盡量控制在 15 分鐘內完成，每次圖片觀察或互動討論不要超過 1 分鐘。記得讓故事持續向前推進，幫助孩子掌握情節的發展。</p>
+      <p>另外，有一個常見的情形是，老師很希望孩子學到今天的聖經真理，因此故事講到一半就開始解釋：「所以我們要學習順服神。」然而，故事本身其實是孩子理解真理的重要橋樑，如果太早下結論，孩子反而沒有機會經歷角色的掙扎、期待或驚訝。先讓孩子走完整個故事，再一起回顧神在故事中的作為，通常會比提早講解更有幫助。</p>
+
+      <h3>💬 常見問題</h3>
+      <div class="article-accordion">
+        <div class="article-accordion-header" onclick="toggleAccordion(this)">
+          Q1：孩子一直插話怎麼辦？
+          <span style="font-size:12px;color:var(--muted);">▼</span>
+        </div>
+        <div class="article-accordion-body">
+          不要急著制止，也不要覺得心煩意亂，很多插話其實代表孩子正在思考或與故事產生連結。我們可以藉由孩子的回應，觀察他此刻看見了什麼、想到什麼、感受到什麼。如果孩子是因為聽不懂而發問，老師可以進一步說明；如果是對角色或情節的回應，老師可以簡單回應：「很棒的觀察！」接著再說：「那我們來看看後來發生什麼事！」把焦點自然帶回故事。
+        </div>
+      </div>
+      <div class="article-accordion">
+        <div class="article-accordion-header" onclick="toggleAccordion(this)">
+          Q2：孩子坐不住、不專心怎麼辦？
+          <span style="font-size:12px;color:var(--muted);">▼</span>
+        </div>
+        <div class="article-accordion-body">
+          別急著認定孩子不喜歡聽故事，或命令他們要坐好。可以先嘗試做一些節奏上的調整，或音調上的變化，觀察孩子的注意力是否有改變。與其要求每個孩子都坐得一動也不動，更重要的是確認他們是否仍然參與在故事當中。
+        </div>
+      </div>
+
+      <h3>✅ 開始練習吧！</h3>
+      <div class="article-practice-card">
+        <h4>下次朗讀時，只要嘗試三件事：</h4>
+        <ul class="practice-list">
+          <li><span class="practice-num">①</span><span>每頁停留幾秒讓孩子看圖</span></li>
+          <li><span class="practice-num">②</span><span>嘗試多做一些語速或音調的變化</span></li>
+          <li><span class="practice-num">③</span><span>當孩子分心時，先調整自己的節奏，而不是立刻提醒孩子專心</span></li>
+        </ul>
+      </div>
+      <p>不用追求完美，一次做好一點點就夠了。好的繪本朗讀，不是老師表現得多精彩，而是老師能否留意孩子的反應，陪伴他們一步一步走進故事。當孩子開始期待下一次聽故事的時間時，你就已經成功了。</p>
+
+      <div style="margin-top:32px;">
+        <button class="back-to-teacher" onclick="showPage('teacher')">← 返回教師培力</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════ FULLSCREEN VERSE ══════════ -->
 <div id="fullscreen-overlay">
   <button id="fullscreen-close" onclick="closeFullscreen()">✕ 離開全螢幕</button>
@@ -725,26 +894,25 @@ tr:hover td { background: #FAFCFE; }
 /* ── COURSES DATA ── */
 const COURSES = [
   { num:'01', title:'探險家亞伯蘭（一）', slogan:'跟熟悉的家鄉說再見', locked:false },
-  { num:'02', title:'探險家亞伯蘭（二）', slogan:'上帝的承諾', locked:true },
-  { num:'03', title:'追光號課程 03', slogan:'準備中', locked:true },
-  { num:'04', title:'追光號課程 04', slogan:'準備中', locked:true },
-  { num:'05', title:'追光號課程 05', slogan:'準備中', locked:true },
-  { num:'06', title:'追光號課程 06', slogan:'準備中', locked:true },
-  { num:'07', title:'追光號課程 07', slogan:'準備中', locked:true },
-  { num:'08', title:'追光號課程 08', slogan:'準備中', locked:true },
-  { num:'09', title:'追光號課程 09', slogan:'準備中', locked:true },
-  { num:'10', title:'追光號課程 10', slogan:'準備中', locked:true },
-  { num:'11', title:'追光號課程 11', slogan:'準備中', locked:true },
-  { num:'12', title:'追光號課程 12', slogan:'準備中', locked:true },
+  { num:'02', title:'探險家亞伯蘭（二）', slogan:'選哪裡都好，因為我們有神的祝福', locked:true, preparing:true },
+  { num:'03', title:'探險家亞伯蘭（三）', slogan:'亞伯蘭的救援難題', locked:true },
+  { num:'04', title:'探險家亞伯蘭（四）', slogan:'神的信實不受限制', locked:true },
+  { num:'05', title:'探險家亞伯蘭（五）', slogan:'那位值得我冒險的神', locked:true },
+  { num:'06', title:'探險家亞伯蘭（六）', slogan:'買下迦南的第一塊地', locked:true },
+  { num:'07', title:'繼承者以撒（一）', slogan:'繼承神的祝福', locked:true },
+  { num:'08', title:'繼承者以撒（二）', slogan:'多而又多的祝福', locked:true },
+  { num:'09', title:'格鬥士雅各（一）', slogan:'這山望著那山高', locked:true },
+  { num:'10', title:'格鬥士雅各（二）', slogan:'贏了戰役，輸了戰爭', locked:true },
+  { num:'11', title:'格鬥士雅各（三）', slogan:'神與輸家同一隊', locked:true },
+  { num:'12', title:'格鬥士雅各（四）', slogan:'贏家也要與輸家同一隊', locked:true },
 ];
 
 function buildGrid() {
   const grid = document.getElementById('course-grid');
   grid.innerHTML = COURSES.map(c => `
-    <div class="course-card ${c.locked && c.num!=='02'?'locked':''}" onclick="${c.locked?`showLockedMsg('${c.num}')`:`showPage('course')`}">
+    <div class="course-card ${c.locked?'locked':''}" onclick="${c.locked?`showLockedMsg('${c.num}')`:`showPage('course')`}">
       <div class="card-top">
-        ${c.locked && c.num!=='02' ? `<span class="card-locked-badge">準備中</span>` : `<span class="card-num">課程 ${c.num}</span>`}
-        ${c.num==='02' ? `<span class="card-locked-badge" style="background:rgba(255,255,255,.25);color:#fff;">內容準備中</span>` : ''}
+        ${c.locked ? `<span class="card-locked-badge">準備中</span>` : `<span class="card-num">課程 ${c.num}</span>`}
         <div class="card-title">${c.title}</div>
         <div class="card-slogan">${c.slogan}</div>
       </div>
@@ -756,7 +924,7 @@ function buildGrid() {
           <span class="module-chip">🎵 金句</span>
         </div>
         <div class="card-enter">
-          ${c.locked ? `<span class="card-preparing">${c.num==='02'?'內容即將上線':'敬請期待'}</span>` : `<button class="btn-enter">進入課程 →</button>`}
+          ${c.locked ? `<span class="card-preparing">敬請期待</span>` : `<button class="btn-enter">進入課程 →</button>`}
         </div>
       </div>
     </div>
@@ -765,8 +933,7 @@ function buildGrid() {
 buildGrid();
 
 function showLockedMsg(num) {
-  if(num==='02') alert('探險家亞伯蘭（二）內容正在製作中，敬請期待！');
-  else alert(`課程 ${num} 尚在製作中，敬請期待！`);
+  alert(`課程 ${num} 尚在製作中，敬請期待！`);
 }
 
 /* ── PAGE NAV ── */
@@ -907,6 +1074,23 @@ function addMember() {
 /* ── DELETE ── */
 function confirmDelete(btn, email) {
   if (confirm(`確定要移除成員 ${email}？`)) btn.closest('tr').remove();
+}
+
+/* ── TEACHER FILTER ── */
+function filterTeacher(tag, btn) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.article-card').forEach(card => {
+    card.style.display = (tag === '全部' || card.dataset.tag === tag) ? '' : 'none';
+  });
+}
+
+/* ── ACCORDION ── */
+function toggleAccordion(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('span');
+  const isOpen = body.classList.toggle('open');
+  if (chevron) chevron.textContent = isOpen ? '▲' : '▼';
 }
 
 /* ── DOWNLOAD MOCK ── */
