@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>We Wayfinders — 主日學教材平台</title>
+  <title>追光號</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
@@ -31,7 +31,7 @@
     .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
 
     nav { position: sticky; top: 0; z-index: 200; background: var(--nav); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
-    .nav-logo { font-size: 1.1rem; font-weight: 900; color: var(--pale); display: flex; align-items: center; gap: .4rem; text-decoration: none; }
+    .nav-logo { font-size: 1.32rem; font-weight: 900; color: var(--pale); display: flex; align-items: center; gap: .4rem; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; }
     .nav-links a:hover { color: var(--pale); }
@@ -152,7 +152,7 @@
     .apply-cta .btn-cta { font-size: 1.05rem; padding: 1rem 2.5rem; }
 
     footer { background: #01252b; color: rgba(255,255,255,.48); padding: 3rem 2rem; text-align: center; }
-    .footer-logo { color: var(--pale); font-weight: 900; font-size: 1.1rem; margin-bottom: .3rem; }
+    .footer-logo { color: var(--pale); font-weight: 900; font-size: 1.32rem; margin-bottom: .3rem; }
     .footer-tag { font-size: .88rem; margin-bottom: 1rem; }
     .footer-divider { margin: 1rem auto; width: 40px; height: 2px; background: rgba(200,238,236,.25); }
     .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: .8rem; list-style: none; }
@@ -310,7 +310,27 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="#">🧭 We Wayfinders</a>
+  <a href="/" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="#F2F7F9" stroke="#1A5C7A" stroke-width="4"/>
+      <circle cx="100" cy="100" r="78" fill="none" stroke="#3A9CC5" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <circle cx="100" cy="100" r="66" fill="none" stroke="#3A9CC5" stroke-width="1"/>
+      <line x1="100" y1="18" x2="100" y2="32" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="100" y1="168" x2="100" y2="182" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="18" y1="100" x2="32" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="168" y1="100" x2="182" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="155" y1="45" x2="146" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="45" x2="54" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="155" y1="155" x2="146" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="155" x2="54" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <text x="100" y="22" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#E8B84B">N</text>
+      <polygon points="100,38 94,100 100,90 106,100" fill="#E8B84B" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="100,162 94,100 100,110 106,100" fill="#1A5C7A" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="100" cy="100" r="10" fill="#E8B84B" stroke="#0D3B4F" stroke-width="2"/>
+      <circle cx="100" cy="100" r="4" fill="#0D3B4F"/>
+    </svg>
+    <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:var(--white);">追光號</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#structure">教材列表</a></li>
     <li><a href="#">教師培力</a></li>
@@ -618,13 +638,13 @@
 </section>
 
 <footer>
-  <div class="footer-logo">🧭 We Wayfinders</div>
+  <div class="footer-logo">追光號</div>
   <div class="footer-tag">每堂主日學，都是一場探險</div>
   <div class="footer-divider"></div>
   <ul class="footer-links">
     <li><a href="#structure">教材列表</a></li><li><a href="#">教師培力</a></li><li><a href="#">About</a></li><li><a href="#contact">聯絡我們</a></li><li><a href="#">隱私政策</a></li><li><a href="#">使用條款</a></li>
   </ul>
-  <p class="copyright">© 2026 We Wayfinders 版權所有</p>
+  <p class="copyright">© 2026 追光號 版權所有</p>
 </footer>
 
 <div class="ver-switcher">
