@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>聯絡我們 — 追光號</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nav:     #024a52;
+      --deep:    #03666f;
+      --mid:     #038b94;
+      --bright:  #33b5ab;
+      --pale:    #c8eeec;
+      --navy:    #255194;
+      --cta:     #255194;
+      --cta-dk:  #1a3d70;
+      --bg:      #f0fafa;
+      --bg2:     #f0f4fb;
+      --text:    #0a1a20;
+      --muted:   #3a5a60;
+      --white:   #ffffff;
+      --r:       24px;
+      --cream:   #f8f4ee;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; background: var(--cream); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: sticky; top: 0; z-index: 200; background: var(--nav); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+    .nav-logo { font-size: 1.32rem; font-weight: 900; color: var(--pale); display: flex; align-items: center; gap: .4rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pale); }
+    .nav-links a.current { color: var(--pale); border-bottom: 2px solid var(--bright); padding-bottom: 2px; }
+    .nav-right { display: flex; align-items: center; gap: .8rem; }
+    .nav-login { color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 600; text-decoration: none; transition: color .2s; }
+    .nav-login:hover { color: var(--pale); }
+
+    /* CONTACT */
+    #contact { background: var(--cream); padding: 5rem 2rem 6rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; max-width: 1080px; margin: 0 auto; }
+    .contact-eyebrow { display: inline-flex; align-items: center; gap: .4rem; font-size: .8rem; font-weight: 800; color: var(--bright); letter-spacing: .08em; margin-bottom: .9rem; }
+    .contact-left h2 { font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 900; line-height: 1.3; color: var(--deep); margin-bottom: 1rem; letter-spacing: -.02em; }
+    .contact-left p { font-size: .95rem; line-height: 1.85; color: var(--muted); }
+    .contact-form { background: var(--white); border-radius: var(--r); padding: 2.5rem; box-shadow: 0 8px 40px rgba(3,102,111,.1); }
+    .form-row { margin-bottom: 1.2rem; }
+    .form-row label { display: block; font-size: .82rem; font-weight: 700; color: var(--deep); margin-bottom: .4rem; }
+    .form-row input, .form-row textarea, .form-row select {
+      width: 100%; padding: .75rem 1rem; border: 1.5px solid var(--pale);
+      border-radius: 10px; font-size: .92rem; font-family: inherit;
+      color: var(--text); background: var(--bg); transition: border-color .2s;
+      outline: none;
+    }
+    .form-row input:focus, .form-row textarea:focus { border-color: var(--bright); background: var(--white); }
+    .form-row textarea { resize: vertical; line-height: 1.6; }
+    .form-submit { width: 100%; padding: .9rem; background: var(--cta); color: var(--white); border: none; border-radius: 999px; font-size: 1rem; font-weight: 800; cursor: pointer; font-family: inherit; transition: background .2s, transform .15s; }
+    .form-submit:hover { background: var(--cta-dk); transform: translateY(-1px); }
+    .form-success { display: none; text-align: center; padding: 1.5rem; background: rgba(51,181,171,.1); border-radius: 12px; color: var(--deep); font-weight: 700; font-size: .95rem; margin-top: 1rem; border: 1px solid rgba(51,181,171,.3); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    footer { background: #01252b; color: rgba(255,255,255,.48); padding: 3rem 2rem; text-align: center; }
+    .footer-logo { color: var(--pale); font-weight: 900; font-size: 1.32rem; margin-bottom: .3rem; }
+    .footer-tag { font-size: .88rem; margin-bottom: 1rem; }
+    .footer-divider { margin: 1rem auto; width: 40px; height: 2px; background: rgba(200,238,236,.25); }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: .8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,.38); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--pale); }
+    .copyright { font-size: .8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="wk_v4.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="#F2F7F9" stroke="#1A5C7A" stroke-width="4"/>
+      <circle cx="100" cy="100" r="78" fill="none" stroke="#3A9CC5" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <circle cx="100" cy="100" r="66" fill="none" stroke="#3A9CC5" stroke-width="1"/>
+      <line x1="100" y1="18" x2="100" y2="32" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="100" y1="168" x2="100" y2="182" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="18" y1="100" x2="32" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="168" y1="100" x2="182" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="155" y1="45" x2="146" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="45" x2="54" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="155" y1="155" x2="146" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="155" x2="54" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <text x="100" y="22" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#E8B84B">N</text>
+      <polygon points="100,38 94,100 100,90 106,100" fill="#E8B84B" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="100,162 94,100 100,110 106,100" fill="#1A5C7A" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="100" cy="100" r="10" fill="#E8B84B" stroke="#0D3B4F" stroke-width="2"/>
+      <circle cx="100" cy="100" r="4" fill="#0D3B4F"/>
+    </svg>
+    <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:var(--white);">追光號</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li><a href="resources.html">教師培力</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="contact.html" class="current">聯絡我們</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="member_area.html" class="nav-login">登入</a>
+  </div>
+</nav>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left">
+      <div class="contact-eyebrow">✦ 聯絡我們</div>
+      <h2>有任何問題，歡迎聯絡我們</h2>
+      <p>無論是想申請試用教材、對課程有疑問，<br>或是有任何想法想和我們分享，<br>都歡迎填寫以下表單，<br>我們將在 1–2 個工作天內與你聯繫。</p>
+    </div>
+    <div class="contact-right">
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <label>詢問類型 <span style="color:var(--cta)">*</span></label>
+          <div style="display:flex;flex-wrap:wrap;gap:.6rem .2rem;margin-top:.3rem;">
+            <label style="display:flex;align-items:center;gap:.45rem;font-weight:400;cursor:pointer;padding:.45rem .9rem;border:1.5px solid var(--pale);border-radius:999px;font-size:.88rem;transition:border-color .2s,background .2s;" class="radio-chip">
+              <input type="radio" name="inquiry" value="申請試用" checked style="display:none;"> 申請試用
+            </label>
+            <label style="display:flex;align-items:center;gap:.45rem;font-weight:400;cursor:pointer;padding:.45rem .9rem;border:1.5px solid var(--pale);border-radius:999px;font-size:.88rem;transition:border-color .2s,background .2s;" class="radio-chip">
+              <input type="radio" name="inquiry" value="課程問題" style="display:none;"> 課程問題
+            </label>
+            <label style="display:flex;align-items:center;gap:.45rem;font-weight:400;cursor:pointer;padding:.45rem .9rem;border:1.5px solid var(--pale);border-radius:999px;font-size:.88rem;transition:border-color .2s,background .2s;" class="radio-chip">
+              <input type="radio" name="inquiry" value="合作洽談" style="display:none;"> 合作洽談
+            </label>
+            <label style="display:flex;align-items:center;gap:.45rem;font-weight:400;cursor:pointer;padding:.45rem .9rem;border:1.5px solid var(--pale);border-radius:999px;font-size:.88rem;transition:border-color .2s,background .2s;" class="radio-chip">
+              <input type="radio" name="inquiry" value="其他" style="display:none;"> 其他
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="church">教會名稱</label>
+          <input type="text" id="church" name="church" placeholder="例：台北某教會">
+        </div>
+        <div class="form-row">
+          <label for="name">聯絡人姓名 <span style="color:var(--cta)">*</span></label>
+          <input type="text" id="name" name="name" placeholder="你的名字" required>
+        </div>
+        <div class="form-row">
+          <label for="email">Email <span style="color:var(--cta)">*</span></label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-row">
+          <label for="phone">聯絡電話</label>
+          <input type="tel" id="phone" name="phone" placeholder="0912-345-678">
+        </div>
+        <div class="form-row">
+          <label for="message">詢問內容 <span style="color:var(--cta)">*</span></label>
+          <textarea id="message" name="message" rows="4" placeholder="請描述你的問題、想法，或教會申請試用的需求..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">送出申請</button>
+        <div class="form-success" id="form-success">感謝你的申請！我們將盡快與你聯繫。🎉</div>
+      </form>
+      <script>
+        // Radio chip active state
+        function updateChips() {
+          document.querySelectorAll('.radio-chip').forEach(chip => {
+            const checked = chip.querySelector('input[type="radio"]').checked;
+            chip.style.borderColor = checked ? 'var(--bright)' : 'var(--pale)';
+            chip.style.background  = checked ? 'rgba(51,181,171,.1)' : '';
+            chip.style.color       = checked ? 'var(--deep)' : '';
+            chip.style.fontWeight  = checked ? '700' : '400';
+          });
+        }
+        document.querySelectorAll('.radio-chip input').forEach(r => r.addEventListener('change', updateChips));
+        updateChips();
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (!this.checkValidity()) { this.reportValidity(); return; }
+          document.getElementById('form-success').style.display = 'block';
+          this.querySelector('.form-submit').style.display = 'none';
+        });
+      </script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">追光號</div>
+  <div class="footer-tag">每堂主日學，都是一場探險</div>
+  <div class="footer-divider"></div>
+  <ul class="footer-links">
+    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li><a href="resources.html">教師培力</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="contact.html">聯絡我們</a></li>
+    <li><a href="#">隱私政策</a></li>
+    <li><a href="#">使用條款</a></li>
+  </ul>
+  <p class="copyright">© 2026 追光號 版權所有</p>
+</footer>
+
+</body>
+</html>

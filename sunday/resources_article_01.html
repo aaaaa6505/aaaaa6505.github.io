@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>如何講一個生動的故事？— 追光號</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nav:    #024a52;
+      --deep:   #03666f;
+      --mid:    #038b94;
+      --bright: #33b5ab;
+      --pale:   #c8eeec;
+      --navy:   #255194;
+      --cta:    #255194;
+      --cta-dk: #1a3d70;
+      --bg:     #f0fafa;
+      --text:   #0a1a20;
+      --muted:  #3a5a60;
+      --white:  #ffffff;
+      --r:      24px;
+      --cream:  #f8f4ee;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: sticky; top: 0; z-index: 200; background: var(--nav); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+    .nav-logo { font-size: 1.32rem; font-weight: 900; color: var(--pale); display: flex; align-items: center; gap: .4rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pale); }
+    .nav-right { display: flex; align-items: center; }
+    .nav-login { color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 600; text-decoration: none; }
+    .nav-login:hover { color: var(--pale); }
+
+    /* ARTICLE LAYOUT */
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+    /* BACK LINK */
+    .back-link { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; font-weight: 700; color: var(--muted); text-decoration: none; margin-bottom: 2rem; transition: color .2s; }
+    .back-link:hover { color: var(--deep); }
+    .back-link::before { content: '←'; }
+
+    /* META */
+    .article-meta { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .article-tag { font-size: .72rem; font-weight: 800; padding: .22rem .65rem; border-radius: 999px; background: rgba(51,181,171,.12); color: var(--deep); letter-spacing: .04em; }
+    .article-date { font-size: .8rem; color: rgba(58,90,96,.55); }
+
+    /* TITLE */
+    .article-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; line-height: 1.2; letter-spacing: -.02em; color: var(--text); margin-bottom: 2rem; }
+
+    /* DIVIDER */
+    .article-divider { height: 2px; background: linear-gradient(90deg, var(--bright), transparent); margin-bottom: 2rem; border-radius: 2px; }
+
+    /* BODY TEXT */
+    .article-body { font-size: 1rem; line-height: 1.9; color: #1a2e34; }
+    .article-body p { margin-bottom: 1.3rem; }
+    .article-body h2 { font-size: 1.25rem; font-weight: 900; color: var(--deep); margin: 2.4rem 0 1rem; letter-spacing: -.01em; padding-bottom: .5rem; border-bottom: 2px solid var(--pale); }
+    .article-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--deep); margin: 1.8rem 0 .6rem; }
+    .article-body strong { font-weight: 700; color: var(--text); }
+
+    /* CALLOUT */
+    .callout { background: var(--white); border-radius: 14px; border-left: 4px solid var(--bright); padding: 1.3rem 1.5rem; margin: 1.4rem 0; display: flex; gap: 1rem; box-shadow: 0 2px 12px rgba(3,102,111,.06); }
+    .callout-icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; }
+    .callout-body { flex: 1; }
+    .callout-title { font-weight: 900; color: var(--deep); font-size: 1rem; margin-bottom: .5rem; }
+    .callout-body p { margin-bottom: .7rem; font-size: .95rem; line-height: 1.85; color: var(--muted); }
+    .callout-body p:last-child { margin-bottom: 0; }
+
+    /* NUMBERED LIST */
+    .article-body ol { padding-left: 1.4rem; margin-bottom: 1.3rem; }
+    .article-body ol li { padding-left: .3rem; margin-bottom: .5rem; line-height: 1.75; }
+
+    /* QA */
+    .qa-item { background: rgba(200,238,236,.18); border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; }
+    .qa-q { font-weight: 700; color: var(--deep); margin-bottom: .5rem; }
+    .qa-a { font-size: .95rem; color: var(--muted); line-height: 1.85; }
+    .qa-a + .qa-a { margin-top: .5rem; }
+
+    /* PRACTICE CARD */
+    .practice-card { background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 100%); border-radius: 16px; padding: 1.8rem 2rem; color: var(--white); margin-top: 2.4rem; }
+    .practice-card h2 { color: var(--pale); font-size: 1.15rem; margin-bottom: 1rem; border: none; padding: 0; }
+    .practice-card ol { padding-left: 1.4rem; color: rgba(255,255,255,.88); }
+    .practice-card ol li { margin-bottom: .55rem; font-size: .95rem; line-height: 1.75; }
+    .practice-card p { font-size: .92rem; color: rgba(200,238,236,.85); margin-top: 1rem; line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .article-wrap { padding: 2rem 1rem 4rem; }
+    }
+
+    footer { background: #01252b; color: rgba(255,255,255,.48); padding: 3rem 2rem; text-align: center; }
+    .footer-logo { color: var(--pale); font-weight: 900; font-size: 1.32rem; margin-bottom: .3rem; }
+    .footer-tag { font-size: .88rem; margin-bottom: 1rem; }
+    .footer-divider { margin: 1rem auto; width: 40px; height: 2px; background: rgba(200,238,236,.25); }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: .8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,.38); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--pale); }
+    .copyright { font-size: .8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="wk_v4.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="#F2F7F9" stroke="#1A5C7A" stroke-width="4"/>
+      <circle cx="100" cy="100" r="78" fill="none" stroke="#3A9CC5" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <circle cx="100" cy="100" r="66" fill="none" stroke="#3A9CC5" stroke-width="1"/>
+      <line x1="100" y1="18" x2="100" y2="32" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="100" y1="168" x2="100" y2="182" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="18" y1="100" x2="32" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="168" y1="100" x2="182" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="155" y1="45" x2="146" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="45" x2="54" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="155" y1="155" x2="146" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="155" x2="54" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <text x="100" y="22" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#E8B84B">N</text>
+      <polygon points="100,38 94,100 100,90 106,100" fill="#E8B84B" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="100,162 94,100 100,110 106,100" fill="#1A5C7A" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="100" cy="100" r="10" fill="#E8B84B" stroke="#0D3B4F" stroke-width="2"/>
+      <circle cx="100" cy="100" r="4" fill="#0D3B4F"/>
+    </svg>
+    <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:var(--white);">追光號</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li><a href="resources.html">教師培力</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="contact.html">聯絡我們</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="member_area.html" class="nav-login">登入</a>
+  </div>
+</nav>
+
+<div class="article-wrap">
+  <a href="resources.html" class="back-link">返回教師培力</a>
+
+  <div class="article-meta">
+    <span class="article-tag">教學技巧</span>
+    <span class="article-date">2026 / 07 / 18</span>
+  </div>
+
+  <h1 class="article-title">如何講一個生動的故事？</h1>
+  <div class="article-divider"></div>
+
+  <div class="article-body">
+
+    <h2>三個面向掌握講繪本故事的訣竅</h2>
+
+    <p>可能很多人會認為，講故事要能吸引孩子，一定要唱作俱佳，有誇張的表情與肢體動作、生動多變化的配音，甚至像專業說故事老師一樣充滿戲劇張力。不過，其實有些老師聲音變化不多，卻能讓孩子專心投入；有些老師表演十分精彩，孩子覺得新鮮好玩但卻搞不清楚故事在說什麼。真正決定故事是否吸引人的，往往不是老師的表演能力，而是老師能不能察覺孩子此刻的狀態，並適時調整自己的帶領方式。</p>
+
+    <p>當孩子開始東張西望、玩手邊的東西、和旁邊的人說話時，未必代表他們不喜歡故事。有時候可能是故事節奏太慢、解釋太多，或是孩子已經失去對情節的掌握。特別是在短影音盛行的時代，許多孩子其實能接受比我們想像中更快的資訊節奏。如果老師花了太長時間解釋一個情節、停留在同一頁太久，孩子反而容易感到無聊。</p>
+
+    <p>因此，比起追求「最理想」的講故事方式，更重要的是學習觀察孩子的反應，並透過以下三個面向，幫助孩子持續跟著故事前進。老師也可以觀察看看，你的學生最在乎以下哪個面向呢？</p>
+
+    <div class="callout">
+      <div class="callout-icon">🖼️</div>
+      <div class="callout-body">
+        <div class="callout-title">圖片（視覺）</div>
+        <p>首先，請記住一個觀念：繪本的核心是「圖文共同敘事」。朗讀時除了把文字念出來，也要留幾秒鐘給孩子觀察圖片。有時候，角色的表情、動作或背景中的細節，會透露出文字沒有直接說明的訊息。</p>
+        <p>如果孩子們對於文字的理解能力尚未成熟，可以增加圖片觀察的時間。譬如問他們：「你看他的手在做什麼？握拳，沒錯！」「那你覺得他現在的心情怎麼樣？」透過簡單的觀察問題，幫助孩子從圖片中發現故事。也可以邀請他們在投影幕上指出角色、物品在哪裡，增加參與感。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon">🔊</div>
+      <div class="callout-body">
+        <div class="callout-title">聲音（聽覺）</div>
+        <p>許多新手老師最擔心的是聲音表現，其實不需要像專業配音員，只要做到幾個簡單的變化就足夠了：一般敘事時語氣輕快，要強調的地方則將聲音放大、速度放慢，另外從挑選一兩個主要角色用略有區別的語氣說話。這些小小的變化能幫助孩子更容易理解角色的情緒，也讓故事變得更有生命力。</p>
+        <p>如果發現孩子開始分心，不妨試著增加一些語氣變化。很多時候，不需要更大的動作，只要聲音有起伏，孩子的注意力就會被重新吸引回來。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon">⏰</div>
+      <div class="callout-body">
+        <div class="callout-title">節奏（時間）</div>
+        <p>掌握節奏是朗讀繪本最重要的能力之一。大人常以為孩子跟不上，所以會不斷停下來解釋，但實際上，更常發生的情況是孩子已經聽懂了，老師卻還在說明。當故事前進得太慢，孩子就容易失去興趣。因此，朗讀時要適時停頓，但不要過度停頓；要提出問題，但不要讓問題取代故事本身。</p>
+        <p>教材中的互動問題正是幫助孩子進入故事的重要工具，除了讓孩子更進一步去觀察和思考故事內容，同時也藉由「聽」與「表達」的轉換，抓住孩子的注意力。</p>
+        <p>一般來說，整個故事盡量控制在 15 分鐘內完成，每次圖片觀察或互動討論不要超過 1 分鐘。記得讓故事持續向前推進，幫助孩子掌握情節的發展。</p>
+      </div>
+    </div>
+
+    <p>另外，有一個常見的情形是，老師很希望孩子學到今天的聖經真理，因此故事講到一半就開始解釋：「所以我們要學習順服神。」「你看，這就是說謊的後果。」然而，故事本身其實是孩子理解真理的重要橋樑，如果太早下結論，孩子反而沒有機會經歷角色的掙扎、期待或驚訝。先讓孩子走完整個故事，再一起回顧神在故事中的作為，通常會比提早講解更有幫助。</p>
+
+    <h2>常見問題與應對</h2>
+
+    <div class="qa-item">
+      <div class="qa-q">Q1：孩子一直插話怎麼辦？</div>
+      <div class="qa-a">不要急著制止，也不要覺得心煩意亂，很多插話其實代表孩子正在思考或與故事產生連結。我們可以藉由孩子的回應，觀察他此刻看見了什麼、想到什麼、感受到什麼，也能了解他對故事的理解程度。</div>
+      <div class="qa-a">如果孩子是因為聽不懂而發問，老師可以進一步說明；如果是對角色或情節的回應，老師可以簡單回應：「很棒的觀察！」「的確有可能是這樣。」接著再說：「那我們來看看後來發生什麼事！」把焦點自然帶回故事。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">Q2：孩子坐不住、不專心怎麼辦？</div>
+      <div class="qa-a">別急著認定孩子不喜歡聽故事，或命令他們要坐好。可以先嘗試做一些節奏上的調整，或音調上的變化，觀察孩子的注意力是否有改變。另外也可以透過簡單提問確認他們是否仍跟得上故事，與其要求每個孩子都坐得一動也不動，更重要的是確認他們是否仍然參與在故事當中。</div>
+    </div>
+
+    <div class="practice-card">
+      <h2>開始練習吧！</h2>
+      <p style="color:rgba(200,238,236,.8);margin-bottom:1rem;">下次朗讀時，只要嘗試三件事：</p>
+      <ol>
+        <li>每頁停留幾秒讓孩子看圖。</li>
+        <li>嘗試多做一些語速或音調的變化。</li>
+        <li>當孩子分心時，先調整自己的節奏，而不是立刻提醒孩子專心。</li>
+      </ol>
+      <p>不用追求完美，一次做好一點點就夠了。好的繪本朗讀，不是老師表現得多精彩，而是老師能否留意孩子的反應，陪伴他們一步一步走進故事。當孩子開始期待下一次聽故事的時間時，你就已經成功了。</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">追光號</div>
+  <div class="footer-tag">每堂主日學，都是一場探險</div>
+  <div class="footer-divider"></div>
+  <ul class="footer-links">
+    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li><a href="resources.html">教師培力</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="contact.html">聯絡我們</a></li>
+    <li><a href="#">隱私政策</a></li>
+    <li><a href="#">使用條款</a></li>
+  </ul>
+  <p class="copyright">© 2026 追光號 版權所有</p>
+</footer>
+
+</body>
+</html>

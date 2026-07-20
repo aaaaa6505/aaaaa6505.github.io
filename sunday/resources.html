@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>教師培力 — 追光號</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nav:     #024a52;
+      --deep:    #03666f;
+      --mid:     #038b94;
+      --bright:  #33b5ab;
+      --pale:    #c8eeec;
+      --navy:    #255194;
+      --cta:     #255194;
+      --cta-dk:  #1a3d70;
+      --bg:      #f0fafa;
+      --bg2:     #f0f4fb;
+      --text:    #0a1a20;
+      --muted:   #3a5a60;
+      --white:   #ffffff;
+      --r:       24px;
+      --cream:   #f8f4ee;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: sticky; top: 0; z-index: 200; background: var(--nav); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+    .nav-logo { font-size: 1.32rem; font-weight: 900; color: var(--pale); display: flex; align-items: center; gap: .4rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pale); }
+    .nav-links a.current { color: var(--pale); border-bottom: 2px solid var(--bright); padding-bottom: 2px; }
+    .nav-right { display: flex; align-items: center; gap: .8rem; }
+    .nav-login { color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 600; text-decoration: none; transition: color .2s; }
+    .nav-login:hover { color: var(--pale); }
+
+    /* HERO */
+    .page-hero { background: linear-gradient(135deg,#024a52 0%,#013540 60%,#0d1f4a 100%); padding: 4rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle,rgba(51,181,171,.15) 0%,transparent 70%); pointer-events: none; }
+    .page-hero::after  { content: ''; position: absolute; bottom: 10px; left: -50px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle,rgba(37,81,148,.2) 0%,transparent 70%); pointer-events: none; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; background: rgba(200,238,236,.12); border: 1px solid rgba(200,238,236,.3); color: var(--pale); border-radius: 999px; padding: .3rem 1rem; font-size: .82rem; font-weight: 700; letter-spacing: .05em; margin-bottom: 1.2rem; }
+    .page-hero h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 900; color: var(--white); letter-spacing: -.02em; margin-bottom: .8rem; position: relative; z-index: 1; }
+    .page-hero p { font-size: 1rem; color: rgba(200,238,236,.8); max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
+
+    /* FILTER BAR */
+    .filter-bar { background: var(--white); border-bottom: 1px solid rgba(3,102,111,.1); padding: 1rem 2rem; display: flex; gap: .6rem; flex-wrap: wrap; justify-content: center; }
+    .filter-chip { background: transparent; border: 1.5px solid rgba(3,102,111,.2); border-radius: 999px; padding: .35rem 1rem; font-size: .84rem; font-weight: 700; color: var(--muted); cursor: pointer; transition: all .2s; font-family: inherit; }
+    .filter-chip:hover { border-color: var(--bright); color: var(--deep); }
+    .filter-chip.active { background: var(--deep); border-color: var(--deep); color: var(--white); }
+
+    /* ARTICLES */
+    .articles-section { padding: 4rem 2rem 5rem; max-width: 1080px; margin: 0 auto; }
+    .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .article-card { background: var(--white); border-radius: var(--r); overflow: hidden; box-shadow: 0 4px 24px rgba(3,102,111,.07); transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; text-decoration: none; color: inherit; cursor: pointer; }
+    .article-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(3,102,111,.13); }
+    .card-thumb { height: 160px; background: linear-gradient(135deg,#024a52,#038b94); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .card-thumb-icon { font-size: 3rem; opacity: .6; }
+    .card-thumb-placeholder { background: linear-gradient(135deg,#1a5c7a,#255194); }
+    .card-thumb-placeholder2 { background: linear-gradient(135deg,#03666f,#0d3b4f); }
+    .card-body { padding: 1.4rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .card-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .7rem; }
+    .card-tag { font-size: .72rem; font-weight: 800; padding: .22rem .65rem; border-radius: 999px; letter-spacing: .04em; }
+    .tag-skill    { background: rgba(51,181,171,.12); color: var(--deep); }
+    .tag-class    { background: rgba(37,81,148,.12); color: var(--navy); }
+    .tag-bible    { background: rgba(232,184,75,.15); color: #7a5800; }
+    .tag-attention { background: rgba(3,102,111,.1); color: var(--mid); }
+    .card-title { font-size: 1.05rem; font-weight: 900; color: var(--text); line-height: 1.4; margin-bottom: .6rem; letter-spacing: -.01em; }
+    .card-desc { font-size: .88rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .card-footer { margin-top: 1.1rem; display: flex; align-items: center; justify-content: space-between; }
+    .card-date { font-size: .78rem; color: rgba(58,90,96,.55); }
+    .card-link { font-size: .84rem; font-weight: 700; color: var(--cta); text-decoration: none; transition: color .2s; }
+    .card-link:hover { color: var(--cta-dk); }
+    .card-placeholder-badge { display: inline-flex; align-items: center; gap: .3rem; background: rgba(58,90,96,.08); border-radius: 999px; padding: .22rem .7rem; font-size: .76rem; color: var(--muted); font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .filter-bar { justify-content: flex-start; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    footer { background: #01252b; color: rgba(255,255,255,.48); padding: 3rem 2rem; text-align: center; }
+    .footer-logo { color: var(--pale); font-weight: 900; font-size: 1.32rem; margin-bottom: .3rem; }
+    .footer-tag { font-size: .88rem; margin-bottom: 1rem; }
+    .footer-divider { margin: 1rem auto; width: 40px; height: 2px; background: rgba(200,238,236,.25); }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: .8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,.38); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--pale); }
+    .copyright { font-size: .8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="wk_v4.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="#F2F7F9" stroke="#1A5C7A" stroke-width="4"/>
+      <circle cx="100" cy="100" r="78" fill="none" stroke="#3A9CC5" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <circle cx="100" cy="100" r="66" fill="none" stroke="#3A9CC5" stroke-width="1"/>
+      <line x1="100" y1="18" x2="100" y2="32" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="100" y1="168" x2="100" y2="182" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="18" y1="100" x2="32" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="168" y1="100" x2="182" y2="100" stroke="#3A9CC5" stroke-width="2"/>
+      <line x1="155" y1="45" x2="146" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="45" x2="54" y2="54" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="155" y1="155" x2="146" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <line x1="45" y1="155" x2="54" y2="146" stroke="#3A9CC5" stroke-width="1.5"/>
+      <text x="100" y="22" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#E8B84B">N</text>
+      <polygon points="100,38 94,100 100,90 106,100" fill="#E8B84B" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="100,162 94,100 100,110 106,100" fill="#1A5C7A" stroke="#0D3B4F" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="100" cy="100" r="10" fill="#E8B84B" stroke="#0D3B4F" stroke-width="2"/>
+      <circle cx="100" cy="100" r="4" fill="#0D3B4F"/>
+    </svg>
+    <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:var(--white);">追光號</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li><a href="resources.html" class="current">教師培力</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="contact.html">聯絡我們</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="member_area.html" class="nav-login">登入</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow">✦ 教師培力資源</div>
+  <h1>讓每一堂主日學<br>都成為一場探險</h1>
+  <p>精選教學文章與實用技巧，幫助你成為更有影響力的主日學老師。</p>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-chip active" onclick="filterCards('all', this)">全部</button>
+  <button class="filter-chip" onclick="filterCards('skill', this)">教學技巧</button>
+  <button class="filter-chip" onclick="filterCards('class', this)">課室管理</button>
+  <button class="filter-chip" onclick="filterCards('attention', this)">注意力管理</button>
+  <button class="filter-chip" onclick="filterCards('bible', this)">聖經知識</button>
+</div>
+
+<div class="articles-section">
+  <div class="articles-grid" id="articles-grid">
+
+    <!-- Card 1: Real -->
+    <a class="article-card" data-tag="skill" href="resources_article_01.html">
+      <div class="card-thumb">
+        <span class="card-thumb-icon">📖</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-skill">教學技巧</span>
+        </div>
+        <div class="card-title">如何講一個生動的故事？</div>
+        <div class="card-desc">好故事不是天生的，而是用技巧和結構打造出來的。學習如何讓聖經故事在孩子心中活起來。</div>
+        <div class="card-footer">
+          <span class="card-date">2026/07/18</span>
+          <span class="card-link">閱讀文章 →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2: Placeholder -->
+    <div class="article-card" data-tag="class">
+      <div class="card-thumb card-thumb-placeholder">
+        <span class="card-thumb-icon">🏫</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-class">課室管理</span>
+        </div>
+        <div class="card-title">課堂秩序怎麼維持，又不破壞氣氛？</div>
+        <div class="card-desc">建立清楚的課堂規範、善用轉換節奏，讓孩子專注又有活力，而不只是安靜坐著。</div>
+        <div class="card-footer">
+          <span class="card-placeholder-badge">⏳ 即將上線</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Placeholder -->
+    <div class="article-card" data-tag="bible">
+      <div class="card-thumb card-thumb-placeholder2">
+        <span class="card-thumb-icon">📜</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-bible">聖經知識</span>
+        </div>
+        <div class="card-title">舊約的故事脈絡：從創世到亞伯拉罕</div>
+        <div class="card-desc">整理出一條清楚的故事線，幫助老師在備課時抓住大圖像，讓孩子在每堂課都能感受到連貫的脈絡。</div>
+        <div class="card-footer">
+          <span class="card-placeholder-badge">⏳ 即將上線</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">追光號</div>
+  <div class="footer-tag">每堂主日學，都是一場探險</div>
+  <div class="footer-divider"></div>
+  <ul class="footer-links">
+    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li><a href="resources.html">教師培力</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="contact.html">聯絡我們</a></li>
+    <li><a href="#">隱私政策</a></li>
+    <li><a href="#">使用條款</a></li>
+  </ul>
+  <p class="copyright">© 2026 追光號 版權所有</p>
+</footer>
+
+<script>
+  function filterCards(tag, btn) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.article-card').forEach(card => {
+      card.style.display = (tag === 'all' || card.dataset.tag === tag) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

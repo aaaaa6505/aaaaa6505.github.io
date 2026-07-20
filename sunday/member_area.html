@@ -26,12 +26,13 @@ nav {
   background: var(--deep);
   position: sticky; top: 0; z-index: 200;
   display: flex; align-items: center;
-  padding: 0 36px; height: 58px; gap: 28px;
+  padding: 0 36px; height: 58px;
+  justify-content: space-between;
 }
-.nav-logo { color: #fff; font-size: 20px; font-weight: 900; text-decoration: none; white-space: nowrap; }
-.nav-links { display: flex; gap: 6px; flex: 1; list-style: none; }
-.nav-links a { color: rgba(255,255,255,.75); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 14px; transition: background .15s, color .15s; }
-.nav-links a:hover { background: var(--navy); color: #fff; }
+.nav-logo { color: #fff; font-size: 20px; font-weight: 900; text-decoration: none; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+.nav-links { display: flex; gap: 2rem; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
+.nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; padding: 0; border-radius: 0; }
+.nav-links a:hover { background: transparent; color: var(--main); }
 .nav-right { display: flex; align-items: center; gap: 10px; position: relative; }
 .nav-account-btn {
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
@@ -351,8 +352,9 @@ tr:hover td { background: #FAFCFE; }
   </a>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('dashboard');return false;">教材列表</a></li>
-    <li><a href="#" onclick="showPage('teacher');return false;">教師培力</a></li>
+    <li><a href="resources.html">教師培力</a></li>
     <li><a href="#">About</a></li>
+    <li><a href="contact.html">聯絡我們</a></li>
   </ul>
   <div class="nav-right">
     <button class="nav-account-btn" onclick="toggleDropdown()">
@@ -360,7 +362,6 @@ tr:hover td { background: #FAFCFE; }
     </button>
     <div class="dropdown-menu" id="account-dropdown">
       <a href="#" onclick="showPage('account');closeDropdown();return false;">帳號管理</a>
-      <a href="#" onclick="closeDropdown();return false;">使用說明</a>
       <a href="#" style="color:#DC2626;" onclick="closeDropdown();return false;">登出</a>
     </div>
     <button class="nav-logout" onclick="return false;">登出</button>
@@ -731,15 +732,22 @@ tr:hover td { background: #FAFCFE; }
           <button class="btn-add" onclick="showAddMemberForm()">＋ 新增成員</button>
         </div>
 
-        <div class="add-member-form" id="add-member-form" style="display:none;">
-          <input type="email" placeholder="輸入成員 Email，例如 teacher@church.org" id="new-email">
-          <button class="btn-add" onclick="addMember()">送出邀請</button>
-          <button class="btn-sm" onclick="hideAddMemberForm()">取消</button>
+        <div class="add-member-form" id="add-member-form" style="display:none;flex-direction:column;gap:8px;margin-bottom:20px;">
+          <div style="display:flex;gap:10px;align-items:center;">
+            <input type="text" placeholder="例：陳雅琳" id="new-name" style="flex:0 0 140px;border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;font-size:13.5px;font-family:inherit;" required>
+            <input type="email" placeholder="輸入成員 Email，例如 teacher@church.org" id="new-email" style="flex:1;border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;font-size:13.5px;font-family:inherit;">
+            <button class="btn-add" onclick="addMember()">送出邀請</button>
+            <button class="btn-sm" onclick="hideAddMemberForm()">取消</button>
+          </div>
+          <div style="display:flex;gap:16px;font-size:12px;color:var(--muted);padding:0 2px;">
+            <span>① 名字（必填）</span><span>② Email（必填）</span>
+          </div>
         </div>
 
         <table>
           <thead>
             <tr>
+              <th>名字</th>
               <th>Email</th>
               <th>狀態</th>
               <th>最近登入</th>
@@ -749,6 +757,7 @@ tr:hover td { background: #FAFCFE; }
           </thead>
           <tbody id="member-table">
             <tr>
+              <td>陳雅琳</td>
               <td>teacher1@grace.org.tw</td>
               <td><span class="status-on">✅ 啟用</span></td>
               <td>2026/07/18</td>
@@ -759,6 +768,7 @@ tr:hover td { background: #FAFCFE; }
               </td>
             </tr>
             <tr>
+              <td>吳建宏</td>
               <td>teacher2@grace.org.tw</td>
               <td><span class="status-on">✅ 啟用</span></td>
               <td>2026/07/15</td>
@@ -769,6 +779,7 @@ tr:hover td { background: #FAFCFE; }
               </td>
             </tr>
             <tr>
+              <td>—</td>
               <td>teacher3@grace.org.tw</td>
               <td><span class="status-pending">⏳ 待設定密碼</span></td>
               <td>—</td>
@@ -1096,13 +1107,19 @@ document.getElementById('record-modal').addEventListener('click', function(e){
 
 /* ── ADD MEMBER ── */
 function showAddMemberForm() { document.getElementById('add-member-form').style.display='flex'; }
-function hideAddMemberForm() { document.getElementById('add-member-form').style.display='none'; document.getElementById('new-email').value=''; }
+function hideAddMemberForm() {
+  document.getElementById('add-member-form').style.display='none';
+  document.getElementById('new-name').value='';
+  document.getElementById('new-email').value='';
+}
 function addMember() {
+  const name = document.getElementById('new-name').value.trim();
   const email = document.getElementById('new-email').value.trim();
+  if (!name) { alert('請輸入名字'); return; }
   if (!email || !email.includes('@')) { alert('請輸入有效的 Email'); return; }
   const tbody = document.getElementById('member-table');
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${email}</td><td><span class="status-pending">⏳ 待設定密碼</span></td><td>—</td><td>—</td>
+  tr.innerHTML = `<td>${name}</td><td>${email}</td><td><span class="status-pending">⏳ 待設定密碼</span></td><td>—</td><td>—</td>
     <td><button class="btn-sm" onclick="alert('邀請信已重新發送至 ${email}')">重發邀請</button>
     <button class="btn-sm danger" onclick="confirmDelete(this,'${email}')">刪除</button></td>`;
   tbody.appendChild(tr);
