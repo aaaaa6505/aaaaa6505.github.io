@@ -23,6 +23,8 @@
       --white:   #ffffff;
       --r:       24px;
       --cream:   #f8f4ee;
+      --main:    var(--cta);
+      --border:  #d7e3ea;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -37,6 +39,31 @@
     .nav-right { display: flex; align-items: center; gap: .8rem; }
     .nav-login { color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 600; text-decoration: none; transition: color .2s; }
     .nav-login:hover { color: var(--pale); }
+
+    /* ── NAV DROPDOWN: 教材列表 系列選單 ── */
+    .nav-dropdown { position: relative; display: inline-block; }
+    .nav-dropdown-trigger { display: inline-flex; align-items: center; }
+    .nav-dropdown-arrow { font-size: .7em; margin-left: 3px; display: inline-block; transition: transform .2s; }
+    .nav-dropdown.open .nav-dropdown-arrow { transform: rotate(180deg); }
+    .nav-dropdown-menu {
+      position: absolute; top: 100%; left: 0; margin-top: 8px; min-width: 220px;
+      background: #fff; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      padding: 8px 0; z-index: 999;
+      opacity: 0; visibility: hidden; transform: translateY(4px);
+      transition: opacity .15s, visibility .15s, transform .15s;
+    }
+    .nav-dropdown-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .nav-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 18px; cursor: pointer; text-decoration: none; transition: background .15s; }
+    .nav-dropdown-item:hover { background: rgba(58,156,197,.07); }
+    .nav-dropdown-item:hover .ndi-name { color: var(--main); }
+    .ndi-emoji { font-size: 1.2rem; flex-shrink: 0; }
+    .ndi-text { display: flex; flex-direction: column; }
+    .ndi-name { font-size: .92rem; font-weight: 600; color: var(--text); }
+    .ndi-sub { font-size: .75rem; color: var(--muted); }
+    .nav-dropdown-item.disabled { opacity: .45; cursor: default; pointer-events: none; }
+    .nav-dropdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
+    .nav-dropdown-item.active-series { background: rgba(58,156,197,.07); border-left: 3px solid var(--main); }
+    .nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1; }
 
     /* HERO */
     .page-hero { background: linear-gradient(135deg,#024a52 0%,#013540 60%,#0d1f4a 100%); padding: 4rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
@@ -77,7 +104,25 @@
     .card-placeholder-badge { display: inline-flex; align-items: center; gap: .3rem; background: rgba(58,90,96,.08); border-radius: 999px; padding: .22rem .7rem; font-size: .76rem; color: var(--muted); font-weight: 700; }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--nav); flex-direction: column; gap: 0; padding: .5rem 0 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,.2); z-index: 150;
+      }
+      .nav-links.mobile-open { display: flex; }
+      .nav-links > li { width: 100%; }
+      .nav-links > li > .nav-dropdown-trigger, .nav-links > li > a { display: block; padding: .7rem 2rem; }
+      .nav-hamburger { display: block; }
+      .nav-dropdown-menu {
+        position: static; opacity: 1; visibility: visible; transform: none;
+        background: transparent; box-shadow: none; padding: 0; margin: 0;
+        display: flex; flex-direction: column; gap: 0;
+      }
+      .nav-dropdown-menu .nav-dropdown-item { padding: .45rem 2rem .45rem 20px; font-size: .88rem; }
+      .nav-dropdown-menu .ndi-name { font-size: .88rem; color: rgba(255,255,255,.88); }
+      .nav-dropdown-menu .ndi-sub { color: rgba(255,255,255,.5); }
+      .nav-dropdown-menu .nav-dropdown-divider { display: none; }
+      .nav-dropdown-arrow { display: none; }
       .articles-grid { grid-template-columns: 1fr; }
       .filter-bar { justify-content: flex-start; }
     }
@@ -120,13 +165,35 @@
     <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:var(--white);">追光號</span>
   </a>
   <ul class="nav-links">
-    <li><a href="wk_v4.html#structure">教材列表</a></li>
+    <li class="nav-dropdown">
+      <a href="#" class="nav-dropdown-trigger">教材列表<span class="nav-dropdown-arrow">∨</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="light.html" class="nav-dropdown-item">
+          <span class="ndi-emoji">🚀</span>
+          <span class="ndi-text"><span class="ndi-name">追光號</span><span class="ndi-sub">亞伯拉罕之約 · 12 堂</span></span>
+        </a>
+        <div class="nav-dropdown-divider"></div>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">✝️</span>
+          <span class="ndi-text"><span class="ndi-name">復活號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">🌟</span>
+          <span class="ndi-text"><span class="ndi-name">降臨號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">🎄</span>
+          <span class="ndi-text"><span class="ndi-name">聖誕號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+      </div>
+    </li>
     <li><a href="resources.html" class="current">教師培力</a></li>
     <li><a href="#">About</a></li>
     <li><a href="contact.html">聯絡我們</a></li>
   </ul>
   <div class="nav-right">
     <a href="member_area.html" class="nav-login">登入</a>
+    <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="開啟選單">☰</button>
   </div>
 </nav>
 
@@ -224,6 +291,40 @@
     document.querySelectorAll('.article-card').forEach(card => {
       card.style.display = (tag === 'all' || card.dataset.tag === tag) ? '' : 'none';
     });
+  }
+</script>
+
+<!-- ── NAV DROPDOWN: 教材列表 系列選單（各頁共用） ── -->
+<script>
+  (function() {
+    document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
+      var menu = dd.querySelector('.nav-dropdown-menu');
+      var closeTimer;
+      function openDD() { clearTimeout(closeTimer); dd.classList.add('open'); menu.classList.add('open'); }
+      function closeDD() { dd.classList.remove('open'); menu.classList.remove('open'); }
+      dd.addEventListener('mouseenter', openDD);
+      dd.addEventListener('mouseleave', function() { closeTimer = setTimeout(closeDD, 100); });
+      var trigger = dd.querySelector('.nav-dropdown-trigger');
+      if (trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (dd.classList.contains('open')) closeDD(); else openDD();
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.nav-dropdown.open').forEach(function(dd) {
+        if (!dd.contains(e.target)) {
+          dd.classList.remove('open');
+          var menu = dd.querySelector('.nav-dropdown-menu');
+          if (menu) menu.classList.remove('open');
+        }
+      });
+    });
+  })();
+  function toggleMobileNav() {
+    var nav = document.querySelector('.nav-links');
+    if (nav) nav.classList.toggle('mobile-open');
   }
 </script>
 </body>

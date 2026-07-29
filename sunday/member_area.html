@@ -33,6 +33,32 @@ nav {
 .nav-links { display: flex; gap: 2rem; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
 .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; padding: 0; border-radius: 0; }
 .nav-links a:hover { background: transparent; color: var(--main); }
+
+/* ── NAV DROPDOWN: 教材列表 系列選單 ── */
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger { display: inline-flex; align-items: center; }
+.nav-dropdown-arrow { font-size: .7em; margin-left: 3px; display: inline-block; transition: transform .2s; }
+.nav-dropdown.open .nav-dropdown-arrow { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  position: absolute; top: 100%; left: 0; margin-top: 8px; min-width: 220px;
+  background: var(--white); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  padding: 8px 0; z-index: 999;
+  opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .15s, visibility .15s, transform .15s;
+}
+.nav-dropdown-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 18px; cursor: pointer; text-decoration: none; transition: background .15s; }
+.nav-dropdown-item:hover { background: rgba(58,156,197,.07); }
+.nav-dropdown-item:hover .ndi-name { color: var(--main); }
+.ndi-emoji { font-size: 1.2rem; flex-shrink: 0; }
+.ndi-text { display: flex; flex-direction: column; }
+.ndi-name { font-size: .92rem; font-weight: 600; color: var(--text); }
+.ndi-sub { font-size: .75rem; color: var(--muted); }
+.nav-dropdown-item.disabled { opacity: .45; cursor: default; pointer-events: none; }
+.nav-dropdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
+.nav-dropdown-item.active-series { background: rgba(58,156,197,.07); border-left: 3px solid var(--main); }
+.nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1; }
+
 .nav-right { display: flex; align-items: center; gap: 10px; position: relative; }
 .nav-account-btn {
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
@@ -46,11 +72,30 @@ nav {
 .dropdown-menu {
   display: none; position: absolute; top: calc(100% + 8px); right: 0;
   background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(0,0,0,.12); min-width: 160px; overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12); width: 220px; overflow: hidden;
 }
 .dropdown-menu.open { display: block; }
 .dropdown-menu a { display: block; padding: 11px 16px; font-size: 13.5px; color: var(--text); text-decoration: none; }
 .dropdown-menu a:hover { background: var(--cream); }
+.dropdown-section-title {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px 6px; font-size: 12px; color: var(--muted);
+  cursor: pointer; user-select: none;
+}
+.dropdown-section-title .chevron { font-size: 11px; transition: transform .2s; }
+.dropdown-section-title .chevron.open { transform: rotate(180deg); }
+.identity-list { display: flex; flex-direction: column; }
+.identity-list.collapsed { display: none; }
+.identity-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; font-size: 0.9rem; color: var(--text);
+  cursor: pointer;
+}
+.identity-item:hover { background: rgba(58,156,197,0.08); }
+.identity-item.selected { font-weight: 700; }
+.identity-item .identity-check { width: 14px; flex-shrink: 0; color: var(--main); font-size: 12px; }
+.identity-item .identity-tag { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+.dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
 
 /* ── PAGE SHELL ── */
 .page { display: none; }
@@ -74,9 +119,40 @@ nav {
 .series-header p { font-size: 13px; color: var(--muted); margin-top: 2px; }
 .series-badge { background: var(--main); color: #fff; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600; white-space: nowrap; }
 
+/* ── SERIES FILTER PILLS ── */
+.series-filter-bar { display: flex; gap: 8px; margin: 16px 0 24px; flex-wrap: wrap; }
+.series-filter-pill {
+  padding: 6px 16px; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--white); color: var(--text); font-size: 13px;
+  cursor: pointer; font-family: inherit; transition: all .15s;
+}
+.series-filter-pill:hover { background: var(--cream); }
+.series-filter-pill.active { background: var(--main); color: #fff; border-color: var(--main); }
+
 /* ── COURSE GRID ── */
 .course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 @media (max-width: 900px) { .course-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--deep); flex-direction: column; gap: 0; padding: .5rem 0 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,.2); z-index: 150; transform: none;
+  }
+  .nav-links.mobile-open { display: flex; }
+  .nav-links > li { width: 100%; }
+  .nav-links > li > .nav-dropdown-trigger, .nav-links > li > a { display: block; padding: .7rem 2rem; }
+  .nav-hamburger { display: block; }
+  .nav-dropdown-menu {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    background: transparent; box-shadow: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .nav-dropdown-menu .nav-dropdown-item { padding: .45rem 2rem .45rem 20px; font-size: .88rem; }
+  .nav-dropdown-menu .ndi-name { font-size: .88rem; color: rgba(255,255,255,.88); }
+  .nav-dropdown-menu .ndi-sub { color: rgba(255,255,255,.5); }
+  .nav-dropdown-menu .nav-dropdown-divider { display: none; }
+  .nav-dropdown-arrow { display: none; }
+}
 
 .course-card {
   background: var(--white); border-radius: 12px; border: 1px solid var(--border);
@@ -84,27 +160,36 @@ nav {
   display: flex; flex-direction: column;
 }
 .course-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(13,59,79,.12); }
-.course-card.locked { cursor: default; opacity: .7; }
+.course-card.locked { cursor: default; opacity: .65; }
 .course-card.locked:hover { transform: none; box-shadow: none; }
+.course-card.series-hidden { display: none; }
+.card-series-tag {
+  display: inline-block;
+  font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 20px;
+  background: rgba(58,156,197,.15); color: var(--main); margin-bottom: 6px;
+}
 
 .card-top { background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 100%); padding: 18px 16px 14px; position: relative; min-height: 80px; }
 .card-num {
-  position: absolute; top: 10px; right: 10px;
+  position: absolute; top: 14px; right: 14px;
   background: rgba(255,255,255,.18); color: #fff; border-radius: 20px;
   font-size: 11px; font-weight: 700; padding: 2px 8px; letter-spacing: .03em;
 }
 .card-locked-badge {
-  position: absolute; top: 10px; right: 10px;
+  position: absolute; top: 14px; right: 14px;
   background: var(--gold); color: var(--deep); border-radius: 20px;
   font-size: 10.5px; font-weight: 700; padding: 2px 8px;
 }
 .card-title { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.4; }
 .card-slogan { color: rgba(255,255,255,.7); font-size: 11.5px; margin-top: 4px; }
-.card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
-.card-modules { display: flex; gap: 8px; flex-wrap: wrap; }
-.module-chip { font-size: 11px; color: var(--muted); background: var(--cream); border-radius: 20px; padding: 2px 8px; }
+.card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
+.card-summary {
+  font-size: 0.85rem; color: var(--muted); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; margin: 8px 0 12px;
+}
 .card-enter { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
-.btn-enter { font-size: 13px; font-weight: 600; color: var(--main); background: transparent; border: none; cursor: pointer; padding: 0; font-family: inherit; }
+.btn-enter { font-size: 0.88rem; font-weight: 600; color: var(--main); background: transparent; border: none; cursor: pointer; padding: 0; font-family: inherit; }
 .btn-enter:hover { color: var(--navy); }
 .card-preparing { font-size: 12px; color: var(--muted); font-style: italic; }
 
@@ -205,28 +290,6 @@ nav {
 .progress-fill { height: 100%; width: 0%; background: var(--main); border-radius: 2px; transition: width 1s linear; }
 .video-no-dl { position: absolute; bottom: 16px; right: 14px; font-size: 12px; color: #F87171; }
 
-/* VERSE */
-.verse-card {
-  background: var(--deep); color: #fff; border-radius: 14px;
-  padding: 36px 32px; text-align: center; margin-bottom: 24px;
-}
-.verse-text { font-size: 20px; line-height: 1.8; font-weight: 600; letter-spacing: .02em; min-height: 80px; }
-.verse-text .blank { display: inline-block; border-bottom: 2px solid rgba(255,255,255,.4); min-width: 60px; }
-.verse-ref { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 12px; }
-.verse-modes { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
-.mode-btn {
-  padding: 8px 20px; border-radius: 20px; font-size: 13.5px; font-weight: 500;
-  border: 2px solid var(--border); background: var(--white); color: var(--muted);
-  cursor: pointer; font-family: inherit; transition: all .15s;
-}
-.mode-btn.active { border-color: var(--main); color: var(--main); background: #EBF6FC; }
-.fullscreen-btn {
-  display: block; margin: 0 auto; padding: 10px 24px;
-  background: var(--deep); color: #fff; border: none; border-radius: var(--r);
-  font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
-}
-.fullscreen-btn:hover { background: var(--navy); }
-
 /* ACCOUNT */
 .account-info-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--border); padding: 24px 28px; margin-bottom: 20px; }
 .account-info-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
@@ -313,16 +376,6 @@ tr:hover td { background: #FAFCFE; }
 .record-item:last-child { border-bottom: none; }
 .record-time { color: var(--muted); font-size: 12.5px; }
 
-/* FULLSCREEN VERSE */
-#fullscreen-overlay {
-  display: none; position: fixed; inset: 0; background: var(--deep);
-  z-index: 400; align-items: center; justify-content: center; flex-direction: column;
-  text-align: center; padding: 40px;
-}
-#fullscreen-overlay.open { display: flex; }
-#fullscreen-verse-text { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.7; letter-spacing: .02em; max-width: 800px; }
-#fullscreen-ref { font-size: 18px; color: rgba(255,255,255,.55); margin-top: 20px; }
-#fullscreen-close { position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,.12); border: none; color: #fff; font-size: 16px; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: inherit; }
 </style>
 </head>
 <body>
@@ -351,20 +404,64 @@ tr:hover td { background: #FAFCFE; }
     <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:#FFFFFF;">追光號</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#" onclick="showPage('dashboard');return false;">教材列表</a></li>
+    <li class="nav-dropdown">
+      <a href="#" class="nav-dropdown-trigger">教材列表<span class="nav-dropdown-arrow">∨</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="#" class="nav-dropdown-item active-series" onclick="showPage('dashboard');closeAllNavDropdowns();return false;">
+          <span class="ndi-emoji">🚀</span>
+          <span class="ndi-text"><span class="ndi-name">追光號</span><span class="ndi-sub">亞伯拉罕之約 · 12 堂</span></span>
+        </a>
+        <div class="nav-dropdown-divider"></div>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">✝️</span>
+          <span class="ndi-text"><span class="ndi-name">復活號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">🌟</span>
+          <span class="ndi-text"><span class="ndi-name">降臨號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">🎄</span>
+          <span class="ndi-text"><span class="ndi-name">聖誕號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+      </div>
+    </li>
     <li><a href="resources.html">教師培力</a></li>
     <li><a href="#">About</a></li>
     <li><a href="contact.html">聯絡我們</a></li>
   </ul>
   <div class="nav-right">
+    <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="開啟選單">☰</button>
     <button class="nav-account-btn" onclick="toggleDropdown()">
-      👤 我的帳號 ▾
+      👤 <span id="account-current-name">王小明</span> ▾
     </button>
     <div class="dropdown-menu" id="account-dropdown">
-      <a href="#" onclick="showPage('account');closeDropdown();return false;">帳號管理</a>
+      <div class="dropdown-section-title" onclick="toggleIdentitySection(event)">
+        <span>切換身份</span>
+        <span class="chevron open" id="identity-chevron">∧</span>
+      </div>
+      <div class="identity-list" id="identity-list">
+        <div class="identity-item selected" data-name="王小明" onclick="switchIdentity('王小明', this)">
+          <span class="identity-check">✓</span>
+          <span>王小明<span class="identity-tag">（個人）</span></span>
+        </div>
+        <div class="identity-item" data-name="沛恩教會" onclick="switchIdentity('沛恩教會', this)">
+          <span class="identity-check"></span>
+          <span>沛恩教會</span>
+        </div>
+        <div class="identity-item" data-name="台北某教會" onclick="switchIdentity('台北某教會', this)">
+          <span class="identity-check"></span>
+          <span>台北某教會</span>
+        </div>
+        <div class="identity-item" data-name="新北教會" onclick="switchIdentity('新北教會', this)">
+          <span class="identity-check"></span>
+          <span>新北教會</span>
+        </div>
+      </div>
+      <div class="dropdown-divider"></div>
+      <a href="#" onclick="showPage('account');closeDropdown();return false;">修改個人資料</a>
       <a href="#" style="color:#DC2626;" onclick="closeDropdown();return false;">登出</a>
     </div>
-    <button class="nav-logout" onclick="return false;">登出</button>
   </div>
 </nav>
 
@@ -377,6 +474,14 @@ tr:hover td { background: #FAFCFE; }
         <p>你的帳號已解鎖全部 12 堂課程</p>
       </div>
       <span class="welcome-tag">🔓 完整版訂閱中</span>
+    </div>
+
+    <div class="series-filter-bar" id="series-filter-bar">
+      <button class="series-filter-pill active" data-series-filter="all" onclick="filterBySeries('all',this)">全部</button>
+      <button class="series-filter-pill" data-series-filter="追光號" onclick="filterBySeries('追光號',this)">🚀 追光號</button>
+      <button class="series-filter-pill" data-series-filter="復活號" onclick="filterBySeries('復活號',this)">✝️ 復活號</button>
+      <button class="series-filter-pill" data-series-filter="降臨號" onclick="filterBySeries('降臨號',this)">🌟 降臨號</button>
+      <button class="series-filter-pill" data-series-filter="聖誕號" onclick="filterBySeries('聖誕號',this)">🎄 聖誕號</button>
     </div>
 
     <div class="series-header">
@@ -415,9 +520,8 @@ tr:hover td { background: #FAFCFE; }
       <button class="tab-btn active" onclick="showCourseTab('prep',this)">課前預備</button>
       <button class="tab-btn" onclick="showCourseTab('warmup',this)">暖身活動</button>
       <button class="tab-btn" onclick="showCourseTab('story',this)">故事時間</button>
-      <button class="tab-btn" onclick="showCourseTab('response',this)">回應活動</button>
       <button class="tab-btn" onclick="showCourseTab('video',this)">影片</button>
-      <button class="tab-btn" onclick="showCourseTab('verse',this)">背金句</button>
+      <button class="tab-btn" onclick="showCourseTab('response',this)">回應活動</button>
     </div>
 
     <!-- Tab: 課前預備 -->
@@ -603,6 +707,18 @@ tr:hover td { background: #FAFCFE; }
       </div>
     </div>
 
+    <!-- Tab: 影片 -->
+    <div class="tab-panel" id="ctab-video">
+      <div class="video-player" id="video-player" onclick="startVideo()" oncontextmenu="return false" controlslist="nodownload">
+        <div class="play-btn" id="play-icon">▶</div>
+        <div class="progress-bar-mock"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="video-no-dl">⚠️ 僅供串流播放，不提供下載</div>
+      </div>
+      <p style="font-size:12px;color:#F87171;margin-bottom:8px;">⚠️ 此影片僅供線上播放，不提供下載</p>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">本課程故事繪本影片，建議搭配課前預備閱讀使用。</p>
+      <p style="font-size:13px;color:var(--muted);">時長：約 8 分鐘 ｜ 語言：中文普通話配音</p>
+    </div>
+
     <!-- Tab: 回應活動 -->
     <div class="tab-panel" id="ctab-response">
       <p style="font-size:14px;color:var(--muted);margin-bottom:22px;">以下提供四種回應活動，請依班級年齡選擇適合的一種。每種活動約 30 分鐘。</p>
@@ -667,32 +783,6 @@ tr:hover td { background: #FAFCFE; }
           <p style="font-size:14px;line-height:1.7;">帶孩子直接打開聖經，用三個觀察問題引導：(1) 上帝說了什麼？(2) 亞伯蘭做了什麼？(3) 結果如何？培養孩子自己讀經的習慣。</p>
         </div>
       </div>
-    </div>
-
-    <!-- Tab: 影片 -->
-    <div class="tab-panel" id="ctab-video">
-      <div class="video-player" id="video-player" onclick="startVideo()" oncontextmenu="return false" controlslist="nodownload">
-        <div class="play-btn" id="play-icon">▶</div>
-        <div class="progress-bar-mock"><div class="progress-fill" id="progress-fill"></div></div>
-        <div class="video-no-dl">⚠️ 僅供串流播放，不提供下載</div>
-      </div>
-      <p style="font-size:12px;color:#F87171;margin-bottom:8px;">⚠️ 此影片僅供線上播放，不提供下載</p>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">本課程故事繪本影片，建議搭配課前預備閱讀使用。</p>
-      <p style="font-size:13px;color:var(--muted);">時長：約 8 分鐘 ｜ 語言：中文普通話配音</p>
-    </div>
-
-    <!-- Tab: 背金句 -->
-    <div class="tab-panel" id="ctab-verse">
-      <div class="verse-card" id="verse-card">
-        <div class="verse-text" id="verse-display"></div>
-        <div class="verse-ref">創世記 12:1（現代中文譯本）</div>
-      </div>
-      <div class="verse-modes">
-        <button class="mode-btn active" id="mode-full" onclick="setVerseMode('full',this)">完整顯示</button>
-        <button class="mode-btn" id="mode-partial" onclick="setVerseMode('partial',this)">遮蓋部分</button>
-        <button class="mode-btn" id="mode-blank" onclick="setVerseMode('blank',this)">完全空白</button>
-      </div>
-      <button class="fullscreen-btn" onclick="openFullscreen()">🖥 全螢幕投影模式</button>
     </div>
 
   </div><!-- /container -->
@@ -932,46 +1022,39 @@ tr:hover td { background: #FAFCFE; }
   </div>
 </div>
 
-<!-- ══════════ FULLSCREEN VERSE ══════════ -->
-<div id="fullscreen-overlay">
-  <button id="fullscreen-close" onclick="closeFullscreen()">✕ 離開全螢幕</button>
-  <div id="fullscreen-verse-text"></div>
-  <div id="fullscreen-ref">創世記 12:1（現代中文譯本）</div>
-</div>
-
 <script>
 /* ── COURSES DATA ── */
+const SERIES_TAG_EMOJI = { '追光號':'🚀', '復活號':'✝️', '降臨號':'🌟', '聖誕號':'🎄' };
+const PREPARING_SUMMARY = '此課程內容準備中，敬請期待。';
 const COURSES = [
-  { num:'01', title:'探險家亞伯蘭（一）', slogan:'跟熟悉的家鄉說再見', locked:false },
-  { num:'02', title:'探險家亞伯蘭（二）', slogan:'選哪裡都好，因為我們有神的祝福', locked:true, preparing:true },
-  { num:'03', title:'探險家亞伯蘭（三）', slogan:'亞伯蘭的救援難題', locked:true },
-  { num:'04', title:'探險家亞伯蘭（四）', slogan:'神的信實不受限制', locked:true },
-  { num:'05', title:'探險家亞伯蘭（五）', slogan:'那位值得我冒險的神', locked:true },
-  { num:'06', title:'探險家亞伯蘭（六）', slogan:'買下迦南的第一塊地', locked:true },
-  { num:'07', title:'繼承者以撒（一）', slogan:'繼承神的祝福', locked:true },
-  { num:'08', title:'繼承者以撒（二）', slogan:'多而又多的祝福', locked:true },
-  { num:'09', title:'格鬥士雅各（一）', slogan:'這山望著那山高', locked:true },
-  { num:'10', title:'格鬥士雅各（二）', slogan:'贏了戰役，輸了戰爭', locked:true },
-  { num:'11', title:'格鬥士雅各（三）', slogan:'神與輸家同一隊', locked:true },
-  { num:'12', title:'格鬥士雅各（四）', slogan:'贏家也要與輸家同一隊', locked:true },
+  { num:'01', title:'探險家亞伯蘭（一）', slogan:'跟熟悉的家鄉說再見', locked:false, series:'追光號', summary:'協助孩子辨別習慣與不習慣的事，對亞伯蘭離鄉的處境更感同身受。' },
+  { num:'02', title:'探險家亞伯蘭（二）', slogan:'選哪裡都好，因為我們有神的祝福', locked:true, preparing:true, series:'追光號', summary:'帶領孩子思考，無論在哪裡，都能因為神的同在而有平安與祝福。' },
+  { num:'03', title:'探險家亞伯蘭（三）', slogan:'亞伯蘭的救援難題', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'04', title:'探險家亞伯蘭（四）', slogan:'神的信實不受限制', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'05', title:'探險家亞伯蘭（五）', slogan:'那位值得我冒險的神', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'06', title:'探險家亞伯蘭（六）', slogan:'買下迦南的第一塊地', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'07', title:'繼承者以撒（一）', slogan:'繼承神的祝福', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'08', title:'繼承者以撒（二）', slogan:'多而又多的祝福', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'09', title:'格鬥士雅各（一）', slogan:'這山望著那山高', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'10', title:'格鬥士雅各（二）', slogan:'贏了戰役，輸了戰爭', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'11', title:'格鬥士雅各（三）', slogan:'神與輸家同一隊', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'12', title:'格鬥士雅各（四）', slogan:'贏家也要與輸家同一隊', locked:true, series:'追光號', summary:PREPARING_SUMMARY },
+  { num:'01', title:'復活的應許', slogan:'內容準備中', locked:true, series:'復活號', summary:PREPARING_SUMMARY },
+  { num:'01', title:'榮耀降生之夜', slogan:'內容準備中', locked:true, series:'聖誕號', summary:PREPARING_SUMMARY },
 ];
 
 function buildGrid() {
   const grid = document.getElementById('course-grid');
   grid.innerHTML = COURSES.map(c => `
-    <div class="course-card ${c.locked?'locked':''}" onclick="${c.locked?`showLockedMsg('${c.num}')`:`showPage('course')`}">
+    <div class="course-card ${c.locked?'locked':''}" data-series="${c.series}" onclick="${c.locked?`showLockedMsg('${c.num}')`:`showPage('course')`}">
       <div class="card-top">
+        <span class="card-series-tag">${SERIES_TAG_EMOJI[c.series]} ${c.series}</span>
         ${c.locked ? `<span class="card-locked-badge">準備中</span>` : `<span class="card-num">課程 ${c.num}</span>`}
         <div class="card-title">${c.title}</div>
         <div class="card-slogan">${c.slogan}</div>
       </div>
       <div class="card-body">
-        <div class="card-modules">
-          <span class="module-chip">🎮 暖身</span>
-          <span class="module-chip">📖 故事</span>
-          <span class="module-chip">💬 回應</span>
-          <span class="module-chip">🎵 金句</span>
-        </div>
+        <div class="card-summary">${c.summary}</div>
         <div class="card-enter">
           ${c.locked ? `<span class="card-preparing">敬請期待</span>` : `<button class="btn-enter">進入課程 →</button>`}
         </div>
@@ -980,6 +1063,14 @@ function buildGrid() {
   `).join('');
 }
 buildGrid();
+
+function filterBySeries(series, btn) {
+  document.querySelectorAll('.series-filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#course-grid .course-card').forEach(card => {
+    card.classList.toggle('series-hidden', series !== 'all' && card.dataset.series !== series);
+  });
+}
 
 function showLockedMsg(num) {
   alert(`課程 ${num} 尚在製作中，敬請期待！`);
@@ -1002,6 +1093,62 @@ function closeDropdown() {
 document.addEventListener('click', e => {
   if (!e.target.closest('.nav-right')) closeDropdown();
 });
+
+/* ── NAV DROPDOWN: 教材列表 系列選單 ── */
+(function() {
+  document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
+    var menu = dd.querySelector('.nav-dropdown-menu');
+    var closeTimer;
+    function openDD() { clearTimeout(closeTimer); dd.classList.add('open'); menu.classList.add('open'); }
+    function closeDD() { dd.classList.remove('open'); menu.classList.remove('open'); }
+    dd.addEventListener('mouseenter', openDD);
+    dd.addEventListener('mouseleave', function() { closeTimer = setTimeout(closeDD, 100); });
+    var trigger = dd.querySelector('.nav-dropdown-trigger');
+    if (trigger) {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (dd.classList.contains('open')) closeDD(); else openDD();
+      });
+    }
+  });
+  document.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-dropdown.open').forEach(function(dd) {
+      if (!dd.contains(e.target)) {
+        dd.classList.remove('open');
+        var menu = dd.querySelector('.nav-dropdown-menu');
+        if (menu) menu.classList.remove('open');
+      }
+    });
+  });
+})();
+function closeAllNavDropdowns() {
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(dd) {
+    dd.classList.remove('open');
+    var menu = dd.querySelector('.nav-dropdown-menu');
+    if (menu) menu.classList.remove('open');
+  });
+}
+function toggleMobileNav() {
+  var nav = document.querySelector('.nav-links');
+  if (nav) nav.classList.toggle('mobile-open');
+}
+
+/* ── IDENTITY SWITCH ── */
+function toggleIdentitySection(e) {
+  e.stopPropagation();
+  document.getElementById('identity-list').classList.toggle('collapsed');
+  document.getElementById('identity-chevron').classList.toggle('open');
+}
+function switchIdentity(name, el) {
+  document.getElementById('account-current-name').textContent = name;
+  document.querySelectorAll('.identity-item').forEach(i => {
+    i.classList.remove('selected');
+    i.querySelector('.identity-check').textContent = '';
+  });
+  el.classList.add('selected');
+  el.querySelector('.identity-check').textContent = '✓';
+  closeDropdown();
+}
 
 /* ── COURSE TABS ── */
 function showCourseTab(name, btn) {
@@ -1053,38 +1200,6 @@ function startVideo() {
     fill.style.width = w + '%';
     if (w >= 100) clearInterval(iv);
   }, 200);
-}
-
-/* ── VERSE ── */
-const VERSE_FULL = '「你要離開故鄉、親族，到我所要指示你的地方去。』';
-const VERSE_PARTIAL_HTML = '「你要離開<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>、<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>，到我所要<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>你的地方去。』';
-const VERSE_BLANK_HTML = '<span class="blank" style="min-width:80%;">&nbsp;</span>';
-
-function setVerseMode(mode, btn) {
-  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const el = document.getElementById('verse-display');
-  if (mode==='full') el.innerHTML = VERSE_FULL;
-  else if (mode==='partial') el.innerHTML = VERSE_PARTIAL_HTML;
-  else el.innerHTML = VERSE_BLANK_HTML;
-}
-// init
-document.getElementById('verse-display').textContent = VERSE_FULL;
-
-/* ── FULLSCREEN ── */
-function openFullscreen() {
-  const ov = document.getElementById('fullscreen-overlay');
-  const mode = document.querySelector('.mode-btn.active').id;
-  const el = document.getElementById('fullscreen-verse-text');
-  if (mode==='mode-full') el.innerHTML = VERSE_FULL;
-  else if (mode==='mode-partial') el.innerHTML = VERSE_PARTIAL_HTML;
-  else el.innerHTML = VERSE_BLANK_HTML;
-  ov.classList.add('open');
-  document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(()=>{});
-}
-function closeFullscreen() {
-  document.getElementById('fullscreen-overlay').classList.remove('open');
-  document.fullscreenElement && document.exitFullscreen();
 }
 
 /* ── MODAL ── */

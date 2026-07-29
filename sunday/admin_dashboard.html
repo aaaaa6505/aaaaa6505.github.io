@@ -38,6 +38,10 @@ body{font-family:'Noto Sans TC',system-ui,sans-serif;background:var(--bg);color:
 .sidebar-nav .nav-section{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);padding:14px 18px 4px;}
 .sidebar-user{padding:14px 18px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7);}
 .sidebar-user .avatar{width:30px;height:30px;border-radius:50%;background:var(--navy);display:grid;place-items:center;font-size:13px;}
+.sidebar-churches{padding:0 18px 14px;border-top:1px solid rgba(255,255,255,.12);}
+.sidebar-churches .label{font-size:.75rem;color:rgba(255,255,255,.5);padding-top:10px;}
+.sidebar-churches ul{list-style:none;padding:0;margin:0;}
+.sidebar-churches li{font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.5;}
 
 /* MAIN */
 .main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh;}
@@ -80,6 +84,74 @@ tr:hover td{background:#F8FBFD;}
 .badge-red{background:#FAE0E0;color:#A33030;}
 .badge-teal{background:#CFFAFE;color:#0D3B4F;}
 .badge-purple{background:#EDE9FE;color:#4C1D95;}
+
+/* MEMBER MANAGEMENT: status badges */
+.status-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;border:1px solid;font-size:.78rem;font-weight:600;}
+.status-badge.status-active{background:#DCFCE7;color:#166534;border-color:#86EFAC;}
+.status-badge.status-pending{background:#FEF9C3;color:#854D0E;border-color:#FDE047;}
+.status-badge.status-disabled{background:#FEE2E2;color:#991B1B;border-color:#FCA5A5;}
+
+/* MEMBER MANAGEMENT: expandable account rows */
+.account-row{cursor:pointer;transition:background .15s;}
+.account-row:hover{background:rgba(58,156,197,.04);}
+.account-row.expanded{background:rgba(58,156,197,.06);}
+
+.identity-list{max-height:0;overflow:hidden;transition:max-height .2s ease;}
+.identity-list.open{max-height:400px;}
+
+.identity-table{width:100%;border-left:3px solid var(--main);margin:0;background:#F8FAFC;}
+.identity-table td{padding:10px 16px;font-size:.85rem;border-bottom:1px solid var(--border);color:var(--text);}
+
+.expand-arrow{display:inline-block;transition:transform .2s;color:var(--muted);font-size:.8rem;}
+.expanded .expand-arrow{transform:rotate(90deg);}
+
+.add-identity-btn{background:none;border:1px dashed var(--border);color:var(--muted);font-size:.82rem;padding:6px 14px;border-radius:6px;cursor:pointer;margin:8px 16px;transition:border-color .15s,color .15s;}
+.add-identity-btn:hover{border-color:var(--main);color:var(--main);}
+
+/* SERIES: badges */
+.series-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:20px;font-size:.78rem;font-weight:600;white-space:nowrap;}
+.series-badge.s-zhuiguang{background:#CFFAFE;color:#0D3B4F;}
+.series-badge.s-fuhuo{background:#EDE9FE;color:#4C1D95;}
+.series-badge.s-jianglin{background:#FDF0D5;color:#8A6D1F;}
+.series-badge.s-shengdan{background:#DFF5EA;color:#1E7A47;}
+.series-badge.s-featured{background:#FDF0D5;color:#8A6D1F;border:1px solid var(--gold);font-weight:700;}
+
+/* SERIES: management page */
+.series-info-banner{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:14px 18px;font-size:13.5px;line-height:1.7;color:var(--text);margin-bottom:22px;}
+.series-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.series-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:20px 22px;display:flex;flex-direction:column;gap:6px;}
+.series-card .series-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
+.series-card .series-name{font-size:17px;font-weight:700;}
+.series-card .series-subtitle{font-size:13px;color:var(--muted);}
+.series-card .series-meta{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.series-card .series-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.btn-disabled{background:var(--bg);color:var(--muted);border:1px solid var(--border);cursor:not-allowed;}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--deep);color:#fff;padding:12px 24px;border-radius:8px;font-size:.9rem;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:9999;transition:opacity .3s;}
+.toast.hidden{opacity:0;pointer-events:none;}
+
+/* ORG MANAGEMENT */
+.org-card{background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+.org-card-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);}
+.org-name{font-size:1.1rem;font-weight:700;color:var(--text);}
+.org-contact{font-size:.85rem;color:var(--muted);margin-top:3px;}
+.org-contact-badge{display:inline-flex;align-items:center;gap:4px;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:20px;padding:2px 8px;font-size:.75rem;font-weight:600;}
+.org-toggle{display:flex;align-items:center;gap:6px;padding:10px 20px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);user-select:none;border-bottom:1px solid var(--border);}
+.org-toggle .chevron{font-size:11px;transition:transform .2s;}
+.org-toggle .chevron.open{transform:rotate(180deg);}
+.org-members{max-height:0;overflow:hidden;transition:max-height .2s ease;}
+.org-members.open{max-height:600px;}
+.member-row{display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr;padding:10px 20px;font-size:.85rem;border-bottom:1px solid var(--border);align-items:center;}
+.member-row.header{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;background:var(--cream);}
+.member-row:last-child{border-bottom:none;}
+.member-row:hover{background:rgba(58,156,197,.04);}
+.add-member-inline{display:none;gap:8px;padding:10px 20px;background:var(--cream);align-items:center;}
+.add-member-inline.show{display:flex;}
+.add-member-inline input{flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:.85rem;font-family:inherit;}
+.add-member-trigger{padding:10px 20px;border-top:1px solid var(--border);}
+.add-member-trigger button{background:none;border:1px dashed var(--border);color:var(--muted);font-size:.82rem;padding:6px 14px;border-radius:6px;cursor:pointer;transition:border-color .15s,color .15s;}
+.add-member-trigger button:hover{border-color:var(--main);color:var(--main);}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:opacity .15s;}
@@ -190,9 +262,11 @@ tr:hover td{background:#F8FBFD;}
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section">內容管理</div>
+    <a href="#" data-page="series" onclick="showPage('series',this)">🗂 系列管理</a>
     <a href="#" class="active" data-page="courses" onclick="showPage('courses',this)">📚 課程管理</a>
     <a href="#" data-page="teacher" onclick="showPage('teacher',this)">📝 教師培力</a>
     <div class="nav-section">用戶管理</div>
+    <a href="#" data-page="orgs" onclick="showPage('orgs',this)">🏛 機構管理</a>
     <a href="#" data-page="members" onclick="showPage('members',this)">👥 會員管理</a>
     <a href="#" data-page="contact" onclick="showPage('contact',this)">📬 聯絡表單</a>
     <div class="nav-section">系統</div>
@@ -202,9 +276,17 @@ tr:hover td{background:#F8FBFD;}
   <div class="sidebar-user">
     <div class="avatar">👤</div>
     <div>
-      <div style="font-size:13px;color:#fff;font-weight:500;">管理員 Admin</div>
-      <div style="font-size:11px;opacity:.55;">samuel.wang@104.com.tw</div>
+      <div style="font-size:13px;color:#fff;font-weight:500;">目前登入：admin@wewayfinders.com</div>
+      <div style="font-size:11px;opacity:.55;">身份：後台管理員</div>
     </div>
+  </div>
+  <div class="sidebar-churches">
+    <div class="label">帳號所屬教會</div>
+    <ul>
+      <li>個人</li>
+      <li>沛恩教會</li>
+      <li>台北某教會</li>
+    </ul>
   </div>
 </aside>
 
@@ -248,24 +330,34 @@ tr:hover td{background:#F8FBFD;}
       <div class="card">
         <div class="card-header">
           <h3>課程列表</h3>
-          <button class="btn btn-primary" onclick="showCourseEdit(null)">＋ 新增課程</button>
+          <div style="display:flex;gap:10px;">
+            <select id="course-series-filter" onchange="filterCoursesBySeries(this.value)" style="border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font-size:13px;font-family:inherit;">
+              <option value="all">全部系列</option>
+              <option value="zhuiguang">🚀 追光號</option>
+              <option value="fuhuo">✝️ 復活號</option>
+              <option value="jianglin">🌟 降臨號</option>
+              <option value="shengdan">🎄 聖誕號</option>
+            </select>
+            <button class="btn btn-primary" onclick="showCourseEdit(null)">＋ 新增課程</button>
+          </div>
         </div>
         <div class="card-body">
           <table>
             <thead>
               <tr>
-                <th>課程名稱</th>
                 <th>系列</th>
+                <th>課程編號</th>
+                <th>課程名稱</th>
                 <th>狀態</th>
                 <th>最後更新</th>
                 <th>操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody id="course-table-body">
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>01</td>
                 <td><strong>探險家亞伯蘭（一）跟熟悉的家鄉說再見</strong></td>
-                <td>探險家亞伯蘭系列</td>
-
                 <td><span class="badge badge-green">已上架</span></td>
                 <td>2026/07/15</td>
                 <td>
@@ -273,10 +365,10 @@ tr:hover td{background:#F8FBFD;}
                   <button class="btn btn-sm btn-icon">👁</button>
                 </td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>02</td>
                 <td><strong>探險家亞伯蘭（二）選哪裡都好，因為我們有神的祝福</strong></td>
-                <td>探險家亞伯蘭系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/07/10</td>
                 <td>
@@ -284,10 +376,10 @@ tr:hover td{background:#F8FBFD;}
                   <button class="btn btn-sm btn-icon">👁</button>
                 </td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>03</td>
                 <td>探險家亞伯蘭（三）亞伯蘭的救援難題</td>
-                <td>探險家亞伯蘭系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/07/02</td>
                 <td>
@@ -295,82 +387,112 @@ tr:hover td{background:#F8FBFD;}
                   <button class="btn btn-sm btn-icon">👁</button>
                 </td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>04</td>
                 <td>探險家亞伯蘭（四）神的信實不受限制</td>
-                <td>探險家亞伯蘭系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/06/28</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('04')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>05</td>
                 <td>探險家亞伯蘭（五）那位值得我冒險的神</td>
-                <td>探險家亞伯蘭系列</td>
-
                 <td><span class="badge badge-yellow">審核中</span></td>
                 <td>2026/06/20</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('05')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>06</td>
                 <td>探險家亞伯蘭（六）買下迦南的第一塊地</td>
-                <td>探險家亞伯蘭系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/06/15</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('06')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>07</td>
                 <td>繼承者以撒（一）繼承神的祝福</td>
-                <td>繼承者以撒系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/06/10</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('07')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>08</td>
                 <td>繼承者以撒（二）多而又多的祝福</td>
-                <td>繼承者以撒系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/06/01</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('08')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>09</td>
                 <td>格鬥士雅各（一）這山望著那山高</td>
-                <td>格鬥士雅各系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/05/25</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('09')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>10</td>
                 <td>格鬥士雅各（二）贏了戰役，輸了戰爭</td>
-                <td>格鬥士雅各系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/05/18</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('10')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>11</td>
                 <td>格鬥士雅各（三）神與輸家同一隊</td>
-                <td>格鬥士雅各系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/05/10</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('11')">編輯</button></td>
               </tr>
-              <tr>
+              <tr data-series="zhuiguang">
+                <td><span class="series-badge s-zhuiguang">🚀 追光號</span></td>
+                <td>12</td>
                 <td>格鬥士雅各（四）贏家也要與輸家同一隊</td>
-                <td>格鬥士雅各系列</td>
-
                 <td><span class="badge badge-gray">草稿</span></td>
                 <td>2026/05/05</td>
                 <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('12')">編輯</button></td>
+              </tr>
+              <tr data-series="fuhuo">
+                <td><span class="series-badge s-fuhuo">✝️ 復活號</span></td>
+                <td>01</td>
+                <td>復活的應許</td>
+                <td><span class="badge badge-green">已上架</span></td>
+                <td>2026/04/01</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('fuhuo-01')">編輯</button></td>
+              </tr>
+              <tr data-series="shengdan">
+                <td><span class="series-badge s-shengdan">🎄 聖誕號</span></td>
+                <td>01</td>
+                <td>榮耀降生之夜</td>
+                <td><span class="badge badge-gray">草稿</span></td>
+                <td>2026/06/15</td>
+                <td><button class="btn btn-sm btn-outline" onclick="showCourseEdit('shengdan-01')">編輯</button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+    </div>
+
+    <!-- ===== PAGE: SERIES ===== -->
+    <div class="page" id="page-series">
+      <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px;">後台 <span style="margin:0 4px;">›</span> 系列管理</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:18px;font-weight:700;">系列管理</h2>
+        <button class="btn btn-primary" onclick="openSeriesModal('add')">＋ 新增系列</button>
+      </div>
+      <div class="series-info-banner">
+        ⭐ 主打系列會顯示在前台首頁第一屏的課程預覽區塊。<br>
+        目前主打：<strong id="series-featured-name">追光號</strong>
+      </div>
+      <div class="series-grid" id="series-grid"></div>
     </div>
 
     <!-- ===== PAGE: COURSE EDIT ===== -->
@@ -384,19 +506,27 @@ tr:hover td{background:#F8FBFD;}
         </div>
       </div>
 
-      <!-- 6 tabs -->
+      <!-- 5 tabs -->
       <div class="tab-bar">
         <button class="tab-btn active" onclick="showTab('tab-prep',this)">課前預備</button>
         <button class="tab-btn" onclick="showTab('tab-warmup',this)">暖身活動</button>
         <button class="tab-btn" onclick="showTab('tab-story',this)">故事時間</button>
-        <button class="tab-btn" onclick="showTab('tab-response',this)">回應活動</button>
         <button class="tab-btn" onclick="showTab('tab-video',this)">影片</button>
-        <button class="tab-btn" onclick="showTab('tab-verse',this)">背金句</button>
+        <button class="tab-btn" onclick="showTab('tab-response',this)">回應活動</button>
       </div>
 
       <!-- Tab: 課前預備 -->
       <div class="tab-panel active" id="tab-prep">
         <div class="form-row">
+          <div class="form-group">
+            <label>所屬系列 <span style="color:var(--danger)">*</span></label>
+            <select id="course-edit-series">
+              <option value="zhuiguang">🚀 追光號</option>
+              <option value="fuhuo">✝️ 復活號</option>
+              <option value="jianglin">🌟 降臨號</option>
+              <option value="shengdan">🎄 聖誕號</option>
+            </select>
+          </div>
           <div class="form-group">
             <label>課程主題</label>
             <input type="text" value="耶穌喜愛小孩">
@@ -517,6 +647,30 @@ tr:hover td{background:#F8FBFD;}
         </div>
       </div>
 
+      <!-- Tab: 影片 -->
+      <div class="tab-panel" id="tab-video">
+        <div class="form-group">
+          <label>課程影片</label>
+          <div class="upload-zone" onclick="this.querySelector('input').click()">
+            <div class="upload-icon">📎</div>
+            <div class="upload-label">點擊選擇檔案，或拖放至此</div>
+            <div class="upload-hint">接受 MP4、MOV 格式</div>
+            <input type="file" accept=".mp4,.mov" style="display:none">
+            <div class="uploaded-file">
+              <span class="file-icon">🎬</span>
+              <span class="file-name">探險家亞伯蘭一-課程影片.mp4</span>
+              <span class="file-size">245 MB</span>
+              <button class="file-delete" onclick="event.stopPropagation()">✕</button>
+            </div>
+          </div>
+          <div class="upload-policy-no">⚠️ 禁止下載 — 前台僅供串流播放，不提供下載連結</div>
+        </div>
+        <div class="form-group">
+          <label>影片說明</label>
+          <input type="text" value="故事時間動畫版（5:30），建議在讀經後播放">
+        </div>
+      </div>
+
       <!-- Tab: 回應活動 -->
       <div class="tab-panel" id="tab-response">
         <div class="form-group">
@@ -582,46 +736,6 @@ tr:hover td{background:#F8FBFD;}
             <input type="file" accept=".pdf,.ppt,.pptx" style="display:none">
           </div>
           <div class="upload-policy-ok">✅ 可下載 — 老師可下載此附件</div>
-        </div>
-      </div>
-
-      <!-- Tab: 影片 -->
-      <div class="tab-panel" id="tab-video">
-        <div class="form-group">
-          <label>課程影片</label>
-          <div class="upload-zone" onclick="this.querySelector('input').click()">
-            <div class="upload-icon">📎</div>
-            <div class="upload-label">點擊選擇檔案，或拖放至此</div>
-            <div class="upload-hint">接受 MP4、MOV 格式</div>
-            <input type="file" accept=".mp4,.mov" style="display:none">
-            <div class="uploaded-file">
-              <span class="file-icon">🎬</span>
-              <span class="file-name">探險家亞伯蘭一-課程影片.mp4</span>
-              <span class="file-size">245 MB</span>
-              <button class="file-delete" onclick="event.stopPropagation()">✕</button>
-            </div>
-          </div>
-          <div class="upload-policy-no">⚠️ 禁止下載 — 前台僅供串流播放，不提供下載連結</div>
-        </div>
-        <div class="form-group">
-          <label>影片說明</label>
-          <input type="text" value="故事時間動畫版（5:30），建議在讀經後播放">
-        </div>
-      </div>
-
-      <!-- Tab: 背金句 -->
-      <div class="tab-panel" id="tab-verse">
-        <div class="form-group">
-          <label>本課金句</label>
-          <input type="text" value="讓小孩子到我這裡來，不要禁止他們；因為在神國的，正是這樣的人。（馬可福音 10:14）">
-        </div>
-        <div class="form-group">
-          <label>記憶技巧 / 動作提示</label>
-          <textarea>將金句拆成三段配動作：\n「讓小孩子到我這裡來」→ 張開雙臂\n「不要禁止他們」→ 搖搖食指\n「因為在神國的，正是這樣的人」→ 指向天空再指向自己</textarea>
-        </div>
-        <div class="form-group">
-          <label>複習遊戲說明</label>
-          <textarea style="min-height:80px;">「遮字遊戲」：將金句投影，每輪遮住一個詞，讓孩子從記憶中填入。遮越多越難，看哪組最快背完整句。</textarea>
         </div>
       </div>
     </div>
@@ -742,11 +856,21 @@ tr:hover td{background:#F8FBFD;}
       </div>
     </div>
 
+    <!-- ===== PAGE: ORGS ===== -->
+    <div class="page" id="page-orgs">
+      <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px;">後台 <span style="margin:0 4px;">›</span> 機構管理</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:18px;font-weight:700;">機構管理</h2>
+        <button class="btn btn-primary" onclick="openAddOrgModal()">＋ 新增機構</button>
+      </div>
+      <div id="org-list"></div>
+    </div>
+
     <!-- ===== PAGE: MEMBERS ===== -->
     <div class="page" id="page-members">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
         <h2 style="font-size:18px;font-weight:700;">會員管理</h2>
-        <button class="btn btn-primary" onclick="openModal('modal-add-account')">＋ 新增帳號</button>
+        <button class="btn btn-primary" onclick="openAddAccountModal()">＋ 新增帳號</button>
       </div>
       <div class="search-bar">
         <input type="text" placeholder="搜尋教會名稱、Email⋯">
@@ -763,66 +887,151 @@ tr:hover td{background:#F8FBFD;}
           <table>
             <thead>
               <tr>
-                <th>帳號類型</th>
-                <th>機構</th>
-                <th>主要聯絡人</th>
+                <th style="width:24px;"></th>
+                <th>姓名</th>
                 <th>Email</th>
-                <th>狀態</th>
+                <th>身份數</th>
+                <th>帳號狀態</th>
                 <th>建立時間</th>
-                <th>子帳號數</th>
-                <th>操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><span class="badge badge-teal">教會 / 機構</span></td>
-                <td><strong>沛恩教會</strong></td>
-                <td>林美惠</td>
-                <td>admin@grace.org.tw</td>
-                <td><span class="badge badge-green">✅ 啟用</span></td>
-                <td>2026/01/10</td>
-                <td><a href="#" onclick="openModal('modal-subaccounts');return false;" style="color:var(--main);">3 個</a></td>
-                <td><button class="btn btn-sm btn-outline">管理</button></td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-purple">個人</span></td>
-                <td>—</td>
+            <tbody id="members-table-body">
+              <tr class="account-row expanded" onclick="toggleAccountRow(this)">
+                <td><span class="expand-arrow">▶</span></td>
                 <td>陳小明</td>
                 <td>ming@gmail.com</td>
-                <td><span class="badge badge-green">✅ 啟用</span></td>
+                <td>3 個身份</td>
+                <td><span class="status-badge status-active">✅ 啟用</span></td>
                 <td>2026/02/14</td>
-                <td>—</td>
-                <td><button class="btn btn-sm btn-outline">管理</button></td>
               </tr>
-              <tr>
-                <td><span class="badge badge-teal">教會 / 機構</span></td>
-                <td><strong>台北某教會</strong></td>
+              <tr class="identity-row">
+                <td colspan="6" style="padding:0;">
+                  <div class="identity-list open">
+                    <table class="identity-table">
+                      <thead>
+                        <tr><th>身份類型</th><th>機構名稱</th><th>狀態</th><th>加入時間</th><th>操作</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>個人</td>
+                          <td>—</td>
+                          <td><span class="status-badge status-active">✅ 啟用</span></td>
+                          <td>2026/02/14</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">停用</button> <button class="btn btn-sm btn-outline" style="color:#A33030;" onclick="event.stopPropagation()">移除</button></td>
+                        </tr>
+                        <tr>
+                          <td>教會 / 機構</td>
+                          <td>沛恩教會</td>
+                          <td><span class="status-badge status-active">✅ 啟用</span></td>
+                          <td>2026/03/01</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">停用</button> <button class="btn btn-sm btn-outline" style="color:#A33030;" onclick="event.stopPropagation()">移除</button></td>
+                        </tr>
+                        <tr>
+                          <td>教會 / 機構</td>
+                          <td>台北某教會</td>
+                          <td><span class="status-badge status-pending">⏳ 待設定</span></td>
+                          <td>2026/05/10</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">重發邀請</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button class="add-identity-btn" onclick="event.stopPropagation();openAddIdentityModal('ming@gmail.com')">＋ 加入新身份</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="account-row" onclick="toggleAccountRow(this)">
+                <td><span class="expand-arrow">▶</span></td>
+                <td>林美惠</td>
+                <td>admin@grace.org.tw</td>
+                <td>1 個身份</td>
+                <td><span class="status-badge status-active">✅ 啟用</span></td>
+                <td>2026/01/10</td>
+              </tr>
+              <tr class="identity-row">
+                <td colspan="6" style="padding:0;">
+                  <div class="identity-list">
+                    <table class="identity-table">
+                      <thead>
+                        <tr><th>身份類型</th><th>機構名稱</th><th>狀態</th><th>加入時間</th><th>操作</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>教會 / 機構</td>
+                          <td>沛恩教會</td>
+                          <td><span class="status-badge status-active">✅ 啟用</span></td>
+                          <td>2026/01/10</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">停用</button> <button class="btn btn-sm btn-outline" style="color:#A33030;" onclick="event.stopPropagation()">移除</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button class="add-identity-btn" onclick="event.stopPropagation();openAddIdentityModal('admin@grace.org.tw')">＋ 加入新身份</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="account-row" onclick="toggleAccountRow(this)">
+                <td><span class="expand-arrow">▶</span></td>
                 <td>張志豪</td>
                 <td>tb@church.org</td>
-                <td><span class="badge badge-yellow">⏳ 待設定</span></td>
+                <td>2 個身份</td>
+                <td><span class="status-badge status-pending">⏳ 待設定</span></td>
                 <td>2026/03/22</td>
-                <td><a href="#" onclick="openModal('modal-subaccounts');return false;" style="color:var(--main);">2 個</a></td>
-                <td><button class="btn btn-sm btn-outline">管理</button></td>
               </tr>
-              <tr>
-                <td><span class="badge badge-purple">個人</span></td>
-                <td>—</td>
+              <tr class="identity-row">
+                <td colspan="6" style="padding:0;">
+                  <div class="identity-list">
+                    <table class="identity-table">
+                      <thead>
+                        <tr><th>身份類型</th><th>機構名稱</th><th>狀態</th><th>加入時間</th><th>操作</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>教會 / 機構</td>
+                          <td>台北某教會</td>
+                          <td><span class="status-badge status-pending">⏳ 待設定</span></td>
+                          <td>2026/03/22</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">重發邀請</button></td>
+                        </tr>
+                        <tr>
+                          <td>教會 / 機構</td>
+                          <td>新北教會</td>
+                          <td><span class="status-badge status-pending">⏳ 待設定</span></td>
+                          <td>2026/03/22</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">重發邀請</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button class="add-identity-btn" onclick="event.stopPropagation();openAddIdentityModal('tb@church.org')">＋ 加入新身份</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="account-row" onclick="toggleAccountRow(this)">
+                <td><span class="expand-arrow">▶</span></td>
                 <td>林美華</td>
                 <td>meihua@email.com</td>
-                <td><span class="badge badge-red">🚫 停用</span></td>
+                <td>1 個身份</td>
+                <td><span class="status-badge status-disabled">🚫 停用</span></td>
                 <td>2026/04/05</td>
-                <td>—</td>
-                <td><button class="btn btn-sm btn-outline">管理</button></td>
               </tr>
-              <tr>
-                <td><span class="badge badge-teal">教會 / 機構</span></td>
-                <td><strong>新北教會</strong></td>
-                <td>黃靜宜</td>
-                <td>nb@church.org</td>
-                <td><span class="badge badge-green">✅ 啟用</span></td>
-                <td>2026/05/18</td>
-                <td><a href="#" onclick="openModal('modal-subaccounts');return false;" style="color:var(--main);">5 個</a></td>
-                <td><button class="btn btn-sm btn-outline">管理</button></td>
+              <tr class="identity-row">
+                <td colspan="6" style="padding:0;">
+                  <div class="identity-list">
+                    <table class="identity-table">
+                      <thead>
+                        <tr><th>身份類型</th><th>機構名稱</th><th>狀態</th><th>加入時間</th><th>操作</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>個人</td>
+                          <td>—</td>
+                          <td><span class="status-badge status-disabled">🚫 停用</span></td>
+                          <td>2026/04/05</td>
+                          <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation()">啟用</button> <button class="btn btn-sm btn-outline" style="color:#A33030;" onclick="event.stopPropagation()">移除</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button class="add-identity-btn" onclick="event.stopPropagation();openAddIdentityModal('meihua@email.com')">＋ 加入新身份</button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -933,114 +1142,146 @@ tr:hover td{background:#F8FBFD;}
 
 <!-- ===== MODALS ===== -->
 
-<!-- Sub-accounts modal -->
-<div class="modal-overlay" id="modal-subaccounts">
-  <div class="modal" style="max-width:660px;">
-    <button class="modal-close" onclick="closeModal('modal-subaccounts')">✕</button>
-    <h3>沛恩教會 — 子帳號管理</h3>
-    <table style="margin-bottom:20px;">
-      <thead>
-        <tr><th>名字</th><th>Email</th><th>狀態</th><th>最近登入</th><th>已瀏覽課程數</th><th>刪除</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>王佳琪</td>
-          <td>sub1@grace.org.tw</td>
-          <td><span class="badge badge-green">✅ 啟用</span></td>
-          <td>2026/07/18</td>
-          <td>3 堂</td>
-          <td><button class="btn btn-sm btn-icon" style="color:#A33030;" onclick="this.closest('tr').remove()">刪除</button></td>
-        </tr>
-        <tr>
-          <td>李俊賢</td>
-          <td>sub2@grace.org.tw</td>
-          <td><span class="badge badge-green">✅ 啟用</span></td>
-          <td>2026/07/15</td>
-          <td>1 堂</td>
-          <td><button class="btn btn-sm btn-icon" style="color:#A33030;" onclick="this.closest('tr').remove()">刪除</button></td>
-        </tr>
-        <tr>
-          <td>—</td>
-          <td>sub3@grace.org.tw</td>
-          <td><span class="badge badge-yellow">⏳ 待設定密碼</span></td>
-          <td>—</td>
-          <td>—</td>
-          <td><button class="btn btn-sm btn-icon" style="color:#A33030;" onclick="this.closest('tr').remove()">刪除</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
-      <input type="text" placeholder="子帳號使用者姓名" id="sub-name" style="flex:0 0 140px;border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;">
-      <input type="email" placeholder="請輸入 email" id="sub-email" style="flex:1;border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;">
-      <button class="btn btn-primary" onclick="addSubAccount()">新增</button>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-subaccounts')">關閉</button>
-    </div>
-  </div>
-</div>
-
 <!-- Add account modal -->
 <div class="modal-overlay" id="modal-add-account">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-add-account')">✕</button>
-    <h3>新增帳號</h3>
-    <div class="form-group">
-      <label>帳號類型</label>
-      <div style="display:flex;gap:20px;margin-top:6px;">
-        <label style="display:flex;align-items:center;gap:6px;font-weight:400;cursor:pointer;">
-          <input type="radio" name="acct-type" value="church" checked onchange="switchAcctType('church')"> 教會 / 機構
-        </label>
-        <label style="display:flex;align-items:center;gap:6px;font-weight:400;cursor:pointer;">
-          <input type="radio" name="acct-type" value="personal" onchange="switchAcctType('personal')"> 個人
-        </label>
-      </div>
-    </div>
-    <!-- 教會 fields -->
-    <div id="fields-church">
+    <h3 id="add-account-modal-title">新增帳號</h3>
+    <!-- 基本資料：僅在「新增帳號」情境顯示 -->
+    <div id="add-account-basic-fields">
       <div class="form-group">
-        <label>聯絡人名字 <span style="color:var(--danger)">*</span></label>
-        <input type="text" placeholder="主要聯絡人姓名">
-      </div>
-      <div class="form-group">
-        <label>教會 / 機構名稱 <span style="color:var(--danger)">*</span></label>
-        <input type="text" placeholder="例：台北恩典教會">
-      </div>
-      <div class="form-group">
-        <label>管理員 Email <span style="color:var(--danger)">*</span></label>
-        <input type="email" placeholder="admin@church.org">
-      </div>
-      <div class="form-group">
-        <label>備註</label>
-        <textarea rows="2" placeholder="（選填）申請來源或特殊需求" style="width:100%;border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;resize:vertical;"></textarea>
-      </div>
-    </div>
-    <!-- 個人 fields -->
-    <div id="fields-personal" style="display:none;">
-      <div class="form-group">
-        <label>名字 <span style="color:var(--danger)">*</span></label>
-        <input type="text" placeholder="你的姓名">
+        <label>姓名 <span style="color:var(--danger)">*</span></label>
+        <input type="text" id="new-acct-name" placeholder="請輸入姓名">
       </div>
       <div class="form-group">
         <label>Email <span style="color:var(--danger)">*</span></label>
-        <input type="email" placeholder="your@email.com">
+        <input type="email" id="new-acct-email" placeholder="example@email.com">
       </div>
-      <div class="form-group">
-        <label>備註</label>
-        <textarea rows="2" placeholder="（選填）備註" style="width:100%;border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;resize:vertical;"></textarea>
+    </div>
+    <div class="form-group">
+      <label>身份類型</label>
+      <div style="display:flex;gap:20px;margin-top:6px;">
+        <label style="display:flex;align-items:center;gap:6px;font-weight:400;cursor:pointer;">
+          <input type="radio" name="acct-type" value="personal" checked onchange="switchAcctType('personal')"> 個人
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-weight:400;cursor:pointer;">
+          <input type="radio" name="acct-type" value="church" onchange="switchAcctType('church')"> 教會 / 機構
+        </label>
       </div>
+    </div>
+    <!-- 教會 / 機構名稱：僅在選擇「教會 / 機構」時顯示 -->
+    <div class="form-group" id="fields-church-org" style="display:none;">
+      <label>機構名稱 <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="new-acct-org" placeholder="例：台北恩典教會">
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-add-account')">取消</button>
-      <button class="btn btn-primary">建立帳號並寄送邀請信</button>
+      <button class="btn btn-primary" id="add-account-submit-btn">建立帳號並寄送邀請信</button>
     </div>
   </div>
+</div>
+
+<!-- Add / Edit series modal -->
+<div class="modal-overlay" id="modal-series">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-series')">✕</button>
+    <h3 id="series-modal-title">新增系列</h3>
+    <div class="form-group">
+      <label>系列名稱 <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="series-field-name" placeholder="例：追光號">
+    </div>
+    <div class="form-group">
+      <label>系列副標</label>
+      <input type="text" id="series-field-subtitle" placeholder="例：亞伯拉罕之約">
+    </div>
+    <div class="form-group">
+      <label>系列圖示 Emoji</label>
+      <input type="text" id="series-field-emoji" placeholder="例：🚀">
+    </div>
+    <div class="form-group">
+      <label>狀態</label>
+      <div style="display:flex;gap:20px;margin-top:6px;">
+        <label style="display:flex;align-items:center;gap:6px;font-weight:400;cursor:pointer;">
+          <input type="radio" name="series-status" value="draft" checked> 草稿
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-weight:400;cursor:pointer;">
+          <input type="radio" name="series-status" value="published"> 上架
+        </label>
+      </div>
+    </div>
+    <div class="form-group" id="series-field-notes-group" style="display:none;">
+      <label>說明文字</label>
+      <textarea id="series-field-notes" rows="3" placeholder="（選填）內部備註或系列介紹"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-series')">取消</button>
+      <button class="btn btn-primary" id="series-modal-submit-btn" onclick="submitSeriesModal()">建立系列</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit org modal -->
+<div class="modal-overlay" id="modal-edit-org">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-edit-org')">✕</button>
+    <h3 id="edit-org-modal-title">編輯機構</h3>
+    <div class="form-group">
+      <label>機構名稱 <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="edit-org-name">
+    </div>
+    <div style="border-top:1px solid var(--border);margin:18px 0;"></div>
+    <div class="form-group">
+      <label>更換主要聯絡人</label>
+      <p style="font-size:.82rem;color:var(--muted);margin:2px 0 10px;">主要聯絡人將收到機構相關通知，並可管理此機構底下的成員帳號。</p>
+      <select id="edit-org-contact"></select>
+    </div>
+    <p style="font-size:.8rem;color:#DC2626;margin-bottom:4px;">⚠️ 更換後，原主要聯絡人將降為一般成員。</p>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-edit-org')">取消</button>
+      <button class="btn btn-primary" onclick="submitEditOrg()">儲存變更</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add org modal -->
+<div class="modal-overlay" id="modal-add-org">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-add-org')">✕</button>
+    <h3>新增機構</h3>
+    <div class="form-group">
+      <label>機構名稱 <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="new-org-name" placeholder="例：台北恩典教會">
+    </div>
+    <div class="form-group">
+      <label>主要聯絡人姓名 <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="new-org-contact-name" placeholder="主要聯絡人姓名">
+    </div>
+    <div class="form-group">
+      <label>主要聯絡人 Email <span style="color:var(--danger)">*</span></label>
+      <input type="email" id="new-org-contact-email" placeholder="admin@church.org">
+    </div>
+    <div class="form-group">
+      <label>備註</label>
+      <textarea id="new-org-notes" rows="2" placeholder="（選填）申請來源或特殊需求"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-add-org')">取消</button>
+      <button class="btn btn-primary" onclick="submitAddOrg()">建立機構並寄送邀請信</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden">
+  <span id="toast-msg"></span>
 </div>
 
 <script>
 const pageTitles = {
   courses: '課程管理',
+  series: '系列管理',
   teacher: '教師培力',
+  orgs: '機構管理',
   members: '會員管理',
   contact: '聯絡表單',
   'course-edit': '課程編輯'
@@ -1073,8 +1314,14 @@ function showCourseEdit(num) {
     '10':'格鬥士雅各（二）贏了戰役，輸了戰爭',
     '11':'格鬥士雅各（三）神與輸家同一隊',
     '12':'格鬥士雅各（四）贏家也要與輸家同一隊',
+    'fuhuo-01':'復活的應許',
+    'shengdan-01':'榮耀降生之夜',
+  };
+  const courseSeries = {
+    'fuhuo-01':'fuhuo', 'shengdan-01':'shengdan'
   };
   document.getElementById('edit-course-title').textContent = '編輯課程：' + (num ? titles[num] : '新課程');
+  document.getElementById('course-edit-series').value = num ? (courseSeries[num] || 'zhuiguang') : 'zhuiguang';
   // reset to first tab
   showTab('tab-prep', document.querySelector('.tab-btn'));
 }
@@ -1093,25 +1340,314 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 function switchAcctType(type) {
-  document.getElementById('fields-church').style.display = type === 'church' ? '' : 'none';
-  document.getElementById('fields-personal').style.display = type === 'personal' ? '' : 'none';
+  document.getElementById('fields-church-org').style.display = type === 'church' ? '' : 'none';
 }
-function addSubAccount() {
-  const name = document.getElementById('sub-name').value.trim();
-  const email = document.getElementById('sub-email').value.trim();
-  if (!name) { alert('請輸入名字'); return; }
-  if (!email || !email.includes('@')) { alert('請輸入有效的 Email'); return; }
-  const tbody = document.querySelector('#modal-subaccounts tbody');
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${name}</td><td>${email}</td><td><span class="badge badge-yellow">⏳ 待設定密碼</span></td><td>—</td><td>—</td>
-    <td><button class="btn btn-sm btn-icon" style="color:#A33030;" onclick="this.closest('tr').remove()">刪除</button></td>`;
-  tbody.appendChild(tr);
-  document.getElementById('sub-name').value = '';
-  document.getElementById('sub-email').value = '';
+
+/* ── MEMBER MANAGEMENT: account row expand/collapse ── */
+function toggleAccountRow(row) {
+  row.classList.toggle('expanded');
+  row.nextElementSibling.querySelector('.identity-list').classList.toggle('open');
+}
+
+/* ── MEMBER MANAGEMENT: add-account modal (dual mode) ── */
+function openAddAccountModal() {
+  document.getElementById('add-account-modal-title').textContent = '新增帳號';
+  document.getElementById('add-account-basic-fields').style.display = '';
+  document.getElementById('add-account-submit-btn').textContent = '建立帳號並寄送邀請信';
+  document.querySelector('input[name="acct-type"][value="personal"]').checked = true;
+  switchAcctType('personal');
+  openModal('modal-add-account');
+}
+function openAddIdentityModal(email) {
+  document.getElementById('add-account-modal-title').textContent = `為 ${email} 加入新身份`;
+  document.getElementById('add-account-basic-fields').style.display = 'none';
+  document.getElementById('add-account-submit-btn').textContent = '加入身份並寄送通知';
+  document.querySelector('input[name="acct-type"][value="personal"]').checked = true;
+  switchAcctType('personal');
+  openModal('modal-add-account');
 }
 document.querySelectorAll('.modal-overlay').forEach(m => {
   m.addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
 });
+
+/* ── TOAST ── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 2500);
+}
+
+/* ── SERIES MANAGEMENT ── */
+const SERIES_BADGE_CLASS = { zhuiguang:'s-zhuiguang', fuhuo:'s-fuhuo', jianglin:'s-jianglin', shengdan:'s-shengdan' };
+const seriesData = [
+  { id:'zhuiguang', emoji:'🚀', name:'追光號', subtitle:'亞伯拉罕之約', courseCount:12, status:'published', featured:true, notes:'' },
+  { id:'fuhuo', emoji:'✝️', name:'復活號', subtitle:'復活與更新', courseCount:6, status:'published', featured:false, notes:'' },
+  { id:'jianglin', emoji:'🌟', name:'降臨號', subtitle:'等候與盼望', courseCount:4, status:'draft', featured:false, notes:'' },
+  { id:'shengdan', emoji:'🎄', name:'聖誕號', subtitle:'榮耀降生', courseCount:8, status:'published', featured:false, notes:'' },
+];
+
+function renderSeriesCards() {
+  const grid = document.getElementById('series-grid');
+  grid.innerHTML = seriesData.map(s => {
+    const badgeClass = SERIES_BADGE_CLASS[s.id] || 's-zhuiguang';
+    const statusBadge = s.status === 'published'
+      ? '<span class="badge badge-green">✅ 上架中</span>'
+      : '<span class="badge badge-gray">📝 草稿</span>';
+    let featuredBtn;
+    if (s.featured) {
+      featuredBtn = '<button class="btn btn-sm btn-disabled" disabled>已是主打</button>';
+    } else if (s.status === 'draft') {
+      featuredBtn = '<button class="btn btn-sm btn-disabled" disabled>設為主打</button>';
+    } else {
+      featuredBtn = `<button class="btn btn-sm btn-outline" onclick="setFeaturedSeries('${s.id}')">設為主打</button>`;
+    }
+    const toggleBtn = s.status === 'published'
+      ? `<button class="btn btn-sm btn-outline" onclick="toggleSeriesStatus('${s.id}')">下架</button>`
+      : `<button class="btn btn-sm btn-outline" onclick="toggleSeriesStatus('${s.id}')">上架</button>`;
+    return `
+      <div class="series-card">
+        <div class="series-card-top">
+          ${s.featured ? '<span class="series-badge s-featured">⭐ 主打系列</span>' : '<span></span>'}
+        </div>
+        <div class="series-name">${s.emoji} ${s.name}</div>
+        <div class="series-subtitle">副標：${s.subtitle || '—'}</div>
+        <div class="series-meta">課程數：${s.courseCount} 堂</div>
+        <div class="series-meta">狀態：${statusBadge}</div>
+        <div class="series-actions">
+          ${featuredBtn}
+          <button class="btn btn-sm btn-outline" onclick="openSeriesModal('edit','${s.id}')">編輯</button>
+          ${toggleBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+renderSeriesCards();
+
+function setFeaturedSeries(id) {
+  seriesData.forEach(s => s.featured = (s.id === id));
+  const featured = seriesData.find(s => s.id === id);
+  document.getElementById('series-featured-name').textContent = featured.name;
+  renderSeriesCards();
+  showToast(`已將「${featured.name}」設為主打系列`);
+}
+
+function toggleSeriesStatus(id) {
+  const s = seriesData.find(s => s.id === id);
+  if (!s) return;
+  s.status = s.status === 'published' ? 'draft' : 'published';
+  if (s.status === 'draft' && s.featured) s.featured = false;
+  renderSeriesCards();
+}
+
+let seriesModalMode = 'add';
+let seriesModalEditingId = null;
+function openSeriesModal(mode, id) {
+  seriesModalMode = mode;
+  seriesModalEditingId = id || null;
+  const notesGroup = document.getElementById('series-field-notes-group');
+  if (mode === 'add') {
+    document.getElementById('series-modal-title').textContent = '新增系列';
+    document.getElementById('series-modal-submit-btn').textContent = '建立系列';
+    notesGroup.style.display = 'none';
+    document.getElementById('series-field-name').value = '';
+    document.getElementById('series-field-subtitle').value = '';
+    document.getElementById('series-field-emoji').value = '';
+    document.getElementById('series-field-notes').value = '';
+    document.querySelector('input[name="series-status"][value="draft"]').checked = true;
+  } else {
+    const s = seriesData.find(s => s.id === id);
+    document.getElementById('series-modal-title').textContent = `編輯系列：${s.emoji} ${s.name}`;
+    document.getElementById('series-modal-submit-btn').textContent = '儲存變更';
+    notesGroup.style.display = '';
+    document.getElementById('series-field-name').value = s.name;
+    document.getElementById('series-field-subtitle').value = s.subtitle;
+    document.getElementById('series-field-emoji').value = s.emoji;
+    document.getElementById('series-field-notes').value = s.notes || '';
+    document.querySelector(`input[name="series-status"][value="${s.status}"]`).checked = true;
+  }
+  openModal('modal-series');
+}
+
+function submitSeriesModal() {
+  const name = document.getElementById('series-field-name').value.trim();
+  if (!name) { alert('請輸入系列名稱'); return; }
+  const subtitle = document.getElementById('series-field-subtitle').value.trim();
+  const emoji = document.getElementById('series-field-emoji').value.trim() || '🗂';
+  const status = document.querySelector('input[name="series-status"]:checked').value;
+  if (seriesModalMode === 'add') {
+    const id = 'series-' + Date.now();
+    seriesData.push({ id, emoji, name, subtitle, courseCount:0, status, featured:false, notes:'' });
+  } else {
+    const s = seriesData.find(s => s.id === seriesModalEditingId);
+    s.name = name; s.subtitle = subtitle; s.emoji = emoji; s.status = status;
+    s.notes = document.getElementById('series-field-notes').value.trim();
+    if (status === 'draft' && s.featured) s.featured = false;
+  }
+  renderSeriesCards();
+  closeModal('modal-series');
+}
+
+/* ── COURSE LIST: filter by series ── */
+function filterCoursesBySeries(seriesId) {
+  document.querySelectorAll('#course-table-body tr').forEach(tr => {
+    tr.style.display = (seriesId === 'all' || tr.dataset.series === seriesId) ? '' : 'none';
+  });
+}
+
+/* ── ORG MANAGEMENT ── */
+const orgsData = [
+  {
+    id: 'org-grace', name: '沛恩教會', status: 'active', expanded: true,
+    contactEmail: 'admin@grace.org.tw',
+    members: [
+      { email: 'admin@grace.org.tw', name: '林美惠', role: 'primary', joined: '2026/01/10' },
+      { email: 'sub1@grace.org.tw', name: '陳雅琳', role: 'member', joined: '2026/03/01' },
+      { email: 'sub2@grace.org.tw', name: '李俊賢', role: 'member', joined: '2026/03/15' },
+      { email: 'sub3@grace.org.tw', name: '—', role: 'pending', joined: '2026/05/20' },
+    ],
+  },
+  {
+    id: 'org-taipei', name: '台北某教會', status: 'active', expanded: false,
+    contactEmail: 'tb@church.org',
+    members: [
+      { email: 'tb@church.org', name: '張志豪', role: 'primary', joined: '2026/03/22' },
+      { email: 'nb@church.org', name: '黃靜宜', role: 'member', joined: '2026/04/01' },
+    ],
+  },
+  {
+    id: 'org-xinbei', name: '新北教會', status: 'active', expanded: false,
+    contactEmail: 'nb@church.org',
+    members: [
+      { email: 'nb@church.org', name: '黃靜宜', role: 'primary', joined: '2026/05/18' },
+    ],
+  },
+];
+
+function orgRoleLabel(role) {
+  if (role === 'primary') return '<span class="org-contact-badge">🏷 主要聯絡人</span>';
+  if (role === 'pending') return '<span class="badge badge-yellow">⏳ 待設定</span>';
+  return '成員';
+}
+
+function renderOrgs() {
+  const list = document.getElementById('org-list');
+  list.innerHTML = orgsData.map(org => {
+    const contact = org.members.find(m => m.role === 'primary');
+    return `
+      <div class="org-card" data-org="${org.id}">
+        <div class="org-card-header">
+          <div>
+            <div class="org-name">${org.name}</div>
+            <div class="org-contact">主要聯絡人：${contact ? contact.name : '—'}（${org.contactEmail}）</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="badge badge-green">✅ 啟用</span>
+            <button class="btn btn-sm btn-outline" onclick="openEditOrgModal('${org.id}')">編輯</button>
+          </div>
+        </div>
+        <div class="org-toggle" onclick="toggleOrgMembers('${org.id}')">
+          <span>關聯帳號</span>
+          <span class="chevron ${org.expanded ? 'open' : ''}" id="chevron-${org.id}">▼</span>
+        </div>
+        <div class="org-members ${org.expanded ? 'open' : ''}" id="members-${org.id}">
+          <div class="member-row header"><span>Email</span><span>姓名</span><span>狀態</span><span>加入時間</span></div>
+          ${org.members.map(m => `
+            <div class="member-row">
+              <span>${m.email}</span>
+              <span>${m.name}</span>
+              <span>${orgRoleLabel(m.role)}</span>
+              <span>${m.joined}</span>
+            </div>
+          `).join('')}
+          <div class="add-member-inline" id="add-member-inline-${org.id}">
+            <input type="text" placeholder="姓名" id="new-member-name-${org.id}">
+            <input type="email" placeholder="email@example.com" id="new-member-email-${org.id}">
+            <button class="btn btn-sm btn-primary" onclick="submitAddMemberInline('${org.id}')">送出</button>
+            <a href="#" style="font-size:.82rem;color:var(--muted);" onclick="hideAddMemberInline('${org.id}');return false;">取消</a>
+          </div>
+          <div class="add-member-trigger">
+            <button onclick="showAddMemberInline('${org.id}')">＋ 新增成員至此機構</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+renderOrgs();
+
+function toggleOrgMembers(id) {
+  const org = orgsData.find(o => o.id === id);
+  org.expanded = !org.expanded;
+  document.getElementById('members-' + id).classList.toggle('open', org.expanded);
+  document.getElementById('chevron-' + id).classList.toggle('open', org.expanded);
+}
+
+function showAddMemberInline(id) {
+  document.getElementById('add-member-inline-' + id).classList.add('show');
+}
+function hideAddMemberInline(id) {
+  document.getElementById('add-member-inline-' + id).classList.remove('show');
+  document.getElementById('new-member-name-' + id).value = '';
+  document.getElementById('new-member-email-' + id).value = '';
+}
+function submitAddMemberInline(id) {
+  const name = document.getElementById('new-member-name-' + id).value.trim();
+  const email = document.getElementById('new-member-email-' + id).value.trim();
+  if (!name) { alert('請輸入姓名'); return; }
+  if (!email || !email.includes('@')) { alert('請輸入有效的 Email'); return; }
+  const org = orgsData.find(o => o.id === id);
+  org.members.push({ email, name, role: 'pending', joined: '—' });
+  renderOrgs();
+  showToast(`邀請信已發送至 ${email}`);
+}
+
+let editingOrgId = null;
+function openEditOrgModal(id) {
+  editingOrgId = id;
+  const org = orgsData.find(o => o.id === id);
+  document.getElementById('edit-org-modal-title').textContent = `編輯機構：${org.name}`;
+  document.getElementById('edit-org-name').value = org.name;
+  const select = document.getElementById('edit-org-contact');
+  select.innerHTML = org.members.filter(m => m.role !== 'pending').map(m =>
+    `<option value="${m.email}" ${m.role === 'primary' ? 'selected' : ''}>${m.name}（${m.email}）</option>`
+  ).join('');
+  openModal('modal-edit-org');
+}
+function submitEditOrg() {
+  const org = orgsData.find(o => o.id === editingOrgId);
+  org.name = document.getElementById('edit-org-name').value.trim() || org.name;
+  const newContactEmail = document.getElementById('edit-org-contact').value;
+  org.members.forEach(m => { m.role = (m.email === newContactEmail) ? 'primary' : (m.role === 'primary' ? 'member' : m.role); });
+  org.contactEmail = newContactEmail;
+  renderOrgs();
+  closeModal('modal-edit-org');
+  showToast(`已更新${org.name}的主要聯絡人`);
+}
+
+function openAddOrgModal() {
+  document.getElementById('new-org-name').value = '';
+  document.getElementById('new-org-contact-name').value = '';
+  document.getElementById('new-org-contact-email').value = '';
+  document.getElementById('new-org-notes').value = '';
+  openModal('modal-add-org');
+}
+function submitAddOrg() {
+  const name = document.getElementById('new-org-name').value.trim();
+  const contactName = document.getElementById('new-org-contact-name').value.trim();
+  const contactEmail = document.getElementById('new-org-contact-email').value.trim();
+  if (!name) { alert('請輸入機構名稱'); return; }
+  if (!contactName) { alert('請輸入主要聯絡人姓名'); return; }
+  if (!contactEmail || !contactEmail.includes('@')) { alert('請輸入有效的 Email'); return; }
+  orgsData.push({
+    id: 'org-' + Date.now(), name, status: 'active', expanded: false, contactEmail,
+    members: [{ email: contactEmail, name: contactName, role: 'primary', joined: '—' }],
+  });
+  renderOrgs();
+  closeModal('modal-add-org');
+  showToast(`已建立機構「${name}」並寄送邀請信`);
+}
 
 function toggleMsg(btn) {
   const row = btn.closest('tr').nextElementSibling;

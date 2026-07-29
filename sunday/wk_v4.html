@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>追光號</title>
+  <title>We Wayfinders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
@@ -24,6 +24,8 @@
       --white:   #ffffff;
       --r:       24px;
       --cream:   #f8f4ee;
+      --main:    var(--cta);
+      --border:  #d7e3ea;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -36,6 +38,31 @@
     .nav-links a { text-decoration: none; color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 600; transition: color .2s; }
     .nav-links a:hover { color: var(--pale); }
     .nav-right { display: flex; align-items: center; gap: .8rem; }
+
+    /* ── NAV DROPDOWN: 教材列表 系列選單 ── */
+    .nav-dropdown { position: relative; display: inline-block; }
+    .nav-dropdown-trigger { display: inline-flex; align-items: center; }
+    .nav-dropdown-arrow { font-size: .7em; margin-left: 3px; display: inline-block; transition: transform .2s; }
+    .nav-dropdown.open .nav-dropdown-arrow { transform: rotate(180deg); }
+    .nav-dropdown-menu {
+      position: absolute; top: 100%; left: 0; margin-top: 8px; min-width: 220px;
+      background: #fff; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      padding: 8px 0; z-index: 999;
+      opacity: 0; visibility: hidden; transform: translateY(4px);
+      transition: opacity .15s, visibility .15s, transform .15s;
+    }
+    .nav-dropdown-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .nav-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 18px; cursor: pointer; text-decoration: none; transition: background .15s; }
+    .nav-dropdown-item:hover { background: rgba(58,156,197,.07); }
+    .nav-dropdown-item:hover .ndi-name { color: var(--main); }
+    .ndi-emoji { font-size: 1.2rem; flex-shrink: 0; }
+    .ndi-text { display: flex; flex-direction: column; }
+    .ndi-name { font-size: .92rem; font-weight: 600; color: var(--text); }
+    .ndi-sub { font-size: .75rem; color: var(--muted); }
+    .nav-dropdown-item.disabled { opacity: .45; cursor: default; pointer-events: none; }
+    .nav-dropdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
+    .nav-dropdown-item.active-series { background: rgba(58,156,197,.07); border-left: 3px solid var(--main); }
+    .nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1; }
     .nav-login { color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 600; text-decoration: none; transition: color .2s; }
     .nav-login:hover { color: var(--pale); }
     .nav-cta { background: var(--cta); color: var(--white); padding: .48rem 1.3rem; border-radius: 999px; font-size: .88rem; font-weight: 800; text-decoration: none; transition: background .2s; }
@@ -278,7 +305,25 @@
     @media (max-width: 768px) {
       .hero-inner { grid-template-columns: 1fr; }
       .course-card-mock { order: -1; }
-      .nav-links { display: none; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--nav); flex-direction: column; gap: 0; padding: .5rem 0 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,.2); z-index: 150;
+      }
+      .nav-links.mobile-open { display: flex; }
+      .nav-links > li { width: 100%; }
+      .nav-links > li > .nav-dropdown-trigger, .nav-links > li > a { display: block; padding: .7rem 2rem; }
+      .nav-hamburger { display: block; }
+      .nav-dropdown-menu {
+        position: static; opacity: 1; visibility: visible; transform: none;
+        background: transparent; box-shadow: none; padding: 0; margin: 0;
+        display: flex; flex-direction: column; gap: 0;
+      }
+      .nav-dropdown-menu .nav-dropdown-item { padding: .45rem 2rem .45rem 20px; font-size: .88rem; }
+      .nav-dropdown-menu .ndi-name { font-size: .88rem; color: rgba(255,255,255,.88); }
+      .nav-dropdown-menu .ndi-sub { color: rgba(255,255,255,.5); }
+      .nav-dropdown-menu .nav-dropdown-divider { display: none; }
+      .nav-dropdown-arrow { display: none; }
       .activity-grid { grid-template-columns: 1fr; }
     }
     /* CONTACT */
@@ -329,16 +374,38 @@
       <circle cx="100" cy="100" r="10" fill="#E8B84B" stroke="#0D3B4F" stroke-width="2"/>
       <circle cx="100" cy="100" r="4" fill="#0D3B4F"/>
     </svg>
-    <span style="font-size:1.5rem;font-weight:900;letter-spacing:0.05em;color:var(--white);">追光號</span>
+    <span style="font-size:1.28rem;font-weight:900;letter-spacing:0.02em;color:var(--white);white-space:nowrap;">We Wayfinders</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#structure">教材列表</a></li>
+    <li class="nav-dropdown">
+      <a href="#" class="nav-dropdown-trigger">教材列表<span class="nav-dropdown-arrow">∨</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="light.html" class="nav-dropdown-item">
+          <span class="ndi-emoji">🚀</span>
+          <span class="ndi-text"><span class="ndi-name">追光號</span><span class="ndi-sub">亞伯拉罕之約 · 12 堂</span></span>
+        </a>
+        <div class="nav-dropdown-divider"></div>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">✝️</span>
+          <span class="ndi-text"><span class="ndi-name">復活號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">🌟</span>
+          <span class="ndi-text"><span class="ndi-name">降臨號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+        <a href="#" class="nav-dropdown-item disabled">
+          <span class="ndi-emoji">🎄</span>
+          <span class="ndi-text"><span class="ndi-name">聖誕號</span><span class="ndi-sub">即將推出</span></span>
+        </a>
+      </div>
+    </li>
     <li><a href="resources.html">教師培力</a></li>
     <li><a href="#">About</a></li>
     <li><a href="contact.html">聯絡我們</a></li>
   </ul>
   <div class="nav-right">
     <a href="#" class="nav-login">登入</a>
+    <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="開啟選單">☰</button>
   </div>
 </nav>
 
@@ -638,13 +705,13 @@
 </section>
 
 <footer>
-  <div class="footer-logo">追光號</div>
+  <div class="footer-logo">We Wayfinders</div>
   <div class="footer-tag">每堂主日學，都是一場探險</div>
   <div class="footer-divider"></div>
   <ul class="footer-links">
     <li><a href="#structure">教材列表</a></li><li><a href="resources.html">教師培力</a></li><li><a href="#">About</a></li><li><a href="contact.html">聯絡我們</a></li><li><a href="#">隱私政策</a></li><li><a href="#">使用條款</a></li>
   </ul>
-  <p class="copyright">© 2026 追光號 版權所有</p>
+  <p class="copyright">© 2026 We Wayfinders 版權所有</p>
 </footer>
 
 <div class="ver-switcher">
@@ -662,6 +729,40 @@
   function switchTab(idx) {
     document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
     document.querySelectorAll('.preview-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  }
+</script>
+
+<!-- ── NAV DROPDOWN: 教材列表 系列選單（各頁共用） ── -->
+<script>
+  (function() {
+    document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
+      var menu = dd.querySelector('.nav-dropdown-menu');
+      var closeTimer;
+      function openDD() { clearTimeout(closeTimer); dd.classList.add('open'); menu.classList.add('open'); }
+      function closeDD() { dd.classList.remove('open'); menu.classList.remove('open'); }
+      dd.addEventListener('mouseenter', openDD);
+      dd.addEventListener('mouseleave', function() { closeTimer = setTimeout(closeDD, 100); });
+      var trigger = dd.querySelector('.nav-dropdown-trigger');
+      if (trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (dd.classList.contains('open')) closeDD(); else openDD();
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.nav-dropdown.open').forEach(function(dd) {
+        if (!dd.contains(e.target)) {
+          dd.classList.remove('open');
+          var menu = dd.querySelector('.nav-dropdown-menu');
+          if (menu) menu.classList.remove('open');
+        }
+      });
+    });
+  })();
+  function toggleMobileNav() {
+    var nav = document.querySelector('.nav-links');
+    if (nav) nav.classList.toggle('mobile-open');
   }
 </script>
 </body>
