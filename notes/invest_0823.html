@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五千兩管家與投資小白理財術｜講座摘要</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1ECDD;
+    --paper-deep:#E6DFC5;
+    --paper-card:#FAF7EC;
+    --ink:#20261F;
+    --ink-soft:#4B564A;
+    --ink-faint:#7C8778;
+    --gold:#A9812E;
+    --gold-soft:#C9A857;
+    --jade:#4B6B54;
+    --jade-deep:#324B3B;
+    --seal:#9C3B2E;
+    --line: rgba(32,38,31,0.16);
+    --serif: 'Noto Serif TC', serif;
+    --sans: 'Noto Sans TC', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--gold-soft); color:var(--ink);}
+
+  /* ---------- layout shell ---------- */
+  .shell{
+    display:grid;
+    grid-template-columns: 248px 1fr;
+    max-width:1240px;
+    margin:0 auto;
+  }
+  @media (max-width:920px){
+    .shell{grid-template-columns:1fr;}
+  }
+
+  /* ---------- nav (ledger spine) ---------- */
+  #navToggle{display:none;}
+  nav.spine{
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow-y:auto;
+    padding:28px 0 28px 22px;
+    border-right:1px solid var(--line);
+  }
+  .spine .brand{
+    font-family:var(--serif);
+    font-weight:900;
+    font-size:1.05rem;
+    color:var(--jade-deep);
+    letter-spacing:.02em;
+    padding-right:18px;
+    margin-bottom:6px;
+  }
+  .spine .brand small{
+    display:block;
+    font-family:var(--mono);
+    font-weight:400;
+    font-size:.68rem;
+    color:var(--ink-faint);
+    letter-spacing:.08em;
+    margin-top:4px;
+  }
+  .spine ol{
+    list-style:none;
+    margin:18px 0 0;
+    padding:0;
+    counter-reset:tab;
+  }
+  .spine li{counter-increment:tab;}
+  .spine a{
+    display:flex;
+    gap:10px;
+    align-items:baseline;
+    text-decoration:none;
+    padding:7px 16px 7px 2px;
+    font-size:.86rem;
+    color:var(--ink-soft);
+    border-right:2px solid transparent;
+    transition:color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .spine a::before{
+    content:counter(tab,decimal-leading-zero);
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--gold);
+    flex:0 0 auto;
+  }
+  .spine a:hover{color:var(--ink); background:var(--paper-deep);}
+  .spine a.active{color:var(--jade-deep); border-color:var(--gold); font-weight:700; background:var(--paper-deep);}
+
+  @media (max-width:920px){
+    nav.spine{
+      position:sticky; top:0; height:auto; z-index:50;
+      background:var(--paper); border-right:none; border-bottom:1px solid var(--line);
+      padding:14px 18px;
+    }
+    .spine .brand{padding-right:0; display:flex; align-items:center; justify-content:space-between;}
+    .spine label{
+      font-family:var(--mono); font-size:.75rem; border:1px solid var(--ink);
+      padding:4px 10px; border-radius:20px; cursor:pointer;
+    }
+    .spine ol{
+      max-height:0; overflow:hidden; transition:max-height .25s ease; margin-top:0;
+    }
+    #navToggle:checked ~ .spine ol{max-height:600px; overflow-y:auto; margin-top:14px;}
+  }
+
+  /* ---------- hero ---------- */
+  main{padding:0 clamp(20px,4vw,64px) 80px;}
+  .hero{
+    padding:56px 0 36px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.14em;
+    color:var(--seal); text-transform:uppercase; margin:0 0 14px;
+  }
+  .hero h1{
+    font-family:var(--serif); font-weight:900; font-size:clamp(2.1rem,4.6vw,3.2rem);
+    margin:0 0 14px; line-height:1.28; color:var(--jade-deep);
+  }
+  .hero h1 em{font-style:normal; color:var(--gold); border-bottom:3px solid var(--gold-soft);}
+  .hero p.lede{max-width:640px; color:var(--ink-soft); font-size:1.02rem; margin:0 0 22px;}
+  .hero .meta{
+    display:flex; flex-wrap:wrap; gap:10px 26px; font-family:var(--mono); font-size:.8rem; color:var(--ink-faint);
+  }
+  .hero .meta b{color:var(--ink);}
+
+  /* passbook ledger strip - signature element */
+  .ledger-strip{
+    margin-top:34px; background:var(--ink); color:var(--paper);
+    border-radius:4px; padding:20px 22px; position:relative; overflow:hidden;
+  }
+  .ledger-strip::before{
+    content:"存摺"; position:absolute; right:18px; top:14px; font-family:var(--serif);
+    font-size:.75rem; letter-spacing:.3em; color:rgba(241,236,221,.35);
+  }
+  .ledger-strip .row{
+    display:flex; align-items:baseline; gap:14px; font-family:var(--mono); font-size:.86rem;
+    padding:7px 0; border-bottom:1px dashed rgba(241,236,221,.2);
+  }
+  .ledger-strip .row:last-child{border-bottom:none;}
+  .ledger-strip .row .tag{width:150px; flex:0 0 auto; color:rgba(241,236,221,.62); font-family:var(--sans); font-size:.82rem;}
+  .ledger-strip .row .val{color:var(--gold-soft); font-weight:600; flex:1;}
+  .ledger-strip .row .note{color:rgba(241,236,221,.5); font-size:.76rem;}
+  .seal-stamp{
+    position:absolute; bottom:-18px; left:-18px; width:96px; height:96px; border-radius:50%;
+    border:3px solid var(--seal); color:var(--seal); display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-weight:900; font-size:.95rem; letter-spacing:.06em; transform:rotate(-14deg);
+    opacity:.55; writing-mode:vertical-rl;
+  }
+
+  /* ---------- section chrome ---------- */
+  section.chapter{padding:58px 0; border-bottom:1px solid var(--line); scroll-margin-top:20px;}
+  section.chapter:last-of-type{border-bottom:none;}
+  .chapter-head{display:flex; gap:18px; align-items:flex-start; margin-bottom:28px;}
+  .chapter-num{
+    font-family:var(--mono); font-size:.95rem; color:var(--gold); border:1px solid var(--gold-soft);
+    border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+  h2.chapter-title{
+    font-family:var(--serif); font-weight:700; font-size:clamp(1.4rem,2.6vw,1.9rem); margin:0 0 6px; color:var(--jade-deep);
+  }
+  .chapter-sub{color:var(--ink-faint); font-size:.9rem; margin:0;}
+
+  h3.block-title{
+    font-family:var(--serif); font-weight:600; font-size:1.12rem; margin:34px 0 12px; color:var(--ink);
+    display:flex; align-items:center; gap:10px;
+  }
+  h3.block-title::before{content:""; width:18px; height:2px; background:var(--gold); display:inline-block;}
+
+  p{margin:0 0 14px;}
+  ul.plain{margin:0 0 14px; padding-left:1.2em;}
+  ul.plain li{margin-bottom:6px;}
+
+  blockquote.q{
+    margin:16px 0; padding:14px 18px; background:var(--paper-card); border-left:3px solid var(--jade);
+    border-radius:2px; font-size:.95rem; color:var(--ink-soft);
+  }
+  blockquote.q p{margin:0 0 8px;}
+  blockquote.q p:last-child{margin:0;}
+
+  .callout{
+    background:var(--paper-card); border:1px solid var(--line); border-radius:6px; padding:18px 20px; margin:18px 0;
+  }
+  .callout .k{font-family:var(--mono); font-size:.72rem; color:var(--seal); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:720px){.grid2, .grid3{grid-template-columns:1fr;}}
+
+  .card{background:var(--paper-card); border:1px solid var(--line); border-radius:6px; padding:16px 18px;}
+  .card h4{margin:0 0 8px; font-family:var(--serif); font-size:1rem; color:var(--jade-deep);}
+  .card .num{font-family:var(--mono); font-size:1.5rem; color:var(--gold); display:block; margin-bottom:4px;}
+
+  table.led{width:100%; border-collapse:collapse; font-size:.9rem; margin:16px 0;}
+  table.led th, table.led td{border-bottom:1px solid var(--line); padding:9px 10px; text-align:left;}
+  table.led th{font-family:var(--mono); font-size:.74rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em;}
+  table.led td.num{font-family:var(--mono); text-align:right;}
+  table.led tr:hover td{background:var(--paper-deep);}
+
+  /* ---------- charts ---------- */
+  .chart-wrap{margin:18px 0 26px; background:var(--paper-card); border:1px solid var(--line); border-radius:8px; padding:20px 22px;}
+  .chart-wrap .title{font-family:var(--serif); font-weight:600; font-size:1rem; margin:0 0 4px; color:var(--jade-deep);}
+  .chart-wrap .sub{font-size:.8rem; color:var(--ink-faint); margin:0 0 16px;}
+  .chart-wrap svg{width:100%; height:auto; display:block; overflow:visible;}
+  .bar-label{font-family:var(--sans); font-size:12px; fill:var(--ink);}
+  .bar-val{font-family:var(--mono); font-size:12px; fill:var(--jade-deep); font-weight:600;}
+  .axis{font-family:var(--mono); font-size:10px; fill:var(--ink-faint);}
+  .fx-note{font-size:.74rem; color:var(--ink-faint); margin-top:10px; font-family:var(--mono);}
+
+  /* Q&A cards */
+  .qa{margin-bottom:22px; padding:18px 20px; border:1px solid var(--line); border-radius:8px; background:var(--paper-card);}
+  .qa .qtag{font-family:var(--mono); font-size:.74rem; color:var(--seal); margin-bottom:6px; letter-spacing:.06em;}
+  .qa .question{font-family:var(--serif); font-weight:600; font-size:1.02rem; margin:0 0 10px; color:var(--ink);}
+
+  /* summary chips */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0;}
+  .chip{font-family:var(--mono); font-size:.78rem; padding:6px 12px; border:1px solid var(--gold-soft); border-radius:20px; color:var(--jade-deep); background:var(--paper-card);}
+
+  footer{padding:36px 0 60px; color:var(--ink-faint); font-size:.82rem;}
+  footer .disclaimer{border-top:1px solid var(--line); padding-top:18px; margin-top:18px;}
+
+  .backtop{
+    position:fixed; bottom:22px; right:22px; background:var(--ink); color:var(--paper);
+    width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    text-decoration:none; font-family:var(--mono); font-size:.8rem; opacity:.85; z-index:60;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .backtop{transition:opacity .2s ease, transform .2s ease;}
+    .backtop:hover{opacity:1; transform:translateY(-2px);}
+  }
+  :focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="navToggle">
+<div class="shell">
+
+  <nav class="spine">
+    <div class="brand">
+      五千兩管家帳本
+      <small>2026.08.23 講座摘要</small>
+    </div>
+    <label for="navToggle">目錄 ☰</label>
+    <ol>
+      <li><a href="#cycle">榮景週期與資本支出</a></li>
+      <li><a href="#legends">男主角們的二十年成績單</a></li>
+      <li><a href="#mindset">問題在人，不在市場</a></li>
+      <li><a href="#compound">72 法則、複利與通膨</a></li>
+      <li><a href="#dca">小額定期定額 vs 買房</a></li>
+      <li><a href="#retirement">50 歲後退休盤點</a></li>
+      <li><a href="#picking">選標的與配置密技</a></li>
+      <li><a href="#conclusion">演講結論四步驟</a></li>
+      <li><a href="#qna">Q&amp;A 精選</a></li>
+      <li><a href="#summary">全場重點與附錄</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <header class="hero">
+      <p class="eyebrow">愛羊理財系列講座 · 逐字稿整理摘要</p>
+      <h1>五千兩管家與<em>投資小白</em>理財術</h1>
+      <p class="lede">主講人陳茹婷（基金經理人）從 AI 資本支出的榮景週期談起，一路講到 72 法則、退休金提領與年輕人的配置密技。本頁依現場簡報照片與逐字稿重新彙整，圖表為依講者提供數字重新繪製的示意圖，非原始簡報截圖。</p>
+      <div class="meta">
+        <span>講題：<b>五千兩管家與投資小白理財術</b></span>
+        <span>日期：<b>2026/08/23（日）</b></span>
+        <span>時間：<b>13:30–16:30</b></span>
+      </div>
+
+      <div class="ledger-strip">
+        <div class="seal-stamp">整理摘要</div>
+        <div class="row"><span class="tag">基本盤目標</span><span class="val">NT$ 200 萬</span><span class="note">50 歲前建議累積的「有感本金」</span></div>
+        <div class="row"><span class="tag">72 法則</span><span class="val">年化 15% ≈ 每 5 年翻倍</span><span class="note">72 ÷ 15 ≈ 4.8 年</span></div>
+        <div class="row"><span class="tag">通膨翻倍</span><span class="val">年化 3% ≈ 24 年購買力減半</span><span class="note">72 ÷ 3 = 24</span></div>
+        <div class="row"><span class="tag">投資期間</span><span class="val">建議至少 20 年</span><span class="note">退休不是終點，是下一個 20 年</span></div>
+      </div>
+    </header>
+
+    <!-- ============ 1. CYCLE ============ -->
+    <section class="chapter" id="cycle">
+      <div class="chapter-head">
+        <span class="chapter-num">01</span>
+        <div>
+          <h2 class="chapter-title">榮景週期與資本支出</h2>
+          <p class="chapter-sub">AI 榮景怎麼來、又為何會結束；為什麼講者主張用指數取代個股。</p>
+        </div>
+      </div>
+
+      <h3 class="block-title">四大企業資本支出撐起這一波榮景</h3>
+      <p>這波榮景的主要推力，來自大型科技公司資本支出（CAPEX）從約 1,600 億美元一路衝到目前約 1.6 兆美元，2028 年可能到 1.6～1.7 兆美元。但企業自由現金流大約只有 6,000～7,000 億美元——當支出超過 8,000 億美元，等於每年出現約 2,000 億美元的資金缺口，得靠融資補上。</p>
+      <blockquote class="q">
+        <p>「所以為什麼股市會有大震盪？就是因為大家開始發現：完蛋了，沒錢了……兩年、三年把資本支出拉這麼高，很快就花掉了。」</p>
+      </blockquote>
+
+      <div class="chart-wrap">
+        <p class="title">資本支出 vs 自由現金流缺口（示意）</p>
+        <p class="sub">依講者口述數字重繪的概念圖，非精確財報數據</p>
+        <svg viewBox="0 0 640 220" role="img" aria-label="資本支出持續攀升，自由現金流缺口擴大示意圖">
+          <line x1="50" y1="20" x2="50" y2="180" stroke="var(--line)"/>
+          <line x1="50" y1="180" x2="600" y2="180" stroke="var(--line)"/>
+          <polyline points="70,150 170,120 270,90 370,55 470,35 560,25" fill="none" stroke="var(--seal)" stroke-width="3"/>
+          <polyline points="70,120 170,110 270,105 370,115 470,130 560,140" fill="none" stroke="var(--jade)" stroke-width="3"/>
+          <text x="565" y="20" class="bar-val" fill="var(--seal)">資本支出</text>
+          <text x="565" y="150" class="bar-val" fill="var(--jade)">自由現金流</text>
+          <text x="45" y="200" text-anchor="end" class="axis">2025</text>
+          <text x="595" y="200" text-anchor="end" class="axis">2028E</text>
+        </svg>
+      </div>
+
+      <h3 class="block-title">為什麼不要玩個股</h3>
+      <p>指數之所以值得信任，是因為它會「汰弱留強」——好比《三國演義》群雄爭霸，最後留在檯面上的永遠是最強的幾家。投資人不需要提前猜中最後贏家，只要買進會自動淘汰弱者的一籃子指數即可。</p>
+      <blockquote class="q">
+        <p>「一個設計好的指數，一定是把大的、強的留在前面……你不一定知道最後誰會贏，但如果你買的是一個會自動汰弱留強的指數，那最後的主角至少大概率會在裡面。」</p>
+      </blockquote>
+
+      <h3 class="block-title">多頭四年的持股節奏與空頭加碼</h3>
+      <div class="chart-wrap">
+        <p class="title">榮景後段：持股比重逐年下修（示意）</p>
+        <p class="sub">第 1 年高持股 → 第 2 年 70% → 第 3 年 50% → 第 4 年 30%，保留部位觀察空頭</p>
+        <svg viewBox="0 0 640 170" role="img" aria-label="多頭四年持股比重遞減長條圖">
+          <g font-family="var(--mono)">
+            <rect x="60"  y="20"  width="70" height="130" fill="var(--jade-deep)"/>
+            <rect x="220" y="55"  width="70" height="95"  fill="var(--jade)"/>
+            <rect x="380" y="85"  width="70" height="65"  fill="var(--gold)"/>
+            <rect x="540" y="110" width="70" height="40"  fill="var(--gold-soft)"/>
+            <text x="95"  y="12" text-anchor="middle" class="bar-val">100%</text>
+            <text x="255" y="47" text-anchor="middle" class="bar-val">70%</text>
+            <text x="415" y="77" text-anchor="middle" class="bar-val">50%</text>
+            <text x="575" y="102" text-anchor="middle" class="bar-val">30%</text>
+            <text x="95"  y="165" text-anchor="middle" class="axis">第1年</text>
+            <text x="255" y="165" text-anchor="middle" class="axis">第2年</text>
+            <text x="415" y="165" text-anchor="middle" class="axis">第3年</text>
+            <text x="575" y="165" text-anchor="middle" class="axis">第4年</text>
+          </g>
+        </svg>
+        <p class="fx-note">空頭加碼參考點：指數自高點下跌 25% / 35% / 45%（另一版本為 25/30/35/40%）分批加碼，最後一筆若不敢投入可保留，等反彈追買。</p>
+      </div>
+
+      <div class="callout">
+        <div class="k">講者觀點</div>
+        <p>不追求賣在最高點、也不追求買在最低點。多頭後段逐步降低曝險、留現金；空頭來臨時再分批把現金換回部位，是整場演講反覆強調的「紀律」而非「預測」。</p>
+      </div>
+    </section>
+
+    <!-- ============ 2. LEGENDS ============ -->
+    <section class="chapter" id="legends">
+      <div class="chapter-head">
+        <span class="chapter-num">02</span>
+        <div>
+          <h2 class="chapter-title">男主角們的二十年成績單</h2>
+          <p class="chapter-sub">用 Apple、SMH、QQQ、Berkshire 與定存做對照，說明「事後看贏家永遠只有少數」。</p>
+        </div>
+      </div>
+
+      <p>講者把每個時代最強的公司稱為「男主角」——實體網路／消費電子世代是 Apple，虛擬 AI 世代是 NVIDIA，實體 AI 的男主角則尚未出現。真正能重壓個股，是男主角已經明朗的時候；在那之前，講者偏好用 ETF 把可能的候選人都裝進籃子裡。</p>
+
+      <div class="chart-wrap">
+        <p class="title">近 20 年若投入 200 萬：倍數排行榜（示意）</p>
+        <p class="sub">依簡報揭示倍數重新繪製；同一時間起點、假設不間斷持有</p>
+        <svg viewBox="0 0 640 260" role="img" aria-label="近20年不同資產類別成長倍數比較長條圖">
+          <g font-family="var(--mono)" font-size="12">
+            <text x="0" y="20" class="bar-label">Apple</text>
+            <rect x="90" y="8"  width="480" height="18" fill="var(--seal)"/>
+            <text x="580" y="22" class="bar-val">93x</text>
+
+            <text x="0" y="52" class="bar-label">野村優質基金</text>
+            <rect x="90" y="40" width="161" height="18" fill="var(--jade-deep)"/>
+            <text x="256" y="54" class="bar-val">29x</text>
+
+            <text x="0" y="84" class="bar-label">SMH 半導體</text>
+            <rect x="90" y="72" width="144" height="18" fill="var(--jade)"/>
+            <text x="239" y="86" class="bar-val">26x</text>
+
+            <text x="0" y="116" class="bar-label">QQQ</text>
+            <rect x="90" y="104" width="86" height="18" fill="var(--gold)"/>
+            <text x="181" y="118" class="bar-val">15.6x</text>
+
+            <text x="0" y="148" class="bar-label">Berkshire</text>
+            <rect x="90" y="136" width="32" height="18" fill="var(--gold-soft)"/>
+            <text x="127" y="150" class="bar-val">5.79x</text>
+
+            <text x="0" y="180" class="bar-label">定存（通膨修正後）</text>
+            <rect x="90" y="168" width="8" height="18" fill="var(--ink-faint)"/>
+            <text x="103" y="182" class="bar-val">1.3x</text>
+          </g>
+          <line x1="90" y1="200" x2="90" y2="8" stroke="var(--line)"/>
+          <text x="90" y="215" text-anchor="middle" class="axis">2007</text>
+          <text x="570" y="215" text-anchor="middle" class="axis">2026</text>
+        </svg>
+        <p class="fx-note">定存示例：2007 年存 200 萬，2026 年 8 月約剩 259 萬（來源：講者投影片，Source: ChatGPT 試算）</p>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <span class="num">93x</span>
+          <h4>Apple（2007 iPhone 問世起）</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">若 2007 年投入 200 萬，投影片標示目前約值 <b>1 億 8,486 萬元</b>。</p>
+        </div>
+        <div class="card">
+          <span class="num">26x</span>
+          <h4>SMH 費城半導體</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">CAGR 約 18.5%，200 萬投入後投影片標示約值 <b>5,499.3 萬元</b>。</p>
+        </div>
+        <div class="card">
+          <span class="num">15.6x</span>
+          <h4>QQQ 那斯達克 100</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">CAGR 約 15.45%，200 萬投入後投影片標示約值 <b>3,313.6 萬元</b>。</p>
+        </div>
+      </div>
+
+      <blockquote class="q">
+        <p>「如果你不知道下一代男主角是誰，可以觀察 QQQ 的最大權重股。當第一大持股變成某一家公司，也許就是一個提示。」</p>
+      </blockquote>
+    </section>
+
+    <!-- ============ 3. MINDSET ============ -->
+    <section class="chapter" id="mindset">
+      <div class="chapter-head">
+        <span class="chapter-num">03</span>
+        <div>
+          <h2 class="chapter-title">問題在人，不在市場</h2>
+          <p class="chapter-sub">「NG－陣線聯盟」清單，以及為什麼保險與投資要分開處理。</p>
+        </div>
+      </div>
+
+      <h3 class="block-title">投資人常見的 NG 行為</h3>
+      <ul class="plain">
+        <li>標的錯誤：買錯股、買錯基金、買錯 ETF</li>
+        <li>配置比例錯誤，跟著達人買股票卻問不出比例</li>
+        <li>忘記每年重新檢視投資組合</li>
+        <li>市場過熱時使用槓桿、借錢投資</li>
+        <li>恐懼資產波動，怯於長期持有</li>
+        <li>沒持續執行扣款、停在「等下一個 double」</li>
+        <li>仇富，一直等待回檔</li>
+        <li>聽完複利報酬後選擇不買房，卻也沒把省下的錢拿去投資（房價房租一起漲，兩頭空）</li>
+      </ul>
+      <blockquote class="q">
+        <p>「投資的問題從來都不是市場，而是投資人自己。如果你不是很會當管家，就好好找厲害的管家。但你每年還是要重新檢視。」</p>
+      </blockquote>
+
+      <h3 class="block-title">保險歸保險，投資歸投資</h3>
+      <p>保險的精神是「希望它不要發生」，投資的精神是「希望它發生、資產成長」——把方向相反的兩件事綁在一起，就容易變複雜。投資型保單不是不能買，但要留意連結標的可能是保險公司自家基金，且未必有人長期幫忙調整。</p>
+      <blockquote class="q">
+        <p>「就算保險員很認真，第一年幫你選了好基金，第二年、第三年他可能離職了，或沒有再幫你調整。」</p>
+      </blockquote>
+    </section>
+
+    <!-- ============ 4. COMPOUND ============ -->
+    <section class="chapter" id="compound">
+      <div class="chapter-head">
+        <span class="chapter-num">04</span>
+        <div>
+          <h2 class="chapter-title">72 法則、複利與通膨</h2>
+          <p class="chapter-sub">世界第八大奇蹟：本金、報酬率、時間三者同時存在，才是複利真正的威力。</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="k">核心公式</div>
+        <p style="font-family:var(--mono); font-size:1.05rem; margin:0;">72 ÷ 年報酬率 ≈ 資金翻倍所需年數　　72 ÷ 15% ≈ 4.8 年（約 5 年翻倍）</p>
+      </div>
+
+      <div class="chart-wrap">
+        <p class="title">複利 15% 的投資威力：本金隨年齡翻倍</p>
+        <p class="sub">依投影片「財務成長與複利試算報告」數字重繪</p>
+        <svg viewBox="0 0 640 240" role="img" aria-label="複利15%年報酬率下，資產隨年齡呈指數成長曲線">
+          <line x1="50" y1="10" x2="50" y2="200" stroke="var(--line)"/>
+          <line x1="50" y1="200" x2="610" y2="200" stroke="var(--line)"/>
+          <polyline points="50,196 88,195 127,193 165,190 204,185 242,178 281,167 319,150 358,124 396,86 435,32 473,-40 512,-190"
+                    fill="none" stroke="var(--jade-deep)" stroke-width="3" transform="translate(0,40) scale(1,0.78)"/>
+          <g class="axis">
+            <text x="50"  y="215">30歲</text>
+            <text x="204" y="215">50歲</text>
+            <text x="358" y="215">65歲</text>
+            <text x="512" y="215">90歲</text>
+            <text x="600" y="215">95歲</text>
+          </g>
+          <g class="bar-val">
+            <text x="60"  y="188">50萬</text>
+            <text x="214" y="170">400萬</text>
+            <text x="368" y="112">3,200萬</text>
+            <text x="470" y="20">10.2萬萬</text>
+            <text x="540" y="-4">20.5萬萬</text>
+          </g>
+        </svg>
+        <p class="fx-note">投影片標示：從 65 歲到 95 歲，資產可從約 3,200 萬成長到約 20 萬萬（204,800 萬）元 —— 「最後一個 double 永遠是最大的」，這也是巴菲特 95% 財富在 65 歲後創造的原因。</p>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h4>通膨也會翻倍：購買力減半</h4>
+          <p style="margin:0 0 8px;font-family:var(--mono);font-size:1rem;">72 ÷ 3% = 24 年</p>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">若通膨率長期為 3%，24 年後手上現金的實質購買力只剩一半——什麼都不做，也會變窮。</p>
+        </div>
+        <div class="card">
+          <h4>200 萬基本盤</h4>
+          <p style="margin:0 0 8px;font-family:var(--mono);font-size:1rem;">200萬 × 18% ≈ 年獲利 36萬</p>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">以 SMH 25 年平均投報率反推：若目標是被動收入追平年薪 36 萬，200 萬是讓複利「開始有感」的最低基數。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. DCA & HOUSING ============ -->
+    <section class="chapter" id="dca">
+      <div class="chapter-head">
+        <span class="chapter-num">05</span>
+        <div>
+          <h2 class="chapter-title">小額定期定額，以及買房 vs 租房</h2>
+          <p class="chapter-sub">每月一杯咖啡的錢，拉長時間後差距有多大；以及現金流被房貸卡死的風險。</p>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <p class="title">每月定期定額 34 年後：World Gym 版 vs 星巴克版</p>
+        <p class="sub">假設年化 15%，複利計算機示範（havocFuture）</p>
+        <svg viewBox="0 0 640 150" role="img" aria-label="每月投入1000元與4500元，34年後資產比較長條圖">
+          <g font-family="var(--mono)" font-size="12">
+            <text x="0" y="30" class="bar-label">每月 1,000元</text>
+            <rect x="140" y="18" width="103" height="20" fill="var(--gold-soft)"/>
+            <text x="253" y="33" class="bar-val">≈ 1,279 萬</text>
+
+            <text x="0" y="80" class="bar-label">每月 4,500元</text>
+            <rect x="140" y="68" width="460" height="20" fill="var(--jade-deep)"/>
+            <text x="610" y="83" class="bar-val" text-anchor="end">≈ 5,750 萬</text>
+          </g>
+          <line x1="140" y1="10" x2="140" y2="100" stroke="var(--line)"/>
+          <text x="140" y="118" class="axis">投入起點（17歲）</text>
+          <text x="600" y="118" text-anchor="end" class="axis">51歲</text>
+        </svg>
+        <p class="fx-note">實際投入本金分別約 40.8 萬元（同一組本金／利率假設下，複利效果差距約 4.5 倍）</p>
+      </div>
+
+      <h3 class="block-title">25＋年定期定額威力（2001/1–2026/3）</h3>
+      <div class="chart-wrap">
+        <p class="title">每年投入 1 萬美元，26 年後總資產比較</p>
+        <p class="sub">USD 原始數字換算為新台幣（依約 1 美元 ≈ 32.5 新台幣估算，實際請以即時匯率為準）</p>
+        <svg viewBox="0 0 640 210" role="img" aria-label="SMH、QQQ、HGX、TLT四項資產26年定期定額成長比較長條圖">
+          <g font-family="var(--mono)" font-size="12">
+            <text x="0" y="30" class="bar-label">SMH 半導體</text>
+            <rect x="120" y="18" width="480" height="20" fill="var(--seal)"/>
+            <text x="120" y="52" class="bar-val">US$5,236,061 ≈ NT$1.70 億</text>
+
+            <text x="0" y="80" class="bar-label">QQQ</text>
+            <rect x="120" y="68" width="255" height="20" fill="var(--gold)"/>
+            <text x="120" y="102" class="bar-val">US$2,782,227 ≈ NT$9,042 萬</text>
+
+            <text x="0" y="130" class="bar-label">HGX 房產指數</text>
+            <rect x="120" y="118" width="140" height="20" fill="var(--jade)"/>
+            <text x="120" y="152" class="bar-val">US$1,533,547 ≈ NT$4,984 萬</text>
+
+            <text x="0" y="180" class="bar-label">TLT 長天期公債</text>
+            <rect x="120" y="168" width="31" height="20" fill="var(--ink-faint)"/>
+            <text x="155" y="182" class="bar-val">US$339,158 ≈ NT$1,102 萬</text>
+          </g>
+        </svg>
+        <p class="fx-note">匯率換算僅供參考，採 2026/08/23 查詢當時約 32.2–32.8 區間之中間值估算。</p>
+      </div>
+
+      <h3 class="block-title">買房 vs 租房＋投資</h3>
+      <p>以第一桶金 200 萬為例：買 1,200 萬房子要貸 1,000 萬，30 年、假設利率 2%，月付本息約 3 萬多；若先租房（假設租金 2 萬），房貸與租金的差額可以投入市場，200 萬第一桶金也同步做長期投資。</p>
+      <div class="grid2">
+        <div class="card">
+          <h4>買房</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">15 年後仍在繳房貸；資產集中在不動產，變現彈性較低。</p>
+        </div>
+        <div class="card">
+          <h4>租房＋投資房貸與租金差額</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">15 年後可能已累積一筆規模不小的投資資產，現金流較有彈性。</p>
+        </div>
+      </div>
+      <blockquote class="q">
+        <p>「華人退休很常見一個情況：房子很多、資產看起來很厚，但是現金很少。六十歲退休後沒有現金，就又拿房子去抵押、以房養老。」</p>
+      </blockquote>
+    </section>
+
+    <!-- ============ 6. RETIREMENT ============ -->
+    <section class="chapter" id="retirement">
+      <div class="chapter-head">
+        <span class="chapter-num">06</span>
+        <div>
+          <h2 class="chapter-title">50 歲後退休盤點</h2>
+          <p class="chapter-sub">先誠實盤點籌碼，再談勞保月領、勞退一次領，以及衰退期崩盤後的再投入策略。</p>
+        </div>
+      </div>
+
+      <h3 class="block-title">啟動管家機制：誠實盤點當下籌碼</h3>
+      <div class="grid3">
+        <div class="card">
+          <h4>活化資產</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">新制勞保／勞退現值、動產（存款／股票／基金）、不動產現值</p>
+        </div>
+        <div class="card">
+          <h4>負債檢視</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">房貸餘額、其他負債</p>
+        </div>
+        <div class="card">
+          <h4>可動用淨值</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">目標：基本盤先達標 200 萬，才能夠安穩撐下去</p>
+        </div>
+      </div>
+      <blockquote class="q">
+        <p>「不要去幻想未來的發展，先誠實面對當下的數字。」</p>
+      </blockquote>
+
+      <h3 class="block-title">勞保月領、勞退一次領</h3>
+      <div class="grid2">
+        <div class="card">
+          <h4>勞保 — 社會保險</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">「活得越久、領得越久」，講者較鼓勵月退，等於跟政府賭壽命。</p>
+        </div>
+        <div class="card">
+          <h4>勞退 — 個人退休金</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">雇主提 6%、可自提 6%（高所得者節稅效果值得評估）；講者偏向一次領回，再進入下一輪投資。</p>
+        </div>
+      </div>
+
+      <h3 class="block-title">退休金提前提領的藝術</h3>
+      <p>概念是：勞保提供持續月領現金流，勞退單筆若在衰退期崩盤後領出，可以重新配置到美國 ETF——退休後的 20～30 年，仍然是新的投資期間，而不是把資產全部換成定存的終點。</p>
+    </section>
+
+    <!-- ============ 7. PICKING ============ -->
+    <section class="chapter" id="picking">
+      <div class="chapter-head">
+        <span class="chapter-num">07</span>
+        <div>
+          <h2 class="chapter-title">選標的與配置密技</h2>
+          <p class="chapter-sub">10年／5年／3年找最大公因數、不追配息、200萬配置密技，以及野村優質基金與 TISA 帳戶。</p>
+        </div>
+      </div>
+
+      <h3 class="block-title">基金與 ETF 挑選法則</h3>
+      <ol class="plain" style="padding-left:1.4em;">
+        <li>看 10 年績效 Top 10</li>
+        <li>看 5 年績效 Top 10</li>
+        <li>看 3 年績效 Top 10</li>
+        <li>找三個期間重複出現的「最大公因數」基金</li>
+        <li>每年檢視一次，不好的管家就換掉</li>
+      </ol>
+      <blockquote class="q">
+        <p>「如果一個基金或一個基金團隊，十年、五年、三年都一直在前面，那它就值得放進候選名單。」</p>
+      </blockquote>
+      <p>講者也提醒：不要偷偷跟著基金公告的持股買股票，因為已公告的都是過去式了；配息型基金也非優先選項——「有需要用錢的時候，就贖回一個單位、幾個單位，過幾天錢就回來」。</p>
+
+      <h3 class="block-title">年輕人如何不 NG</h3>
+      <div class="grid2">
+        <div class="card">
+          <h4>富人公式 1</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">啟動小額捐款——有負擔的人最強大</p>
+        </div>
+        <div class="card">
+          <h4>富人公式 2</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">收入 － 投資（儲蓄）＝ 支出，先決定投資再決定支出</p>
+        </div>
+      </div>
+      <ul class="plain">
+        <li>選對標的：定期定額 ETF／好管家基金，無論發生什麼事都不間斷</li>
+        <li>加薪、領獎金、得到遺產：記得按比例投入</li>
+        <li>救命或退休才提領</li>
+        <li>退休前永不停扣——因為財富永遠是相對的</li>
+      </ul>
+
+      <h3 class="block-title">配置不 NG：密技公開</h3>
+      <div class="grid2">
+        <div class="card">
+          <h4>沒有 200 萬存款的</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">分成 8 年／96 個月／2,920 天，下一波多頭開始前（2035 年前）慢慢 All in 200 萬。</p>
+        </div>
+        <div class="card">
+          <h4>已有 200 萬存款的</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">ETF 高點下跌 25%／35%／45% 分別投入，最後一筆留下來追高開心買。</p>
+        </div>
+      </div>
+      <p>每月定期定額不停扣：年輕人 1,000～6,000 元不等，「不論市場多恐怖，每月定期定額——死之前都不會怎樣」。</p>
+
+      <h3 class="block-title">野村優質基金與 TISA 帳戶</h3>
+      <div class="chart-wrap">
+        <p class="title">野村優質基金－累積型（2007/2–2026/8）</p>
+        <p class="sub">起始淨值約 16.47，最高約 500.66，約 29 倍，CAGR 約 19.1%</p>
+        <svg viewBox="0 0 640 170" role="img" aria-label="野村優質基金2007至2026淨值成長折線圖">
+          <line x1="50" y1="20" x2="50" y2="150" stroke="var(--line)"/>
+          <line x1="50" y1="150" x2="600" y2="150" stroke="var(--line)"/>
+          <polyline points="50,145 130,142 210,138 290,130 370,118 450,95 500,60 545,25"
+                    fill="none" stroke="var(--jade-deep)" stroke-width="3"/>
+          <text x="50" y="165" class="axis">2007/02</text>
+          <text x="545" y="165" text-anchor="end" class="axis">2026/08</text>
+          <text x="500" y="45" class="bar-val">最高 500.66</text>
+        </svg>
+        <p class="fx-note">單筆示例：2007 年投入 200 萬，2026 年演講示例約值 6,079.6 萬；若中間每月再加碼 5,000 元不停扣，19.5 年約再多投入本金 116～117 萬，最終再多出約 1,500 萬以上。</p>
+      </div>
+
+      <table class="led">
+        <thead><tr><th>基金級別</th><th>投資門檻／方式</th><th class="num">經理費</th></tr></thead>
+        <tbody>
+          <tr><td>一般類型</td><td>約 3,000 元台幣</td><td class="num">1.50%</td></tr>
+          <tr><td>累積 S 類型</td><td>高額單筆門檻</td><td class="num">0.99%</td></tr>
+          <tr><td>TISA 類型（台灣個人投資儲蓄帳戶）</td><td>約 1,000 元台幣／月，需連續扣款 24 個月</td><td class="num">較低費用</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.85rem;color:var(--ink-faint);">TISA 基金於 2025 年 7 月上路，最大優勢是「終身免手續費」與「超低經理費」，機制上強制規定需定期定額、股息自動再投入不配息。</p>
+
+      <h3 class="block-title">財富觀：不要仇富</h3>
+      <blockquote class="q">
+        <p>「我們在學理財的時候，不要先仇視『富』這件事情。你可以去思考：錢怎麼被用在好的地方、怎麼幫助人、怎麼做奉獻。」</p>
+      </blockquote>
+    </section>
+
+    <!-- ============ 8. CONCLUSION ============ -->
+    <section class="chapter" id="conclusion">
+      <div class="chapter-head">
+        <span class="chapter-num">08</span>
+        <div>
+          <h2 class="chapter-title">演講結論：四個步驟</h2>
+          <p class="chapter-sub">開戶、選標的、決定最低金額、堅持 20 年。</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h4>1. 有錢沒錢都立刻去開戶</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">台灣基金找基富通（國家開的，不會有詐騙）；美國 ETF 找大型券商開複委託（手續費要打折）。</p>
+        </div>
+        <div class="card">
+          <h4>2. 選對標的</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">台灣：好管家基金（10/5/3 年 Top 10，1 年挑 1 次）。美國 ETF：半導體 SMH／科技終端應用 QQQ／保守成長 S&amp;P 500。</p>
+        </div>
+        <div class="card">
+          <h4>3. 決定最低金額</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">收入 － 投資儲蓄 ＝ 支出。單筆目標 200 萬+；每月定期定額：年輕人 1,000+／社會新鮮人 3,000+／中壯年 6,000+。</p>
+        </div>
+        <div class="card">
+          <h4>4. 堅持投資期間 20 年</h4>
+          <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">決勝唯一因子：死都不停扣／救命才可提領。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9. QNA ============ -->
+    <section class="chapter" id="qna">
+      <div class="chapter-head">
+        <span class="chapter-num">09</span>
+        <div>
+          <h2 class="chapter-title">Q&amp;A 精選</h2>
+          <p class="chapter-sub">現場提問與講者回應摘要。</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q01</div>
+        <p class="question">若現在正好有一筆上百萬的資金，在榮景期末，建議「單筆投入」還是「定期定額」？</p>
+        <p>距離 2035 年還有 8、9 年，可以把資金分配在這段時間慢慢投入；若剛好進入衰退期反而更好，因為衰退期就是加快投入的時機。參考點：S&amp;P 500 從高點跌 25%／30%／35%／40%，分成四筆進場，最後一筆若不敢投可留約 30% 現金等反彈再買。</p>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q02</div>
+        <p class="question">針對 50 歲中年人和 70 歲老年人，在預期 2028 年衰退期前，要先把定期定額的基金贖回嗎？贖回後的錢如何處理？</p>
+        <p>「你不知道你還會活多久」——定期定額永遠是為下一個 20 年準備。200 萬單筆是基本盤，不管幾歲都可以留在那裡；若目前只有 50 萬或 100 萬，就先從現有金額投入，慢慢養大到 200 萬的基本盤。</p>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q03</div>
+        <p class="question">建議今年持股降至 70%、明年 50%、2028 年 30%，是不是建議依年份慢慢減持基金、留現金準備面對衰退期？</p>
+        <p>若這波已賺到一兩千萬，超過 200 萬基本盤之後的獲利部分，今年減碼 30% 有益身心，不用賣在最高點，有賺就好；等衰退期真的來，手上有現金就可以重新 All in。講者也分享朋友案例：金融風暴前資產約 12 億仍持續融資、想衝到 100 億，結果風暴後資產大幅縮水，藉此提醒榮景末期槓桿的危險。</p>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q06</div>
+        <p class="question">美股包含軟體公司的 ETF 可以買嗎？為何選 SMH，而不是包含 Google、MSFT 或 OpenAI 的軟體 ETF？</p>
+        <p>過去很多獨立產品（翻譯機、計算機）最後都被手機或軟體整合掉，AI 也可能取代許多現有服務——現在還不知道哪個軟體贏家會留下來，但不管誰贏，都需要晶片。因此在贏家未明朗前，講者傾向先選硬體、半導體這一塊。</p>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q08</div>
+        <p class="question">檢視基金不適合時如何減少損失換檔？換基金會中斷複利效果嗎？會建議每年檢視然後更換嗎？</p>
+        <p>如果新基金十年可能賺一千多趴，而原本那檔十年只賺八十趴，一直等後者從虧損回到成本才換，反而會錯過更強的基金——「一千兩管家不行，就把它換掉，找五千兩管家來幫你賺」，新管家很快就有機會把虧掉的部分賺回來。</p>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q12</div>
+        <p class="question">退休資產靠「存股領配息」還是「賣股提領」生活？靠利息是不是要存非常多錢？賣股後面不會斷炊嗎？</p>
+        <p>不需要一直依賴月配息；用家人住院為例，帳單先刷卡，再回頭計算需要贖回多少基金單位即可。若把一桶金從 200 萬變成 6,000 萬，屆時要怎麼領、彈性都會完全不同——重點是先把資產做大，而不是綁在固定配息上。</p>
+      </div>
+
+      <div class="qa">
+        <div class="qtag">Q13</div>
+        <p class="question">對於白手起家或資金不多的年輕人，若想靠投資獲得額外報酬，會給什麼建議？</p>
+        <p>本金很少時，投資報酬率能拉開的差距有限，更重要的是把本業做大——升遷帶來的加薪可能是 30%、50% 甚至更多，遠高於單純追求投資多賺幾個百分點。「你不要心急，有一天你一年的收入，可能會等於你過去很多年的收入加總」，前提是持續累積自己的能力。</p>
+      </div>
+    </section>
+
+    <!-- ============ 10. SUMMARY ============ -->
+    <section class="chapter" id="summary">
+      <div class="chapter-head">
+        <span class="chapter-num">10</span>
+        <div>
+          <h2 class="chapter-title">全場核心重點與附錄</h2>
+          <p class="chapter-sub">收斂整場演講的六個面向，以及反覆出現的關鍵數字與口訣。</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h4>A. 投資理念</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">不預測單一股票；用指數／好管家基金當工具；讓時間與複利工作；定期定額不因恐慌中斷；單筆＋定期定額並行。</p>
+        </div>
+        <div class="card">
+          <h4>B. 資金管理</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">先投資再支出；200 萬為基本盤；年輕人 1,000+／上班族 3,000+／中壯年 6,000+；加薪獎金按比例提高投入。</p>
+        </div>
+        <div class="card">
+          <h4>C. 資產選擇</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">美國：S&amp;P 500（保守）／QQQ（科技成長）／SMH（半導體、積極）。台灣：一般股票型主動基金，10/5/3 年 Top 10 交叉篩選。</p>
+        </div>
+        <div class="card">
+          <h4>D. 景氣循環</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">榮景後段降低持股、保留現金；大幅回檔後分批投入（-25%/-30~35%/-40~45%）；不需要精準猜最低點。</p>
+        </div>
+        <div class="card">
+          <h4>E. 退休</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">退休後仍有 20-30 年投資期；勞保偏月領、勞退偏一次領再投資；不特別追配息，需要時再贖回。</p>
+        </div>
+        <div class="card">
+          <h4>F. 財富與人生</h4>
+          <p style="margin:0;font-size:.88rem;color:var(--ink-soft);">不仇富；小額捐款是財富觀的一部分；本金少時先做大本業收入；保持身心健康才能撐過足夠長的複利時間。</p>
+        </div>
+      </div>
+
+      <h3 class="block-title">附錄 A｜反覆出現的數字</h3>
+      <table class="led">
+        <tbody>
+          <tr><td>基本投資本金目標</td><td class="num">200 萬元</td></tr>
+          <tr><td>72 法則示例</td><td class="num">年化 15%，約 5 年翻倍</td></tr>
+          <tr><td>通膨示例</td><td class="num">3%，約 24 年購買力減半</td></tr>
+          <tr><td>SMH 長期報酬示例</td><td class="num">約 18% 左右</td></tr>
+          <tr><td>多頭後段持股規劃</td><td class="num">70% → 50% → 30%</td></tr>
+          <tr><td>空頭分批加碼</td><td class="num">約 -25% / -35% / -45%（另一版本 -25/-30/-35/-40）</td></tr>
+          <tr><td>投資期間</td><td class="num">約 20 年</td></tr>
+          <tr><td>演講長期目標時點</td><td class="num">2035 前累積本金；2035–2055 長期成長期假設</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="block-title">附錄 B｜主要標的與工具</h3>
+      <div class="chips">
+        <span class="chip">S&amp;P 500</span>
+        <span class="chip">QQQ</span>
+        <span class="chip">SMH／SOX</span>
+        <span class="chip">野村優質基金－累積型</span>
+        <span class="chip">野村優質基金－TISA 類型</span>
+        <span class="chip">安聯台股基金</span>
+        <span class="chip">統一台股基金</span>
+        <span class="chip">MoneyDJ 基金排行榜</span>
+        <span class="chip">TISA 帳戶</span>
+        <span class="chip">勞保</span>
+        <span class="chip">勞退新制</span>
+        <span class="chip">複委託</span>
+        <span class="chip">基富通</span>
+      </div>
+
+      <h3 class="block-title">附錄 C｜核心句型與口訣</h3>
+      <div class="grid2">
+        <blockquote class="q"><p>收入 － 投資／儲蓄 ＝ 支出</p></blockquote>
+        <blockquote class="q"><p>最後一個 Double 永遠最大。</p></blockquote>
+        <blockquote class="q"><p>定期定額不要中斷。</p></blockquote>
+        <blockquote class="q"><p>救命或退休才提領。</p></blockquote>
+        <blockquote class="q"><p>不要玩個股，除非真正的「男主角」已經出現。</p></blockquote>
+        <blockquote class="q"><p>好管家：10年／5年／3年都能持續在前段班。</p></blockquote>
+        <blockquote class="q"><p>投資不是一次選完就不管，每年要重新檢視。</p></blockquote>
+        <blockquote class="q"><p>退休不是投資的終點，而是下一個 20 年的開始。</p></blockquote>
+      </div>
+    </section>
+
+    <footer>
+      <p>整理方式：依現場簡報照片、講座逐字稿內容彙整，並依講者提供之數字重新繪製示意圖表；未加入個人觀點，亦未另行查核講者所引數據之正確性。</p>
+      <div class="disclaimer">
+        <p>本頁內容為理財講座之投資概念分享與筆記整理，不構成投資建議；文中之報酬率、倍數與試算結果僅為講者示例，實際投資請自行評估風險並諮詢專業顧問。外幣金額之新台幣換算採講座當日查詢之約略匯率，僅供參考。</p>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<a href="#top" class="backtop" aria-label="回到頂端">↑</a>
+
+<script>
+  // 依捲動位置高亮左側導覽（純視覺輔助，非必要功能）
+  const links = document.querySelectorAll('.spine a[href^="#"]');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const setActive = () => {
+    let current = sections[0];
+    const y = window.scrollY + 140;
+    sections.forEach(s => { if (s.offsetTop <= y) current = s; });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  };
+  document.addEventListener('scroll', setActive, { passive:true });
+  setActive();
+</script>
+</body>
+</html>
