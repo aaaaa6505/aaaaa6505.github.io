@@ -207,6 +207,17 @@ h2{font-size:1.32rem;margin:0;line-height:1.35}
 .info.ok .info-title{color:var(--good-ink)}
 .info.warn{background:var(--warn-bg);border:2px solid var(--warn-line)}
 .info.warn .info-title{color:var(--warn-ink)}
+.info-lead{margin:0 0 8px;font-size:.9rem}
+.refund{margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--surface)}
+.refund p{margin:0;font-size:.9rem}
+.refund-k{
+  display:inline-block;margin-bottom:4px;padding:1px 8px;border-radius:6px;
+  font-size:.74rem;font-weight:800;color:var(--on-accent);background:var(--plan);
+}
+.refund .same{
+  margin-top:8px;padding:6px 10px;border-radius:8px;font-size:.86rem;
+  background:var(--p2-soft);border-left:3px solid var(--p2);
+}
 
 .checks{display:grid;gap:8px;padding:14px 16px 16px;background:var(--surface-2);border-top:1px solid var(--line)}
 .check{border-radius:12px;padding:10px 12px;background:var(--surface);border:1px solid var(--line)}
@@ -269,6 +280,16 @@ h2{font-size:1.32rem;margin:0;line-height:1.35}
   padding:12px 12px 12px 48px;margin:6px 0;color:var(--warn-ink);
 }
 .qs li.q-warn::before{left:10px;top:12px;background:var(--warn-line);border-color:var(--warn-line);color:#fff}
+.q-tag{
+  display:block;width:fit-content;margin-bottom:4px;padding:1px 8px;border-radius:6px;
+  font-size:.72rem;font-weight:800;color:var(--accent);border:1px solid var(--accent);
+}
+.q-opts{display:grid;gap:8px;margin-top:8px}
+.q-opt{padding:10px 12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);border-left:4px solid var(--plan)}
+.q-opt.p1{--plan:var(--p1)}
+.q-opt.p2{--plan:var(--p2)}
+.q-opt .plan-no{font-size:.72rem}
+.q-opt p{margin:4px 0 0;font-size:.92rem}
 
 /* ---------- Summary ---------- */
 .summary{
@@ -411,11 +432,16 @@ footer{margin-top:28px;text-align:center;font-size:.78rem;color:var(--muted)}
         </dl>
         <div class="info ok">
           <p class="info-title">💬 關於退款</p>
-          <ul>
-            <li><strong>改票免手續費（星宇吸收）</strong>，不需要擔心額外費用</li>
-            <li><strong>退的是票價差額</strong>，因為 LAX 段本來就比 SFO 貴</li>
-            <li>單純的價差退款，不是取消整張票重買</li>
-          </ul>
+          <p class="info-lead"><strong>改票免手續費（星宇吸收）</strong>，不需要擔心額外費用。</p>
+          <div class="refund">
+            <span class="refund-k">國際段</span>
+            <p>退的是<strong>票價差額</strong>（LAX 本來就比 SFO 貴），邏輯單純</p>
+          </div>
+          <div class="refund">
+            <span class="refund-k">國內段</span>
+            <p>原本聯票裡包含的 AA 國內三段（LAX-MIA、MIA-MCO、MCO-LAX）在這個方案下也用不到了（國內線改自己買 UA 的 SFO↔MCO），<strong>這部分一樣要跟客服確認可以退多少</strong></p>
+            <p class="same">🔁 <strong>跟方案②要問的是同一件事</strong>，不是只有方案②才需要退國內段</p>
+          </div>
         </div>
         <div class="checks">
           <div class="check warn">
@@ -520,7 +546,23 @@ footer{margin-top:28px;text-align:center;font-size:.78rem;color:var(--muted)}
       <div class="card">
         <p class="step-label"><span>STEP 2</span>核心問題（依序問）</p>
         <ol class="qs">
-          <li>保留 JX 國際段、只移除 AA 國內段，<strong>實際可退多少錢</strong>？</li>
+          <li>
+            <span class="q-tag">不論選方案①或②</span>
+            美國國內線 <strong>AA 三段</strong>（LAX-MIA、MIA-MCO、MCO-LAX）都要退掉 —— 先問：<strong>移除這三段，實際可退多少錢</strong>？
+          </li>
+          <li>
+            依選擇的方案再問：
+            <div class="q-opts">
+              <div class="q-opt p1">
+                <span class="plan-no p1">選方案①</span>
+                <p>國際段從 LAX 改開 SFO，<strong>票價差額（36,361 → 30,353）怎麼退</strong>？</p>
+              </div>
+              <div class="q-opt p2">
+                <span class="plan-no p2">選方案②</span>
+                <p><strong>保留 JX 國際段不變，只退國內段</strong>，第 1 題就直接適用</p>
+              </div>
+            </div>
+          </li>
           <li class="q-warn">⚠️ <strong>先報金額，不要先取消、退票或重新開票</strong></li>
           <li>退款是否<strong>包含燃油附加費</strong>（不接受被吸收）</li>
         </ol>
