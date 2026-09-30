@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9/27（日）伊根舟屋交通方案比較</title>
+<style>
+  :root{
+    --bg:#f7f4ec;
+    --bg-soft:#efe9db;
+    --green:#7c9473;
+    --green-dark:#5f7658;
+    --green-soft:#e3ead9;
+    --ink:#3a3a38;
+    --ink-soft:#6b6b66;
+    --card:#ffffff;
+    --border:#e2ddcb;
+    --shadow:0 4px 14px rgba(60,55,40,0.08);
+    --shadow-lg:0 8px 24px rgba(60,55,40,0.12);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Hiragino Sans","Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:24px 20px 60px;
+  }
+  header{
+    text-align:center;
+    padding:8px 0 28px;
+  }
+  header h1{
+    font-size:26px;
+    margin:0 0 12px;
+    color:var(--green-dark);
+    letter-spacing:0.02em;
+  }
+  header .subtitle{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:1.8;
+  }
+  @media (min-width:640px){
+    header h1{font-size:32px;}
+    header .subtitle{font-size:16px;}
+  }
+
+  /* Tabs */
+  .tabs{
+    display:flex;
+    gap:6px;
+    max-width:800px;
+    margin:0 auto 18px;
+  }
+  .tab{
+    flex:1;
+    min-width:0;
+    padding:10px 4px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--ink-soft);
+    border-radius:12px;
+    cursor:pointer;
+    transition:all 0.2s ease;
+    text-align:center;
+    line-height:1.3;
+  }
+  .tab .tab-code{
+    display:block;
+    font-size:14px;
+    font-weight:800;
+  }
+  .tab .tab-desc{
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    margin-top:2px;
+    opacity:0.85;
+  }
+  @media (min-width:480px){
+    .tab{padding:14px 10px;}
+    .tab .tab-code{font-size:15px;}
+    .tab .tab-desc{font-size:12.5px;}
+  }
+  @media (min-width:640px){
+    .tab .tab-code, .tab .tab-desc{display:inline;}
+    .tab .tab-code::after{content:"｜";}
+    .tab .tab-desc{margin-top:0;}
+  }
+  .tab:hover{border-color:var(--green);}
+  .tab.active{
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+    box-shadow:var(--shadow);
+  }
+
+  /* Plan viewport / slider */
+  .plan-viewport{
+    position:relative;
+    max-width:1140px;
+    margin:0 auto;
+  }
+  .plan-clip{
+    overflow:hidden;
+  }
+  .plan-track{
+    display:flex;
+    width:300%;
+    transition:transform 0.32s ease;
+  }
+  .plan-page{
+    width:33.3333%;
+    flex-shrink:0;
+    padding:2px 2px 4px;
+  }
+  .arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,0.92);
+    color:var(--green-dark);
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .arrow:hover{background:var(--green-soft);}
+  .arrow-left{left:-6px;}
+  .arrow-right{right:-6px;}
+  @media (min-width:900px){
+    .arrow-left{left:-52px;}
+    .arrow-right{right:-52px;}
+  }
+  @media (max-width:680px){
+    .arrow{display:none;}
+  }
+
+  .dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin:16px 0 8px;
+  }
+  .dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--border);
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .dot.active{
+    background:var(--green);
+    transform:scale(1.2);
+  }
+
+  /* Plan content */
+  .plan-card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 20px 26px;
+    border:1px solid var(--border);
+  }
+  .plan-title{
+    font-size:19px;
+    font-weight:700;
+    color:var(--green-dark);
+    margin:0 0 8px;
+  }
+  .plan-summary{
+    background:var(--green-soft);
+    border-radius:12px;
+    padding:12px 16px;
+    font-size:14.5px;
+    color:var(--ink);
+    margin:0 0 20px;
+  }
+
+  h3.section-label{
+    font-size:15px;
+    color:var(--ink-soft);
+    margin:24px 0 10px;
+    font-weight:700;
+    border-left:4px solid var(--green);
+    padding-left:8px;
+  }
+
+  /* Schedule table (desktop) */
+  table.schedule{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14.5px;
+  }
+  table.schedule thead th{
+    text-align:left;
+    background:var(--bg-soft);
+    color:var(--ink-soft);
+    font-weight:700;
+    padding:10px 12px;
+    border-bottom:2px solid var(--border);
+  }
+  table.schedule tbody td{
+    padding:10px 12px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  table.schedule td.col-time{
+    white-space:nowrap;
+    font-weight:600;
+    color:var(--ink);
+  }
+  table.schedule td.col-time.hl, table.schedule td.col-transport.hl{
+    color:var(--green-dark);
+    font-weight:800;
+  }
+  table.schedule tbody tr:hover{background:#faf8f1;}
+
+  /* Fee callout */
+  .fee-box{
+    margin-top:18px;
+    background:#fbf7ec;
+    border:1px dashed #d8cba0;
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:14.5px;
+  }
+  .fee-box strong{color:var(--green-dark);}
+  .fee-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+  .fee-plain{
+    font-size:14.5px;
+    margin-bottom:10px;
+  }
+  .fee-plain strong{color:var(--green-dark);}
+  .fee-lines{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+    gap:14px 20px;
+  }
+  .fee-line{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .fee-label{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink-soft);
+  }
+  .fee-jpy{
+    font-size:17px;
+    font-weight:800;
+    color:var(--green-dark);
+  }
+  .fee-twd{
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .fx-note{
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin:10px 4px 0;
+    line-height:1.7;
+  }
+
+  /* Pros/cons within plan */
+  .pc-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-top:18px;
+  }
+  @media (min-width:640px){
+    .pc-grid{grid-template-columns:1fr 1fr;}
+  }
+  .pc-box{
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:14.5px;
+  }
+  .pc-box.pro{background:#eef4ea;}
+  .pc-box.con{background:#f6efe6;}
+  .pc-box h4{
+    margin:0 0 8px;
+    font-size:14px;
+    color:var(--ink);
+  }
+  .pc-box ul{margin:0;padding-left:18px;}
+  .pc-box li{margin-bottom:4px;}
+
+  /* Mobile card view for schedule table */
+  @media (max-width:680px){
+    table.schedule, table.schedule thead, table.schedule tbody, table.schedule th, table.schedule td, table.schedule tr{
+      display:block;
+    }
+    table.schedule thead{display:none;}
+    table.schedule tbody tr{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px 14px;
+      margin-bottom:10px;
+      box-shadow:var(--shadow);
+    }
+    table.schedule tbody td{
+      border-bottom:none;
+      padding:5px 0;
+      display:flex;
+      gap:10px;
+      font-size:15px;
+    }
+    table.schedule tbody td::before{
+      content:attr(data-label);
+      flex:0 0 72px;
+      color:var(--ink-soft);
+      font-weight:700;
+      font-size:13px;
+      padding-top:1px;
+    }
+  }
+
+  /* Comparison section */
+  .comparison{
+    margin-top:44px;
+  }
+  .comparison h2{
+    text-align:center;
+    font-size:22px;
+    color:var(--green-dark);
+    margin-bottom:8px;
+  }
+  .comparison-sub{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:14px;
+    margin:0 0 20px;
+  }
+  .comp-table-wrap{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+    overflow:hidden;
+    padding:6px;
+  }
+  table.comp{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14.5px;
+  }
+  table.comp thead th{
+    background:var(--bg-soft);
+    color:var(--ink-soft);
+    text-align:left;
+    padding:12px 14px;
+    font-weight:700;
+  }
+  table.comp thead th:not(:first-child){
+    text-align:center;
+  }
+  table.comp tbody td{
+    padding:11px 14px;
+    border-bottom:1px solid var(--border);
+  }
+  table.comp tbody td:first-child{
+    color:var(--ink-soft);
+    font-weight:600;
+    white-space:nowrap;
+  }
+  table.comp tbody td:not(:first-child){
+    text-align:center;
+  }
+  table.comp tbody td strong{color:var(--green-dark);}
+  table.comp tbody tr:last-child td{border-bottom:none;}
+
+  @media (max-width:760px){
+    table.comp, table.comp thead, table.comp tbody, table.comp th, table.comp td, table.comp tr{
+      display:block;
+    }
+    table.comp thead{display:none;}
+    table.comp tbody tr{
+      border:1px solid var(--border);
+      border-radius:12px;
+      margin:0 4px 10px;
+      padding:10px 12px;
+    }
+    table.comp tbody td{
+      border-bottom:none;
+      padding:6px 2px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      text-align:left;
+    }
+    table.comp tbody td:first-child{
+      font-weight:700;
+      color:var(--ink);
+    }
+    table.comp tbody td:nth-child(2)::before{content:"方案 A：";color:var(--ink-soft);font-weight:600;}
+    table.comp tbody td:nth-child(3)::before{content:"方案 B：";color:var(--ink-soft);font-weight:600;}
+    table.comp tbody td:nth-child(4)::before{content:"方案 C：";color:var(--ink-soft);font-weight:600;}
+    table.comp tbody td:not(:first-child){text-align:right;}
+    table.comp tbody td.wrap-cell{flex-direction:column; align-items:flex-start; gap:2px; text-align:left;}
+  }
+
+  /* Bottom pros/cons cards */
+  .bottom-cards{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:22px;
+  }
+  @media (min-width:760px){
+    .bottom-cards{grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));}
+  }
+  .bottom-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px;
+  }
+  .bottom-card h3{
+    margin:0 0 14px;
+    color:var(--green-dark);
+    font-size:17px;
+  }
+  .bottom-card .pc-grid{margin-top:0;}
+
+  footer{
+    margin-top:48px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13px;
+    line-height:2;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+  }
+
+  @media (max-width:680px){
+    .plan-card{padding:18px 14px 22px;}
+  }
+
+  /* ==================================================
+     ROUTE MAP: 天橋立站 → 伊根渡船口
+  ================================================== */
+
+  .map {
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+    aspect-ratio: 4 / 3;
+    margin: 0 auto 24px;
+    overflow: hidden;
+    font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+    color: #123d72;
+    background: linear-gradient(135deg, #eef8ef 0%, #e4f2df 37%, #b9e8f6 38%, #55c3eb 100%);
+  }
+
+  .title {
+    position: absolute;
+    z-index: 30;
+    left: 3%;
+    top: 2.5%;
+  }
+  .title h1 {
+    margin: 0;
+    font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+    font-size: clamp(30px, 4.3vw, 64px);
+    line-height: 1.08;
+    letter-spacing: 2px;
+    color: #082e69;
+  }
+  .title p {
+    margin: 10px 0 0;
+    font-size: clamp(14px, 1.6vw, 24px);
+    color: #365679;
+    letter-spacing: 3px;
+  }
+  .title small {
+    display: block;
+    margin-top: 4px;
+    font-family: Georgia, serif;
+    font-size: clamp(12px, 1.15vw, 18px);
+    letter-spacing: 2px;
+    color: #4c6785;
+  }
+
+  .transport {
+    position: absolute;
+    z-index: 30;
+    top: 18%;
+    left: 2.2%;
+    width: 45%;
+    min-width: 450px;
+    display: flex;
+    background: rgba(255, 255, 255, 0.93);
+    border-radius: 22px;
+    box-shadow: 0 7px 20px rgba(35, 80, 100, 0.18);
+    padding: 22px 20px;
+  }
+  .transport-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+  }
+  .transport-box + .transport-box {
+    border-left: 1px solid #91a7b8;
+  }
+  .map .icon {
+    width: 64px;
+    height: 64px;
+    flex: none;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 31px;
+    font-weight: bold;
+  }
+  .bus .icon { background: #0876cf; }
+  .car .icon { background: #098658; }
+  .transport strong {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 1px;
+  }
+  .bus strong { color: #0c4f9e; }
+  .car strong { color: #09724c; }
+  .transport .time {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.05;
+  }
+  .transport small {
+    display: block;
+    color: #536a7b;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .map-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .land { fill: #dcebc7; }
+  .land-2 { fill: #cee3b1; }
+
+  .road-border {
+    fill: none;
+    stroke: #c8bca9;
+    stroke-width: 15;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.65;
+  }
+  .road {
+    fill: none;
+    stroke: #fff8e9;
+    stroke-width: 11;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.95;
+  }
+  .route-shadow {
+    fill: none;
+    stroke: white;
+    stroke-width: 19;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .route {
+    fill: none;
+    stroke: #159ce3;
+    stroke-width: 11;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .rail {
+    fill: none;
+    stroke: #526170;
+    stroke-width: 6;
+    stroke-dasharray: 15 10;
+  }
+
+  .map .region {
+    position: absolute;
+    z-index: 10;
+    color: #315a79;
+  }
+  .map .region span {
+    display: block;
+    margin-top: 3px;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+  .kyoto {
+    left: 3%;
+    top: 51%;
+    font-family: serif;
+    font-size: 36px;
+    letter-spacing: 5px;
+  }
+  .wakasa {
+    left: 63%;
+    top: 63%;
+    width: 220px;
+    text-align: center;
+    font-size: 29px;
+  }
+  .miyazu {
+    left: 34%;
+    top: 79%;
+    font-size: 24px;
+  }
+  .yosano {
+    left: 48%;
+    top: 85%;
+    font-size: 24px;
+  }
+  .ine-town {
+    right: 5%;
+    top: 47%;
+    width: 190px;
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .map .place {
+    position: absolute;
+    z-index: 22;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(47, 78, 91, 0.15);
+  }
+  .map .place h3 {
+    margin: 0 0 3px;
+    font-size: 23px;
+  }
+  .map .place p {
+    margin: 3px 0;
+    font-size: 15px;
+    color: #3e5871;
+  }
+  .amanohashidate-info { left: 29%; top: 67%; width: 250px; }
+  .ine-house { right: 8%; top: 7%; width: 240px; }
+
+  .map .marker { position: absolute; z-index: 35; }
+  .map .start { left: 15%; top: 75%; }
+  .map .end { right: 4%; top: 21%; }
+
+  .map .pin {
+    position: absolute;
+    left: 7px;
+    top: -45px;
+    width: 37px;
+    height: 37px;
+    border-radius: 50% 50% 50% 0;
+    background: #e63253;
+    transform: rotate(-45deg);
+    border: 4px solid white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+  .map .pin::after {
+    content: "";
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    left: 9px;
+    top: 9px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .map .label {
+    min-width: 215px;
+    padding: 10px 20px 12px;
+    background: #e93755;
+    color: white;
+    border: 3px solid white;
+    border-radius: 18px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  }
+  .map .label strong {
+    display: block;
+    font-size: 25px;
+  }
+  .map .label span {
+    font-family: Georgia, serif;
+    font-size: 15px;
+  }
+
+  .route-info {
+    position: absolute;
+    z-index: 25;
+    left: 45%;
+    top: 47%;
+    min-width: 300px;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  }
+  .route-icon { margin-right: 7px; font-size: 23px; }
+  .route-info strong { font-size: 24px; color: #104b88; }
+  .route-info .route-en {
+    display: block;
+    margin-top: 5px;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    color: #22598b;
+  }
+  .route-info .description {
+    display: block;
+    margin-top: 7px;
+    font-size: 15px;
+    color: #526c7e;
+  }
+
+  .direction {
+    position: absolute;
+    z-index: 25;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #19a4e8;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .d1 { left: 31%; top: 53%; transform: rotate(-20deg); }
+  .d2 { left: 65%; top: 24%; transform: rotate(-28deg); }
+  .d3 { left: 81%; top: 25%; transform: rotate(15deg); }
+
+  .compass {
+    position: absolute;
+    z-index: 30;
+    right: 3%;
+    top: 2%;
+    text-align: center;
+    font-family: serif;
+    font-size: 18px;
+    color: #123e67;
+  }
+  .compass .circle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+    border: 2px solid #225378;
+    border-radius: 50%;
+  }
+  .compass .circle::after {
+    content: "";
+    position: absolute;
+    left: 23px;
+    top: 8px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 34px solid #315c82;
+  }
+
+  .wave {
+    position: absolute;
+    z-index: 5;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 15px;
+  }
+
+  @media (max-width: 900px) {
+    .transport {
+      min-width: 0;
+      width: 57%;
+      padding: 10px;
+    }
+    .transport-box { padding: 3px; }
+    .transport small { display: none; }
+    .transport .time { font-size: 22px; }
+    .transport strong { font-size: 15px; }
+    .map .icon { width: 42px; height: 42px; font-size: 20px; }
+    .map .place { transform: scale(0.75); transform-origin: left top; }
+    .map .label { transform: scale(0.75); transform-origin: left top; }
+    .route-info { transform: scale(0.8); transform-origin: left top; }
+  }
+
+  /* 手機版：收斂圖卡，只保留路徑與交通方案 */
+  @media (max-width: 600px) {
+    .map { aspect-ratio: 1 / 1; }
+
+    /* 隱藏次要裝飾：地名、地標資訊卡、沿海公路說明、方向箭頭、指北針、海浪 */
+    .region, .place, .route-info, .direction, .compass, .wave {
+      display: none;
+    }
+
+    .title { left: 5%; top: 4%; }
+    .title h1 { font-size: 19px; letter-spacing: 0.5px; }
+    .title p { font-size: 11px; margin-top: 4px; letter-spacing: 1px; }
+    .title small { display: none; }
+
+    .transport {
+      top: 17%;
+      left: 5%;
+      width: 90%;
+      border-radius: 14px;
+      padding: 10px;
+    }
+
+    .map .label { transform: scale(0.8); transform-origin: left top; }
+    .map .start { left: 8%; top: 73%; }
+    .map .end { right: 6%; top: 45%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="map">
+
+  <!-- 標題 -->
+  <div class="title">
+    <h1>天橋立站 → 伊根渡船口 路線圖</h1>
+    <p>海と、舟屋と、やさしい時間 — 京都・伊根へ</p>
+    <small>From Amanohashidate to Ine — A Scenic Journey in Kyoto</small>
+  </div>
+
+  <!-- 交通資訊 -->
+  <div class="transport">
+    <div class="transport-box bus">
+      <div class="icon">🚌</div>
+      <div>
+        <strong>路線巴士</strong>
+        <div class="time">約53分</div>
+        <small>欣賞日本海沿岸風景的悠閒旅程</small>
+      </div>
+    </div>
+    <div class="transport-box car">
+      <div class="icon">🚕</div>
+      <div>
+        <strong>計程車</strong>
+        <div class="time">約25–30分</div>
+        <small>舒適快速・輕鬆前往</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG 地圖 -->
+  <svg class="map-svg" viewBox="0 0 1440 1080" preserveAspectRatio="xMidYMid slice">
+
+    <!-- 京都側陸地 -->
+    <path class="land" d="
+      M0 0
+      H950
+      C920 80 930 120 890 170
+      C840 225 810 270 760 315
+      C720 350 685 390 650 430
+      C615 470 570 500 545 550
+      C510 620 470 640 410 680
+      C350 715 320 740 285 790
+      C240 855 250 920 280 1080
+      H0
+      Z
+    " />
+
+    <!-- 伊根半島 -->
+    <path class="land" d="
+      M930 0
+      C1030 50 1070 115 1055 175
+      C1040 220 1085 235 1150 230
+      C1220 220 1270 245 1300 305
+      C1260 330 1210 315 1175 300
+      C1130 275 1095 300 1050 315
+      C1005 325 970 300 950 260
+      C925 210 880 190 850 175
+      Z
+    " />
+
+    <!-- 與謝野方向 -->
+    <path class="land-2" d="
+      M250 1080
+      C270 1010 340 960 420 950
+      C510 940 570 965 620 995
+      C680 1035 760 1060 850 1080
+      Z
+    " />
+
+    <!-- 沿海道路 -->
+    <path class="road-border" d="
+      M215 825
+      C235 730 280 680 350 635
+      C425 585 495 585 535 540
+      C580 485 575 450 620 420
+      C675 382 710 350 755 300
+      C800 250 850 260 905 235
+      C955 210 980 208 1020 235
+      C1050 260 1060 300 1100 305
+      C1140 310 1155 285 1185 300
+    " />
+    <path class="road" d="
+      M215 825
+      C235 730 280 680 350 635
+      C425 585 495 585 535 540
+      C580 485 575 450 620 420
+      C675 382 710 350 755 300
+      C800 250 850 260 905 235
+      C955 210 980 208 1020 235
+      C1050 260 1060 300 1100 305
+      C1140 310 1155 285 1185 300
+    " />
+
+    <!-- 藍色旅遊路線 -->
+    <path class="route-shadow" d="
+      M215 825
+      C235 730 280 680 350 635
+      C425 585 495 585 535 540
+      C580 485 575 450 620 420
+      C675 382 710 350 755 300
+      C800 250 850 260 905 235
+      C955 210 980 208 1020 235
+      C1050 260 1060 300 1100 305
+      C1140 310 1155 285 1185 300
+    " />
+    <path class="route" d="
+      M215 825
+      C235 730 280 680 350 635
+      C425 585 495 585 535 540
+      C580 485 575 450 620 420
+      C675 382 710 350 755 300
+      C800 250 850 260 905 235
+      C955 210 980 208 1020 235
+      C1050 260 1060 300 1100 305
+      C1140 310 1155 285 1185 300
+    " />
+
+    <!-- 京都丹後鐵道示意 -->
+    <path class="rail" d="
+      M180 1080
+      C175 980 180 900 210 825
+      C170 760 130 720 70 705
+      L0 690
+    " />
+
+    <!-- 天橋立沙洲示意 -->
+    <path d="
+      M275 820
+      C315 805 350 785 375 750
+      C395 720 405 690 415 655
+    " fill="none" stroke="#8cb66d" stroke-width="28" stroke-linecap="round" />
+    <path d="
+      M275 820
+      C315 805 350 785 375 750
+      C395 720 405 690 415 655
+    " fill="none" stroke="#d6c78a" stroke-width="11" stroke-linecap="round" />
+
+    <!-- 伊根終點 -->
+    <circle cx="1185" cy="300" r="11" fill="#e83154" stroke="#ffffff" stroke-width="4" />
+
+  </svg>
+
+  <!-- 路線方向箭頭 -->
+  <div class="direction d1">➜</div>
+  <div class="direction d2">➜</div>
+  <div class="direction d3">➜</div>
+
+  <!-- 地區名稱 -->
+  <div class="region kyoto">京都府<span>Kyoto Prefecture</span></div>
+  <div class="region wakasa">若狹灣<span>Wakasa Bay</span></div>
+  <div class="region miyazu">宮津灣<span>Miyazu Bay</span></div>
+  <div class="region yosano">與謝野町<span>Yosano Town</span></div>
+  <div class="region ine-town">伊根町<span>Ine Town</span></div>
+
+  <!-- 沿海公路說明 -->
+  <div class="route-info">
+    <span class="route-icon">🌊</span>
+    <strong>沿海公路</strong>
+    <span class="route-en">Coastal Route</span>
+    <span class="description">沿著日本海前往伊根</span>
+  </div>
+
+  <!-- 天橋立沙洲 -->
+  <div class="place amanohashidate-info">
+    <h3>🌲 天橋立沙洲</h3>
+    <p>Amanohashidate Sandbar</p>
+    <p>日本三景之一</p>
+  </div>
+
+  <!-- 伊根舟屋 -->
+  <div class="place ine-house">
+    <h3>🏠 伊根舟屋</h3>
+    <p>Ine Funaya</p>
+    <p>海上舟屋聚落</p>
+  </div>
+
+  <!-- 起點：天橋立站 -->
+  <div class="marker start">
+    <div class="pin"></div>
+    <div class="label">
+      <strong>🚉 天橋立站</strong>
+      <span>Amanohashidate Station</span>
+    </div>
+  </div>
+
+  <!-- 終點：伊根渡船口 -->
+  <div class="marker end">
+    <div class="pin"></div>
+    <div class="label">
+      <strong>⛴ 伊根渡船口</strong>
+      <span>Ine Ferry Terminal</span>
+    </div>
+  </div>
+
+  <!-- 北方 -->
+  <div class="compass">
+    N
+    <div class="circle"></div>
+  </div>
+
+  <!-- 海浪裝飾 -->
+  <div class="wave" style="left:70%; top:54%;">〰 〰</div>
+  <div class="wave" style="left:72%; top:76%;">〰 〰</div>
+
+</div>
+
+<div class="wrap">
+
+  <header>
+    <h1>9/27（日）伊根舟屋交通方案比較</h1>
+    <p class="subtitle">
+      京都出發｜比較「直達高速巴士」、「JR＋路線巴士」與「JR＋計程車」<br>
+      三個方案早上出發時間接近，主要差別在抵達伊根時間、轉乘方式、費用與交通風險。
+    </p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-plan="0" role="tab" aria-selected="true"><span class="tab-code">方案 A</span><span class="tab-desc">直達高速巴士</span></button>
+    <button class="tab" data-plan="1" role="tab" aria-selected="false"><span class="tab-code">方案 B</span><span class="tab-desc">JR＋路線巴士</span></button>
+    <button class="tab" data-plan="2" role="tab" aria-selected="false"><span class="tab-code">方案 C</span><span class="tab-desc">JR＋計程車</span></button>
+  </div>
+
+  <div class="plan-viewport">
+    <button class="arrow arrow-left" aria-label="上一個方案">‹</button>
+    <div class="plan-clip">
+    <div class="plan-track" id="planTrack">
+
+      <!-- PLAN A -->
+      <div class="plan-page">
+        <div class="plan-card">
+          <p class="plan-title">方案 A｜京都直達伊根高速巴士</p>
+          <p class="plan-summary">08:20 從京都站搭直達高速巴士，11:04 抵達「伊根灣巡遊・日出」，全程不用轉車。</p>
+
+          <table class="schedule">
+            <thead>
+              <tr><th>時間</th><th>行程</th><th>建議安排</th><th>交通</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="col-time" data-label="時間">07:35～07:55</td><td data-label="行程">飯店→京都站</td><td data-label="建議安排">從 Agora Kyoto Karasuma 出發，目標約 08:00 抵達京都站</td><td class="col-transport" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">07:55～08:10</td><td data-label="行程">京都站</td><td data-label="建議安排">上廁所、確認高速巴士乘車處，提早候車</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">08:20～11:04</td><td data-label="行程">京都→伊根</td><td data-label="建議安排">一車直達，不需在天橋立轉乘</td><td class="col-transport hl" data-label="交通">高速巴士</td></tr>
+              <tr><td class="col-time" data-label="時間">11:04～11:25</td><td data-label="行程">伊根</td><td data-label="建議安排">下車、上廁所、拍照、準備搭船</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">11:30～11:55</td><td data-label="行程">伊根灣遊覽船</td><td data-label="建議安排">欣賞舟屋、海景，可體驗餵海鷗</td><td class="col-transport" data-label="交通">伊根灣巡遊觀光船</td></tr>
+              <tr><td class="col-time" data-label="時間">12:00～12:45</td><td data-label="行程">午餐</td><td data-label="建議安排">可正常安排約 45 分鐘午餐</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">12:45～13:25</td><td data-label="行程">伊根舟屋散步</td><td data-label="建議安排">拍照、散步、看舟屋街景</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">13:25～13:35</td><td data-label="行程">伊根候車</td><td data-label="建議安排">回「伊根灣巡遊・日出」巴士站</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">13:37～14:04</td><td data-label="行程">伊根→傘松公園</td><td data-label="建議安排">在「天橋立ケーブル下」下車</td><td class="col-transport" data-label="交通">丹海路線巴士</td></tr>
+              <tr><td class="col-time" data-label="時間">14:04～14:15</td><td data-label="行程">傘松公園</td><td data-label="建議安排">前往纜車／吊椅乘車處</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">14:15～14:45</td><td data-label="行程">傘松公園</td><td data-label="建議安排">昇龍觀、胯下望景、拍照</td><td class="col-transport" data-label="交通">纜車／吊椅</td></tr>
+              <tr><td class="col-time" data-label="時間">14:45～15:05</td><td data-label="行程">傘松公園→一宮碼頭</td><td data-label="建議安排">下山後直接前往碼頭</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">15:15～15:27</td><td data-label="行程">一宮→天橋立</td><td data-label="建議安排">從海上欣賞天橋立</td><td class="col-transport" data-label="交通">天橋立觀光船</td></tr>
+              <tr><td class="col-time" data-label="時間">15:27～15:40</td><td data-label="行程">一宮碼頭→天橋立站</td><td data-label="建議安排">下船後直接回車站</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">15:40～16:00</td><td data-label="行程">天橋立站候車</td><td data-label="建議安排">上廁所、確認丹後黑松號月台，不再增加景點</td><td class="col-transport" data-label="交通">—</td></tr>
+              <tr><td class="col-time hl" data-label="時間">16:05～18:05</td><td data-label="行程">天橋立→西舞鶴</td><td data-label="建議安排">已購買的丹後黑松號觀光列車</td><td class="col-transport hl" data-label="交通">丹後黑松號／已購票</td></tr>
+              <tr><td class="col-time" data-label="時間">18:05～18:35</td><td data-label="行程">西舞鶴</td><td data-label="建議安排">休息、上廁所、確認 JR 月台</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">18:43～20:21</td><td data-label="行程">西舞鶴→京都</td><td data-label="建議安排">建議事先劃指定席</td><td class="col-transport hl" data-label="交通">特急まいづる14號／JR PASS</td></tr>
+              <tr><td class="col-time" data-label="時間">20:25～20:45</td><td data-label="行程">京都站→飯店</td><td data-label="建議安排">回 Agora Kyoto Karasuma</td><td class="col-transport" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">20:45 後</td><td data-label="行程">晚餐／休息</td><td data-label="建議安排">四条烏丸附近簡單用餐</td><td class="col-transport" data-label="交通">步行</td></tr>
+            </tbody>
+          </table>
+
+          <div class="fee-box">
+            <div class="fee-plain">京都→伊根：<strong>高速巴士</strong>，目前預約畫面約 ¥4,200／人</div>
+            <div class="fee-lines">
+              <div class="fee-line">
+                <span class="fee-label">4人總額</span>
+                <span class="fee-jpy">¥16,800</span>
+                <span class="fee-twd">約 NT$3,384</span>
+              </div>
+              <div class="fee-line">
+                <span class="fee-label">每人</span>
+                <span class="fee-jpy">¥4,200</span>
+                <span class="fee-twd">約 NT$846</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pc-grid">
+            <div class="pc-box pro">
+              <h4>優點</h4>
+              <ul>
+                <li>京都站直接到伊根，不需要中途轉乘</li>
+                <li>約 11:04 即可抵達伊根</li>
+                <li>可以銜接 11:30 伊根灣遊覽船</li>
+                <li>午餐與伊根散步時間較完整</li>
+                <li>交通流程最單純</li>
+                <li>車資事前可確認</li>
+              </ul>
+            </div>
+            <div class="pc-box con">
+              <h4>缺點</h4>
+              <ul>
+                <li>京都→伊根全程主要依靠公路，可能受塞車、事故或道路狀況影響</li>
+                <li>高速巴士約 ¥4,200／人</li>
+                <li>京都→伊根這一段無法使用已購買的 JR PASS</li>
+                <li>班次固定，彈性較低</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAN B -->
+      <div class="plan-page">
+        <div class="plan-card">
+          <p class="plan-title">方案 B｜JR＋丹海路線巴士</p>
+          <p class="plan-summary">08:38 搭 JR 特急前往天橋立，10:40 抵達後轉乘 10:57 丹海路線巴士，11:50 抵達「伊根灣巡遊・日出」。</p>
+
+          <table class="schedule">
+            <thead>
+              <tr><th>時間</th><th>行程</th><th>建議安排</th><th>交通</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="col-time" data-label="時間">07:35～07:55</td><td data-label="行程">飯店→京都站</td><td data-label="建議安排">從 Agora Kyoto Karasuma 出發，目標約 08:00 抵達京都站</td><td class="col-transport" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">07:55～08:25</td><td data-label="行程">京都站</td><td data-label="建議安排">買早餐／飲料、上廁所，前往月台</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">08:38～10:40</td><td data-label="行程">京都→天橋立</td><td data-label="建議安排">建議事先劃指定席</td><td class="col-transport hl" data-label="交通">特急はしだて1號／JR PASS</td></tr>
+              <tr><td class="col-time hl" data-label="時間">10:40～10:55</td><td data-label="行程">天橋立站轉乘</td><td data-label="建議安排">出站後直接前往丹海路線巴士站，轉乘時間約 17 分鐘</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">10:57～11:50</td><td data-label="行程">天橋立→伊根</td><td data-label="建議安排">在「伊根灣巡遊・日出」下車</td><td class="col-transport hl" data-label="交通">丹海路線巴士</td></tr>
+              <tr><td class="col-time" data-label="時間">11:50～12:20</td><td data-label="行程">伊根</td><td data-label="建議安排">下車、上廁所、拍照、準備搭船</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">12:30～12:55</td><td data-label="行程">伊根灣遊覽船</td><td data-label="建議安排">欣賞舟屋、海景，可體驗餵海鷗</td><td class="col-transport" data-label="交通">伊根灣巡遊觀光船</td></tr>
+              <tr><td class="col-time" data-label="時間">13:00～13:25</td><td data-label="行程">午餐</td><td data-label="建議安排">此方案停留較短，安排快速午餐</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">13:25～13:35</td><td data-label="行程">伊根候車</td><td data-label="建議安排">回「伊根灣巡遊・日出」巴士站</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">13:37～14:04</td><td data-label="行程">伊根→傘松公園</td><td data-label="建議安排">在「天橋立ケーブル下」下車</td><td class="col-transport" data-label="交通">丹海路線巴士</td></tr>
+              <tr><td class="col-time" data-label="時間">14:04～14:15</td><td data-label="行程">傘松公園</td><td data-label="建議安排">前往纜車／吊椅乘車處</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">14:15～14:45</td><td data-label="行程">傘松公園</td><td data-label="建議安排">昇龍觀、胯下望景、拍照</td><td class="col-transport" data-label="交通">纜車／吊椅</td></tr>
+              <tr><td class="col-time" data-label="時間">14:45～15:05</td><td data-label="行程">傘松公園→一宮碼頭</td><td data-label="建議安排">下山後直接前往碼頭</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">15:15～15:27</td><td data-label="行程">一宮→天橋立</td><td data-label="建議安排">從海上欣賞天橋立</td><td class="col-transport" data-label="交通">天橋立觀光船</td></tr>
+              <tr><td class="col-time" data-label="時間">15:27～15:40</td><td data-label="行程">一宮碼頭→天橋立站</td><td data-label="建議安排">下船後直接回車站</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">15:40～16:00</td><td data-label="行程">天橋立站候車</td><td data-label="建議安排">上廁所、確認丹後黑松號月台，不再增加景點</td><td class="col-transport" data-label="交通">—</td></tr>
+              <tr><td class="col-time hl" data-label="時間">16:05～18:05</td><td data-label="行程">天橋立→西舞鶴</td><td data-label="建議安排">已購買的丹後黑松號觀光列車</td><td class="col-transport hl" data-label="交通">丹後黑松號／已購票</td></tr>
+              <tr><td class="col-time" data-label="時間">18:05～18:35</td><td data-label="行程">西舞鶴</td><td data-label="建議安排">休息、上廁所、確認 JR 月台</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">18:43～20:21</td><td data-label="行程">西舞鶴→京都</td><td data-label="建議安排">建議事先劃指定席</td><td class="col-transport hl" data-label="交通">特急まいづる14號／JR PASS</td></tr>
+              <tr><td class="col-time" data-label="時間">20:25～20:45</td><td data-label="行程">京都站→飯店</td><td data-label="建議安排">回 Agora Kyoto Karasuma</td><td class="col-transport" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">20:45 後</td><td data-label="行程">晚餐／休息</td><td data-label="建議安排">四条烏丸附近簡單用餐</td><td class="col-transport" data-label="交通">步行</td></tr>
+            </tbody>
+          </table>
+
+          <div class="fee-box">
+            <div class="fee-plain">京都→天橋立：<strong>JR PASS 已涵蓋，不另外計費</strong></div>
+            <div class="fee-plain">天橋立→伊根丹海路線巴士（來回）：<strong>JR PASS 已涵蓋，交通本身不需另外付費</strong></div>
+            <div class="fee-note">※ 丹海路線巴士實際乘車範圍與班次請於出發前再次確認。</div>
+          </div>
+
+          <div class="pc-grid">
+            <div class="pc-box pro">
+              <h4>優點</h4>
+              <ul>
+                <li>京都→天橋立可使用已購買的 JR PASS</li>
+                <li>天橋立→伊根丹海路線巴士（來回）也已包含在 JR PASS 內，不需另外付費</li>
+                <li>長距離主要搭鐵路，京都→天橋立段較不受道路塞車影響</li>
+                <li>不必另外預約計程車</li>
+                <li>路線巴士可直接到「伊根灣巡遊・日出」</li>
+              </ul>
+            </div>
+            <div class="pc-box con">
+              <h4>缺點</h4>
+              <ul>
+                <li>10:40 抵達天橋立後只有約 17 分鐘轉乘 10:57 路線巴士</li>
+                <li>11:50 才抵達伊根，三方案中最晚</li>
+                <li>無法搭 11:30 伊根灣遊覽船，只能搭 12:30 班</li>
+                <li>伊根午餐與散步時間明顯較壓縮</li>
+                <li>若錯過 10:57 路線巴士，後續行程會受到較大影響</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAN C -->
+      <div class="plan-page">
+        <div class="plan-card">
+          <p class="plan-title">方案 C｜JR＋計程車</p>
+          <p class="plan-summary">08:38 搭 JR 特急前往天橋立，10:40 抵達後直接轉乘預約計程車，預估約 11:10～11:15 抵達伊根。</p>
+
+          <table class="schedule">
+            <thead>
+              <tr><th>時間</th><th>行程</th><th>建議安排</th><th>交通</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="col-time" data-label="時間">07:35～07:55</td><td data-label="行程">飯店→京都站</td><td data-label="建議安排">從 Agora Kyoto Karasuma 出發，目標約 08:00 抵達京都站</td><td class="col-transport" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">07:55～08:25</td><td data-label="行程">京都站</td><td data-label="建議安排">買早餐／飲料、上廁所，前往月台</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">08:38～10:40</td><td data-label="行程">京都→天橋立</td><td data-label="建議安排">建議事先劃指定席</td><td class="col-transport hl" data-label="交通">特急はしだて1號／JR PASS</td></tr>
+              <tr><td class="col-time" data-label="時間">10:40～10:50</td><td data-label="行程">天橋立站</td><td data-label="建議安排">下車後直接前往預約計程車乘車處</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">10:50～11:15</td><td data-label="行程">天橋立→伊根</td><td data-label="建議安排">建議事前預約計程車，目的地設「伊根灣巡遊・日出」</td><td class="col-transport hl" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">11:15～11:25</td><td data-label="行程">伊根</td><td data-label="建議安排">下車、拍照、準備搭船</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">11:30～11:55</td><td data-label="行程">伊根灣遊覽船</td><td data-label="建議安排">欣賞舟屋、海景，可體驗餵海鷗</td><td class="col-transport" data-label="交通">伊根灣巡遊觀光船</td></tr>
+              <tr><td class="col-time" data-label="時間">12:00～12:45</td><td data-label="行程">午餐</td><td data-label="建議安排">可正常安排約 45 分鐘午餐</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">12:45～13:25</td><td data-label="行程">伊根舟屋散步</td><td data-label="建議安排">拍照、散步、看舟屋街景</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">13:25～13:35</td><td data-label="行程">伊根候車</td><td data-label="建議安排">回「伊根灣巡遊・日出」巴士站</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">13:37～14:04</td><td data-label="行程">伊根→傘松公園</td><td data-label="建議安排">在「天橋立ケーブル下」下車</td><td class="col-transport" data-label="交通">丹海路線巴士</td></tr>
+              <tr><td class="col-time" data-label="時間">14:04～14:15</td><td data-label="行程">傘松公園</td><td data-label="建議安排">前往纜車／吊椅乘車處</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">14:15～14:45</td><td data-label="行程">傘松公園</td><td data-label="建議安排">昇龍觀、胯下望景、拍照</td><td class="col-transport" data-label="交通">纜車／吊椅</td></tr>
+              <tr><td class="col-time" data-label="時間">14:45～15:05</td><td data-label="行程">傘松公園→一宮碼頭</td><td data-label="建議安排">下山後直接前往碼頭</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">15:15～15:27</td><td data-label="行程">一宮→天橋立</td><td data-label="建議安排">從海上欣賞天橋立</td><td class="col-transport" data-label="交通">天橋立觀光船</td></tr>
+              <tr><td class="col-time" data-label="時間">15:27～15:40</td><td data-label="行程">一宮碼頭→天橋立站</td><td data-label="建議安排">下船後直接回車站</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time" data-label="時間">15:40～16:00</td><td data-label="行程">天橋立站候車</td><td data-label="建議安排">上廁所、確認丹後黑松號月台，不再增加景點</td><td class="col-transport" data-label="交通">—</td></tr>
+              <tr><td class="col-time hl" data-label="時間">16:05～18:05</td><td data-label="行程">天橋立→西舞鶴</td><td data-label="建議安排">已購買的丹後黑松號觀光列車</td><td class="col-transport hl" data-label="交通">丹後黑松號／已購票</td></tr>
+              <tr><td class="col-time" data-label="時間">18:05～18:35</td><td data-label="行程">西舞鶴</td><td data-label="建議安排">休息、上廁所、確認 JR 月台</td><td class="col-transport" data-label="交通">步行</td></tr>
+              <tr><td class="col-time hl" data-label="時間">18:43～20:21</td><td data-label="行程">西舞鶴→京都</td><td data-label="建議安排">建議事先劃指定席</td><td class="col-transport hl" data-label="交通">特急まいづる14號／JR PASS</td></tr>
+              <tr><td class="col-time" data-label="時間">20:25～20:45</td><td data-label="行程">京都站→飯店</td><td data-label="建議安排">回 Agora Kyoto Karasuma</td><td class="col-transport" data-label="交通">計程車</td></tr>
+              <tr><td class="col-time" data-label="時間">20:45 後</td><td data-label="行程">晚餐／休息</td><td data-label="建議安排">四条烏丸附近簡單用餐</td><td class="col-transport" data-label="交通">步行</td></tr>
+            </tbody>
+          </table>
+
+          <div class="fee-box">
+            <div class="fee-plain">京都→天橋立：<strong>JR PASS 已涵蓋，不另外計費</strong></div>
+            <div class="fee-plain">天橋立→伊根計程車（估算）：</div>
+            <div class="fee-lines">
+              <div class="fee-line">
+                <span class="fee-label">4人整車</span>
+                <span class="fee-jpy">約 ¥13,000～17,000</span>
+                <span class="fee-twd">約 NT$2,618～3,424</span>
+              </div>
+              <div class="fee-line">
+                <span class="fee-label">每人分攤</span>
+                <span class="fee-jpy">約 ¥3,250～4,250</span>
+                <span class="fee-twd">約 NT$655～856</span>
+              </div>
+            </div>
+            <div class="fee-note">計程車金額為行前估算，實際以預約業者報價、當日跳表及道路狀況為準。</div>
+          </div>
+
+          <div class="pc-grid">
+            <div class="pc-box pro">
+              <h4>優點</h4>
+              <ul>
+                <li>京都→天橋立可使用 JR PASS</li>
+                <li>長距離主要搭鐵路，京都→天橋立段較不受道路壅塞影響</li>
+                <li>約 11:10～11:15 抵達伊根</li>
+                <li>同樣可以銜接 11:30 伊根灣遊覽船</li>
+                <li>四人分攤後，每人計程車成本與高速巴士票價接近</li>
+                <li>比 JR＋路線巴士多出約 35～40 分鐘伊根停留時間</li>
+              </ul>
+            </div>
+            <div class="pc-box con">
+              <h4>缺點</h4>
+              <ul>
+                <li>天橋立站需要轉乘一次</li>
+                <li>強烈建議事先預約計程車</li>
+                <li>計程車費用不是固定票價，存在浮動</li>
+                <li>JR 若延誤，需要與計程車業者協調</li>
+                <li>若未事先預約且現場無車，行程不確定性較高</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+    <button class="arrow arrow-right" aria-label="下一個方案">›</button>
+  </div>
+
+  <div class="dots">
+    <span class="dot active" data-plan="0"></span>
+    <span class="dot" data-plan="1"></span>
+    <span class="dot" data-plan="2"></span>
+  </div>
+
+  <!-- COMPARISON -->
+  <section class="comparison">
+    <h2>三方案快速比較</h2>
+    <p class="comparison-sub">早上出發時間接近，差別主要集中在「伊根抵達時間、轉乘、成本、道路風險」。</p>
+    <div class="comp-table-wrap">
+      <table class="comp">
+        <thead>
+          <tr><th>比較項目</th><th>方案 A：直達高速巴士</th><th>方案 B：JR＋路線巴士</th><th>方案 C：JR＋計程車</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>飯店出發</td><td>約 07:35～07:55</td><td>約 07:35～07:55</td><td>約 07:35～07:55</td></tr>
+          <tr><td>京都站出發</td><td><strong>08:20</strong></td><td><strong>08:38</strong></td><td><strong>08:38</strong></td></tr>
+          <tr><td>天橋立抵達</td><td>—</td><td><strong>10:40</strong></td><td><strong>10:40</strong></td></tr>
+          <tr><td>伊根抵達</td><td><strong>11:04</strong></td><td><strong>11:50</strong></td><td><strong>約 11:10～11:15</strong></td></tr>
+          <tr><td>與最早抵達差距</td><td>基準</td><td>約晚 46 分鐘</td><td>約晚 5～10 分鐘</td></tr>
+          <tr><td>轉乘次數</td><td><strong>0 次</strong></td><td><strong>1 次</strong></td><td><strong>1 次</strong></td></tr>
+          <tr><td>伊根遊覽船</td><td><strong>11:30</strong></td><td><strong>12:30</strong></td><td><strong>11:30</strong></td></tr>
+          <tr><td>4人主要交通費</td><td class="wrap-cell"><strong>¥16,800（約 NT$3,384）</strong></td><td class="wrap-cell"><strong>¥0（JR PASS 已涵蓋）</strong></td><td class="wrap-cell"><strong>約 ¥13,000～17,000（約 NT$2,618～3,424）</strong></td></tr>
+          <tr><td>每人分攤</td><td class="wrap-cell"><strong>¥4,200（約 NT$846）</strong></td><td class="wrap-cell"><strong>¥0（JR PASS 已涵蓋）</strong></td><td class="wrap-cell"><strong>約 ¥3,250～4,250（約 NT$655～856）</strong></td></tr>
+          <tr><td>JR PASS</td><td>京都→伊根不使用</td><td><strong>京都→天橋立、天橋立→伊根皆已涵蓋</strong></td><td><strong>京都→天橋立已涵蓋</strong></td></tr>
+          <tr><td>公路曝險</td><td>京都→伊根全程</td><td>僅天橋立→伊根路線巴士</td><td>僅天橋立→伊根計程車</td></tr>
+          <tr><td>轉乘難度</td><td>最單純</td><td>10:40→10:57，轉乘較緊</td><td>需找預約計程車</td></tr>
+          <tr><td>費用確定性</td><td>高</td><td>高</td><td>較低，依實際計程車費</td></tr>
+          <tr><td>伊根停留感受</td><td>時間較完整</td><td>最壓縮</td><td>時間較完整</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fx-note">新台幣金額依 2026/9/22 參考匯率 1日圓≈NT$0.2014 換算，僅供行程比較，實際刷卡／換匯金額依當日匯率為準。</p>
+
+    <div class="bottom-cards">
+      <div class="bottom-card">
+        <h3>方案 A｜直達高速巴士</h3>
+        <div class="pc-grid">
+          <div class="pc-box pro">
+            <h4>優點</h4>
+            <ul>
+              <li>不需轉乘</li>
+              <li>11:04 直接抵達伊根</li>
+              <li>可搭 11:30 遊覽船</li>
+              <li>交通流程最簡單</li>
+              <li>車資固定</li>
+            </ul>
+          </div>
+          <div class="pc-box con">
+            <h4>缺點</h4>
+            <ul>
+              <li>全程公路，較受塞車影響</li>
+              <li>約 ¥4,200／人</li>
+              <li>京都→伊根未使用 JR PASS</li>
+              <li>固定班次，彈性較低</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-card">
+        <h3>方案 B｜JR＋路線巴士</h3>
+        <div class="pc-grid">
+          <div class="pc-box pro">
+            <h4>優點</h4>
+            <ul>
+              <li>可使用 JR PASS</li>
+              <li>天橋立→伊根路線巴士（來回）也已涵蓋在 JR PASS 內，不需另外付費</li>
+              <li>京都→天橋立主要搭鐵路</li>
+              <li>不需預約計程車</li>
+              <li>路線巴士可直接到伊根灣遊覽船附近</li>
+            </ul>
+          </div>
+          <div class="pc-box con">
+            <h4>缺點</h4>
+            <ul>
+              <li>天橋立僅約 17 分鐘轉乘</li>
+              <li>11:50 才到伊根</li>
+              <li>只能搭 12:30 遊覽船</li>
+              <li>午餐與舟屋散步時間較短</li>
+              <li>錯過 10:57 巴士會明顯影響後續行程</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-card">
+        <h3>方案 C｜JR＋計程車</h3>
+        <div class="pc-grid">
+          <div class="pc-box pro">
+            <h4>優點</h4>
+            <ul>
+              <li>可使用 JR PASS</li>
+              <li>約 11:10～11:15 抵達伊根</li>
+              <li>可搭 11:30 遊覽船</li>
+              <li>京都→天橋立主要搭鐵路</li>
+              <li>四人分攤計程車後，每人費用與高速巴士接近</li>
+            </ul>
+          </div>
+          <div class="pc-box con">
+            <h4>缺點</h4>
+            <ul>
+              <li>需要轉乘</li>
+              <li>建議事先預約計程車</li>
+              <li>車資為估算，實際可能浮動</li>
+              <li>JR 延誤時需要協調計程車</li>
+              <li>未預約成功時不確定性較高</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    行程日期：2026/9/27（日）<br>
+    固定行程：16:05 丹後黑松號 天橋立→西舞鶴、18:43 特急まいづる14號 西舞鶴→京都。<br>
+    交通班次、票價及道路狀況仍應於出發前再次確認。<br>
+    天橋立→伊根丹海路線巴士（來回）已包含在 JR PASS 內，實際乘車範圍與班次請於出發前確認。<br>
+    計程車金額為行前估算，實際以預約業者報價為準。
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var current = 0;
+  var track = document.getElementById('planTrack');
+  var tabs = document.querySelectorAll('.tab');
+  var dots = document.querySelectorAll('.dot');
+
+  var planCount = document.querySelectorAll('.plan-page').length;
+
+  function render(){
+    track.style.transform = 'translateX(' + (current * (-100 / planCount)) + '%)';
+    tabs.forEach(function(t, i){
+      var active = i === current;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    dots.forEach(function(d, i){
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goTo(index){
+    current = Math.max(0, Math.min(planCount - 1, index));
+    render();
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      goTo(parseInt(t.getAttribute('data-plan'), 10));
+    });
+  });
+
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      goTo(parseInt(d.getAttribute('data-plan'), 10));
+    });
+  });
+
+  document.querySelector('.arrow-left').addEventListener('click', function(){
+    goTo(current - 1);
+  });
+  document.querySelector('.arrow-right').addEventListener('click', function(){
+    goTo(current + 1);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  var viewport = document.querySelector('.plan-viewport');
+  var startX = null, startY = null, dragging = false;
+
+  viewport.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    dragging = true;
+  }, {passive:true});
+
+  viewport.addEventListener('touchmove', function(e){
+    if (!dragging || startX === null) return;
+  }, {passive:true});
+
+  viewport.addEventListener('touchend', function(e){
+    if (!dragging || startX === null) return;
+    var endX = e.changedTouches[0].clientX;
+    var endY = e.changedTouches[0].clientY;
+    var dx = endX - startX;
+    var dy = endY - startY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) goTo(current + 1);
+      else goTo(current - 1);
+    }
+    dragging = false;
+    startX = null;
+    startY = null;
+  }, {passive:true});
+
+  render();
+})();
+</script>
+
+</body>
+</html>
