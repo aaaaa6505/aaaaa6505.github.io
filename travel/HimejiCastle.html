@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="姬路城 9/26 實地深度導覽紀錄：七大特色、大天守 B1～6F 逐層導覽、防禦系統、姥ヶ石、東大柱與西大柱、城下町與 JR 姬路站、昭和／平成大修理、阿菊井與《播州皿屋敷》。">
+<meta name="theme-color" content="#f6f2ea">
+<title>姬路城 9/26 深度導覽</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233d2a1d'/%3E%3Cpath d='M16 5l5 4H11zM9 11h14l3 4H6zM7 17h18l3 4H4zM9 21v7h14v-7' fill='none' stroke='%23f6f2ea' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>
+  /* 在任何圖片開始載入前註冊：遠端圖片失敗時改顯示替代區塊，避免破圖 icon */
+  document.documentElement.className += " js";
+  (function () {
+    function fallback(img) {
+      if (img.getAttribute("data-failed")) return;
+      img.setAttribute("data-failed", "1");
+      var box = img.parentNode;
+      if (!box || !box.classList) return;
+      box.classList.add("is-broken");
+      if (box.classList.contains("hero-figure")) return; /* Hero 失敗時保留深褐底色即可 */
+      var fb = document.createElement("div");
+      fb.className = "img-fallback";
+      fb.setAttribute("role", "img");
+      fb.setAttribute("aria-label", (img.alt || "圖片") + "（圖片暫時無法載入）");
+      fb.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="9" r="1.6" fill="currentColor"/></svg><strong>圖片暫時無法載入</strong><span></span>';
+      fb.lastChild.textContent = img.alt || "";
+      box.appendChild(fb);
+    }
+    document.addEventListener("error", function (e) {
+      var t = e.target;
+      if (t && t.tagName === "IMG") fallback(t);
+    }, true);
+    window.addEventListener("load", function () {
+      [].forEach.call(document.images, function (img) {
+        if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) fallback(img);
+      });
+    });
+  })();
+</script>
+<style>
+/* ============================================================
+   Tokens｜姬路城白 × 木造深褐 × 低飽和金
+   ============================================================ */
+:root {
+  color-scheme: light;
+  --paper: #f6f2ea;
+  --paper-deep: #ece5d8;
+  --surface: #fffdf8;
+  --floors-bg: #efe7da;
+  --ink: #2b211a;
+  --ink-soft: #4a3d33;
+  --muted: #65574b;
+  --wood: #3d2a1d;
+  --wood-mid: #5a3e2b;
+  --west: #7d5f2c;
+  --gold: #b09056;
+  --gold-deep: #9a7a42;
+  --gold-ink: #6e5220;
+  --gold-wash: #efe4cc;
+  --gold-light: #dcc28a;
+  --line: #e0d6c6;
+  --line-strong: #cfc2ad;
+  --night: #1d1a19;
+  --night-2: #28231f;
+  --night-ink: #efe7da;
+  --night-muted: #cbbfae;
+  --night-gold: #d9bd82;
+  --focus-ring: #8a4f0c;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Noto Sans CJK TC", "Microsoft JhengHei", "Microsoft JhengHei UI", "Heiti TC", sans-serif;
+  --font-serif: "Noto Serif TC", "Songti TC", "Source Han Serif TC", "Noto Serif CJK TC", "PMingLiU", "MingLiU", serif;
+  --font-ja: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", "YuGothic", "Meiryo", sans-serif;
+  --font-ja-serif: "Hiragino Mincho ProN", "Noto Serif JP", "Noto Serif CJK JP", "Yu Mincho", "YuMincho", serif;
+
+  --nav-h: 56px;
+  --maxw: 1160px;
+  --gutter: clamp(16px, 4.6vw, 40px);
+  --radius: 14px;
+  --sec-pad: clamp(64px, 11vw, 120px);
+  --shadow-sm: 0 1px 2px rgba(47, 32, 24, .05), 0 4px 14px rgba(47, 32, 24, .06);
+  --shadow: 0 1px 2px rgba(47, 32, 24, .06), 0 12px 32px rgba(47, 32, 24, .10);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, .97rem + .15vw, 1.0625rem);
+  line-height: 1.8;
+  letter-spacing: .02em;
+  line-break: strict;
+  overflow-wrap: break-word;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+:lang(ja) { font-family: var(--font-ja); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--gold-ink); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--wood); }
+:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 4px; }
+main:focus { outline: none; }
+h1, h2, h3, h4 { line-height: 1.4; margin: 0; letter-spacing: .04em; text-wrap: balance; }
+h1, h2 { font-family: var(--font-serif); font-weight: 700; }
+h1 :lang(ja), h2 :lang(ja), .spot-body h3 :lang(ja), .count-voice :lang(ja) { font-family: var(--font-ja-serif); }
+h3, h4 { font-weight: 700; }
+p { margin: 0 0 1em; }
+ul, ol { margin: 0; }
+strong { font-weight: 700; color: var(--wood); }
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.wrap { width: min(var(--maxw), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.ruby { font-size: .82em; color: var(--muted); font-weight: 400; letter-spacing: .02em; }
+
+.skip-link {
+  position: fixed; left: 12px; top: -100px; z-index: 100;
+  background: var(--wood); color: #fffdf8; padding: 10px 16px; border-radius: 8px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; color: #fffdf8; outline-color: var(--gold-light); }
+
+/* ============================================================
+   Sticky header & navigation
+   ============================================================ */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(246, 242, 234, .94);
+  -webkit-backdrop-filter: saturate(1.2) blur(10px);
+  backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.bar { display: flex; align-items: center; min-height: 56px; padding-left: var(--gutter); }
+.brand {
+  flex: none; display: flex; align-items: center; gap: 7px;
+  padding: 6px 12px 6px 0; margin-right: 4px;
+  border-right: 1px solid var(--line);
+  color: var(--wood); text-decoration: none;
+  font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; letter-spacing: .06em;
+}
+.brand svg { flex: none; }
+.brand-date {
+  font-family: var(--font-sans); font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+  color: var(--gold-ink); border: 1px solid var(--gold); border-radius: 999px; padding: 0 7px; line-height: 1.6;
+}
+.brand-more { display: none; }
+.site-nav { flex: 1; min-width: 0; }
+.site-nav ul {
+  position: relative; list-style: none; margin: 0; padding: 0 var(--gutter) 0 4px;
+  display: flex; gap: 2px; overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10px, #000 calc(100% - 32px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 10px, #000 calc(100% - 32px), transparent 100%);
+}
+.site-nav ul::-webkit-scrollbar { display: none; }
+.site-nav li { flex: none; }
+.site-nav a {
+  position: relative; display: block; padding: 8px 10px; line-height: 28px;
+  font-size: .92rem; color: var(--ink-soft); text-decoration: none; white-space: nowrap; border-radius: 6px;
+}
+.site-nav a:hover { color: var(--wood); background: rgba(176, 144, 86, .12); }
+.site-nav a[aria-current="true"] { color: var(--wood); font-weight: 700; }
+.site-nav a[aria-current="true"]::after {
+  content: ""; position: absolute; left: 10px; right: 10px; bottom: 3px; height: 2px;
+  border-radius: 2px; background: var(--gold-deep);
+}
+.site-nav a:focus-visible { outline-offset: -3px; }
+@media (min-width: 1100px) {
+  .bar { width: min(1240px, 100% - 2 * var(--gutter)); margin-inline: auto; padding-left: 0; }
+  .brand-more { display: inline; }
+  .site-nav ul { justify-content: flex-end; padding-right: 0; -webkit-mask-image: none; mask-image: none; }
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  display: grid;
+  min-height: calc(100vh - var(--nav-h));
+  color: #fffdf8;
+  background: linear-gradient(170deg, #5a3e2b 0%, #1a110b 58%);
+  --focus-ring: #f3d58c;
+}
+@supports (height: 100svh) { .hero { min-height: min(calc(100svh - var(--nav-h)), 880px); } }
+.hero > * { grid-area: 1 / 1; }
+.hero-figure {
+  position: relative; margin: 0; overflow: hidden;
+  display: flex; align-items: flex-end; justify-content: flex-end;
+}
+/* 手機：照片只佔上方，讓天守露在標題上方，再淡入深褐底 */
+.hero-figure img {
+  position: absolute; inset: 0; width: 100%; height: 57%;
+  object-fit: cover; object-position: 58% 50%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+}
+.hero-figure::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26, 17, 11, 1) 0%, rgba(26, 17, 11, .9) 42%, rgba(26, 17, 11, .25) 64%, rgba(26, 17, 11, .08) 100%);
+}
+.hero-figure figcaption {
+  position: relative; z-index: 1;
+  padding: 10px var(--gutter) 12px; font-size: .72rem; line-height: 1.5;
+  color: rgba(255, 253, 248, .8); text-align: right;
+}
+.hero-figure figcaption a { color: #fffdf8; }
+.hero-inner {
+  position: relative; z-index: 1; align-self: end;
+  padding-top: 96px; margin-bottom: 64px;
+  text-shadow: 0 1px 14px rgba(20, 12, 7, .55);
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  font-size: .86rem; letter-spacing: .16em; color: var(--gold-light); font-weight: 600;
+}
+.hero-kicker b {
+  font-family: var(--font-serif); font-size: 1rem; letter-spacing: .06em; color: #fffdf8;
+  border: 1px solid rgba(220, 194, 138, .7); border-radius: 999px; padding: 1px 10px;
+}
+.hero h1 { margin-bottom: 14px; }
+.h1-zh { display: block; font-size: clamp(2.9rem, 1.6rem + 7vw, 5.6rem); line-height: 1.1; letter-spacing: .12em; }
+.h1-en {
+  display: block; margin-top: 10px; font-family: var(--font-sans);
+  font-size: clamp(.9rem, .8rem + .6vw, 1.15rem); font-weight: 600; letter-spacing: .42em; color: var(--gold-light);
+}
+.hero-sub { font-size: clamp(1.05rem, .95rem + .6vw, 1.35rem); font-family: var(--font-serif); letter-spacing: .12em; margin-bottom: 10px; }
+.hero-intro { max-width: 34em; color: rgba(255, 253, 248, .88); font-size: .98rem; margin-bottom: 22px; }
+.hero-facts {
+  list-style: none; margin: 0 0 26px; padding: 0; max-width: 640px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;
+}
+.hero-facts li {
+  border-top: 1px solid rgba(220, 194, 138, .75); padding-top: 10px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.hf-k { font-size: .72rem; letter-spacing: .18em; color: var(--gold-light); }
+.hf-v { font-weight: 700; font-size: clamp(.9rem, .82rem + .4vw, 1.08rem); line-height: 1.45; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 10px 20px; border-radius: 999px;
+  font-weight: 700; font-size: .95rem; text-decoration: none; letter-spacing: .06em;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.btn-solid { background: #fffdf8; color: var(--wood); }
+.btn-solid:hover { background: var(--gold-light); color: var(--wood); }
+.btn-line { border: 1px solid rgba(255, 253, 248, .7); color: #fffdf8; }
+.btn-line:hover { background: rgba(255, 253, 248, .12); color: #fffdf8; }
+@media (min-width: 900px) {
+  .hero-figure::after {
+    background:
+      linear-gradient(90deg, rgba(26, 17, 11, .78) 0%, rgba(26, 17, 11, .35) 48%, rgba(26, 17, 11, 0) 72%),
+      linear-gradient(to top, rgba(26, 17, 11, .82) 0%, rgba(26, 17, 11, .2) 45%, rgba(26, 17, 11, .1) 100%);
+  }
+  .hero-figure img { height: 100%; object-position: 50% 40%; -webkit-mask-image: none; mask-image: none; }
+  .hero-inner { margin-bottom: 72px; }
+}
+
+/* ============================================================
+   Sections & shared components
+   ============================================================ */
+.section { padding-block: var(--sec-pad); scroll-margin-top: var(--nav-h); }
+.bg-surface { background: var(--surface); }
+.bg-deep { background: var(--paper-deep); }
+.sec-head { max-width: 780px; margin-bottom: clamp(32px, 5vw, 52px); }
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  color: var(--gold-ink); font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+}
+.sec-no {
+  font-family: var(--font-serif); font-size: 1rem; letter-spacing: .06em;
+  border: 1px solid var(--gold); padding: 1px 9px; border-radius: 4px;
+}
+.sec-eyebrow::after { content: ""; flex: 0 1 120px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+.sec-head h2 { font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.6rem); margin-bottom: 18px; }
+.sec-lead {
+  margin: 0; padding: 14px 18px 15px; border-left: 3px solid var(--gold-deep);
+  background: var(--gold-wash); border-radius: 0 10px 10px 0;
+  font-size: clamp(1rem, .96rem + .25vw, 1.12rem); line-height: 1.75; color: var(--ink);
+}
+.lead-label { display: block; margin-bottom: 3px; font-size: .74rem; font-weight: 700; letter-spacing: .18em; color: var(--gold-ink); }
+
+/* Figures + graceful image fallback */
+.fig { margin: 0; }
+.fig-media {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  aspect-ratio: var(--ar, 4 / 3);
+  background: var(--paper-deep);
+}
+.fig-media img { width: 100%; height: 100%; object-fit: cover; }
+.fig-media.fit-contain img { object-fit: contain; }
+.fig figcaption {
+  margin-top: 10px; font-size: .84rem; line-height: 1.6; color: var(--muted);
+  display: flex; flex-wrap: wrap; gap: 2px 12px; overflow-wrap: anywhere;
+}
+.fig-title { color: var(--ink-soft); font-weight: 600; }
+.fig-src { white-space: normal; }
+.is-broken img { display: none; }
+.img-fallback {
+  position: absolute; inset: 0; padding: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  text-align: center; font-size: .88rem; line-height: 1.5; color: var(--muted);
+  background: repeating-linear-gradient(135deg, var(--paper-deep) 0 14px, #e5dccb 14px 15px);
+}
+.img-fallback strong { color: var(--ink-soft); font-size: .95rem; }
+.img-fallback span { max-width: 26em; font-size: .8rem; }
+
+/* Chips / labels */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.chip {
+  display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px;
+  background: var(--gold-wash); color: var(--gold-ink); font-size: .8rem; font-weight: 700; line-height: 1.7; letter-spacing: .03em;
+}
+.chip-dark { background: var(--wood); color: #fffdf8; }
+.chip-west { background: var(--west); color: #fffdf8; }
+.label {
+  display: inline-flex; align-items: center; gap: 6px; padding: 2px 11px; border-radius: 4px;
+  font-size: .8rem; font-weight: 700; letter-spacing: .14em; line-height: 1.7; white-space: nowrap;
+}
+.label::before { content: ""; width: 7px; height: 7px; border-radius: 1px; background: currentColor; }
+.label-fact { background: var(--wood); color: #fffdf8; }
+.label-legend { border: 1.5px dashed var(--gold-ink); color: var(--gold-ink); background: transparent; padding: 1px 10px; }
+.label-legend::before { background: transparent; border: 1.5px solid currentColor; border-radius: 50%; }
+
+/* Q&A callout (inline in chapters) */
+.qa-box {
+  position: relative; overflow: hidden; margin-top: clamp(36px, 6vw, 56px);
+  padding: clamp(22px, 4vw, 40px); border-radius: calc(var(--radius) + 2px);
+  background: var(--wood); color: #eee5d7; scroll-margin-top: calc(var(--nav-h) + 16px);
+  --focus-ring: #f3d58c;
+}
+.qa-box::before {
+  content: "Q"; position: absolute; right: -6px; top: -34px; font-family: var(--font-serif);
+  font-size: 11rem; line-height: 1; color: rgba(220, 194, 138, .08); pointer-events: none;
+}
+.qa-tag { display: inline-block; margin-bottom: 10px; font-size: .76rem; font-weight: 700; letter-spacing: .18em; color: var(--gold-light); }
+.qa-box h3 { color: #fffdf8; font-size: clamp(1.15rem, 1rem + .9vw, 1.5rem); margin-bottom: 16px; position: relative; }
+.qa-box p { position: relative; }
+.qa-box strong { color: #fffdf8; }
+.qa-box a { color: var(--gold-light); }
+.qa-a { display: grid; gap: 10px; }
+@media (min-width: 600px) { .qa-a { grid-template-columns: 30px minmax(0, 1fr); gap: 14px; align-items: start; } }
+.qa-a-mark {
+  flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-serif); font-weight: 700; background: var(--gold-light); color: var(--wood); margin-top: 2px;
+}
+.qa-a > div > :last-child { margin-bottom: 0; }
+.reasons { list-style: none; padding: 0; margin: 4px 0 18px; display: grid; gap: 10px; counter-reset: r; }
+.reasons li {
+  counter-increment: r; position: relative; padding: 12px 14px 12px 46px; border-radius: 10px;
+  background: rgba(255, 253, 248, .06); border: 1px solid rgba(255, 253, 248, .12);
+}
+.reasons li::before {
+  content: counter(r); position: absolute; left: 14px; top: 12px; width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center; font-size: .78rem; font-weight: 700; color: var(--wood); background: var(--gold-light);
+}
+.reasons b { display: block; color: #fffdf8; }
+@media (min-width: 900px) { .reasons { grid-template-columns: repeat(3, 1fr); } }
+
+.more-link {
+  display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .92rem; text-decoration: none;
+  min-height: 44px; padding: 0 2px;
+}
+.more-link::after { content: "→"; transition: transform .2s; }
+.more-link:hover::after { transform: translateX(3px); }
+
+/* Reveal (disabled for reduced motion / no JS) */
+.can-reveal .reveal { transition: opacity .55s ease, transform .55s ease; }
+.can-reveal .reveal:not(.is-in) { opacity: 0; transform: translateY(14px); }
+
+/* ============================================================
+   01 七大特色
+   ============================================================ */
+.feature-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.fcard {
+  position: relative; height: 100%; display: flex; flex-direction: column; gap: 10px;
+  padding: 24px 22px 20px; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+.fcard::before {
+  content: ""; position: absolute; top: -1px; left: 22px; width: 64px; height: 3px;
+  background: var(--gold-deep); border-radius: 0 0 3px 3px;
+}
+.fcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 2px; }
+.fcard-no { display: flex; flex-direction: column; line-height: 1; }
+.fcard-no small { font-size: .72rem; font-weight: 700; letter-spacing: .2em; color: var(--gold-ink); margin-bottom: 6px; }
+.fcard-no b { font-family: var(--font-serif); font-size: 2.3rem; color: var(--gold-deep); font-weight: 700; }
+.fcard-icon { width: 46px; height: 46px; flex: none; color: var(--wood-mid); }
+.fcard h3 { font-size: 1.18rem; color: var(--wood); }
+.fcard p { margin: 0; color: var(--ink-soft); }
+.fcard .chips { margin-top: 2px; }
+.fcard .more-link { margin-top: auto; align-self: flex-start; }
+.fcard--hero { background: var(--wood); border-color: var(--wood); color: #eee5d7; --focus-ring: #f3d58c; }
+.fcard--hero::before { background: var(--gold-light); }
+.fcard--hero h3 { color: #fffdf8; font-size: clamp(1.25rem, 1.1rem + .7vw, 1.55rem); }
+.fcard--hero p { color: #e8dece; }
+.fcard--hero .fcard-no small { color: var(--gold-light); }
+.fcard--hero .fcard-no b { color: var(--gold-light); }
+.fcard--hero .fcard-icon { color: #fffdf8; }
+.fcard--hero .chip { background: rgba(220, 194, 138, .18); color: #f3e6c8; }
+.fcard--hero .more-link { color: var(--gold-light); }
+.fcard--wash { background: linear-gradient(160deg, var(--surface) 0%, var(--gold-wash) 100%); }
+@media (min-width: 640px) {
+  .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feature-grid > li:first-child { grid-column: span 2; }
+}
+@media (min-width: 1000px) {
+  .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .feature-grid > li:last-child { grid-column: span 2; }
+  .fcard--hero { padding: 32px 32px 26px; }
+  .fcard--hero p { max-width: 38em; }
+}
+
+/* ============================================================
+   02 參觀路線
+   ============================================================ */
+.route-layout { display: grid; gap: 36px; }
+.route-fig .fig-media { --ar: 2435 / 2291; }
+.route-wrap h3 { font-size: 1.1rem; color: var(--wood); margin-bottom: 14px; }
+.route { list-style: none; margin: 0; padding: 0; position: relative; }
+.route::before {
+  content: ""; position: absolute; left: 21px; top: 26px; bottom: 26px; width: 2px;
+  background: linear-gradient(var(--wood-mid), var(--gold) 45%, var(--gold) 70%, var(--wood-mid));
+}
+.route-step > a {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: center;
+  padding: 7px 8px 7px 0; border-radius: 10px; color: inherit; text-decoration: none;
+}
+.route-step > a:hover .rs-title { color: var(--gold-ink); }
+.route-step > a:focus-visible { outline-offset: 2px; }
+.rs-dot {
+  position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center; font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem;
+  background: var(--wood); color: #fffdf8; box-shadow: 0 0 0 4px var(--surface);
+}
+.is-floor .rs-dot {
+  width: 34px; height: 34px; margin-left: 5px; font-family: var(--font-sans); font-size: .76rem; letter-spacing: 0;
+  background: var(--surface); color: var(--wood); border: 2px solid var(--gold-deep);
+}
+.rs-text { display: flex; flex-direction: column; min-width: 0; }
+.rs-title { font-weight: 700; color: var(--wood); line-height: 1.5; }
+.rs-desc { font-size: .86rem; color: var(--muted); line-height: 1.55; }
+.route-group {
+  margin: 6px 0 6px 58px; padding: 10px 12px 8px; border-radius: 12px;
+  background: var(--paper); border: 1px dashed var(--line-strong); position: relative;
+}
+.route-group .route-step > a { margin-left: -70px; grid-template-columns: 44px minmax(0, 1fr); padding-left: 0; }
+.route-group .rs-text { padding-left: 12px; }
+.rg-label { margin: 0 0 2px; font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: var(--gold-ink); }
+.route-floors { list-style: none; margin: 0; padding: 0; }
+@media (min-width: 900px) {
+  .route-layout { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: start; }
+  .route-fig { position: sticky; top: calc(var(--nav-h) + 28px); }
+}
+
+/* ============================================================
+   03 大天守 B1～6F 逐層導覽（核心）
+   ============================================================ */
+.sec-floors { background: var(--floors-bg); }
+.floors-intro { display: grid; gap: 28px; margin-bottom: 40px; }
+.floors-intro .fig-media { --ar: 5 / 4; }
+.howto {
+  display: flex; gap: 12px; align-items: flex-start; margin: 0; padding: 14px 16px;
+  background: var(--surface); border-radius: 12px; border: 1px solid var(--line); font-size: .92rem; color: var(--ink-soft);
+}
+.howto svg { flex: none; color: var(--gold-deep); margin-top: 3px; }
+.stat-row { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.stat-row li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; }
+.stat-row b { display: block; font-family: var(--font-serif); font-size: 1.6rem; line-height: 1.2; color: var(--wood); }
+.stat-row span { font-size: .78rem; color: var(--muted); }
+@media (min-width: 900px) {
+  .floors-intro { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 48px; }
+}
+
+.floors-layout { display: grid; }
+.floor-rail {
+  position: sticky; top: var(--nav-h); z-index: 20; align-self: start;
+  margin-inline: calc(-1 * var(--gutter)); padding: 8px var(--gutter);
+  background: rgba(239, 231, 218, .96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line-strong);
+}
+.fr-title, .fr-hint { display: none; }
+.floor-rail ol { list-style: none; margin: 0; padding: 0; display: flex; justify-content: space-between; gap: 4px; }
+.floor-rail li { flex: 1 1 0; min-width: 0; }
+.floor-rail a {
+  display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 4px;
+  border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface);
+  color: var(--wood); text-decoration: none; font-weight: 700; font-size: .86rem; letter-spacing: 0;
+  transition: background-color .25s, color .25s, border-color .25s;
+}
+.floor-rail a span { display: none; }
+.floor-rail a[aria-current="location"] { background: var(--wood); border-color: var(--wood); color: #fffdf8; }
+.floor-rail a:focus-visible { outline-offset: 2px; }
+
+.floor-list { list-style: none; margin: 0; padding: 28px 0 0; --badge: 49px; --badge-top: 16px; }
+.floor { position: relative; padding: 0 0 28px 62px; scroll-margin-top: calc(var(--nav-h) + 72px); }
+.floor:last-child { padding-bottom: 0; }
+/* 樓層之間的動線：每段從本層徽章連到下一層徽章，走過的樓層轉為金色 */
+.floor:not(:last-child)::before {
+  content: ""; position: absolute; left: calc(var(--badge) / 2 - 1.5px);
+  top: calc(var(--badge-top) + var(--badge)); bottom: calc(-1 * var(--badge-top)); width: 3px;
+  background: var(--line-strong); transition: background-color .3s;
+}
+.floor.is-passed::before { background: var(--gold-deep); }
+.floor-badge {
+  position: absolute; left: 0; top: var(--badge-top); z-index: 1; width: var(--badge); height: var(--badge); border-radius: 50%;
+  display: grid; place-items: center; font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem;
+  background: var(--surface); color: var(--wood); border: 2px solid var(--wood);
+  box-shadow: 0 0 0 5px var(--floors-bg); transition: background-color .3s, color .3s;
+}
+.floor.is-current .floor-badge, .floor.is-passed .floor-badge { background: var(--wood); color: #fffdf8; }
+.floor.is-current .floor-badge { box-shadow: 0 0 0 5px var(--floors-bg), 0 0 0 7px var(--gold-deep); }
+.floor-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px 16px 16px; box-shadow: var(--shadow-sm);
+}
+.floor-step { margin: 0 0 2px; font-size: .74rem; font-weight: 700; letter-spacing: .16em; color: var(--gold-ink); }
+.floor-card h3 { font-size: clamp(1.2rem, 1.08rem + .6vw, 1.5rem); color: var(--wood); }
+.floor-code { font-family: var(--font-serif); }
+.floor-card .chips { margin: 12px 0 14px; }
+.points { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.points li { position: relative; padding-left: 20px; color: var(--ink-soft); }
+.points li::before {
+  content: ""; position: absolute; left: 3px; top: .72em; width: 7px; height: 7px;
+  background: var(--gold-deep); transform: rotate(45deg);
+}
+.note {
+  margin-top: 16px; padding: 14px 16px; border-radius: 10px;
+  background: var(--paper); border: 1px dashed var(--gold); font-size: .94rem; color: var(--ink-soft);
+}
+.note > :last-child { margin-bottom: 0; }
+.note-label { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: var(--gold-ink); }
+.note-label::before { content: ""; width: 14px; height: 2px; background: var(--gold-deep); }
+.note .more-link { min-height: 36px; }
+.floor-next { margin: 16px 0 0; }
+.floor-next a {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 16px 6px 12px;
+  border-radius: 999px; background: var(--paper); border: 1px solid var(--line-strong);
+  color: var(--wood-mid); font-weight: 700; font-size: .9rem; text-decoration: none;
+}
+.floor-next a:hover { background: var(--gold-wash); color: var(--wood); }
+.floor-next svg { flex: none; }
+
+/* 6F 小知識：五重 vs 六階 */
+.kasane { margin: 14px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+.kasane-col { display: flex; flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 10px; background: var(--surface); border-radius: 10px; border: 1px solid var(--line); }
+.kasane-h { margin: 0; font-size: .82rem; text-align: center; line-height: 1.5; color: var(--ink-soft); }
+.kasane-h strong { display: block; font-size: 1rem; }
+.roofs { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 6px 0; }
+.roofs span { display: block; height: 15px; background: var(--wood-mid); clip-path: polygon(14% 0, 86% 0, 100% 100%, 0 100%); }
+.roofs span:nth-child(1) { width: 40%; }
+.roofs span:nth-child(2) { width: 52%; }
+.roofs span:nth-child(3) { width: 64%; }
+.roofs span:nth-child(4) { width: 78%; }
+.roofs span:nth-child(5) { width: 94%; }
+.levels { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+.levels li {
+  font-size: .72rem; line-height: 1.55; font-weight: 700; text-align: center; color: var(--wood);
+  background: var(--gold-wash); border-radius: 3px;
+}
+.levels li.is-b1 { background: transparent; border: 1px dashed var(--gold-deep); color: var(--gold-ink); }
+.kasane-note { margin: 0; font-size: .8rem; text-align: center; font-weight: 700; color: var(--gold-ink); }
+.kasane figcaption { grid-column: 1 / -1; font-size: .78rem; color: var(--muted); line-height: 1.6; }
+
+@media (min-width: 600px) {
+  .floor-list { --badge: 57px; --badge-top: 18px; }
+  .floor { padding-left: 80px; }
+  .floor-badge { font-size: 1.3rem; }
+  .floor-card { padding: 22px 24px 20px; }
+}
+@media (min-width: 960px) {
+  .floors-layout { grid-template-columns: 188px minmax(0, 1fr); gap: 44px; align-items: start; }
+  .floor-rail {
+    top: calc(var(--nav-h) + 28px); margin: 28px 0 0; padding: 18px 14px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  }
+  .fr-title { display: block; margin: 0 0 2px; font-family: var(--font-serif); font-weight: 700; color: var(--wood); font-size: 1.02rem; }
+  .fr-hint { display: block; margin: 0 0 12px; font-size: .76rem; color: var(--muted); line-height: 1.5; }
+  .floor-rail ol { flex-direction: column-reverse; gap: 6px; position: relative; }
+  .floor-rail a { justify-content: flex-start; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 10px; }
+  .floor-rail a b {
+    flex: none; width: 34px; height: 30px; border-radius: 6px; display: grid; place-items: center;
+    background: var(--gold-wash); font-family: var(--font-serif);
+  }
+  .floor-rail a[aria-current="location"] b { background: rgba(255, 253, 248, .16); }
+  .floor-rail a span { display: inline; font-weight: 600; font-size: .84rem; }
+  .floor { scroll-margin-top: calc(var(--nav-h) + 24px); }
+  .kasane { max-width: 520px; }
+}
+
+/* ============================================================
+   04 防禦
+   ============================================================ */
+.layers-hint {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  font-size: .82rem; font-weight: 700; letter-spacing: .1em; color: var(--gold-ink);
+}
+.layers-hint i { flex: 1; height: 2px; background: linear-gradient(90deg, var(--line-strong), var(--wood)); position: relative; }
+.layers-hint i::after {
+  content: ""; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left: 8px solid var(--wood); border-right: 0;
+}
+.layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.layer {
+  padding: 20px 18px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface);
+}
+.layer:nth-child(2) { background: #f3ede2; margin-left: clamp(8px, 3vw, 44px); }
+.layer:nth-child(3) { background: #e9dfcf; margin-left: clamp(16px, 6vw, 88px); border-color: var(--line-strong); }
+.layer:nth-child(4) { background: var(--wood); border-color: var(--wood); color: #eee5d7; margin-left: clamp(24px, 9vw, 132px); --focus-ring: #f3d58c; }
+.layer-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.layer-no { font-size: .74rem; font-weight: 700; letter-spacing: .18em; color: var(--gold-ink); }
+.layer h3 { font-size: 1.14rem; color: var(--wood); }
+.layer:nth-child(4) .layer-no { color: var(--gold-light); }
+.layer:nth-child(4) h3 { color: #fffdf8; }
+.def-items { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+.def-item { padding: 14px 16px; border-radius: 10px; background: rgba(255, 253, 248, .7); border: 1px solid rgba(207, 194, 173, .6); }
+.def-item h4 { font-size: 1.02rem; color: var(--wood); margin-bottom: 4px; }
+.def-item h4 .ruby { font-size: .78rem; }
+.def-item p { margin: 0; font-size: .93rem; color: var(--ink-soft); }
+.def-where { display: inline-flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 8px; font-size: .8rem; font-weight: 700; }
+.def-where a { text-decoration: none; border-bottom: 1px solid currentColor; }
+.layer:nth-child(4) .def-item { background: rgba(255, 253, 248, .06); border-color: rgba(255, 253, 248, .14); }
+.layer:nth-child(4) .def-item h4 { color: #fffdf8; }
+.layer:nth-child(4) .def-item h4 .ruby { color: var(--night-muted); }
+.layer:nth-child(4) .def-item p { color: #e3d9c9; }
+.layer:nth-child(4) .def-where a { color: var(--gold-light); }
+@media (min-width: 720px) {
+  .def-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .def-item:only-child { grid-column: 1 / -1; }
+  .layer { padding: 24px 26px; }
+}
+
+/* ============================================================
+   05 姥ヶ石
+   ============================================================ */
+.spot {
+  display: grid; overflow: hidden; background: var(--surface);
+  border: 1px solid var(--line); border-radius: calc(var(--radius) + 4px); box-shadow: var(--shadow);
+}
+.spot .fig { display: flex; flex-direction: column; background: var(--paper-deep); }
+.spot .fig-media { border-radius: 0; --ar: 4 / 5; }
+.spot .fig figcaption { margin: 0; padding: 10px 16px 12px; }
+.spot-body { padding: clamp(22px, 4.5vw, 44px); }
+.spot-kicker { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .18em; color: var(--gold-ink); }
+.spot-body h3 { font-family: var(--font-serif); font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem); color: var(--wood); margin-bottom: 20px; }
+.spot-body h3 .ruby { font-family: var(--font-sans); font-size: .5em; }
+.fl-block { padding: 18px 0; border-top: 1px solid var(--line); }
+.fl-block h4 { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 1.02rem; color: var(--wood); margin-bottom: 8px; }
+.fl-block p { margin: 0; color: var(--ink-soft); }
+.fl-block--legend p { font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.9; }
+.caution {
+  display: flex; gap: 10px; margin: 6px 0 0; padding: 12px 14px; border-radius: 10px;
+  background: var(--gold-wash); color: var(--ink-soft); font-size: .9rem;
+}
+.caution svg { flex: none; color: var(--gold-ink); margin-top: 4px; }
+@media (min-width: 820px) {
+  .spot { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .spot .fig-media { --ar: auto; flex: 1; min-height: 420px; }
+  .spot .fig-media img { position: absolute; inset: 0; }
+}
+
+/* ============================================================
+   06 東大柱 × 西大柱
+   ============================================================ */
+.pillar-compare { position: relative; display: grid; gap: 14px; }
+.pillar {
+  display: flex; flex-direction: column; overflow: hidden; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  border-top: 5px solid var(--wood);
+}
+.pillar-west { border-top-color: var(--west); }
+.pillar-head { display: flex; align-items: center; gap: 14px; padding: 16px 18px; }
+.pillar-dir {
+  flex: none; width: 50px; height: 50px; border-radius: 10px; display: grid; place-items: center;
+  font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; color: #fffdf8; background: var(--wood);
+}
+.pillar-west .pillar-dir { background: var(--west); }
+.pillar-head h3 { font-family: var(--font-serif); font-size: 1.45rem; color: var(--wood); }
+.pillar-head p { margin: 0; font-size: .82rem; color: var(--muted); letter-spacing: .08em; }
+.pillar .fig-media { border-radius: 0; --ar: 4 / 5; }
+.pillar .fig figcaption { padding: 0 18px; }
+.pillar-body { padding: 14px 18px 20px; }
+.pillar-body p { margin: 0; color: var(--ink-soft); }
+.pillar-key { display: flex; gap: 10px; align-items: baseline; margin-bottom: 8px !important; }
+.pillar-key .chip { flex: none; }
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-family: var(--font-serif); font-weight: 700; color: var(--gold-ink); letter-spacing: .2em; font-size: .95rem;
+}
+.vs::before, .vs::after { content: ""; flex: 0 1 80px; height: 1px; background: var(--line-strong); }
+@media (min-width: 760px) {
+  .pillar-compare { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .pillar .fig-media { --ar: 1 / 1; }
+  .pillar .fig-media img { object-position: 50% 42%; }
+  .vs {
+    position: absolute; left: 50%; top: 22px; transform: translateX(-50%); z-index: 2;
+    width: 52px; height: 52px; border-radius: 50%; background: var(--paper-deep); border: 1px solid var(--line-strong); letter-spacing: .04em;
+  }
+  .vs::before, .vs::after { display: none; }
+}
+
+.compare-wrap { margin-top: clamp(36px, 6vw, 56px); }
+.compare-table {
+  width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: .96rem;
+}
+.compare-table caption { caption-side: top; text-align: left; padding-bottom: 12px; font-weight: 700; font-size: 1.12rem; color: var(--wood); }
+.compare-table th, .compare-table td { padding: 14px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.compare-table tbody tr:last-child > * { border-bottom: 0; }
+.compare-table thead th { background: var(--wood); color: #fffdf8; letter-spacing: .1em; }
+.compare-table thead th:nth-child(3) { background: var(--west); }
+.compare-table tbody th { width: 20%; background: var(--paper); color: var(--wood); white-space: nowrap; }
+.compare-table td { color: var(--ink-soft); width: 40%; }
+@media (max-width: 639.98px) {
+  .compare-table, .compare-table tbody, .compare-table tr, .compare-table th, .compare-table td { display: block; width: auto; }
+  .compare-table { border: 0; background: none; border-radius: 0; overflow: visible; }
+  .compare-table caption { display: block; }
+  .compare-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .compare-table tr { margin-bottom: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .compare-table tbody th { padding: 10px 16px; border-bottom: 1px solid var(--line) !important; font-size: .9rem; letter-spacing: .12em; }
+  .compare-table td { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 10px; padding: 11px 16px; border-bottom: 1px solid var(--line) !important; }
+  .compare-table td:last-child { border-bottom: 0 !important; }
+  .compare-table td::before { content: attr(data-label); font-weight: 700; color: var(--wood); }
+  .compare-table td:nth-of-type(2)::before { color: var(--west); }
+}
+
+.joint { margin-top: clamp(36px, 6vw, 56px); display: grid; gap: 24px; padding: clamp(20px, 4vw, 36px); background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line); }
+.joint h3 { font-size: clamp(1.15rem, 1rem + .7vw, 1.4rem); color: var(--wood); margin-bottom: 12px; }
+.joint-fig { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.jv { display: grid; grid-template-columns: auto auto auto; align-items: stretch; gap: 0 12px; }
+.jv-floors, .jv-labels { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: repeat(7, 30px); }
+.jv-floors li { font-size: .72rem; font-weight: 700; color: var(--muted); display: flex; align-items: center; justify-content: flex-end; border-bottom: 1px dotted var(--line-strong); }
+.jv-pillar { position: relative; width: 34px; display: grid; grid-template-rows: 3.5fr 3.5fr; border-radius: 4px; overflow: hidden; }
+.jv-upper { background: linear-gradient(90deg, #a07e4d, #c9a66e 45%, #a07e4d); }
+.jv-lower { background: linear-gradient(90deg, #7a5a33, #9d7a4a 45%, #7a5a33); }
+.jv-pillar::after {
+  content: ""; position: absolute; left: -6px; right: -6px; top: 50%; height: 4px; transform: translateY(-50%);
+  background: var(--wood); box-shadow: 0 0 0 2px var(--surface);
+}
+.jv-labels { grid-template-rows: 3.5fr 3.5fr; font-size: .8rem; line-height: 1.45; color: var(--ink-soft); }
+.jv-labels li { display: flex; flex-direction: column; justify-content: center; }
+.jv-labels b { color: var(--wood); }
+.joint-fig figcaption { font-size: .78rem; color: var(--muted); }
+.joint-dl { margin: 0; display: grid; gap: 10px; }
+.joint-dl div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 10px; padding: 12px 14px; background: var(--paper); border-radius: 10px; }
+.joint-dl dt { font-weight: 700; color: var(--west); }
+.joint-dl dd { margin: 0; color: var(--ink-soft); }
+@media (min-width: 820px) { .joint { grid-template-columns: auto minmax(0, 1fr); gap: 48px; align-items: center; } }
+
+/* ============================================================
+   07 城下町 × JR 姬路站
+   ============================================================ */
+.jk-figs { display: grid; gap: 28px; }
+.jk-map .fig-media { --ar: 1780 / 1887; }
+.jk-otemae .fig-media { --ar: 4 / 3; }
+.jk-map-legend { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .82rem; color: var(--ink-soft); }
+.jk-map-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.jk-map-legend i { width: 18px; height: 3px; border-radius: 2px; }
+.jk-body { display: grid; gap: 32px; margin-top: clamp(36px, 6vw, 56px); }
+.jk-body .qa-box { margin-top: 0; }
+.jk-text h3 { font-size: clamp(1.15rem, 1rem + .7vw, 1.4rem); color: var(--wood); margin-bottom: 12px; }
+.jk-text p { color: var(--ink-soft); }
+.axis {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px;
+  margin: 20px 0 0; padding: 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line);
+}
+.axis-node { padding: 6px 12px; border-radius: 8px; background: var(--wood); color: #fffdf8; font-weight: 700; font-size: .92rem; white-space: nowrap; }
+.axis-node.is-station { background: var(--west); }
+.axis-road { position: relative; text-align: center; font-size: .82rem; font-weight: 700; color: var(--gold-ink); padding-bottom: 10px; }
+.axis-road::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; border-radius: 2px; background: repeating-linear-gradient(90deg, var(--gold-deep) 0 10px, transparent 10px 16px); }
+.strata { margin: 0; padding: 20px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
+.strata-title { margin: 0 0 12px; font-weight: 700; color: var(--wood); }
+.strata-group { position: relative; padding-left: 16px; border-left: 3px solid var(--wood); }
+.strata-group + .strata-group { margin-top: 12px; border-left-color: var(--west); }
+.era { display: inline-block; margin-bottom: 8px; padding: 1px 10px; border-radius: 4px; font-size: .74rem; font-weight: 700; letter-spacing: .12em; background: var(--wood); color: #fffdf8; }
+.strata-group + .strata-group .era { background: var(--west); }
+.strata ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.strata ol li {
+  position: relative; padding: 9px 14px; border-radius: 8px; background: var(--paper);
+  border: 1px solid var(--line); font-weight: 700; color: var(--ink); font-size: .95rem;
+}
+.strata ol li small { font-weight: 400; color: var(--muted); font-size: .8rem; margin-left: 6px; }
+.strata ol li:not(:last-child)::after {
+  content: "↓"; position: absolute; left: 50%; bottom: -21px; transform: translateX(-50%);
+  font-size: .85rem; line-height: 20px; color: var(--gold-deep);
+}
+.strata-gap { position: relative; margin: 2px 0 2px 16px; padding: 4px 0 4px 16px; font-size: .78rem; font-weight: 700; color: var(--gold-ink); }
+.strata-gap::before { content: "↓"; margin-right: 6px; }
+.strata figcaption { margin-top: 14px; font-size: .78rem; color: var(--muted); }
+@media (min-width: 820px) {
+  .jk-figs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 32px; }
+}
+@media (min-width: 960px) {
+  .jk-body { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: start; }
+}
+
+/* ============================================================
+   08 修復時間軸
+   ============================================================ */
+.timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 8px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--gold-deep), var(--line-strong)); }
+.tl-item { position: relative; padding: 0 0 22px 36px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before {
+  content: ""; position: absolute; left: 2px; top: 9px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--gold-deep);
+}
+.tl-item.is-key::before { left: -1px; top: 6px; width: 20px; height: 20px; background: var(--wood); border: 4px solid var(--gold-light); }
+.tl-year { display: block; font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--wood); line-height: 1.4; }
+.tl-title { display: block; font-weight: 700; color: var(--ink); }
+.tl-desc { display: block; font-size: .88rem; color: var(--muted); line-height: 1.6; }
+.tl-item.is-key .tl-card { background: var(--gold-wash); border-radius: 10px; padding: 10px 14px; margin: -4px 0 0 -8px; }
+.tl-item .more-link { min-height: 36px; font-size: .86rem; }
+@media (min-width: 960px) {
+  .timeline { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 14px; }
+  .timeline::before { left: 0; right: 0; top: 9px; bottom: auto; width: auto; height: 2px; background: linear-gradient(90deg, var(--gold-deep), var(--line-strong)); }
+  .tl-item { padding: 34px 0 0; }
+  .tl-item::before { left: 0; top: 2px; }
+  .tl-item.is-key::before { left: -3px; top: -1px; }
+  .tl-item.is-key .tl-card { margin: -10px -10px 0 -12px; }
+  .tl-year { font-size: 1.15rem; }
+}
+.repairs { display: grid; gap: 24px; margin-top: clamp(40px, 6vw, 64px); }
+.repair {
+  display: flex; flex-direction: column; gap: 16px; padding: clamp(20px, 3.5vw, 32px);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+.repair-era { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.repair h3 { font-family: var(--font-serif); font-size: clamp(1.35rem, 1.15rem + 1vw, 1.8rem); color: var(--wood); }
+.repair .fig-media { --ar: 4 / 3; }
+.repair--showa .fig-media { --ar: 4 / 5; }
+.model-terms { margin-top: 2px; }
+.model-terms p { margin: 0 0 8px; font-size: .88rem; font-weight: 700; color: var(--gold-ink); }
+@media (min-width: 900px) {
+  .repairs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start; }
+  .repair--showa .fig-media { --ar: 1 / 1; }
+}
+
+/* ============================================================
+   09 阿菊井（深色章節，文化故事感，不走恐怖風）
+   ============================================================ */
+.sec-okiku {
+  background: radial-gradient(120% 70% at 15% 0%, #312822 0%, var(--night) 62%);
+  color: var(--night-ink); --focus-ring: #f3d58c;
+}
+.sec-okiku a { color: var(--night-gold); }
+.sec-okiku a:hover { color: #fff3d6; }
+.sec-okiku strong { color: #fffaf0; }
+.sec-okiku .sec-eyebrow { color: var(--night-gold); }
+.sec-okiku .sec-no { border-color: rgba(217, 189, 130, .6); }
+.sec-okiku .sec-eyebrow::after { background: linear-gradient(90deg, var(--night-gold), transparent); }
+.sec-okiku h2 { color: #fffaf0; }
+.sec-okiku .sec-lead { background: rgba(217, 189, 130, .09); border-left-color: var(--night-gold); color: var(--night-ink); }
+.sec-okiku .lead-label { color: var(--night-gold); }
+.sec-okiku .fig-media { background: var(--night-2); }
+.sec-okiku .fig figcaption { color: var(--night-muted); }
+.sec-okiku .fig-title { color: var(--night-ink); }
+.sec-okiku .img-fallback { color: var(--night-muted); background: repeating-linear-gradient(135deg, #2b2420 0 14px, #342b26 14px 15px); }
+.sec-okiku .img-fallback strong { color: var(--night-ink); }
+.sec-okiku .label-fact { background: var(--night-ink); color: var(--night); }
+.sec-okiku .label-legend { border-color: var(--night-gold); color: var(--night-gold); }
+.okiku-main .fig-media { --ar: 16 / 9; }
+.okiku-grid { display: grid; gap: 28px; margin-top: clamp(32px, 5vw, 48px); }
+.story { position: relative; padding: clamp(20px, 4vw, 32px); border-radius: var(--radius); background: rgba(255, 250, 240, .04); border: 1px solid rgba(255, 250, 240, .1); }
+.story-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; }
+.story-head h3 { font-size: 1.15rem; color: #fffaf0; }
+.story-steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; gap: 12px; }
+.story-steps li { counter-increment: s; position: relative; padding-left: 40px; color: var(--night-ink); }
+.story-steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 1px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-family: var(--font-serif); font-size: .84rem; font-weight: 700;
+  color: var(--night-gold); border: 1px solid rgba(217, 189, 130, .55);
+}
+.story-steps li:not(:last-child)::after { content: ""; position: absolute; left: 12.5px; top: 30px; bottom: -10px; width: 1px; background: rgba(217, 189, 130, .25); }
+.count-voice {
+  margin: 20px 0 0; padding: 16px 18px; border-radius: 10px; background: rgba(217, 189, 130, .07);
+  font-family: var(--font-ja-serif); font-size: clamp(1.15rem, 1rem + .8vw, 1.5rem); letter-spacing: .18em; color: var(--night-gold); text-align: center;
+}
+.count-voice p { margin: 0; }
+.count-voice cite { display: block; margin-top: 6px; font-family: var(--font-sans); font-style: normal; font-size: .74rem; letter-spacing: .08em; color: var(--night-muted); }
+.truth { display: grid; gap: 12px; align-content: start; }
+.truth-item { padding: 16px 18px; border-radius: 12px; background: var(--night-2); border: 1px solid rgba(255, 250, 240, .08); }
+.truth-item p { margin: 8px 0 0; color: var(--night-ink); }
+.truth-item--version { background: transparent; border-style: dashed; border-color: rgba(217, 189, 130, .35); }
+.truth-item--version p { color: var(--night-muted); }
+.truth-item--version b { color: var(--night-ink); }
+.okiku-alt .fig-media { --ar: 4 / 3; }
+@media (min-width: 600px) {
+  /* 直書的「一枚、二枚……」獨立成一欄，內容再長也不會重疊 */
+  .story { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; align-items: start; }
+  .story-head, .story-steps { grid-column: 1; }
+  .count-voice {
+    grid-column: 2; grid-row: 1 / span 2; margin: 0; padding: 16px 12px;
+    writing-mode: vertical-rl; text-align: start;
+    font-size: clamp(1.05rem, .95rem + .4vw, 1.25rem); letter-spacing: .2em;
+  }
+  .count-voice cite { margin: 0 8px 0 0; letter-spacing: .08em; }
+}
+@media (min-width: 960px) {
+  .okiku-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: start; }
+}
+
+/* ============================================================
+   10 FAQ
+   ============================================================ */
+.faq-list { display: grid; gap: 12px; max-width: 880px; }
+.faq {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  transition: box-shadow .2s, border-color .2s;
+}
+.faq[open] { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.faq summary {
+  position: relative; display: flex; gap: 12px; align-items: baseline; cursor: pointer; list-style: none;
+  min-height: 56px; padding: 16px 52px 16px 18px; font-weight: 700; font-size: 1.04rem; line-height: 1.6; color: var(--wood);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: ""; position: absolute; right: 22px; top: 50%; width: 9px; height: 9px;
+  border-right: 2px solid var(--gold-deep); border-bottom: 2px solid var(--gold-deep);
+  transform: translateY(-75%) rotate(45deg); transition: transform .2s;
+}
+.faq[open] summary::after { transform: translateY(-25%) rotate(-135deg); }
+.faq summary:hover { background: rgba(176, 144, 86, .07); }
+.faq summary:focus-visible { outline-offset: -3px; border-radius: 12px; }
+.faq-q { flex: none; font-family: var(--font-serif); color: var(--gold-ink); font-size: 1rem; }
+.faq-a { padding: 16px 18px 18px; border-top: 1px solid var(--line); color: var(--ink-soft); }
+.faq-a p:last-of-type { margin-bottom: 6px; }
+.faq-a .more-link { min-height: 36px; }
+.faq-tools { margin: 0 0 14px; }
+.text-btn {
+  font: inherit; font-size: .88rem; font-weight: 700; color: var(--gold-ink); background: none; border: 1px solid var(--line-strong);
+  border-radius: 999px; padding: 6px 14px; min-height: 40px; cursor: pointer;
+}
+.text-btn:hover { background: var(--gold-wash); }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer { background: #241911; color: #e5dccd; padding: clamp(48px, 8vw, 80px) 0 28px; font-size: .9rem; --focus-ring: #f3d58c; }
+.site-footer a { color: var(--gold-light); }
+.site-footer a:hover { color: #fff3d6; }
+.footer-grid { display: grid; gap: 36px; }
+.footer-brand { font-family: var(--font-serif); font-weight: 700; font-size: 1.3rem; color: #fffaf0; margin-bottom: 10px; letter-spacing: .08em; }
+.footer-h { font-family: var(--font-sans); font-size: .82rem; letter-spacing: .18em; color: var(--gold-light); margin-bottom: 12px; }
+.legend-key { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+.lk { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.site-footer .label-fact { background: #efe7da; color: #241911; }
+.site-footer .label-legend { border-color: var(--gold-light); color: var(--gold-light); }
+.credits { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 8px; }
+.credits li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 250, 240, .08); line-height: 1.6; overflow-wrap: anywhere; }
+.credits .c-meta { color: #bfb3a2; font-size: .82rem; }
+.footer-bottom { margin-top: 36px; padding-top: 18px; border-top: 1px solid rgba(255, 250, 240, .12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: #bfb3a2; font-size: .82rem; }
+@media (min-width: 720px) { .credits { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; } }
+@media (min-width: 960px) { .footer-grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; } }
+
+/* ============================================================
+   Back to top
+   ============================================================ */
+.to-top {
+  position: fixed; z-index: 60;
+  right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom));
+  width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255, 253, 248, .25);
+  display: grid; place-items: center; align-content: center; gap: 0;
+  background: var(--wood); color: #fffdf8; cursor: pointer; box-shadow: 0 8px 24px rgba(36, 25, 17, .28);
+  font: 700 .62rem/1 var(--font-sans); letter-spacing: .06em;
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .25s, transform .25s, visibility .25s, background-color .2s;
+  --focus-ring: #8a4f0c;
+}
+.to-top.is-shown { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--wood-mid); }
+.to-top svg { margin-bottom: 2px; }
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .can-reveal .reveal:not(.is-in) { opacity: 1; transform: none; }
+}
+
+@media print {
+  .site-header, .floor-rail, .to-top, .skip-link { display: none !important; }
+  .hero { min-height: 0; }
+  .section { padding-block: 32px; }
+  .can-reveal .reveal:not(.is-in) { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要內容</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="bar">
+    <a class="brand" href="#top" aria-label="姬路城 9/26 深度導覽：回到首頁">
+      <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M16 4l5 4H11zM9.5 10h13l3 4h-19zM7.5 16h17l3 4h-23zM9 20v8h14v-8M14 28v-4h4v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      <span>姬路城<span class="brand-more">深度導覽</span></span>
+      <span class="brand-date">9/26</span>
+    </a>
+    <nav class="site-nav" aria-label="章節導覽">
+      <ul>
+        <li><a href="#top">首頁</a></li>
+        <li><a href="#features">七大特色</a></li>
+        <li><a href="#floors">逐層導覽</a></li>
+        <li><a href="#defense">防禦</a></li>
+        <li><a href="#ubagaishi">姥ヶ石</a></li>
+        <li><a href="#pillars">大柱</a></li>
+        <li><a href="#jokamachi">城下町</a></li>
+        <li><a href="#restoration">修復</a></li>
+        <li><a href="#okiku">阿菊井</a></li>
+        <li><a href="#faq">Q&amp;A</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- ========================= Hero ========================= -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <figure class="hero-figure">
+      <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20castle.jpg?width=1280"
+           alt="從廣場望向姬路城：石垣上方為白色的大天守與小天守群，前景為大片草地"
+           width="1280" height="960" fetchpriority="high" decoding="async">
+      <figcaption>姬路城大天守與天守群外觀｜Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_castle.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Drivephotographer, CC0）</figcaption>
+    </figure>
+    <div class="hero-inner wrap">
+      <p class="hero-kicker"><b>9/26</b>實地深度導覽紀錄</p>
+      <h1 id="hero-title" tabindex="-1">
+        <span class="h1-zh">姬路城</span>
+        <span class="h1-en" lang="en">HIMEJI CASTLE</span>
+      </h1>
+      <p class="hero-sub">世界文化遺產・日本國寶</p>
+      <p class="hero-intro">以 9/26 的實際參觀動線、現場解說牌與導覽 Q&amp;A 為主軸：從大天守地下階一路走上最上層，再看石垣、大柱、城下町與傳說。</p>
+      <ul class="hero-facts" aria-label="快速資訊">
+        <li><span class="hf-k">構造</span><span class="hf-v">五重六階＋地下1階</span></li>
+        <li><span class="hf-k">形式</span><span class="hf-v">連立式天守</span></li>
+        <li><span class="hf-k">別稱</span><span class="hf-v">白鷺城</span></li>
+      </ul>
+      <p class="hero-cta">
+        <a class="btn btn-solid" href="#route">開始導覽</a>
+        <a class="btn btn-line" href="#floors">直達逐層導覽</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================= 01 七大特色 ========================= -->
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">01</span><span lang="en">Seven Features</span></p>
+        <h2 id="features-title">姬路城七大特色</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>先用七個關鍵字建立概念：白色外觀、五重六階、連立式天守、迷宮動線、多層防禦、東西大柱，以及保存極完整的近世城郭。</p>
+      </header>
+
+      <ol class="feature-grid">
+        <li>
+          <article class="fcard fcard--hero reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>01</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 20L24 9l19 11"/><path d="M9 20v20h30V20"/><path d="M20 40v-9h8v9"/><path d="M14 25h5v4h-5zM29 25h5v4h-5z"/></svg>
+            </div>
+            <h3>白鷺城的白色外觀</h3>
+            <p>姬路城因白色外觀而有「白鷺城」之稱。外牆大量使用白漆喰總塗籠，不只是形成純白視覺，也具有防火與保護木構件的功能。</p>
+            <ul class="chips" aria-label="關鍵詞"><li class="chip" lang="ja">白漆喰総塗籠</li><li class="chip">防火</li><li class="chip">保護木構件</li></ul>
+          </article>
+        </li>
+        <li>
+          <article class="fcard reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>02</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M19 7h10l3 4H16z"/><path d="M15 15h18l4 5H11z"/><path d="M11 24h26l5 5H6z"/><path d="M10 29v13h28V29"/><path d="M21 42v-6h6v6"/></svg>
+            </div>
+            <h3>五重六階＋地下1階的大天守</h3>
+            <p>大天守從外部屋頂層次看是「五重」，但內部實際為地上六階加地下1階。「重」指外部屋頂層次，「階」指內部樓層，因此兩者數量不同。</p>
+            <a class="more-link" href="#floor-6f">小知識：重與階</a>
+          </article>
+        </li>
+        <li>
+          <article class="fcard reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>03</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M18 8h12l3 5H15z"/><path d="M17 13v27h14V13"/><path d="M4 22h9l2 4H2z"/><path d="M4 26v14h9V26"/><path d="M35 22h9l2 4H33z"/><path d="M35 26v14h9V26"/><path d="M13 31h4M31 31h4"/></svg>
+            </div>
+            <h3>連立式天守群</h3>
+            <p>大天守與西小天守、乾小天守、東小天守透過渡櫓相連，形成完整的連立式天守群。</p>
+            <a class="more-link" href="#route">看參觀路線</a>
+          </article>
+        </li>
+        <li>
+          <article class="fcard reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>04</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="38" height="38" rx="3"/><path d="M13 5v22M13 35h22M21 13v22M29 5v22M35 27h8M29 35v8"/></svg>
+            </div>
+            <h3>迷宮般的防禦動線</h3>
+            <p>從城門進入後並非筆直前往大天守，而是透過城門、曲輪、石垣與迂迴道路，讓攻城者失去方向、減慢速度，並暴露在守軍攻擊範圍。</p>
+            <a class="more-link" href="#defense">看防禦系統</a>
+          </article>
+        </li>
+        <li>
+          <article class="fcard reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>05</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="9" width="40" height="30" rx="2"/><path d="M10 31l5-9 5 9z"/><circle cx="26" cy="26" r="4"/><rect x="34" y="20" width="4" height="11"/></svg>
+            </div>
+            <h3>多層次防禦設備</h3>
+            <p>城內可見狹間、石落、石打棚、城門、石垣、武者隱等設計；天守內還設有大量武具掛，可儲存槍、長槍等武器。</p>
+            <a class="more-link" href="#defense">看八種防禦設計</a>
+          </article>
+        </li>
+        <li>
+          <article class="fcard reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>06</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 8h36M6 40h36"/><rect x="12" y="8" width="7" height="32"/><rect x="29" y="8" width="7" height="32"/><path d="M19 18h10M19 30h10"/><path d="M29 23h7" stroke-dasharray="2 2"/></svg>
+            </div>
+            <h3>東大柱與西大柱</h3>
+            <p>大天守內有兩根高度約 24.6 公尺的巨大核心柱，與梁、柱等共同形成主要木構造。兩根大柱在昭和大修理中的處理方式不同，是理解姬路城修復技術的重要線索。</p>
+            <a class="more-link" href="#pillars">看大柱比較</a>
+          </article>
+        </li>
+        <li>
+          <article class="fcard fcard--wash reveal">
+            <div class="fcard-top">
+              <p class="fcard-no"><small>特色</small><b>07</b></p>
+              <svg class="fcard-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 5"/><path d="M6 24h3M39 24h3M24 6v3M24 39v3"/></svg>
+            </div>
+            <h3>保存極完整的近世城郭</h3>
+            <p>姬路城核心天守群未因戰爭或火災而消失，並經歷昭和與平成兩次重要保存修理，今日仍能看到大量歷史建築與傳統木構造。</p>
+            <a class="more-link" href="#restoration">看修復時間軸</a>
+          </article>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ========================= 02 參觀路線 ========================= -->
+  <section class="section bg-surface" id="route" data-nav="floors" aria-labelledby="route-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">02</span><span lang="en">Route of the Day</span></p>
+        <h2 id="route-title">9/26 參觀路線</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>從大天守入口進入，由地下階一路往上走到 6F，再經小天守／城內，依序看姥ヶ石、阿菊井，最後走向城下町。</p>
+      </header>
+
+      <div class="route-layout">
+        <figure class="fig route-fig reveal">
+          <div class="fig-media">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20Castle%20Aerial%20photograph%202010.jpg?width=1280"
+                 alt="2010 年姬路城周邊航空照片：綠地與堀環繞的城郭範圍，四周是密集的市街"
+                 width="1280" height="1204" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <span class="fig-title">姬路城航空照片（2010）：先從空中建立城郭尺度感</span>
+            <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_Aerial_photograph_2010.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（<span lang="ja">国土地理院</span>，需標示出處）</span>
+          </figcaption>
+        </figure>
+
+        <div class="route-wrap">
+          <h3>參觀動線 Timeline</h3>
+          <ol class="route">
+            <li class="route-step is-major">
+              <a href="#floors"><span class="rs-dot" aria-hidden="true">起</span><span class="rs-text"><span class="rs-title">大天守入口</span><span class="rs-desc">參觀起點，準備進入大天守</span></span></a>
+            </li>
+            <li class="route-group">
+              <p class="rg-label">大天守內部｜由下往上</p>
+              <ol class="route-floors">
+                <li class="route-step is-floor"><a href="#floor-b1"><span class="rs-dot" aria-hidden="true">B1</span><span class="rs-text"><span class="rs-title">B1 地下階</span><span class="rs-desc">巨大木構的尺度與大柱起點</span></span></a></li>
+                <li class="route-step is-floor"><a href="#floor-1f"><span class="rs-dot" aria-hidden="true">1F</span><span class="rs-text"><span class="rs-title">1F 第一階</span><span class="rs-desc">武具掛：天守也是武器庫</span></span></a></li>
+                <li class="route-step is-floor"><a href="#floor-2f"><span class="rs-dot" aria-hidden="true">2F</span><span class="rs-text"><span class="rs-title">2F 第二階</span><span class="rs-desc">破風之間、出格子窗</span></span></a></li>
+                <li class="route-step is-floor"><a href="#floor-3f"><span class="rs-dot" aria-hidden="true">3F</span><span class="rs-text"><span class="rs-title">3F 第三階</span><span class="rs-desc">東大柱與西大柱、武者隱</span></span></a></li>
+                <li class="route-step is-floor"><a href="#floor-4f"><span class="rs-dot" aria-hidden="true">4F</span><span class="rs-text"><span class="rs-title">4F 第四階</span><span class="rs-desc">石打棚、高窗與內室</span></span></a></li>
+                <li class="route-step is-floor"><a href="#floor-5f"><span class="rs-dot" aria-hidden="true">5F</span><span class="rs-text"><span class="rs-title">5F 第五階</span><span class="rs-desc">再次近看東、西大柱</span></span></a></li>
+                <li class="route-step is-floor"><a href="#floor-6f"><span class="rs-dot" aria-hidden="true">6F</span><span class="rs-text"><span class="rs-title">6F 第六階・最上層</span><span class="rs-desc">長壁神社（刑部神社）</span></span></a></li>
+              </ol>
+            </li>
+            <li class="route-step is-major">
+              <a href="#defense"><span class="rs-dot" aria-hidden="true">城</span><span class="rs-text"><span class="rs-title">小天守／城內</span><span class="rs-desc">連立式天守群與迷宮般的防禦動線</span></span></a>
+            </li>
+            <li class="route-step is-major">
+              <a href="#ubagaishi"><span class="rs-dot" aria-hidden="true">石</span><span class="rs-text"><span class="rs-title">姥ヶ石</span><span class="rs-desc">石垣中帶有傳說的石材</span></span></a>
+            </li>
+            <li class="route-step is-major">
+              <a href="#okiku"><span class="rs-dot" aria-hidden="true">井</span><span class="rs-text"><span class="rs-title">阿菊井</span><span class="rs-desc">與《播州皿屋敷》傳說相連的古井</span></span></a>
+            </li>
+            <li class="route-step is-major">
+              <a href="#jokamachi"><span class="rs-dot" aria-hidden="true">町</span><span class="rs-text"><span class="rs-title">城下町</span><span class="rs-desc">沿大手前通走向 JR 姬路站</span></span></a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= 03 逐層導覽（核心） ========================= -->
+  <section class="section sec-floors" id="floors" aria-labelledby="floors-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">03</span><span lang="en">Floor by Floor</span></p>
+        <h2 id="floors-title">大天守 B1～6F 逐層導覽</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>大天守不只是權力象徵：從 B1 往上走到 6F，每一層都能看到木構造、武器儲藏、防禦設計與信仰空間，如何疊合在同一座木造建築裡。</p>
+      </header>
+
+      <div class="floors-intro">
+        <figure class="fig reveal">
+          <div class="fig-media">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20Himeji-jo%20Keep%20Interior%202.jpg?width=1280"
+                 alt="姬路城大天守內部：木地板、粗大的柱與梁，盡頭是透光的窗戶"
+                 width="1280" height="1033" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <span class="fig-title">大天守內部的木造空間（示意，非特定樓層）</span>
+            <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_Himeji-jo_Keep_Interior_2.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Zairon, CC BY 4.0）</span>
+          </figcaption>
+        </figure>
+        <div>
+          <ul class="stat-row" aria-label="大天守樓層概念">
+            <li><b>五重</b><span>外部屋頂層次</span></li>
+            <li><b>六階</b><span>地上樓層</span></li>
+            <li><b>B1</b><span>地下1階</span></li>
+          </ul>
+          <p class="howto">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4v-4h4v-4h4V8h4V4"/></svg>
+            <span>閱讀方式：從 B1 開始往下捲動，就像沿著樓梯一路往上走。樓層列（手機在上方、桌機在左側）會標示目前所在樓層；以下重點依 9/26 現場解說牌與參觀重點整理。</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="floors-layout">
+        <nav class="floor-rail" aria-label="大天守樓層快速跳轉">
+          <p class="fr-title">大天守樓層</p>
+          <p class="fr-hint">由下往上參觀・點選跳轉</p>
+          <ol>
+            <li><a href="#floor-b1"><b>B1</b><span>地下階</span></a></li>
+            <li><a href="#floor-1f"><b>1F</b><span>第一階</span></a></li>
+            <li><a href="#floor-2f"><b>2F</b><span>第二階</span></a></li>
+            <li><a href="#floor-3f"><b>3F</b><span>第三階</span></a></li>
+            <li><a href="#floor-4f"><b>4F</b><span>第四階</span></a></li>
+            <li><a href="#floor-5f"><b>5F</b><span>第五階</span></a></li>
+            <li><a href="#floor-6f"><b>6F</b><span>最上層</span></a></li>
+          </ol>
+        </nav>
+
+        <ol class="floor-list">
+          <!-- B1 -->
+          <li class="floor" id="floor-b1">
+            <span class="floor-badge" aria-hidden="true">B1</span>
+            <article class="floor-card reveal" aria-labelledby="floor-b1-title">
+              <p class="floor-step">第 1 站／共 7 層</p>
+              <h3 id="floor-b1-title"><span class="floor-code">B1</span>｜地下階</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip chip-dark">巨大木構尺度</li><li class="chip">大柱起點</li><li class="chip">地下1階＋地上6階</li><li class="chip">多重功能</li>
+              </ul>
+              <ul class="points">
+                <li>一進入大天守，就能直接感受到<strong>巨大木構建築的尺度</strong>。</li>
+                <li>地下階是理解天守<strong>垂直結構</strong>與<strong>巨大柱材起點</strong>的重要空間。</li>
+                <li>先建立基本概念：<strong>大天守＝地下1階＋地上6階</strong>。</li>
+                <li>從這裡帶出天守兼具<strong>防禦、儲藏與最後據點</strong>等多重功能。</li>
+              </ul>
+              <p class="floor-next"><a href="#floor-1f"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>上樓：1F 第一階</a></p>
+            </article>
+          </li>
+
+          <!-- 1F -->
+          <li class="floor" id="floor-1f">
+            <span class="floor-badge" aria-hidden="true">1F</span>
+            <article class="floor-card reveal" aria-labelledby="floor-1f-title">
+              <p class="floor-step">第 2 站／共 7 層</p>
+              <h3 id="floor-1f-title"><span class="floor-code">1F</span>｜第一階</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip chip-dark" lang="ja">武具掛け</li><li class="chip">武器與物資儲藏</li><li class="chip">解說牌：<span lang="ja">大天守の役割</span></li>
+              </ul>
+              <ul class="points">
+                <li><strong>武具掛</strong>（<span lang="ja">武具掛け</span>，武器架）：牆面設有大量放置槍、長槍等武器的架子。</li>
+                <li>大天守並非純粹的象徵建築，也具有<strong>武器與軍需物資的儲藏功能</strong>。</li>
+              </ul>
+              <aside class="note" aria-label="現場解說牌">
+                <p class="note-label">現場解說牌「<span lang="ja">大天守の役割</span>」</p>
+                <p>天守曾設有大量武具掛，亦可保存重要物資、金銀等。</p>
+              </aside>
+              <p class="floor-next"><a href="#floor-2f"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>上樓：2F 第二階</a></p>
+            </article>
+          </li>
+
+          <!-- 2F -->
+          <li class="floor" id="floor-2f">
+            <span class="floor-badge" aria-hidden="true">2F</span>
+            <article class="floor-card reveal" aria-labelledby="floor-2f-title">
+              <p class="floor-step">第 3 站／共 7 層</p>
+              <h3 id="floor-2f-title"><span class="floor-code">2F</span>｜第二階</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip">武具庫／武具掛</li><li class="chip chip-dark" lang="ja">破風の間</li><li class="chip" lang="ja">出格子窓</li><li class="chip">屋頂層數 ≠ 樓層數</li>
+              </ul>
+              <ul class="points">
+                <li><strong>武具庫／武具掛</strong>：延續 1F，持續可見天守的儲藏機能。</li>
+                <li><strong>破風之間</strong>（<span lang="ja">破風の間</span>）：利用屋頂破風形成的特殊內部空間。</li>
+                <li><strong>出格子窗</strong>（<span lang="ja">出格子窓</span>）等城郭建築的窗戶構造。</li>
+                <li>從這一層開始可以清楚理解：<strong>外部屋頂層數不等於內部樓層數</strong>。</li>
+              </ul>
+              <p class="floor-next"><a href="#floor-3f"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>上樓：3F 第三階</a></p>
+            </article>
+          </li>
+
+          <!-- 3F -->
+          <li class="floor" id="floor-3f">
+            <span class="floor-badge" aria-hidden="true">3F</span>
+            <article class="floor-card reveal" aria-labelledby="floor-3f-title">
+              <p class="floor-step">第 4 站／共 7 層</p>
+              <h3 id="floor-3f-title"><span class="floor-code">3F</span>｜第三階</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip chip-dark">東大柱・西大柱</li><li class="chip" lang="ja">武者隠し</li><li class="chip">核心木構件</li>
+              </ul>
+              <ul class="points">
+                <li><strong>東大柱與西大柱</strong>：大天守的核心木構件。</li>
+                <li><strong>武者隱</strong>（<span lang="ja">武者隠し</span>）：特殊的隱蔽空間，現場可觀察天守如何利用結構形成小型空間。</li>
+              </ul>
+              <aside class="note" aria-label="延伸閱讀">
+                <p class="note-label">延伸閱讀</p>
+                <p>兩根大柱高度相同，昭和大修理時的處理方式卻不同。<br><a class="more-link" href="#pillars">東大柱 vs 西大柱</a></p>
+              </aside>
+              <p class="floor-next"><a href="#floor-4f"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>上樓：4F 第四階</a></p>
+            </article>
+          </li>
+
+          <!-- 4F -->
+          <li class="floor" id="floor-4f">
+            <span class="floor-badge" aria-hidden="true">4F</span>
+            <article class="floor-card reveal" aria-labelledby="floor-4f-title">
+              <p class="floor-step">第 5 站／共 7 層</p>
+              <h3 id="floor-4f-title"><span class="floor-code">4F</span>｜第四階</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip chip-dark">石打棚</li><li class="chip">高窗・內室</li><li class="chip">高低差與特殊空間</li>
+              </ul>
+              <ul class="points">
+                <li><strong>石打棚</strong>（<span class="ruby" lang="ja">いしうちだな</span>）等防禦構造。</li>
+                <li><strong>高窗、內室</strong>等特殊空間。</li>
+                <li>天守內部不是單純一層一層的大房間，而會因<strong>屋頂、破風、梁架與防禦需求</strong>，產生高低差及特殊空間。</li>
+              </ul>
+              <p class="floor-next"><a href="#floor-5f"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>上樓：5F 第五階</a></p>
+            </article>
+          </li>
+
+          <!-- 5F -->
+          <li class="floor" id="floor-5f">
+            <span class="floor-badge" aria-hidden="true">5F</span>
+            <article class="floor-card reveal" aria-labelledby="floor-5f-title">
+              <p class="floor-step">第 6 站／共 7 層</p>
+              <h3 id="floor-5f-title"><span class="floor-code">5F</span>｜第五階</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip chip-dark">東、西大柱近觀</li><li class="chip">昭和大修理</li><li class="chip">17 世紀 × 20 世紀</li>
+              </ul>
+              <ul class="points">
+                <li>再次<strong>近距離觀察東、西大柱</strong>。</li>
+                <li>現場解說可連結<strong>昭和大修理</strong>對柱材的檢查、保存與補強。</li>
+                <li>在這裡把「<strong>17世紀木造建築</strong>」與「<strong>20世紀文化資產修復</strong>」串接起來。</li>
+              </ul>
+              <aside class="note" aria-label="延伸閱讀">
+                <p class="note-label">延伸閱讀</p>
+                <p><a class="more-link" href="#showa">昭和大修理（1956–1964）</a></p>
+              </aside>
+              <p class="floor-next"><a href="#floor-6f"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>上樓：6F 最上層</a></p>
+            </article>
+          </li>
+
+          <!-- 6F -->
+          <li class="floor" id="floor-6f">
+            <span class="floor-badge" aria-hidden="true">6F</span>
+            <article class="floor-card reveal" aria-labelledby="floor-6f-title">
+              <p class="floor-step">第 7 站／共 7 層・最上層</p>
+              <h3 id="floor-6f-title"><span class="floor-code">6F</span>｜第六階・最上層</h3>
+              <ul class="chips" aria-label="重點標籤">
+                <li class="chip chip-dark" lang="ja">長壁神社</li><li class="chip">最上層窗戶與視野</li><li class="chip">五重六階</li>
+              </ul>
+              <ul class="points">
+                <li><strong><span lang="ja">長壁神社</span></strong>（<span class="ruby" lang="ja">おさかべじんじゃ</span>／刑部神社）：大天守最高層的重要信仰空間。</li>
+                <li>最上層的窗戶、視野與結構特色。</li>
+              </ul>
+              <aside class="note" aria-label="小知識">
+                <p class="note-label">小知識｜為什麼外面看是五重，裡面卻有六階？</p>
+                <p><strong>「重」＝外部屋頂層次；「階」＝內部實際樓層。</strong>兩者計算的對象不同，所以數字不一樣。</p>
+                <figure class="kasane">
+                  <div class="kasane-col">
+                    <p class="kasane-h">從外面看<strong>五「重」</strong></p>
+                    <div class="roofs" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+                    <p class="kasane-note">重＝屋頂層次</p>
+                  </div>
+                  <div class="kasane-col">
+                    <p class="kasane-h">在裡面走<strong>六「階」＋B1</strong></p>
+                    <ol class="levels" aria-hidden="true"><li>6F</li><li>5F</li><li>4F</li><li>3F</li><li>2F</li><li>1F</li><li class="is-b1">B1</li></ol>
+                    <p class="kasane-note">階＝內部樓層</p>
+                  </div>
+                  <figcaption>示意圖：只表示層數概念，屋頂層次與內部樓層並非一一對應，亦非實際比例。</figcaption>
+                </figure>
+              </aside>
+              <p class="floor-next"><a href="#defense"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h9l-4-4 1.4-1.4L17 11l-6.6 6.4L9 16l4-4H4z" fill="currentColor"/></svg>下樓後：小天守／城內的防禦系統</a></p>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= 04 防禦 ========================= -->
+  <section class="section" id="defense" aria-labelledby="defense-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">04</span><span lang="en">Layered Defense</span></p>
+        <h2 id="defense-title">迷宮般的防禦系統</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>姬路城的防禦不是單一裝置，而是「都市／城郭動線＋城門＋石垣＋建築本體」共同形成的多層防禦系統。</p>
+      </header>
+
+      <p class="layers-hint"><span>外側</span><i aria-hidden="true"></i><span>核心：攻城者必須一層層突破</span></p>
+      <ol class="layers">
+        <li class="layer reveal">
+          <div class="layer-head"><span class="layer-no">第一層</span><h3>都市／城郭動線</h3></div>
+          <ul class="def-items">
+            <li class="def-item">
+              <h4>迂迴的進城動線</h4>
+              <p>進入城門後並非筆直通往大天守，道路反覆轉折，讓攻城者失去方向、減慢速度，並長時間暴露在守軍攻擊範圍內。</p>
+            </li>
+            <li class="def-item">
+              <h4>曲輪 <span class="ruby" lang="ja">くるわ</span></h4>
+              <p>城郭內被石垣、城牆等劃分出的一個個區域；攻城者必須逐區突破，才能接近核心。</p>
+            </li>
+          </ul>
+        </li>
+        <li class="layer reveal">
+          <div class="layer-head"><span class="layer-no">第二層</span><h3>城門</h3></div>
+          <ul class="def-items">
+            <li class="def-item">
+              <h4>多重城門</h4>
+              <p>一道道城門把動線切成數段，每一道門都是可以阻擋、集中反擊的關卡。</p>
+            </li>
+          </ul>
+        </li>
+        <li class="layer reveal">
+          <div class="layer-head"><span class="layer-no">第三層</span><h3>石垣</h3></div>
+          <ul class="def-items">
+            <li class="def-item">
+              <h4>石垣</h4>
+              <p>高聳的石牆是城郭建築的基礎，也是難以攀爬的屏障，讓攻城者無法輕易接近上方的建築。</p>
+            </li>
+          </ul>
+        </li>
+        <li class="layer reveal">
+          <div class="layer-head"><span class="layer-no">第四層</span><h3>建築本體</h3></div>
+          <ul class="def-items">
+            <li class="def-item">
+              <h4>狹間 <span class="ruby" lang="ja">狭間・さま</span></h4>
+              <p>牆面上開設的射擊孔，守軍可從內側以弓箭或鐵砲向外攻擊。</p>
+            </li>
+            <li class="def-item">
+              <h4>石落／石打棚</h4>
+              <p>石落（<span lang="ja">いしおとし</span>）是牆面下緣向外突出的開口，可從上方攻擊逼近石垣的敵人；石打棚則是天守內部的高台，讓守軍能從較高的窗戶向外攻擊。</p>
+              <p class="def-where"><a href="#floor-4f">石打棚：見 4F</a></p>
+            </li>
+            <li class="def-item">
+              <h4>武者隱 <span class="ruby" lang="ja">武者隠し</span></h4>
+              <p>利用結構形成的隱蔽小空間，可讓守軍藏身、伺機反擊。</p>
+              <p class="def-where"><a href="#floor-3f">見 3F</a></p>
+            </li>
+            <li class="def-item">
+              <h4>武具掛 <span class="ruby" lang="ja">武具掛け</span></h4>
+              <p>放置槍、長槍等武器的架子，讓天守同時具有武器儲藏的功能。</p>
+              <p class="def-where"><a href="#floor-1f">見 1F</a><a href="#floor-2f">見 2F</a></p>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <aside class="qa-box reveal" id="defense-qa" aria-labelledby="qa1-title">
+        <span class="qa-tag">9/26 現場 Q&amp;A｜Q1</span>
+        <h3 id="qa1-title">姬路城沒有遭受大規模攻城，為什麼防禦設計如此完整？</h3>
+        <div class="qa-a">
+          <span class="qa-a-mark" aria-hidden="true">A</span>
+          <div>
+            <ol class="reasons">
+              <li><b>時代背景</b>現存主要城郭在戰國末期至江戶初期完成。當時大規模戰爭的記憶仍非常接近，築城技術吸收了戰國時代的實戰經驗。</li>
+              <li><b>地理位置</b>姬路位於連結畿內與西日本的重要位置，城郭本來就必須以可能發生的戰爭為前提規劃。</li>
+              <li><b>威懾與權威</b>防禦能力本身，亦具有威懾與展現統治權威的功能。</li>
+            </ol>
+            <p>因此「沒有真正遭受大規模攻城」不代表不需要防禦；反而可以理解為：<strong>這是一座為可能發生的戰爭做足準備、最終卻沒有迎來大型攻城戰的城郭。</strong></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ========================= 05 姥ヶ石 ========================= -->
+  <section class="section bg-surface" id="ubagaishi" aria-labelledby="ubagaishi-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">05</span><span lang="en">Ubagaishi Stone</span></p>
+        <h2 id="ubagaishi-title"><span lang="ja">姥ヶ石</span>（うばがいし）</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>石垣裡確實有一塊被稱為「姥ヶ石」的石材；至於它的由來，流傳的是「相傳」的故事，而非已證實的史實。</p>
+      </header>
+
+      <article class="spot reveal" aria-labelledby="spot-title">
+        <figure class="fig">
+          <div class="fig-media">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Ubagaishi%20Stone%20in%20Himeji%20Castle.jpg?width=1280"
+                 alt="姬路城石垣的近照：大小石塊堆疊，其中一塊以網子覆蓋保護的石材即為姥ヶ石"
+                 width="1280" height="1707" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <span class="fig-title">石垣中的姥ヶ石（實物）</span>
+            <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Ubagaishi_Stone_in_Himeji_Castle.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（<span lang="ja">そらみみ</span>, CC BY-SA 3.0）</span>
+          </figcaption>
+        </figure>
+        <div class="spot-body">
+          <p class="spot-kicker">景點卡｜石垣</p>
+          <h3 id="spot-title"><span lang="ja">姥ヶ石</span> <span class="ruby" lang="ja">うばがいし</span></h3>
+
+          <div class="fl-block">
+            <h4><span class="label label-fact">史實</span>現場可確認的事物</h4>
+            <p>姬路城石垣中，確實存在被稱為「<span lang="ja">姥ヶ石</span>」的石材。</p>
+          </div>
+          <div class="fl-block fl-block--legend">
+            <h4><span class="label label-legend">傳說</span>著名傳說</h4>
+            <p>相傳築城時石材不足，一名老婆婆將自己的石臼捐出供築城使用；消息傳開後，人們也陸續捐出石材。</p>
+          </div>
+          <p class="caution">
+            <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 5.5v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="14.3" r="1.1" fill="currentColor"/></svg>
+            <span>閱讀提醒：「老婆婆捐出石臼」屬於民間相傳的故事，不應視為已證實的史實；能在現場確認的，是石垣中這塊被稱為姥ヶ石的石材本身。</span>
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================= 06 東大柱 × 西大柱 ========================= -->
+  <section class="section bg-deep" id="pillars" aria-labelledby="pillars-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">06</span><span lang="en">East &amp; West Pillars</span></p>
+        <h2 id="pillars-title">東大柱 × 西大柱</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>兩根大柱高度相同、功能相同，真正的差異在昭和大修理時的保存方式：東大柱以保存、補強原有材料為主，西大柱則大幅更換，並以兩根巨大檜木上下接合。</p>
+      </header>
+
+      <div class="pillar-compare">
+        <article class="pillar pillar-east reveal" aria-labelledby="east-title">
+          <div class="pillar-head">
+            <span class="pillar-dir" aria-hidden="true">東</span>
+            <div><h3 id="east-title">東大柱</h3><p lang="en">EAST LARGE PILLAR</p></div>
+          </div>
+          <figure class="fig">
+            <div class="fig-media">
+              <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20Castle%20No09%20108.jpg?width=1280"
+                   alt="大天守內的東大柱：粗大的木柱上掛著寫有「東大柱」的名牌，旁邊站著一位參觀者"
+                   width="1280" height="1920" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <span class="fig-title">東大柱</span>
+              <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_No09_108.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Corpse Reviver, CC BY 3.0）・<a href="https://commons.wikimedia.org/wiki/Category:East_Large_Pillar_%28Himeji_Castle%29" target="_blank" rel="noopener">分類頁<span class="sr-only">（開新分頁）</span></a></span>
+            </figcaption>
+          </figure>
+          <div class="pillar-body">
+            <p class="pillar-key"><span class="chip chip-dark">保存</span><span>原有柱材以保存、補強為主，保存較多原有柱材。</span></p>
+            <p>原柱的保存價值高。</p>
+          </div>
+        </article>
+
+        <p class="vs" aria-hidden="true">VS</p>
+
+        <article class="pillar pillar-west reveal" aria-labelledby="west-title">
+          <div class="pillar-head">
+            <span class="pillar-dir" aria-hidden="true">西</span>
+            <div><h3 id="west-title">西大柱</h3><p lang="en">WEST LARGE PILLAR</p></div>
+          </div>
+          <figure class="fig">
+            <div class="fig-media">
+              <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20Castle%20No09%20107.jpg?width=1280"
+                   alt="大天守內的西大柱：粗大的木柱上掛著寫有「西大柱」的名牌"
+                   width="1280" height="1920" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <span class="fig-title">西大柱</span>
+              <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_No09_107.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Corpse Reviver, CC BY 3.0）・<a href="https://commons.wikimedia.org/wiki/Category:West_Large_Pillar_%28Himeji_Castle%29" target="_blank" rel="noopener">分類頁<span class="sr-only">（開新分頁）</span></a></span>
+            </figcaption>
+          </figure>
+          <div class="pillar-body">
+            <p class="pillar-key"><span class="chip chip-west">更換</span><span>因劣化等因素大幅更換，使用巨大檜木上下接合。</span></p>
+            <p>尋找合適巨大檜木的過程特別著名。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="compare-wrap reveal">
+        <table class="compare-table" role="table">
+          <caption>東大柱與西大柱比較表</caption>
+          <thead role="rowgroup">
+            <tr role="row"><th scope="col" role="columnheader">比較</th><th scope="col" role="columnheader">東大柱</th><th scope="col" role="columnheader">西大柱</th></tr>
+          </thead>
+          <tbody role="rowgroup">
+            <tr role="row"><th scope="row" role="rowheader">位置</th><td role="cell" data-label="東大柱">大天守東側</td><td role="cell" data-label="西大柱">大天守西側</td></tr>
+            <tr role="row"><th scope="row" role="rowheader">高度</th><td role="cell" data-label="東大柱">約24.6m</td><td role="cell" data-label="西大柱">約24.6m</td></tr>
+            <tr role="row"><th scope="row" role="rowheader">功能</th><td role="cell" data-label="東大柱">核心木構件</td><td role="cell" data-label="西大柱">核心木構件</td></tr>
+            <tr role="row"><th scope="row" role="rowheader">昭和大修理</th><td role="cell" data-label="東大柱">原有柱材以保存、補強為主</td><td role="cell" data-label="西大柱">因劣化等因素大幅更換</td></tr>
+            <tr role="row"><th scope="row" role="rowheader">現況特色</th><td role="cell" data-label="東大柱">保存較多原有柱材</td><td role="cell" data-label="西大柱">使用巨大檜木上下接合</td></tr>
+            <tr role="row"><th scope="row" role="rowheader">修復故事</th><td role="cell" data-label="東大柱">原柱保存價值高</td><td role="cell" data-label="西大柱">尋找合適巨大檜木的過程特別著名</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="joint reveal">
+        <figure class="joint-fig">
+          <div class="jv" aria-hidden="true">
+            <ol class="jv-floors"><li>6F</li><li>5F</li><li>4F</li><li>3F</li><li>2F</li><li>1F</li><li>B1</li></ol>
+            <div class="jv-pillar"><span class="jv-upper"></span><span class="jv-lower"></span></div>
+            <ol class="jv-labels">
+              <li><b>上半部</b>岐阜縣中津川市<br>神坂的檜木</li>
+              <li><b>下半部</b>兵庫縣神崎郡市川町<br>笠形神社的檜木</li>
+            </ol>
+          </div>
+          <figcaption>西大柱接合示意（三樓附近接合；非實際比例）</figcaption>
+        </figure>
+        <div>
+          <h3>西大柱：兩根巨大檜木，上下接合</h3>
+          <dl class="joint-dl">
+            <div><dt>上半部</dt><dd>岐阜縣中津川市神坂的檜木</dd></div>
+            <div><dt>下半部</dt><dd>兵庫縣神崎郡市川町笠形神社的檜木</dd></div>
+            <div><dt>接合位置</dt><dd>在三樓附近接合</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <aside class="qa-box reveal" id="pillars-qa" aria-labelledby="qa3-title">
+        <span class="qa-tag">9/26 現場 Q&amp;A｜Q3</span>
+        <h3 id="qa3-title">東大柱與西大柱有什麼差異？</h3>
+        <div class="qa-a">
+          <span class="qa-a-mark" aria-hidden="true">A</span>
+          <div>
+            <p>兩者都是高度約24.6公尺、支撐大天守的重要巨柱；<strong>最大的差異在昭和大修理的保存方式</strong>：東大柱以保存、補強原有材料為主，西大柱則因狀況需要大幅更換，並以兩根巨大檜木上下接合。</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ========================= 07 城下町 × JR 姬路站 ========================= -->
+  <section class="section" id="jokamachi" aria-labelledby="jokamachi-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">07</span><span lang="en">Castle Town &amp; Station</span></p>
+        <h2 id="jokamachi-title">城下町 × JR 姬路站</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>不是姬路城蓋得離車站太遠，而是姬路城與城下町早在鐵路出現前數百年就已形成。</p>
+      </header>
+
+      <div class="jk-figs">
+        <figure class="fig jk-map reveal">
+          <div class="fig-media fit-contain">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20City%20Center%20Aerial%20Photo%202010%20with%201806%20Map%20Overlay.jpg?width=1280"
+                 alt="2010 年姬路市中心航空照片疊合 1806 年姬路城下繪圖，以紅、綠、藍色線標示城下町的範圍"
+                 width="1280" height="1357" loading="lazy" decoding="async">
+          </div>
+          <ul class="jk-map-legend" aria-label="圖例（依檔案說明）">
+            <li><i style="background:#d63a2f" aria-hidden="true"></i>紅線內：內曲輪</li>
+            <li><i style="background:#2f9a4a" aria-hidden="true"></i>綠線內：中曲輪</li>
+            <li><i style="background:#2f58c9" aria-hidden="true"></i>藍線內：外曲輪（內町）</li>
+            <li><i style="background:#5cc6e0" aria-hidden="true"></i>水藍線：船場川（左）、三左衛門堀（中央下）</li>
+          </ul>
+          <figcaption>
+            <span class="fig-title">圖 A｜1806 年城下町繪圖 × 2010 年航空照片</span>
+            <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_City_Center_Aerial_Photo_2010_with_1806_Map_Overlay.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（航空写真：<span lang="ja">国土地理院</span>／絵図：<span lang="ja">姫路藩</span>, CC BY 4.0）</span>
+          </figcaption>
+        </figure>
+
+        <figure class="fig jk-otemae reveal">
+          <div class="fig-media">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Otemae-dori%20seen%20from%20Himeji%20Station.jpg?width=1280"
+                 alt="從 JR 姬路站望向筆直的大手前通，道路盡頭遠方可見姬路城大天守"
+                 width="1280" height="960" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <span class="fig-title">圖 B｜從 JR 姬路站看大手前通（<span lang="ja">おおてまえどおり</span>）與姬路城</span>
+            <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Otemae-dori_seen_from_Himeji_Station.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Christophe95, CC BY-SA 4.0）</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="jk-body">
+        <aside class="qa-box reveal" id="jokamachi-qa" aria-labelledby="qa2-title">
+          <span class="qa-tag">9/26 現場 Q&amp;A｜Q2</span>
+          <h3 id="qa2-title">為什麼姬路城離 JR 姬路站有一段距離？</h3>
+          <div class="qa-a">
+            <span class="qa-a-mark" aria-hidden="true">A</span>
+            <div>
+              <p><strong>不是姬路城蓋得離車站太遠，而是姬路城與城下町早在鐵路出現前數百年就已形成。</strong></p>
+              <p>江戶時代以姬路城為核心形成完整的城下町，外圍有壕溝、土壘，並配置武家地、町人地等。</p>
+              <p>明治時代興建山陽鐵道時，既有城下町已相當完整，因此鐵路設於舊城下町南側、接近外堀一帶，姬路站位於城下町南端附近。</p>
+              <p>最後形成今日清楚的都市軸線：</p>
+              <div class="axis" role="img" aria-label="都市軸線：姬路城，經大手前通，到 JR 姬路站">
+                <span class="axis-node">姬路城</span>
+                <span class="axis-road">大手前通</span>
+                <span class="axis-node is-station">JR姬路站</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <figure class="strata reveal">
+          <p class="strata-title">由城往車站的簡化示意</p>
+          <div class="strata-group">
+            <span class="era">江戶時代・城下町</span>
+            <ol>
+              <li>姬路城</li>
+              <li>城內／武家地</li>
+              <li>町人地</li>
+              <li>外堀</li>
+            </ol>
+          </div>
+          <p class="strata-gap">鐵路晚於城下町數百年出現</p>
+          <div class="strata-group">
+            <span class="era">明治以後・近代</span>
+            <ol>
+              <li>近代鐵路</li>
+              <li>JR 姬路站</li>
+            </ol>
+          </div>
+          <figcaption>簡化示意：由北方的姬路城往南到 JR 姬路站，上方四層在江戶時代已形成，鐵路與車站則是明治以後才加在城下町南端。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= 08 修復 ========================= -->
+  <section class="section bg-surface" id="restoration" aria-labelledby="restoration-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">08</span><span lang="en">Conservation</span></p>
+        <h2 id="restoration-title">姬路城如何保存到今天？</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>姬路城能以今日樣貌留存，除了核心天守群未因戰爭或火災而消失，也仰賴昭和與平成兩次重要的保存修理。</p>
+      </header>
+
+      <ol class="timeline">
+        <li class="tl-item reveal"><span class="tl-year">1609年前後</span><span class="tl-title">現存大天守完成</span></li>
+        <li class="tl-item reveal"><span class="tl-year">明治時代</span><span class="tl-title">進入近代</span><span class="tl-desc">城郭用途與城市環境發生改變。</span></li>
+        <li class="tl-item reveal"><span class="tl-year">1931</span><span class="tl-title">大天守指定國寶</span></li>
+        <li class="tl-item is-key reveal"><div class="tl-card"><span class="tl-year">1956–1964</span><span class="tl-title">昭和大修理</span><a class="more-link" href="#showa">看詳情</a></div></li>
+        <li class="tl-item reveal"><span class="tl-year">1993</span><span class="tl-title">登錄世界文化遺產</span></li>
+        <li class="tl-item is-key reveal"><div class="tl-card"><span class="tl-year">2009–2015</span><span class="tl-title">平成大天守保存修理</span><a class="more-link" href="#heisei">看詳情</a></div></li>
+        <li class="tl-item reveal"><span class="tl-year">現今</span><span class="tl-title">世界文化遺產</span><span class="tl-desc">作為世界文化遺產與日本代表性近世城郭保存。</span></li>
+      </ol>
+
+      <div class="repairs">
+        <article class="repair repair--showa reveal" id="showa" aria-labelledby="showa-title">
+          <div class="repair-era"><span class="chip chip-dark">1956–1964</span><span class="chip">約8年</span></div>
+          <h3 id="showa-title">昭和大修理</h3>
+          <ul class="points">
+            <li>約8年的大規模修復。</li>
+            <li>大天守進行大規模<strong>解體、檢查、修復與重新組裝</strong>。</li>
+            <li>東、西大柱的修復故事，屬於此階段的重要內容。<a href="#pillars">回到大柱比較</a></li>
+          </ul>
+          <figure class="fig">
+            <div class="fig-media">
+              <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20Structure%20Model.JPG?width=1280"
+                   alt="姬路城大天守的軸組構造模型：由縱向的柱與橫向的梁組成的多層木造骨架"
+                   width="1280" height="1707" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <span class="fig-title">大天守軸組構造模型</span>
+              <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_Structure_Model.JPG" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（上傳者 Equi, CC BY-SA 3.0）・<a href="https://commons.wikimedia.org/wiki/Category:Under_the_Skin:_Himeji_Castle%27s_Frame" target="_blank" rel="noopener">相關分類<span class="sr-only">（開新分頁）</span></a></span>
+            </figcaption>
+          </figure>
+          <div class="model-terms">
+            <p>這個模型可以用來說明：</p>
+            <ul class="chips"><li class="chip">柱</li><li class="chip">梁</li><li class="chip">筋交</li><li class="chip">木造軸組</li><li class="chip">天守如何形成穩定結構</li></ul>
+          </div>
+        </article>
+
+        <article class="repair reveal" id="heisei" aria-labelledby="heisei-title">
+          <div class="repair-era"><span class="chip chip-dark">2009–2015</span></div>
+          <h3 id="heisei-title">平成大修理</h3>
+          <ul class="points">
+            <li>2009–2015 年進行的大天守保存修理。</li>
+            <li>主要涉及<strong>屋瓦、白漆喰、屋頂</strong>與相關保存修理。</li>
+            <li>與昭和大修理不同，<strong>並非再次將整座大天守全面解體</strong>。</li>
+            <li>修理期間設置大型施工覆屋，並曾讓參觀者觀察修復工程。</li>
+          </ul>
+          <figure class="fig">
+            <div class="fig-media">
+              <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Repair%20construction%20of%20Himeji%20Castle%20J10%2003.jpg?width=1280"
+                   alt="平成保存修理期間，姬路城大天守旁搭起高大的鋼構施工架"
+                   width="1280" height="960" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <span class="fig-title">平成保存修理施工情形</span>
+              <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Repair_construction_of_Himeji_Castle_J10_03.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Corpse Reviver, CC BY 3.0）</span>
+            </figcaption>
+          </figure>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= 09 阿菊井 ========================= -->
+  <section class="section sec-okiku" id="okiku" aria-labelledby="okiku-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">09</span><span lang="en">Okiku's Well</span></p>
+        <h2 id="okiku-title">阿菊井 ×《<span lang="ja">播州皿屋敷</span>》</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>井是真的，故事是傳說：這口古井真實存在於姬路城內，後來與姬路地區著名怪談《播州皿屋敷》緊密連結。</p>
+      </header>
+
+      <figure class="fig okiku-main reveal">
+        <div class="fig-media">
+          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Himeji%20Castle%20Okiku%20Well.jpg?width=1280"
+               alt="姬路城內的阿菊井（お菊井戸）：井口上方設有保護構造，後方是城內的建築與樹木"
+               width="1280" height="720" loading="lazy" decoding="async">
+        </div>
+        <figcaption>
+          <span class="fig-title">阿菊井（<span lang="ja">お菊井戸</span>）</span>
+          <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_Okiku_Well.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（Drivephotographer, CC0）</span>
+        </figcaption>
+      </figure>
+
+      <div class="okiku-grid">
+        <article class="story reveal" aria-labelledby="story-title">
+          <div class="story-head">
+            <span class="label label-legend">傳說</span>
+            <h3 id="story-title">現場說明牌版本的傳說大意</h3>
+          </div>
+          <ol class="story-steps">
+            <li>故事背景約在 1500 年前後。</li>
+            <li>阿菊被派去探查家臣的陰謀。</li>
+            <li>她發現陰謀後，遭人識破。</li>
+            <li>後來因拒絕對方，被以「十個珍貴盤子少了一個」陷害。</li>
+            <li>阿菊遭殺害，並被投入井中。</li>
+            <li>傳說夜裡會從井底傳出數盤子的聲音。</li>
+          </ol>
+          <blockquote class="count-voice">
+            <p lang="ja">一枚、二枚……九枚……</p>
+            <cite>傳說中從井底傳出的聲音</cite>
+          </blockquote>
+        </article>
+
+        <div class="truth">
+          <div class="truth-item reveal">
+            <span class="label label-fact">史實</span>
+            <p>井本身<strong>真實存在</strong>於姬路城內。</p>
+          </div>
+          <div class="truth-item reveal">
+            <span class="label label-legend">傳說</span>
+            <p>「阿菊被投入此井」屬於傳說，<strong>並非已被史料證實的歷史事件</strong>。</p>
+          </div>
+          <div class="truth-item truth-item--version reveal">
+            <p><b>版本不同：</b>姬路版本通常稱《<span lang="ja">播州皿屋敷</span>》（<span lang="ja">ばんしゅうさらやしき</span>），與江戶／東京流傳的《<span lang="ja">番町皿屋敷</span>》（<span lang="ja">ばんちょうさらやしき</span>）有所不同。</p>
+          </div>
+          <figure class="fig okiku-alt reveal">
+            <div class="fig-media">
+              <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Okiku%20Well%20and%20Tenshu%20of%20Himeji%20Castle.jpg?width=1280"
+                   alt="前景是阿菊井，後方可見姬路城白色的大天守與開花的樹木"
+                   width="1280" height="960" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <span class="fig-title">阿菊井與大天守</span>
+              <span class="fig-src">Source: <a href="https://commons.wikimedia.org/wiki/File:Okiku_Well_and_Tenshu_of_Himeji_Castle.jpg" target="_blank" rel="noopener">Wikimedia Commons<span class="sr-only">（開新分頁）</span></a>（<span lang="ja">そらみみ</span>, CC BY-SA 4.0）</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= 10 Q&A ========================= -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="sec-eyebrow"><span class="sec-no">10</span><span lang="en">Review Q&amp;A</span></p>
+        <h2 id="faq-title">9/26 現場 Q&amp;A</h2>
+        <p class="sec-lead"><span class="lead-label">核心結論</span>用三個問題複習這次導覽的重點；完整說明可點「看完整說明」回到對應章節。</p>
+      </header>
+
+      <p class="faq-tools"><button type="button" class="text-btn" id="faqToggle" aria-controls="faqList">全部展開</button></p>
+      <div class="faq-list" id="faqList">
+        <details class="faq">
+          <summary><span class="faq-q">Q1</span><span>姬路城沒有遭受大規模攻城，為什麼防禦設計這麼完整？</span></summary>
+          <div class="faq-a">
+            <p>現存主要城郭完成於戰國末期至江戶初期，築城技術吸收了戰國實戰經驗；姬路又位於連結畿內與西日本的要地，城郭本來就以可能發生的戰爭為前提規劃，防禦能力也具有威懾與統治權威的功能。沒有遭遇大規模攻城，不代表不需要防禦。</p>
+            <a class="more-link" href="#defense-qa">看完整說明</a>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span class="faq-q">Q2</span><span>為什麼姬路城離 JR 姬路站這麼遠？</span></summary>
+          <div class="faq-a">
+            <p>不是城蓋得離車站太遠，而是姬路城與城下町早在鐵路出現前數百年就已形成。明治時代興建山陽鐵道時，鐵路設在既有城下町南側、接近外堀一帶，於是形成「姬路城 → 大手前通 → JR姬路站」的都市軸線。</p>
+            <a class="more-link" href="#jokamachi-qa">看完整說明</a>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span class="faq-q">Q3</span><span>東大柱與西大柱有什麼差異？</span></summary>
+          <div class="faq-a">
+            <p>兩者都是高度約24.6公尺的重要巨柱；差異在昭和大修理的保存方式：東大柱以保存、補強原有材料為主，西大柱則大幅更換，並以兩根巨大檜木上下接合。</p>
+            <a class="more-link" href="#pillars-qa">看完整說明</a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">姬路城 9/26 深度導覽</p>
+      <p>本頁依 9/26 實地參觀動線、現場解說牌與導覽 Q&amp;A 整理。標示「傳說」的內容為民間相傳故事，並非已證實的史實。</p>
+      <p class="legend-key"><span class="lk"><span class="label label-fact">史實</span>現場可確認的事物</span><span class="lk"><span class="label label-legend">傳說</span>民間相傳的故事</span></p>
+    </div>
+    <div>
+      <h2 class="footer-h">圖片來源｜Wikimedia Commons</h2>
+      <ul class="credits">
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_castle.jpg" target="_blank" rel="noopener">Hero｜姬路城大天守外觀</a><span class="c-meta">Drivephotographer・CC0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_Aerial_photograph_2010.jpg" target="_blank" rel="noopener">城郭航空照片（2010）</a><span class="c-meta"><span lang="ja">国土地理院</span>・需標示出處</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_Himeji-jo_Keep_Interior_2.jpg" target="_blank" rel="noopener">大天守內部</a><span class="c-meta">Zairon・CC BY 4.0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Ubagaishi_Stone_in_Himeji_Castle.jpg" target="_blank" rel="noopener">姥ヶ石</a><span class="c-meta"><span lang="ja">そらみみ</span>・CC BY-SA 3.0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_No09_108.jpg" target="_blank" rel="noopener">東大柱</a><span class="c-meta">Corpse Reviver・CC BY 3.0・<a href="https://commons.wikimedia.org/wiki/Category:East_Large_Pillar_%28Himeji_Castle%29" target="_blank" rel="noopener">分類頁</a></span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_No09_107.jpg" target="_blank" rel="noopener">西大柱</a><span class="c-meta">Corpse Reviver・CC BY 3.0・<a href="https://commons.wikimedia.org/wiki/Category:West_Large_Pillar_%28Himeji_Castle%29" target="_blank" rel="noopener">分類頁</a></span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_City_Center_Aerial_Photo_2010_with_1806_Map_Overlay.jpg" target="_blank" rel="noopener">城下町 1806 疊圖</a><span class="c-meta"><span lang="ja">国土地理院</span>／<span lang="ja">姫路藩</span>・CC BY 4.0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Otemae-dori_seen_from_Himeji_Station.jpg" target="_blank" rel="noopener">大手前通／姬路站</a><span class="c-meta">Christophe95・CC BY-SA 4.0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_Structure_Model.JPG" target="_blank" rel="noopener">軸組構造模型</a><span class="c-meta">上傳者 Equi・CC BY-SA 3.0・<a href="https://commons.wikimedia.org/wiki/Category:Under_the_Skin:_Himeji_Castle%27s_Frame" target="_blank" rel="noopener">相關分類</a></span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Repair_construction_of_Himeji_Castle_J10_03.jpg" target="_blank" rel="noopener">平成修理施工</a><span class="c-meta">Corpse Reviver・CC BY 3.0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Himeji_Castle_Okiku_Well.jpg" target="_blank" rel="noopener">阿菊井</a><span class="c-meta">Drivephotographer・CC0</span></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Okiku_Well_and_Tenshu_of_Himeji_Castle.jpg" target="_blank" rel="noopener">阿菊井＋大天守</a><span class="c-meta"><span lang="ja">そらみみ</span>・CC BY-SA 4.0</span></li>
+      </ul>
+      <p>各圖片之作者與授權條款，以 Wikimedia Commons 檔案頁面標示為準。</p>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>姬路城 HIMEJI CASTLE｜9/26 實地深度導覽紀錄</span>
+    <a href="#top">回到頂端 ↑</a>
+  </div>
+</footer>
+
+<button type="button" class="to-top" id="toTop" aria-label="回到頂端">
+  <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M10 4l6 7h-4v5H8v-5H4z" fill="currentColor"/></svg>
+  <span aria-hidden="true">TOP</span>
+</button>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  function behavior() { return reduceMQ.matches ? "auto" : "smooth"; }
+
+  /* sticky header 高度 → CSS 變數（scroll-margin 與樓層列對齊） */
+  var header = document.getElementById("siteHeader");
+  function setNavH() { root.style.setProperty("--nav-h", header.offsetHeight + "px"); }
+  setNavH();
+  window.addEventListener("resize", setNavH, { passive: true });
+
+  var hasIO = "IntersectionObserver" in window;
+
+  /* 章節 scrollspy：同步主導覽 aria-current，並把目前項目捲到手機導覽列可見處 */
+  var navList = document.querySelector(".site-nav ul");
+  var navLinks = [].slice.call(navList.querySelectorAll("a"));
+  var linkById = {};
+  navLinks.forEach(function (a) { linkById[a.getAttribute("href").slice(1)] = a; });
+  function setActive(id) {
+    var a = linkById[id];
+    if (!a || a.getAttribute("aria-current")) return;
+    navLinks.forEach(function (l) { l.removeAttribute("aria-current"); });
+    a.setAttribute("aria-current", "true");
+    var target = a.offsetLeft - (navList.clientWidth - a.offsetWidth) / 2;
+    if (navList.scrollWidth > navList.clientWidth) navList.scrollTo({ left: Math.max(0, target), behavior: behavior() });
+  }
+  if (hasIO) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) setActive(en.target.getAttribute("data-nav") || en.target.id);
+      });
+    }, { rootMargin: "-45% 0px -54% 0px" });
+    [].forEach.call(document.querySelectorAll("main > section[id]"), function (s) { spy.observe(s); });
+  }
+
+  /* 樓層列：目前樓層、已走過樓層、垂直動線進度 */
+  var floors = [].slice.call(document.querySelectorAll(".floor"));
+  var railLinks = [].slice.call(document.querySelectorAll(".floor-rail a"));
+  function setFloor(idx) {
+    floors.forEach(function (f, i) {
+      f.classList.toggle("is-current", i === idx);
+      f.classList.toggle("is-passed", i < idx);
+    });
+    railLinks.forEach(function (a, i) {
+      if (i === idx) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+    });
+  }
+  if (hasIO) {
+    var floorIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) setFloor(floors.indexOf(en.target));
+      });
+    }, { rootMargin: "-38% 0px -58% 0px" });
+    floors.forEach(function (f) { floorIO.observe(f); });
+  }
+
+  /* 回到頂端按鈕：捲過 Hero 後才出現 */
+  var toTop = document.getElementById("toTop");
+  var ticking = false;
+  function updateToTop() {
+    ticking = false;
+    toTop.classList.toggle("is-shown", window.scrollY > window.innerHeight * 0.8);
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(updateToTop); }
+  }, { passive: true });
+  updateToTop();
+
+  /* 回到頂端：捲動並把焦點移回標題，方便鍵盤使用者 */
+  toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: behavior() });
+    var h1 = document.getElementById("hero-title");
+    if (h1) h1.focus({ preventScroll: true });
+  });
+
+  /* FAQ 全部展開／收合 */
+  var faqToggle = document.getElementById("faqToggle");
+  var faqs = [].slice.call(document.querySelectorAll(".faq"));
+  function syncFaqBtn() {
+    var allOpen = faqs.every(function (d) { return d.open; });
+    faqToggle.textContent = allOpen ? "全部收合" : "全部展開";
+    faqToggle.setAttribute("aria-expanded", allOpen ? "true" : "false");
+  }
+  faqToggle.addEventListener("click", function () {
+    var open = !faqs.every(function (d) { return d.open; });
+    faqs.forEach(function (d) { d.open = open; });
+    syncFaqBtn();
+  });
+  faqs.forEach(function (d) { d.addEventListener("toggle", syncFaqBtn); });
+  syncFaqBtn();
+
+  /* 進場淡入：僅在支援 IO 且未要求減少動態時啟用 */
+  if (hasIO && !reduceMQ.matches) {
+    root.classList.add("can-reveal");
+    var revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("is-in"); revealIO.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px 6% 0px", threshold: 0.01 });
+    [].forEach.call(document.querySelectorAll(".reveal"), function (el) { revealIO.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
