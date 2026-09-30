@@ -364,6 +364,68 @@ strong { font-weight: 700; color: var(--wood); }
 .reasons b { display: block; color: #fffdf8; }
 @media (min-width: 900px) { .reasons { grid-template-columns: repeat(3, 1fr); } }
 
+/* Q1：築城時間點（時間邏輯＋重點引用＋年份強調） */
+.yr { font-family: var(--font-serif); font-weight: 700; font-size: 1.08em; letter-spacing: .02em; color: var(--gold-ink); white-space: nowrap; }
+.qa-box .yr { color: #f3d58c; }
+.qa-history { display: grid; gap: 18px; grid-template-areas: "thesis" "chrono" "since"; margin-bottom: 26px; }
+.qa-thesis { grid-area: thesis; margin: 0; }
+.qa-since { grid-area: since; margin: 0; }
+.qa-chrono {
+  grid-area: chrono; margin: 0; padding: 16px 16px 18px; border-radius: 12px;
+  background: rgba(255, 253, 248, .05); border: 1px solid rgba(255, 253, 248, .12);
+}
+.qa-chrono-title { margin: 0 0 14px; font-size: .76rem; font-weight: 700; letter-spacing: .18em; color: var(--gold-light); }
+.qa-tl { list-style: none; margin: 0; padding: 0; }
+.qa-tl li { position: relative; padding: 0 0 24px 32px; }
+.qa-tl li::before { content: ""; position: absolute; left: 7px; top: 22px; bottom: 10px; width: 2px; background: rgba(220, 194, 138, .45); }
+.qa-tl li::after {
+  content: ""; position: absolute; left: 3px; bottom: 3px;
+  border: 5px solid transparent; border-top: 7px solid rgba(220, 194, 138, .8); border-bottom: 0;
+}
+.qa-tl--end li:last-child { padding-bottom: 0; }
+.qa-tl--end li:last-child::before, .qa-tl--end li:last-child::after { display: none; }
+.qa-tl-dot { position: absolute; left: 1px; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold-light); }
+.qa-tl li.is-state .qa-tl-dot { top: 8px; background: transparent; border: 2px solid var(--gold-light); }
+.qa-tl li.is-state::before { top: 25px; }
+.qa-tl-year { display: block; font-family: var(--font-serif); font-size: 1.22rem; font-weight: 700; line-height: 1.3; letter-spacing: .02em; color: var(--gold-light); }
+.qa-tl-text { display: block; line-height: 1.65; color: #eee5d7; }
+.qa-tl li.is-build .qa-tl-year { font-size: 1.42rem; color: #f3d58c; }
+.qa-tl li.is-build .qa-tl-text { font-weight: 700; color: #fffdf8; }
+.qa-tl-tag {
+  display: inline-block; margin-left: 8px; padding: 0 8px; border-radius: 4px; vertical-align: .22em;
+  font-family: var(--font-sans); font-size: .68rem; font-weight: 700; letter-spacing: .1em; line-height: 1.8;
+  background: rgba(220, 194, 138, .2); color: var(--gold-light);
+}
+.qa-quote {
+  position: relative; margin: 0 0 26px; padding: 16px 18px 14px 20px;
+  border-left: 4px solid #f3d58c; border-radius: 0 12px 12px 0;
+  background: linear-gradient(100deg, rgba(220, 194, 138, .22), rgba(220, 194, 138, .07));
+}
+.qa-quote::before { content: ""; position: absolute; left: 7px; top: 100%; width: 2px; height: 16px; background: rgba(220, 194, 138, .45); }
+.qa-quote::after {
+  content: ""; position: absolute; left: 3px; top: calc(100% + 15px);
+  border: 5px solid transparent; border-top: 7px solid rgba(220, 194, 138, .8); border-bottom: 0;
+}
+.qa-quote p { margin: 0; }
+.qa-quote-main {
+  font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.25rem, 1.05rem + 1vw, 1.65rem);
+  line-height: 1.5; letter-spacing: .06em; color: #fffdf8;
+}
+.qa-quote-main span { display: inline-block; }
+.qa-quote .qa-quote-note { margin-top: 6px; font-size: .78rem; letter-spacing: .06em; color: var(--gold-light); }
+.qa-sub { margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .14em; color: var(--gold-light); }
+@media (min-width: 900px) { .reasons--two { grid-template-columns: repeat(2, 1fr); } }
+.qa-conclusion { padding-top: 18px; border-top: 1px solid rgba(220, 194, 138, .35); }
+.qa-conclusion-label { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-size: .76rem; font-weight: 700; letter-spacing: .18em; color: var(--gold-light); }
+.qa-conclusion-label::before { content: ""; width: 16px; height: 2px; background: var(--gold-light); }
+.qa-conclusion p:last-child { margin: 0; max-width: 52em; font-size: 1.02rem; line-height: 1.9; color: #f3ece0; }
+@media (min-width: 960px) {
+  .qa-history {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-rows: auto 1fr;
+    grid-template-areas: "thesis chrono" "since chrono"; column-gap: 36px; row-gap: 16px; align-items: start;
+  }
+}
+
 .more-link {
   display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .92rem; text-decoration: none;
   min-height: 44px; padding: 0 2px;
@@ -932,6 +994,23 @@ strong { font-weight: 700; color: var(--wood); }
 .faq-q { flex: none; font-family: var(--font-serif); color: var(--gold-ink); font-size: 1rem; }
 .faq-a { padding: 16px 18px 18px; border-top: 1px solid var(--line); color: var(--ink-soft); }
 .faq-a p:last-of-type { margin-bottom: 6px; }
+/* FAQ Q1 精簡時間線：手機直排、平板以上橫排 */
+.mini-chrono { list-style: none; margin: 2px 0 16px; padding: 0; display: grid; gap: 16px; }
+.mini-chrono li {
+  position: relative; display: grid; grid-template-columns: 6.8em minmax(0, 1fr); align-items: baseline; gap: 8px;
+  padding: 8px 12px; border-radius: 8px; background: var(--paper); border: 1px solid var(--line); font-size: .9rem; line-height: 1.5;
+}
+.mini-chrono b { font-family: var(--font-serif); font-size: 1.02rem; color: var(--wood); white-space: nowrap; }
+.mini-chrono li.is-build { background: var(--gold-wash); border-color: var(--gold); }
+.mini-chrono li.is-build b { color: var(--gold-ink); }
+.mini-chrono li:not(:last-child)::after {
+  content: "↓"; position: absolute; left: 2.4em; top: 100%; height: 16px; line-height: 16px; font-size: .78rem; color: var(--gold-deep);
+}
+@media (min-width: 600px) {
+  .mini-chrono { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  .mini-chrono li { grid-template-columns: 1fr; gap: 2px; text-align: center; padding: 10px 8px; }
+  .mini-chrono li:not(:last-child)::after { content: "→"; left: auto; right: -11px; top: 50%; transform: translate(50%, -50%); }
+}
 .faq-a .more-link { min-height: 36px; }
 .faq-tools { margin: 0 0 14px; }
 .text-btn {
@@ -1482,12 +1561,39 @@ strong { font-weight: 700; color: var(--wood); }
         <div class="qa-a">
           <span class="qa-a-mark" aria-hidden="true">A</span>
           <div>
-            <ol class="reasons">
-              <li><b>時代背景</b>現存主要城郭在戰國末期至江戶初期完成。當時大規模戰爭的記憶仍非常接近，築城技術吸收了戰國時代的實戰經驗。</li>
+            <div class="qa-history">
+              <p class="qa-thesis">關鍵在於<strong>築城的時間點</strong>。現存主要城郭在戰國末期至江戶初期完成：關原之戰（<b class="yr">1600</b>）後，池田輝政入主姬路，並於 <b class="yr">1601～1609</b> 年大規模改建姬路城。當時大規模戰爭的記憶仍非常接近，築城技術吸收了戰國時代的實戰經驗；雖然德川家康在關原之戰後已取得政治與軍事上的優勢，但天下尚未完全穩定，大阪城仍有豐臣勢力存在，直到 <b class="yr">1615</b> 年大阪夏之陣結束後，德川政權才進一步鞏固。</p>
+
+              <figure class="qa-chrono">
+                <figcaption class="qa-chrono-title">時間邏輯</figcaption>
+                <ol class="qa-tl">
+                  <li><span class="qa-tl-dot" aria-hidden="true"></span><span class="qa-tl-year">1600</span><span class="qa-tl-text">關原之戰</span></li>
+                  <li class="is-build"><span class="qa-tl-dot" aria-hidden="true"></span><span class="qa-tl-year">1601～1609<span class="qa-tl-tag">姬路城改建期</span></span><span class="qa-tl-text">池田輝政大規模改建姬路城</span></li>
+                  <li class="is-state"><span class="qa-tl-dot" aria-hidden="true"></span><span class="qa-tl-text">此時大阪仍存在豐臣勢力，天下尚未完全穩定</span></li>
+                </ol>
+                <blockquote class="qa-quote">
+                  <p class="qa-quote-main"><span>「敵軍真的可能</span><span>攻到姬路。」</span></p>
+                  <p class="qa-quote-note">理解 1601～1609 年築城判斷的關鍵</p>
+                </blockquote>
+                <ol class="qa-tl qa-tl--end" start="4">
+                  <li><span class="qa-tl-dot" aria-hidden="true"></span><span class="qa-tl-year">1615</span><span class="qa-tl-text">大阪夏之陣</span></li>
+                  <li class="is-state"><span class="qa-tl-dot" aria-hidden="true"></span><span class="qa-tl-text">德川政權進一步鞏固</span></li>
+                </ol>
+              </figure>
+
+              <p class="qa-since">因此，理解姬路城的防禦設計時，<strong>不應以後來江戶時代兩百多年相對和平的結果，倒推築城者當時的判斷。</strong>池田輝政在 <b class="yr">1601～1609</b> 年改建姬路城時，所面對的是「大型戰爭才剛結束、政治局勢仍存在不確定性」的時代，因此築城規劃必須以實際戰爭仍可能發生為前提。</p>
+            </div>
+
+            <p class="qa-sub">再加上兩個條件</p>
+            <ol class="reasons reasons--two">
               <li><b>地理位置</b>姬路位於連結畿內與西日本的重要位置，城郭本來就必須以可能發生的戰爭為前提規劃。</li>
               <li><b>威懾與權威</b>防禦能力本身，亦具有威懾與展現統治權威的功能。</li>
             </ol>
-            <p>因此「沒有真正遭受大規模攻城」不代表不需要防禦；反而可以理解為：<strong>這是一座為可能發生的戰爭做足準備、最終卻沒有迎來大型攻城戰的城郭。</strong></p>
+
+            <div class="qa-conclusion">
+              <p class="qa-conclusion-label">結論</p>
+              <p>姬路城後來沒有經歷大規模攻城，並不代表築城時「不需要如此強大的防禦」。相反地，現存姬路城主要是在戰國末期剛結束、天下尚未完全穩定的歷史環境中形成。池田輝政無法預知之後會迎來長期和平，因此城門、曲輪、石垣、狹間、武具儲備與迂迴動線等設計，都必須以<strong>「真正可能遭到敵軍進攻」</strong>為前提。</p>
+            </div>
           </div>
         </div>
       </aside>
@@ -1884,7 +1990,13 @@ strong { font-weight: 700; color: var(--wood); }
         <details class="faq">
           <summary><span class="faq-q">Q1</span><span>姬路城沒有遭受大規模攻城，為什麼防禦設計這麼完整？</span></summary>
           <div class="faq-a">
-            <p>現存主要城郭完成於戰國末期至江戶初期，築城技術吸收了戰國實戰經驗；姬路又位於連結畿內與西日本的要地，城郭本來就以可能發生的戰爭為前提規劃，防禦能力也具有威懾與統治權威的功能。沒有遭遇大規模攻城，不代表不需要防禦。</p>
+            <p>關鍵在於築城的時間點：現存姬路城主要由池田輝政在關原之戰（<b class="yr">1600</b>）後，於 <b class="yr">1601～1609</b> 年大規模改建。當時大阪仍有豐臣勢力、天下尚未完全穩定，直到 <b class="yr">1615</b> 年大阪夏之陣後，德川政權才進一步鞏固。</p>
+            <ol class="mini-chrono" aria-label="時間邏輯">
+              <li><b>1600</b><span>關原之戰</span></li>
+              <li class="is-build"><b>1601～1609</b><span>池田輝政改建姬路城</span></li>
+              <li><b>1615</b><span>大阪夏之陣</span></li>
+            </ol>
+            <p>因此不應以後來兩百多年的和平倒推當時的判斷：築城規劃必須以「敵軍真的可能攻到姬路」為前提；加上姬路位於連結畿內與西日本的要地，防禦能力也具有威懾與統治權威的功能。後來沒有經歷大規模攻城，並不代表築城時不需要如此強大的防禦。</p>
             <a class="more-link" href="#defense-qa">看完整說明</a>
           </div>
         </details>
