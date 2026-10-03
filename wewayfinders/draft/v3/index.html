@@ -387,13 +387,14 @@
     <section id="preview" class="section preview" aria-labelledby="preview-title">
       <!-- v3 裝飾：任務航線（點狀虛線，主要露出在控制台兩側） -->
       <svg class="decor decor--mission-path" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false"><path class="route-line" d="M-20 260C120 200 190 360 330 330S560 420 760 430S1080 380 1220 330S1400 220 1460 240"/><circle class="route-point" cx="96" cy="236" r="4"/><circle class="route-point route-point--cyan" cx="178" cy="302" r="3"/><circle class="route-point" cx="1330" cy="250" r="4"/><use class="route-star" href="#icon-star" x="1386" y="210" width="16" height="16"/></svg>
-      <svg class="ill ill--helmet" viewBox="0 0 140 140" aria-hidden="true"><use href="#ill-helmet"/></svg>
       <div class="container">
         <header class="section-head section-head--center">
           <span class="mission-label" aria-hidden="true">MISSION 04</span>
           <h2 class="section-title" id="preview-title"><span lang="en">PREVIEW</span><span class="visually-hidden">（教材預覽）</span></h2>
           <p class="section-sub" aria-hidden="true">教材預覽</p>
         </header>
+        <!-- 太空寶寶（裝飾）：手機版放在標題下方；平板以上改站在章節面板上緣 -->
+        <div class="char-crop char-crop--head" aria-hidden="true"><img src="../background/character.png" alt="" aria-hidden="true" width="1642" height="958" decoding="async"></div>
 
         <!-- 4.5.1 動畫預覽＋完整教案章節 -->
         <div class="preview-top">
@@ -404,18 +405,28 @@
             <span class="console-signal"><svg class="icon"><use href="#icon-radar"/></svg><span class="signal-bars"><i></i><i></i><i></i></span></span>
           </div>
           <div class="video-block">
-            <div class="video-panel on-cosmos">
-              <svg class="panel-stars" aria-hidden="true" focusable="false"><circle cx="91.1%" cy="46.8%" r="1"/><circle cx="84.4%" cy="20.9%" r="1"/><circle cx="19.6%" cy="45.0%" r="0.5"/><circle cx="68.8%" cy="6.9%" r="0.75"/><circle cx="95.1%" cy="64.5%" r="1"/><circle cx="82.2%" cy="8.9%" r="0.5"/><circle cx="20.0%" cy="25.7%" r="0.5"/><circle class="f-starlight" cx="77.0%" cy="33.7%" r="1"/><circle cx="83.2%" cy="51.8%" r="1.25"/><circle cx="30.0%" cy="3.4%" r="0.5"/><circle cx="83.0%" cy="69.5%" r="0.75"/><circle cx="75.0%" cy="51.2%" r="0.5"/><circle class="f-starlight" cx="8.3%" cy="75.0%" r="0.75"/><circle cx="12.0%" cy="30.3%" r="0.5"/><circle cx="1.6%" cy="22.7%" r="0.5"/><circle cx="40.1%" cy="9.9%" r="1.25"/><circle cx="20.8%" cy="66.4%" r="0.75"/><circle class="f-starlight" cx="10.0%" cy="34.3%" r="0.75"/><circle cx="75.0%" cy="14.1%" r="0.5"/><circle cx="70.1%" cy="4.0%" r="0.75"/><circle cx="78.8%" cy="19.7%" r="1"/><circle cx="19.8%" cy="50.8%" r="1.25"/><circle class="f-starlight" cx="76.1%" cy="42.4%" r="0.75"/><circle cx="12.8%" cy="42.6%" r="0.5"/><circle cx="96.1%" cy="58.7%" r="0.5"/><circle cx="21.9%" cy="40.1%" r="1"/></svg>
-              <button class="play-btn" type="button" data-soon="預覽影片準備中" aria-label="播放復活號動畫預覽">
-                <svg aria-hidden="true"><use href="#icon-play"/></svg>
-              </button>
-              <!-- TODO(待替換): 復活號動畫預覽影片 -->
-              <span class="video-note">〔待替換：復活號動畫預覽影片〕</span>
+            <div class="scene-stage">
+              <div class="video-panel on-cosmos">
+                <img class="scene-img" id="scene-main" src="../background/spaceship_character.png" alt="三位太空寶寶站在太空船駕駛艙的大窗前，窗外是地球" width="1672" height="941" decoding="async">
+                <button class="play-btn" type="button" data-soon="預覽影片準備中" aria-label="播放復活號動畫預覽">
+                  <svg aria-hidden="true"><use href="#icon-play"/></svg>
+                </button>
+                <!-- TODO(待替換): 復活號動畫預覽影片 -->
+                <span class="video-note">〔待替換：復活號動畫預覽影片〕</span>
+              </div>
+              <a class="btn btn-primary video-cta" href="#preview-content"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg>免費試看部分內容</a>
             </div>
-            <a class="btn btn-primary video-cta" href="#preview-content"><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg>免費試看部分內容</a>
+            <!-- 場景縮圖：點擊切換上方面板的圖片 -->
+            <div class="scene-thumbs">
+              <button class="scene-thumb" type="button" aria-pressed="true" data-src="../background/spaceship_character.png" data-alt="三位太空寶寶站在太空船駕駛艙的大窗前，窗外是地球"><span class="scene-thumb-frame"><img src="../background/spaceship_character.png" alt="" width="1672" height="941" loading="lazy" decoding="async"></span><span class="scene-thumb-label">駕駛艙</span></button>
+              <button class="scene-thumb" type="button" aria-pressed="false" data-src="../background/composition_1.png" data-alt="太空船駕駛艙，窗外的提示面板寫著「起飛及降落時，請不要離開座位。」"><span class="scene-thumb-frame"><img src="../background/composition_1.png" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span><span class="scene-thumb-label">起飛提示</span></button>
+              <button class="scene-thumb" type="button" aria-pressed="false" data-src="../background/composition_2.jpg" data-alt="太空船駕駛艙亮起紅色警示，面板寫著「現在目的地月球定位失敗」"><span class="scene-thumb-frame"><img src="../background/composition_2.jpg" alt="" width="636" height="361" loading="lazy" decoding="async"></span><span class="scene-thumb-label">定位警示</span></button>
+            </div>
           </div>
 
-          <div class="chapters-panel">
+          <div class="chapters-col">
+            <div class="char-crop char-crop--panel" aria-hidden="true"><img src="../background/character.png" alt="" aria-hidden="true" width="1642" height="958" decoding="async"></div>
+            <div class="chapters-panel">
             <h3>完整教案章節</h3>
             <!-- TODO(待確認): 加入會員後可試看的章節範圍 -->
             <p class="chapters-note">購買教材後可閱讀全部章節。〔待確認：加入會員後可試看的章節範圍〕</p>
@@ -431,6 +442,7 @@
               <li><a class="chapter-link" href="#join" aria-label="分班手作 1《月球燈》，需加入會員"><span class="tag">手作</span><span class="chapter-name">分班手作 1《月球燈》</span><span class="chapter-time">30 分鐘</span><svg class="chapter-lock" aria-hidden="true"><use href="#icon-lock"/></svg></a></li>
               <li><a class="chapter-link" href="#join" aria-label="分班手作 2《光碟太空船》，需加入會員"><span class="tag">手作</span><span class="chapter-name">分班手作 2《光碟太空船》</span><span class="chapter-time">20 分鐘</span><svg class="chapter-lock" aria-hidden="true"><use href="#icon-lock"/></svg></a></li>
             </ul>
+            </div>
           </div>
         </div>
 
@@ -694,5 +706,63 @@
   <div class="toast-region" role="status" aria-live="polite">
     <div class="toast"></div>
   </div>
+  <script>
+    /* v3：教材預覽場景縮圖切換（只用於本頁，不修改共用的 ../v1/main.js） */
+    (function () {
+      var main = document.getElementById('scene-main');
+      var thumbs = document.querySelectorAll('.scene-thumb');
+      if (!main || !thumbs.length) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function swap(src, alt) {
+        main.src = src;
+        main.alt = alt;
+      }
+
+      // 等新圖載入完成再切換（大型 PNG 可能需要一點時間），失敗時也照常切換
+      function whenLoaded(img) {
+        return new Promise(function (resolve) {
+          if (img.complete) return resolve();
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      }
+
+      Array.prototype.forEach.call(thumbs, function (btn) {
+        btn.addEventListener('click', function () {
+          if (btn.getAttribute('aria-pressed') === 'true') return;
+          Array.prototype.forEach.call(thumbs, function (other) {
+            other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
+          });
+          var src = btn.getAttribute('data-src');
+          var alt = btn.getAttribute('data-alt');
+
+          // 減少動態：直接切換
+          if (reduceMotion.matches) {
+            swap(src, alt);
+            return;
+          }
+
+          // 先載入新圖，再讓舊畫面的副本在上層 200ms 淡出
+          var next = new Image();
+          next.src = src;
+          whenLoaded(next).then(function () {
+            if (btn.getAttribute('aria-pressed') !== 'true') return; // 已改選其他場景
+            var old = main.parentNode.querySelectorAll('.scene-img--leaving');
+            Array.prototype.forEach.call(old, function (el) { el.remove(); });
+            var ghost = main.cloneNode(false);
+            ghost.removeAttribute('id');
+            ghost.alt = '';
+            ghost.setAttribute('aria-hidden', 'true');
+            ghost.classList.add('scene-img--leaving');
+            main.insertAdjacentElement('afterend', ghost);
+            swap(src, alt);
+            setTimeout(function () { ghost.style.opacity = '0'; }, 20);
+            setTimeout(function () { ghost.remove(); }, 260);
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

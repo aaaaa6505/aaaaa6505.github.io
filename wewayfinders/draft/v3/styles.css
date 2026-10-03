@@ -1300,12 +1300,6 @@ main:focus { outline: none; }
 }
 
 /* ---------- 4.5 教材預覽 ---------- */
-.ill--helmet {
-  top: 56px;
-  right: max(8px, calc(50% - 640px));
-  width: 132px;
-}
-
 .preview-top {
   position: relative;
   display: grid;
@@ -1376,9 +1370,17 @@ main:focus { outline: none; }
 
 .video-cta:focus-visible { outline-color: var(--color-white); }
 
-/* 章節面板：高度與左側影片等高，內部可捲動 */
-.chapters-panel {
+/* 章節面板：外層欄位高度＝左欄「場景面板＋縮圖列」，面板內部可捲動 */
+.chapters-col {
+  position: relative;
+  isolation: isolate;
   contain: size;
+}
+
+.chapters-panel {
+  position: relative;
+  z-index: 1;
+  height: 100%;
   overflow-y: auto;
   padding: 24px;
   border: 1px solid var(--panel-border);
@@ -1439,8 +1441,10 @@ main:focus { outline: none; }
 @media (max-width: 1023px) {
   .preview-top { grid-template-columns: minmax(0, 1fr); }
 
+  .chapters-col { contain: none; }
+
   .chapters-panel {
-    contain: none;
+    height: auto;
     overflow: visible;
   }
 }
@@ -1453,11 +1457,6 @@ main:focus { outline: none; }
 
   .video-cta:focus-visible { outline-color: var(--color-cosmos); }
 
-  .ill--helmet {
-    top: 4px;
-    right: 4px;
-    width: 64px;
-  }
 }
 
 /* 4.5.2 免費試閱內容 */
@@ -2579,6 +2578,170 @@ textarea.input {
 
   .console-signal { display: none; }
   .video-cta { box-shadow: 0 6px 18px color-mix(in srgb, var(--space-purple) 16%, transparent); }
+}
+
+/* ---------- 教材預覽：場景圖、縮圖列、太空寶寶 ---------- */
+.scene-stage { position: relative; }
+
+/* 場景圖鋪滿 16:9 面板；載入前仍看得到原本的深紫底 */
+.scene-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.scene-img--leaving { transition: opacity .2s ease; }
+
+/* 播放鈕：底下加一圈半透明宇宙紫，亮暗畫面上都看得清楚 */
+.video-panel .play-btn {
+  position: relative;
+  z-index: 2;
+  box-shadow:
+    0 0 0 10px color-mix(in srgb, var(--color-cosmos) 55%, transparent),
+    0 10px 30px color-mix(in srgb, var(--shadow-deep) 25%, transparent);
+}
+
+.video-panel .play-btn:hover {
+  box-shadow:
+    0 0 0 12px color-mix(in srgb, var(--color-cosmos) 55%, transparent),
+    0 10px 30px color-mix(in srgb, var(--shadow-deep) 25%, transparent);
+}
+
+/* 佔位小字：半透明深色底，壓在任何畫面上都可讀 */
+.video-panel .video-note {
+  z-index: 2;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--shadow-deep) 70%, transparent);
+}
+
+.scene-thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.scene-thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--color-muted);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.scene-thumb-frame {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  background: var(--space-panel-bg);
+  box-shadow: 0 0 0 1px var(--panel-border);
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.scene-thumb-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scene-thumb:hover .scene-thumb-frame { transform: translateY(-2px); }
+.scene-thumb[aria-pressed="true"] .scene-thumb-frame { box-shadow: 0 0 0 2px var(--color-starlight); }
+
+.scene-thumb-label {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.scene-thumb[aria-pressed="true"] .scene-thumb-label {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+/* 太空寶寶：character.png 已去背但未裁切，用 CSS 只顯示角色範圍（原圖 1642×958，角色在 151,72 起 1382×816） */
+.char-crop {
+  overflow: hidden;
+  aspect-ratio: 1382 / 816;
+  pointer-events: none;
+  user-select: none;
+}
+
+.char-crop img {
+  display: block;
+  width: 118.81%;   /* 1642 / 1382 */
+  max-width: none;
+  height: auto;
+  margin-top: -5.21%;   /* 72 / 1382 */
+  margin-left: -10.93%; /* 151 / 1382 */
+}
+
+.char-crop--head { display: none; }
+
+/* 平板以上：站在章節面板上緣，下半身藏在面板後面 */
+.char-crop--panel {
+  position: absolute;
+  bottom: calc(100% - 44px);
+  left: 50%;
+  z-index: 0;
+  width: 240px;
+  margin-left: -120px;
+}
+
+@media (max-width: 1023px) {
+  .chapters-col { margin-top: 72px; }
+
+  .char-crop--panel {
+    bottom: calc(100% - 34px);
+    left: auto;
+    right: 32px;
+    width: 180px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .chapters-col { margin-top: 0; }
+  .char-crop--panel { display: none; }
+
+  .char-crop--head {
+    display: block;
+    width: 160px;
+    margin: -16px auto 28px;
+  }
+
+  /* 手機：面板較矮，佔位小字貼近角落，避開播放鈕外圈 */
+  .video-panel .video-note {
+    bottom: 8px;
+    left: 8px;
+  }
+
+  /* 手機：縮圖可橫向捲動 */
+  .scene-thumbs {
+    display: flex;
+    overflow-x: auto;
+    margin-inline: -6px;
+    padding: 6px 6px 8px;   /* 留空間給選中外框與鍵盤焦點框，不被捲動容器裁掉 */
+    scroll-padding-inline: 6px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .scene-thumb {
+    flex: 0 0 42%;
+    scroll-snap-align: start;
+  }
 }
 
 /* ---------- 星點：紫、藍、白混色，低透明度，少數緩慢呼吸 ---------- */
