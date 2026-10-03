@@ -611,13 +611,6 @@ main:focus { outline: none; }
 
 .outline-dl dt { font-weight: 500; }
 
-.outline-dl--lined > div {
-  padding-block: 18px;
-  border-top: 1px solid var(--color-line);
-}
-
-.outline-dl--lined > div:last-child { border-bottom: 1px solid var(--color-line); }
-
 @media (max-width: 767px) {
   .outline-dl > div { column-gap: 16px; }
 }
@@ -1092,49 +1085,6 @@ main:focus { outline: none; }
   }
 }
 
-/* ---------- 4.4 使用者見證 ---------- */
-.voice-list {
-  display: grid;
-  gap: 20px;
-  max-width: 880px;
-  margin-inline: auto;
-}
-
-.voice-card {
-  display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
-  gap: 28px;
-  align-items: start;
-  padding: 28px;
-  border-radius: var(--radius);
-  background: var(--color-white);
-}
-
-.voice-card .ph {
-  width: 120px;
-  height: 120px;
-  place-items: start center;
-}
-
-.voice-card .ph-ill {
-  width: 44px;
-  margin-top: 18px;
-}
-
-.voice-role {
-  margin: 2px 0 10px;
-  color: var(--color-muted);
-  font-size: 13px;
-}
-
-@media (max-width: 767px) {
-  .voice-card {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
-}
-
 /* ---------- 4.5 教材預覽 ---------- */
 .ill--helmet {
   top: 56px;
@@ -1515,85 +1465,6 @@ main:focus { outline: none; }
 @media (max-width: 767px) {
   .join-lineart { display: none; }
 }
-
-/* ---------- 4.7 教材方案 ---------- */
-.plan .display-zh { margin-bottom: 32px; }
-
-.timeline {
-  position: relative;
-  padding-block: 2px;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  top: 18px;
-  bottom: 18px;
-  left: 4px;
-  width: 2px;
-  background: var(--color-sky);
-}
-
-.timeline li {
-  position: relative;
-  padding: 4px 0 4px 28px;
-}
-
-.timeline li::before {
-  content: "";
-  position: absolute;
-  top: 15px;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-navy);
-}
-
-.timeline li.is-extra::before {
-  border: 1px dashed var(--color-navy);
-  background: var(--color-white);
-}
-
-.timeline-time {
-  margin-right: 10px;
-  font-weight: 500;
-}
-
-.plan .btn-row { margin-top: 40px; }
-
-/* ---------- 4.8 常見問題 ---------- */
-.faq-item { border-bottom: 1px solid var(--color-line); }
-.faq-item:first-child { border-top: 1px solid var(--color-line); }
-
-.faq-item summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 44px;
-  padding: 20px 4px;
-  color: var(--color-ink);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.7;
-  list-style: none;
-  cursor: pointer;
-}
-
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary:hover { color: var(--color-navy); }
-
-.faq-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--color-navy);
-  transition: transform .25s var(--ease);
-}
-
-.faq-item[open] .faq-icon { transform: rotate(45deg); }
-
-.faq-a { padding: 0 4px 24px; }
 
 /* ---------- 4.9 聯絡我們 CTA ---------- */
 .contact-cta {
