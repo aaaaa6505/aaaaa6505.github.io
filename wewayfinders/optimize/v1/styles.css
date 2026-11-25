@@ -263,3 +263,161 @@ a:hover{color:var(--action-hover)}
   .jump-nav-links .nav-label-desktop{display:none}
   .jump-nav-links .nav-label-mobile{display:inline}
 }
+
+
+/* ────────────────────────────────────────────────────────────────
+   Wayfinders v3 — Canvas-inspired course reading structure
+   Not a copy of Canvas LMS branding or copyrighted interface.
+   ──────────────────────────────────────────────────────────────── */
+:root{--page-width:1160px;--paper:#ffffff;--module-border:#dbe6ed;--nav-marker:#246D8C;--reader-gap:36px}
+.course-area .container.course-detail{max-width:var(--page-width);padding:28px 24px 90px}
+.reader-layout{display:grid;grid-template-columns:232px minmax(0,768px);gap:var(--reader-gap);justify-content:center;align-items:start}
+.reader-main{min-width:0;max-width:768px}
+.reader-sidebar{position:sticky;top:99px;align-self:start;max-height:calc(100vh - 112px);overflow-y:auto;scrollbar-width:thin}
+.sidebar-panel{background:#fff;border:1px solid var(--surface-border);border-radius:14px;padding:22px 14px 14px;box-shadow:0 5px 22px rgba(13,59,79,.035)}
+.sidebar-kicker{font-size:11px;letter-spacing:.11em;font-weight:800;color:var(--brand-navy);padding-left:8px}
+.sidebar-title{font-size:20px;line-height:1.4;color:var(--brand-deep);margin:7px 8px 6px;font-weight:800}
+.sidebar-description{font-size:12.5px;line-height:1.65;color:var(--text-secondary);margin:0 8px 19px}
+.sidebar-outline{display:flex;flex-direction:column;gap:5px;border-left:2px solid #e1ecf2;margin-left:13px}
+.sidebar-outline a{position:relative;display:grid;grid-template-columns:28px 1fr;align-items:baseline;gap:2px 6px;padding:11px 8px 11px 14px;margin-left:-2px;border-left:3px solid transparent;border-radius:0 8px 8px 0;text-decoration:none;color:var(--text-secondary);font-size:15px;line-height:1.35;font-weight:650}
+.sidebar-outline a:hover{background:var(--brand-soft);color:var(--brand-navy)}
+.sidebar-outline a.is-current{background:var(--brand-soft);color:var(--brand-deep);border-left-color:var(--action-primary)}
+.outline-index{font-size:12px;font-weight:800;color:var(--brand-navy)}
+.outline-name{font-weight:750}
+.sidebar-outline small{grid-column:2;font-size:12px;font-weight:450;color:var(--text-secondary)}
+.sidebar-status{border-top:1px solid var(--surface-border);margin-top:20px;padding:15px 7px 1px;display:flex;align-items:center;gap:9px;color:var(--text-secondary);font-size:12px;line-height:1.5}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--brand-primary);flex:none}
+.sidebar-footnote{font-size:12px;line-height:1.6;color:var(--text-secondary);padding:0 14px;margin-top:14px}
+.reader-main .breadcrumb{margin:0 0 22px}
+.reader-main .course-header{margin-bottom:20px}
+.reader-main .course-header h1{font-size:34px;letter-spacing:-.025em}
+.reader-main .course-header .slogan{font-size:20px;margin-bottom:16px}
+.lesson-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:7px;background:#fff;border:1px solid var(--surface-border);border-radius:12px;padding:14px 16px;margin-bottom:20px}
+.flow-item{display:flex;align-items:center;gap:9px;min-width:0}
+.flow-dot{border:1px solid #b9dbe9;background:var(--brand-soft);color:var(--brand-navy);font-size:12px;font-weight:800;border-radius:50%;width:28px;height:28px;flex:none;display:grid;place-items:center}
+.flow-item div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.flow-item strong{color:var(--brand-deep);font-size:14px;font-weight:750;white-space:nowrap}
+.flow-item small{color:var(--text-secondary);font-size:11px;white-space:nowrap}
+.flow-arrow{font-size:20px;color:#9bb6c4}
+.reader-main .reading-toolbar{border-color:#d4e6f0;margin-bottom:24px;box-shadow:none}
+.reading-more{width:100%;border-top:1px solid var(--surface-border);padding-top:10px;margin-top:2px}
+.reading-more:not([open]){padding-bottom:0}
+.reading-more summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;color:var(--action-primary);font-size:13px;font-weight:700;min-height:28px}
+.reading-more summary::-webkit-details-marker{display:none}
+.reading-more summary span{font-size:17px;transition:transform .18s}
+.reading-more[open] summary span{transform:rotate(180deg)}
+.reading-more-content{display:grid;grid-template-columns:auto 190px auto;align-items:center;gap:12px 14px;padding:14px 2px 5px}
+.reading-more-content>label:first-child{font-size:13px;color:var(--text-secondary);font-weight:650}
+.reading-more select{width:100%;height:40px;padding:5px 12px;border:1px solid #cbdce7;background:#fff;border-radius:8px;color:var(--brand-deep);font-size:14px}
+.warm-paper-toggle{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:13px;color:var(--brand-deep);font-weight:650;cursor:pointer}
+.warm-paper-toggle input{width:17px;height:17px;accent-color:var(--action-primary)}
+/* Fast, predictable anchor jumps on very long lesson pages. */
+html{scroll-behavior:auto}
+/* v3: Desktop sidebar is the chapter directory; mobile keeps five visible anchor links. */
+.reader-main .jump-nav{display:none}
+.lesson-section{margin:0 0 26px!important;border:1px solid var(--module-border);background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(13,59,79,.035);scroll-margin-top:110px}
+.module-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 20px;background:linear-gradient(90deg,#f5fafe 0%,#fff 70%);border-bottom:1px solid var(--surface-border)}
+.module-heading-wrap{min-width:0;flex:1}
+.reader-main .lesson-section-heading{border:0;margin:0;padding:0;gap:12px;font-size:23px;line-height:1.45}
+.reader-main .lesson-section-num{background:var(--brand-navy);color:#fff;min-width:36px;min-height:34px;display:inline-grid;place-items:center;font-size:13px;border-radius:8px}
+.module-description{font-size:13px;line-height:1.6;color:var(--text-secondary);margin:7px 0 0 49px}
+.module-toggle{background:#fff;border:1px solid #c9dae5;color:var(--brand-navy);border-radius:8px;padding:7px 12px;min-width:60px;min-height:38px;font-size:13px;font-weight:700;flex:none}
+.module-toggle:hover{background:var(--brand-soft);border-color:var(--brand-light)}
+.module-body{padding:22px 22px 2px;min-width:0}
+.module-body[hidden]{display:none!important}
+.reader-main .lesson-section.is-collapsed .module-header{border-bottom:0}
+.reader-main .lesson-section .section-card{border-radius:12px;margin-bottom:20px;box-shadow:none;border-color:#dfe8ee}
+.reader-main .lesson-section .section-card-header{padding:17px 20px;background:#fff}
+.reader-main .lesson-section .section-card-header h3{font-size:20px}
+.reader-main .lesson-section .section-card-body{padding:22px 20px}
+.reader-main .lesson-section .section-card-body h3{font-size:19px;margin-top:28px}
+.reader-main .lesson-section .section-card-body h4{font-size:18px}
+.reader-main .lesson-section .section-card-body p{margin-bottom:24px}
+.reader-main .lesson-section .section-card-body li{margin-bottom:11px}
+.reader-main .lesson-section .section-card-body blockquote{border-left-color:var(--accent-gold);background:var(--accent-soft)}
+.card-scripture .section-card-header{border-left:4px solid var(--action-primary)}
+.card-prayer .section-card-header,.card-prayer .section-card-body{background:#fffdf4!important}
+.card-prayer{border-left:4px solid var(--accent-gold)!important}
+.card-attachment .section-card-header{background:#f7fbfd!important}
+.card-attachment .section-card-header h3{font-size:17px!important}
+.card-age-activity{border-top:3px solid #a8d2e4!important;scroll-margin-top:110px}
+.card-age-activity .section-card-header{align-items:flex-start}
+.card-age-activity .section-card-header .chip{background:var(--brand-soft);color:var(--brand-navy)}
+.supply-heading,.steps-heading{display:flex;align-items:center;gap:8px}
+.supply-heading:before{content:'✓';display:inline-grid;place-items:center;width:22px;height:22px;flex:none;color:var(--brand-navy);font-size:12px;background:var(--brand-pale);border-radius:6px}
+.steps-heading:before{content:'▤';display:inline-grid;place-items:center;width:22px;height:22px;flex:none;color:var(--brand-navy);font-size:15px;background:var(--brand-pale);border-radius:6px}
+.reader-main .info-card{border-radius:10px;background:var(--brand-soft);padding:18px 22px;margin-bottom:20px}
+.reader-main .age-jump{margin-bottom:20px;border-radius:10px;background:#f9fcfe}
+.reader-main .age-jump-links a{min-height:72px}
+.reader-main .meta-row{margin-bottom:14px}
+.reader-main .section-card[id]{scroll-margin-top:110px}
+.reader-main .lesson-section .module-body>div:last-child{margin-bottom:20px}
+.reader-main .attachment-item{background:#fff}
+.back-to-top{position:fixed;bottom:22px;right:22px;z-index:60;display:none;align-items:center;gap:7px;min-height:44px;background:#fff;border:1px solid #c8dbe6;border-radius:99px;padding:9px 15px;text-decoration:none;color:var(--brand-deep);font-weight:700;font-size:13px;box-shadow:0 6px 22px rgba(13,59,79,.14)}
+.back-to-top.is-visible{display:flex}
+.back-to-top:hover{background:var(--brand-soft)}
+.reader-warm .reader-main .lesson-section,.reader-warm .reader-main .section-card,.reader-warm .reader-main .section-card-header,.reader-warm .reader-main .section-card-body{background:#fffdf6}
+.reader-warm .reader-main .module-header{background:linear-gradient(90deg,#fcf8ec,#fffdf6)}
+.reader-warm .reader-main .info-card{background:#f7f0df}
+.reader-warm .reader-main .reading-toolbar{background:#fffdf6}
+/* Responsive: full-width reader with five compact, non-scrolling shortcuts. */
+@media(max-width:1000px){
+ .course-area .container.course-detail{max-width:800px;padding:24px 16px 70px}
+ .reader-layout{display:block}
+ .reader-main{max-width:none}
+ .reader-sidebar{display:none}
+ .reader-main .jump-nav{display:flex;position:sticky;top:76px;z-index:55;margin:0 0 22px;padding:10px 0;background:var(--surface-page)}
+ .jump-nav-label{display:none}
+ .reader-main .jump-nav-links{gap:6px;width:100%}
+ .reader-main .jump-nav-links a{min-width:0;border-radius:7px;font-size:14px}
+ .lesson-section{scroll-margin-top:160px}
+ .reader-main .section-card[id]{scroll-margin-top:160px}
+}
+@media(min-width:701px) and (max-width:1000px){
+ .reader-main .jump-nav-links .nav-label-desktop{display:inline}
+ .reader-main .jump-nav-links .nav-label-mobile{display:none}
+}
+@media(max-width:700px){
+ .course-area .container.course-detail{padding:20px 12px 58px}
+ .reader-main .course-header h1{font-size:28px}
+ .lesson-flow{gap:3px;padding:10px 8px;margin-bottom:17px}
+ .flow-item{flex-direction:column;text-align:center;gap:5px}
+ .flow-dot{width:23px;height:23px;font-size:11px}
+ .flow-item strong{font-size:12px}
+ .flow-item small{font-size:10px;line-height:1.4;white-space:normal}
+ .flow-arrow{font-size:15px}
+ .reader-main .reading-toolbar{margin-bottom:16px}
+ .reading-toolbar-title{order:1}
+ .reading-toolbar .font-size-reset{order:2}
+ .reading-toolbar-controls{order:3}
+ .reading-more{order:4}
+ .reading-more-content{grid-template-columns:1fr 1fr;gap:9px}
+ .warm-paper-toggle{grid-column:1/-1}
+ .reader-main .jump-nav{top:66px;margin:0 0 18px;padding:8px 0 10px}
+ .reader-main .jump-nav-links{gap:4px}
+ .reader-main .jump-nav-links a{min-height:44px;font-size:clamp(12px,3.8vw,15px);padding:7px 2px;border-radius:7px}
+ .reader-main .jump-nav-links .nav-label-desktop{display:none}
+ .reader-main .jump-nav-links .nav-label-mobile{display:inline}
+ .lesson-section{border-radius:12px;margin-bottom:19px!important;scroll-margin-top:142px}
+ .module-header{padding:14px 13px;gap:7px}
+ .reader-main .lesson-section-heading{font-size:21px;gap:9px}
+ .reader-main .lesson-section-num{min-width:30px;min-height:30px;font-size:12px}
+ .module-description{font-size:12px;margin:5px 0 0 39px}
+ .module-toggle{font-size:12px;padding:6px 8px;min-width:48px;min-height:36px}
+ .module-body{padding:13px 12px 0}
+ .reader-main .lesson-section .section-card-header{padding:15px 13px}
+ .reader-main .lesson-section .section-card-header h3{font-size:19px}
+ .reader-main .lesson-section .section-card-body{padding:16px 13px}
+ .reader-main .lesson-section .section-card-body h3{font-size:18.5px}
+ .reader-main .info-card{padding:16px 13px}
+ .reader-main .age-jump{padding:13px}
+ .card-age-activity .section-card-header .chip{max-width:100%;font-size:12px}
+ .back-to-top{right:10px;bottom:12px;padding:9px 12px}
+}
+@media(max-width:380px){
+ .reader-main .jump-nav-links{gap:3px}
+ .reader-main .jump-nav-links a{font-size:12px}
+ .module-description{line-height:1.45}
+}
+@media(prefers-reduced-motion:reduce){.back-to-top{transition:none}}
+@media print{.reader-sidebar,.reading-more,.module-toggle,.back-to-top,.jump-nav,.reading-toolbar{display:none!important}.module-body[hidden]{display:block!important}.course-area .container.course-detail{max-width:100%;padding:0}.lesson-section{break-inside:auto;box-shadow:none!important}}
